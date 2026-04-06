@@ -7,16 +7,16 @@
     <div class="relative w-full h-[90vh] flex items-center justify-center overflow-hidden">
         
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('Adminlte/dist/img/plaza.jpg') }}" 
-                 alt="Gedung IT Del" 
-                 class="w-full h-full object-cover object-center scale-105">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover object-center scale-105">
+                <source src="{{ asset('tes.mp4') }}" type="video/mp4">
+            </video>
             <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80"></div>
         </div>
 
         <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-12 flex flex-col items-center">
             
             <div class="flex items-center gap-3 mb-6">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Logo_IT_Del.png" class="h-12 w-auto brightness-0 invert drop-shadow-md">
+                <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" class="h-12 w-auto brightness-0 invert drop-shadow-md">
                 <div class="border-l-2 border-yellow-400 pl-3 text-left">
                     <p class="text-yellow-400 font-bold tracking-widest uppercase text-xs">Official Website</p>
                     <p class="text-white font-medium text-xs">Institut Teknologi Del</p>
