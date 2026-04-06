@@ -67,10 +67,11 @@ class DosenController extends Controller
             'nidn' => 'required',
             'lulusan' => 'required',
             'jabatan' => 'required',
-            'pengampu_matkul' => 'required',
+            // 'pengampu_matkul' dihapus jika tidak dipakai lagi
             'email' => 'required|email',
+            'no_telpon' => 'nullable|numeric', // Tambahkan baris ini
             'ruangan' => 'required',
-            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
+            'foto' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         $data = $request->all();

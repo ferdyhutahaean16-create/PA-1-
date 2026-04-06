@@ -4,19 +4,20 @@
 
 @section('content')
 
-    <div class="relative w-full h-[90vh] flex items-center justify-center overflow-hidden">
+    <div class="relative w-full h-[90vh] flex items-center justify-center overflow-hidden bg-gray-900">
         
         <div class="absolute inset-0 z-0">
             <video autoplay loop muted playsinline class="w-full h-full object-cover object-center scale-105">
-                <source src="{{ asset('tes.mp4') }}" type="video/mp4">
+                <source src="/tes.mp4" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80"></div>
+            
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 pointer-events-none"></div>
         </div>
 
         <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-12 flex flex-col items-center">
             
             <div class="flex items-center gap-3 mb-6">
-                <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" class="h-12 w-auto brightness-0 invert drop-shadow-md">
+                <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" class="h-12 w-auto brightness-0 invert drop-shadow-md" alt="Logo IT Del">
                 <div class="border-l-2 border-yellow-400 pl-3 text-left">
                     <p class="text-yellow-400 font-bold tracking-widest uppercase text-xs">Official Website</p>
                     <p class="text-white font-medium text-xs">Institut Teknologi Del</p>
@@ -98,7 +99,7 @@
                 <article class="group cursor-pointer">
                     <div class="overflow-hidden rounded-lg mb-4 shadow-md h-56 relative">
                          <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition z-10"></div>
-                         <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                         <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500" alt="Berita">
                     </div>
                     <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
                         <span class="bg-green-100 text-green-800 px-2 py-1 rounded font-bold">PRESTASI</span>
@@ -112,7 +113,7 @@
                 <article class="group cursor-pointer">
                     <div class="overflow-hidden rounded-lg mb-4 shadow-md h-56 relative">
                          <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition z-10"></div>
-                         <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                         <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500" alt="Berita">
                     </div>
                     <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
                         <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded font-bold">AKADEMIK</span>
@@ -126,7 +127,7 @@
                 <article class="group cursor-pointer">
                     <div class="overflow-hidden rounded-lg mb-4 shadow-md h-56 relative">
                          <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition z-10"></div>
-                         <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                         <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500" alt="Berita">
                     </div>
                     <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
                         <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded font-bold">KERJASAMA</span>
@@ -145,12 +146,12 @@
             <h2 class="text-2xl font-bold text-green-900 mb-2">Mitra Kerjasama</h2>
             <div class="h-1 w-16 bg-yellow-400 mx-auto mb-10 rounded"></div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-center opacity-70">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/368px-Google_2015_logo.svg.png" class="h-8 mx-auto grayscale hover:grayscale-0 transition">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/512px-Microsoft_logo_%282012%29.svg.png" class="h-8 mx-auto grayscale hover:grayscale-0 transition">
-                <img src="https://upload.wikimedia.org/wikipedia/id/9/95/Logo_Institut_Teknologi_Bandung.png" class="h-12 mx-auto grayscale hover:grayscale-0 transition">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Badan_Riset_dan_Inovasi_Nasional_logo.png/640px-Badan_Riset_dan_Inovasi_Nasional_logo.png" class="h-10 mx-auto grayscale hover:grayscale-0 transition">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-8 mx-auto grayscale hover:grayscale-0 transition">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/799px-Netflix_2015_logo.svg.png" class="h-8 mx-auto grayscale hover:grayscale-0 transition">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/368px-Google_2015_logo.svg.png" class="h-8 mx-auto grayscale hover:grayscale-0 transition" alt="Google">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/512px-Microsoft_logo_%282012%29.svg.png" class="h-8 mx-auto grayscale hover:grayscale-0 transition" alt="Microsoft">
+                <img src="https://upload.wikimedia.org/wikipedia/id/9/95/Logo_Institut_Teknologi_Bandung.png" class="h-12 mx-auto grayscale hover:grayscale-0 transition" alt="ITB">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Badan_Riset_dan_Inovasi_Nasional_logo.png/640px-Badan_Riset_dan_Inovasi_Nasional_logo.png" class="h-10 mx-auto grayscale hover:grayscale-0 transition" alt="BRIN">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-8 mx-auto grayscale hover:grayscale-0 transition" alt="Amazon">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/799px-Netflix_2015_logo.svg.png" class="h-8 mx-auto grayscale hover:grayscale-0 transition" alt="Netflix">
             </div>
         </div>
     </section>
