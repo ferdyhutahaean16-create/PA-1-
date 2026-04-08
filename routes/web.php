@@ -1,24 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\LaboratoriumController;
 
+// HOME
 Route::get('/', function () {
-    return view('home'); // Pastikan ini mengarah ke 'home'
+    return view('home');
 });
 
+// PROFIL
 Route::get('/profil', function () {
     return view('profil');
 });
 
-Route::get('/struktur', function () {
-    return view('struktur');
+// 🔥 BERITA (PAKAI CONTROLLER)
+Route::get('/berita', [BeritaController::class, 'index']);
+
+// TENAGA
+Route::get('/tenaga', function () {
+    return view('tenaga');
 });
 
-Route::get('/dosen', function () {
-    return view('dosen');
-});
-
-// Route untuk Prestasi
+// PRESTASI
 Route::prefix('prestasi')->group(function () {
     Route::get('/dosen', function () {
         return view('prestasi.dosen');
@@ -28,7 +32,7 @@ Route::prefix('prestasi')->group(function () {
     });
 });
 
-// Route untuk Menu Kegiatan
+// KEGIATAN
 Route::prefix('kegiatan')->group(function () {
     Route::get('/dosen', function () {
         return view('kegiatan.dosen');
@@ -41,12 +45,11 @@ Route::prefix('kegiatan')->group(function () {
     });
 });
 
+// FASILITAS
 Route::get('/fasilitas', function () {
     return view('fasilitas');
 });
 
-use App\Http\Controllers\LaboratoriumController;
-
-// Route Halaman Laboratorium
+// LABORATORIUM
 Route::get('/laboratorium', [LaboratoriumController::class, 'index']);
 Route::get('/laboratorium/{slug}', [LaboratoriumController::class, 'show'])->name('lab.show');

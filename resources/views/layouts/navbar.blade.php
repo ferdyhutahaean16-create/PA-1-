@@ -22,9 +22,9 @@
                 </div>
             </div>
 
-            <a href="/struktur" class="hover:text-biotech-secondary transition">STRUKTUR ORGANISASI</a>
+            <a href="/berita" class="hover:text-biotech-secondary transition">BERITA</a>
 
-            <a href="/dosen" class="hover:text-biotech-secondary transition">DOSEN</a>
+            <a href="/tenaga" class="hover:text-biotech-secondary transition">TENAGA PENGAJAR & PENDUKUNG</a>
             
             <div class="group relative py-6">
                 <button class="flex items-center gap-1 hover:text-biotech-secondary transition uppercase font-bold tracking-wide text-sm">
