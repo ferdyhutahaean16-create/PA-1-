@@ -8,8 +8,7 @@
         
         <div class="text-center mb-12">
             <h1 class="text-4xl font-extrabold text-biotech-primary uppercase tracking-wider mb-2">Tenaga Pendidik</h1>
-            <div class="h-1 w-24 bg-yellow-400 mx-auto rounded"></div>
-            <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Profil jajaran tenaga pendidik Program Studi Bioteknologi Institut Teknologi Del yang berkompeten di bidangnya.</p>
+            <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Profil jajaran tenaga pendidik Program Studi Bioteknologi...</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

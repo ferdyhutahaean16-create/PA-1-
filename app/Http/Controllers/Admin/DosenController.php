@@ -11,14 +11,14 @@ class DosenController extends Controller
     // Menampilkan daftar Dosen (Read)
     public function index()
     {
-        $dosens = Dosen::latest()->get();
-        return view('admin.dosen.index', compact('dosens'));
+        $dosens = Dosen::all(); 
+        return view('admin.Tenaga_Pendidik.index', compact('dosens'));
     }
 
     // Menampilkan form tambah Dosen (Create)
     public function create()
     {
-        return view('admin.dosen.create');
+        return view('admin.Tenaga_Pendidik.create');
     }
 
     // Menyimpan data Dosen baru ke database (Store)
@@ -54,9 +54,10 @@ class DosenController extends Controller
     }
 
     // Menampilkan form edit Dosen (Edit)
-    public function edit(Dosen $dosen)
+    public function edit($id)
     {
-        return view('admin.dosen.edit', compact('dosen'));
+        $dosen = Dosen::findOrFail($id);
+        return view('admin.Tenaga_Pendidik.edit', compact('dosen'));
     }
 
     // Menyimpan update data Dosen (Update)
