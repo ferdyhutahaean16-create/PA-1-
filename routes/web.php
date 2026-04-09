@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Dosen; // Wajib dipanggil untuk mengambil data dari database
+use App\Http\Controllers\LaboratoriumController;
+use App\Http\Controllers\Admin\DosenController;
 
 Route::get('/', function () {
-    return view('home'); // Pastikan ini mengarah ke 'home'
+    return view('home'); 
 });
 
 Route::get('/profil', function () {
@@ -14,16 +17,17 @@ Route::get('/struktur', function () {
     return view('struktur');
 });
 
-use App\Models\Dosen; // Tambahkan ini di bagian paling atas file jika belum ada
-
-// ROUTE HALAMAN PUBLIK (DOSEN)
+// =========================================================================
+// INI ADALAH KODE YANG BENAR UNTUK MENAMPILKAN TENAGA PENDIDIK KE PENGUNJUNG
+// =========================================================================
 Route::get('/dosen', function () {
-    // Ambil semua data dosen dari database
+    // 1. Ambil semua data tenaga pendidik dari database
     $dosens = Dosen::all(); 
-    
-    // Kirim data tersebut ke file view dosen.blade.php
-    return view('dosen', compact('dosens'));
+
+    // 2. Kirim data tersebut ke halaman depan (view)
+    return view('dosen', compact('dosens')); 
 });
+// =========================================================================
 
 // Route untuk Prestasi
 Route::prefix('prestasi')->group(function () {
@@ -52,13 +56,9 @@ Route::get('/fasilitas', function () {
     return view('fasilitas');
 });
 
-use App\Http\Controllers\LaboratoriumController;
-
 // Route Halaman Laboratorium
 Route::get('/laboratorium', [LaboratoriumController::class, 'index']);
 Route::get('/laboratorium/{slug}', [LaboratoriumController::class, 'show'])->name('lab.show');
-
-use App\Http\Controllers\Admin\DosenController;
 
 // ROUTE KHUSUS ADMIN PANEL
 Route::prefix('admin')->group(function () {

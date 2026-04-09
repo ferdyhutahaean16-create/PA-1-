@@ -10,5 +10,14 @@ class Dosen extends Model
     use HasFactory;
 
     // Tambahkan baris ini untuk mengizinkan penyimpanan data
-    protected $guarded = [];
+   protected $fillable = [
+    'nidn', 
+    'nama', 
+    'lulusan', 
+    'jabatan', 
+    'email', 
+    'no_telpon', // <- PASTIKAN INI ADA
+    'ruangan', 
+    'foto'
+];
 }
