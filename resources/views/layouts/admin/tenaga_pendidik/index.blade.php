@@ -62,11 +62,12 @@
                                     
                                     <a href="{{ route('tenaga-pendidik.edit', $tenaga_pendidik->id) }}" class="bg-yellow-500 text-white px-4 py-1.5 rounded-md text-sm font-semibold hover:bg-yellow-600 transition shadow-sm">Edit</a>
                                     
-                                    <form action="{{ route('tenaga-pendidik.destroy', $tenaga_pendidik->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data tenaga pendidik ini?');">
+                                    <form action="{{ route('tenaga-pendidik.destroy', $tenaga_pendidik->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="bg-red-500 text-white px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-red-600 transition shadow-sm">Hapus</button>
                                     </form>
+                                    
                                 </div>
                             </td>
                         </tr>

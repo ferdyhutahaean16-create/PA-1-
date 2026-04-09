@@ -16,7 +16,7 @@
             
             <h2 class="text-2xl font-bold text-gray-800 mb-8 pb-4 border-b border-gray-100">Formulir Tambah Tenaga Pendidik</h2>
 
-            <form action="{{ route('dosen.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('tenaga-pendidik.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
@@ -95,7 +95,7 @@
                 </div>
 
                 <div class="flex justify-end items-center gap-4 mt-16 pt-8 border-t border-gray-100">
-                    <a href="{{ route('dosen.index') }}" class="text-gray-600 hover:text-biotech-primary transition font-medium text-sm px-6 py-2.5 rounded-lg">Batal</a>
+                    <a href="{{ route('tenaga-pendidik.index') }}" class="text-gray-600 hover:text-biotech-primary transition font-medium text-sm px-6 py-2.5 rounded-lg">Batal</a>
                     <button type="submit" class="bg-biotech-secondary text-white px-10 py-3 rounded-xl hover:bg-biotech-primary transition font-semibold shadow-lg text-sm flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         Simpan Data

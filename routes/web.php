@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Dosen; // Wajib dipanggil untuk mengambil data dari database
+use App\Models\TenagaPendidik; // Wajib dipanggil agar sistem mengenali data Tenaga Pendidik
+use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\LaboratoriumController;
-use App\Http\Controllers\Admin\DosenController;
 
 Route::get('/', function () {
     return view('home'); 
@@ -20,12 +20,12 @@ Route::get('/struktur', function () {
 // =========================================================================
 // INI ADALAH KODE YANG BENAR UNTUK MENAMPILKAN TENAGA PENDIDIK KE PENGUNJUNG
 // =========================================================================
-Route::get('/dosen', function () {
-    // 1. Ambil semua data tenaga pendidik dari database
-    $dosens = Dosen::all(); 
+Route::get('/tenaga-pendidik', function () {
+    // 1. Ambil semua data menggunakan Model yang baru
+    $tenaga_pendidiks = TenagaPendidik::all(); 
 
-    // 2. Kirim data tersebut ke halaman depan (view)
-    return view('dosen', compact('dosens')); 
+    // 2. Kirim data tersebut ke halaman depan (view tenaga_pendidik.blade.php)
+    return view('tenaga_pendidik', compact('tenaga_pendidiks')); 
 });
 // =========================================================================
 
@@ -62,11 +62,10 @@ Route::get('/laboratorium/{slug}', [LaboratoriumController::class, 'show'])->nam
 
 // ROUTE KHUSUS ADMIN PANEL
 Route::prefix('admin')->group(function () {
-    // Halaman Dashboard Admin
     Route::get('/', function () {
         return view('admin.dashboard');
     });
 
-    // Route CRUD Dosen (Otomatis membuat route index, create, store, edit, update, destroy)
-    Route::resource('dosen', DosenController::class);
+    // Rute CRUD Admin Tenaga Pendidik
+    Route::resource('tenaga-pendidik', TenagaPendidikController::class);
 });

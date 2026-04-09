@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <a href="/dosen" class="hover:text-yellow-400 transition">TENAGA PENDIDIK</a>
+            <a href="/tenaga-pendidik" class="hover:text-yellow-400 transition">TENAGA PENDIDIK</a>
             
             <div class="group relative py-6">
                 <button class="flex items-center gap-1 hover:text-yellow-400 transition uppercase font-bold tracking-wide text-sm">
