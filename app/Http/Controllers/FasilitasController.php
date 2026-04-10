@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class LaboratoriumController extends Controller
+class FasilitasController extends Controller
 {
-    // Nama fungsi ini HARUS 'peminjaman' (sesuai yang dipanggil di routes/web.php)
     public function peminjaman()
     {
+        // 1. Menentukan tanggal otomatis
+        // date('Y-m-d', strtotime('+1 day')) memastikan peminjaman minimal H-1
+        $tglMinimal = date('Y-m-d', strtotime('+1 day'));
+
         $lab = [
             'name'      => 'Laboratorium Bioteknologi IT Del',
-            'course'    => 'Praktikum Mikrobiologi & Genetika Molekuler', // Muncul otomatis di form
+            'course'    => 'Praktikum Mikrobiologi & Genetika Molekuler', // Mata kuliah otomatis
             'room'      => 'Gedung Biotek Lt. 2',
             'image'     => 'https://vms.del.ac.id/images/lab-biotek.jpg',
-            'min_date'  => date('Y-m-d', strtotime('+1 day')), // Syarat minimal H-1 dari hari ini
+            'min_date'  => $tglMinimal,
             'tools'     => [
                 ['name' => 'Mikroskop Binokuler', 'stock' => 10, 'status' => 'Tersedia'],
                 ['name' => 'Centrifuge High Speed', 'stock' => 2, 'status' => 'Tersedia'],
@@ -29,10 +32,11 @@ class LaboratoriumController extends Controller
         return view('fasilitas.peminjaman', compact('lab'));
     }
 
-    // Fungsi untuk proses simpan (nanti dihubungkan ke tombol ajukan)
+    // Fungsi ini nanti dipanggil saat mahasiswa menekan tombol "Ajukan"
     public function store(Request $request)
     {
-        // Logika simpan data ke database & generate PDF di sini nanti
-        return back()->with('success', 'Permintaan terkirim! Silakan tunggu konfirmasi admin untuk cetak PDF.');
+        // Di sini nanti logika untuk menyimpan ke database 
+        // dan mengalihkan ke halaman cetak PDF
+        return back()->with('success', 'Permintaan berhasil dikirim. Menunggu persetujuan admin.');
     }
 }

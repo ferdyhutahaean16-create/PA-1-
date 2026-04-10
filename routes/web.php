@@ -46,10 +46,16 @@ Route::prefix('kegiatan')->group(function () {
 });
 
 // FASILITAS
-Route::get('/fasilitas', function () {
-    return view('fasilitas');
-});
+// FASILITAS
+Route::prefix('fasilitas')->group(function () {
+    Route::get('/ruang-kelas', function () {
+        return view('fasilitas.ruang-kelas');
+    });
 
-// LABORATORIUM
-Route::get('/laboratorium', [LaboratoriumController::class, 'index']);
-Route::get('/laboratorium/{slug}', [LaboratoriumController::class, 'show'])->name('lab.show');
+    Route::get('/laboratorium', function () {
+        return view('fasilitas.laboratorium');
+    });
+
+    // UBAH BAGIAN INI: Arahkan ke Controller, jangan ke function()
+    Route::get('/peminjaman', [LaboratoriumController::class, 'peminjaman']);
+});
