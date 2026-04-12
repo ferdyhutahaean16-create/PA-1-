@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('peminjamans', function (Blueprint $table) {
+        Schema::create('laboratoria', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_mahasiswa');
-            $table->string('nim');
-            $table->text('item_dipinjam'); // Berisi daftar alat/bahan
-            $table->date('tanggal_kembali');
-            $table->string('status')->default('Menunggu Persetujuan'); // Menunggu, Disetujui, Selesai
             $table->timestamps();
         });
     }
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('peminjamen');
+        Schema::dropIfExists('laboratoria');
     }
 };

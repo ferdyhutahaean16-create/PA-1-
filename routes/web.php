@@ -65,6 +65,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     });
+    
 
     // Rute CRUD Admin Tenaga Pendidik
     Route::resource('tenaga-pendidik', TenagaPendidikController::class);
