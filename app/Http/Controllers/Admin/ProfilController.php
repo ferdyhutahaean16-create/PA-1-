@@ -26,7 +26,7 @@ class ProfilController extends Controller
             'sejarah' => 'required',
             'visi' => 'required',
             'misi' => 'required',
-            'tujuan' => 'required',
+            'tujuan' => 'nullable', // Dibuat nullable karena kita sembunyikan di form
             'prospek_karir' => 'required',
             'struktur_organisasi' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
@@ -61,7 +61,7 @@ class ProfilController extends Controller
             'sejarah' => 'required',
             'visi' => 'required',
             'misi' => 'required',
-            'tujuan' => 'required',
+            'tujuan' => 'nullable',
             'prospek_karir' => 'required',
             'struktur_organisasi' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);

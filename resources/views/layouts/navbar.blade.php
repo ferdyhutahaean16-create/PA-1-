@@ -21,6 +21,7 @@
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-yellow-400 min-w-[220px] top-full left-0 z-50 rounded-b-md overflow-hidden">
                     <a href="/profil" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 border-b border-gray-100 text-sm font-bold transition">Tentang Program Studi</a>
                     <a href="/struktur" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 text-sm font-bold transition">Struktur Organisasi</a>
+                    <a href="{{ url('/kurikulum') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 text-sm font-bold transition">KURIKULUM</a>
                 </div>
             </div>
 
@@ -32,7 +33,7 @@
                 </button>
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-yellow-400 min-w-[200px] top-full left-0 z-50">
                     <a href="/prestasi/dosen" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">Prestasi Dosen</a>
-                    <a href="/prestasi/mahasiswa" class="block px-6 py-3 hover:bg-green-50 text-gray-700 text-sm transition">Prestasi Mahasiswa</a>
+                    <a href="{{ url('/prestasi/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">PRESTASI MAHASISWA</a>
                 </div>
             </div>
 

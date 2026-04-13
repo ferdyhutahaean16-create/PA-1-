@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Prestasi extends Model
+class StrukturOrganisasi extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'kategori',
-        'nama_peraih',
-        'judul_prestasi',
-        'tingkat',
-        'tahun',
-        'deskripsi',
-        'foto'
+        'jabatan',
+        'nama',
+        'foto',
+        'level'
     ];
 }
