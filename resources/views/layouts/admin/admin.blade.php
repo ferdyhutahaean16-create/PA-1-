@@ -38,7 +38,10 @@
                 Data Publikasi
             </a>
             <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800 transition">Data Prestasi</a>
-            <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800 transition">Data Kegiatan</a>
+            <a href="{{ route('kegiatan.index') }}" class="flex items-center gap-3 px-4 py-3 mt-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('kegiatan.*') ? 'bg-blue-600 text-white shadow-md' : 'text-gray-400 hover:text-green-500 hover:bg-gray-800' }}">
+                <svg ...>...</svg>
+                Data Kegiatan
+            </a>
             <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800 transition">Data Lab & Alat</a>
             <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800 transition">Peminjaman Lab</a>
         </nav>

@@ -19,9 +19,6 @@
         <button onclick="switchTab('tab-publikasi')" id="btn-publikasi" class="tab-btn bg-white text-[#1a4a38] border border-gray-300 px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-50 transition whitespace-nowrap">
             Publikasi Ilmiah
         </button>
-        <button onclick="switchTab('tab-hki')" id="btn-hki" class="tab-btn bg-white text-[#1a4a38] border border-gray-300 px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-50 transition whitespace-nowrap">
-            Hak Kekayaan Intelektual
-        </button>
     </div>
 
     <div id="tab-prestasi" class="tab-content block">
@@ -115,14 +112,6 @@
                 @endforeach
             </div>
         @endif
-    </div>
-
-    <div id="tab-hki" class="tab-content hidden">
-        <div class="text-center py-20 bg-white border border-gray-200 rounded-xl">
-            <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-            <h3 class="text-xl font-bold text-gray-500">Hak Kekayaan Intelektual (HKI)</h3>
-            <p class="text-gray-400 mt-2">Data paten dan hak cipta sedang dalam tahap pengembangan.</p>
-        </div>
     </div>
 
 </div>

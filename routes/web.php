@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\KurikulumController;
 use App\Models\TenagaPendidik;
 use App\Http\Controllers\Admin\PrestasiController;
 use App\Http\Controllers\Admin\PublikasiController;
+use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\LaboratoriumController;
 
@@ -82,16 +83,34 @@ Route::prefix('prestasi')->group(function () {
     });
 });
 
+
 // Route untuk Menu Kegiatan
 Route::prefix('kegiatan')->group(function () {
+    
+    // UBAH RUTE DOSEN MENJADI SEPERTI INI:
     Route::get('/dosen', function () {
-        return view('kegiatan.dosen');
+        $kegiatan = \App\Models\Kegiatan::where('kategori', 'Pengabdian Dosen')
+                                        ->orderBy('created_at', 'desc')
+                                        ->get();
+        return view('kegiatan.dosen', compact('kegiatan'));
     });
+
+    // Rute mahasiswa dan penelitian biarkan seperti sebelumnya dulu...
     Route::get('/mahasiswa', function () {
-        return view('kegiatan.mahasiswa');
+        // Kita ambil 3 data berbeda sekaligus untuk masing-masing tab
+        $pkm = \App\Models\Kegiatan::where('kategori', 'PkM Mahasiswa')->orderBy('created_at', 'desc')->get();
+        $himpunan = \App\Models\Kegiatan::where('kategori', 'Himpunan')->orderBy('created_at', 'desc')->get();
+        $kaderisasi = \App\Models\Kegiatan::where('kategori', 'Kaderisasi')->orderBy('created_at', 'desc')->get();
+        
+        return view('kegiatan.mahasiswa', compact('pkm', 'himpunan', 'kaderisasi'));
     });
+
     Route::get('/penelitian', function () {
-        return view('kegiatan.penelitian');
+        // Ambil data khusus kategori Penelitian
+        $penelitian = \App\Models\Kegiatan::where('kategori', 'Penelitian')
+                                          ->orderBy('created_at', 'desc')
+                                          ->get();
+        return view('kegiatan.penelitian', compact('penelitian'));
     });
 });
 
@@ -123,4 +142,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('prestasi', PrestasiController::class);
 
     Route::resource('publikasi', PublikasiController::class);
+
+    Route::resource('kegiatan', KegiatanController::class);
 });
