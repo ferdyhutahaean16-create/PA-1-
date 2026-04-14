@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('laboratoria', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('ruang_kelas', function (Blueprint $table) {
+            //
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('laboratoria');
+        Schema::table('ruang_kelas', function (Blueprint $table) {
+            //
+        });
     }
 };

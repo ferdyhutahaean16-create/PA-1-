@@ -9,20 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('prestasis', function (Blueprint $table) {
-            $table->id();
-            $table->enum('kategori', ['dosen', 'mahasiswa']);
-            $table->string('tipe'); // Workshop, Publikasi, Lomba, Tugas Akhir
-            $table->string('judul');
-            $table->string('nama_pelaku'); // Nama dosen atau mahasiswa
-            $table->string('tahun');
-            $table->text('keterangan')->nullable(); // Penyelenggara / Abstrak TA
-            $table->string('link_jurnal_atau_pdf')->nullable();
-            $table->timestamps();
-        });
-    }
+    public function up()
+{
+    Schema::create('prestasis', function (Blueprint $table) {
+        $table->id();
+        // Membedakan apakah ini prestasi dosen atau mahasiswa
+        $table->enum('kategori', ['Dosen', 'Mahasiswa']); 
+        $table->string('nama_peraih'); // Nama dosen atau mahasiswa yang juara
+        $table->string('judul_prestasi'); // Contoh: Juara 1 Lomba Karya Tulis Ilmiah
+        $table->string('tingkat')->nullable(); // Contoh: Nasional, Internasional, Provinsi
+        $table->integer('tahun'); // Tahun perolehan prestasi
+        $table->text('deskripsi')->nullable(); // Penjelasan singkat
+        $table->string('foto')->nullable(); // Foto saat menerima penghargaan/medali
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

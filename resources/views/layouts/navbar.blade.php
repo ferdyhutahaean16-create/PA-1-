@@ -21,6 +21,7 @@
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-yellow-400 min-w-[220px] top-full left-0 z-50 rounded-b-md overflow-hidden">
                     <a href="/profil" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 border-b border-gray-100 text-sm font-bold transition">Tentang Program Studi</a>
                     <a href="/struktur" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 text-sm font-bold transition">Struktur Organisasi</a>
+                    <a href="{{ url('/kurikulum') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 text-sm font-bold transition">KURIKULUM</a>
                 </div>
             </div>
 
@@ -32,7 +33,7 @@
                 </button>
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-yellow-400 min-w-[200px] top-full left-0 z-50">
                     <a href="/prestasi/dosen" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">Prestasi Dosen</a>
-                    <a href="/prestasi/mahasiswa" class="block px-6 py-3 hover:bg-green-50 text-gray-700 text-sm transition">Prestasi Mahasiswa</a>
+                    <a href="{{ url('/prestasi/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">PRESTASI MAHASISWA</a>
                 </div>
             </div>
 
@@ -41,14 +42,30 @@
                     KEGIATAN <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-yellow-400 min-w-[240px] top-full left-0 z-50">
-                    <a href="/kegiatan/dosen" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">Pengabdian Dosen (PkM)</a>
-                    <a href="/kegiatan/mahasiswa" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">Kegiatan Mahasiswa</a>
-                    <a href="/kegiatan/penelitian" class="block px-6 py-3 hover:bg-green-50 text-gray-700 text-sm transition">Penelitian (Riset)</a>
+                    <a href="{{ url('/kegiatan/dosen') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">PENGABDIAN DOSEN (PKM)</a>
+                    <a href="{{ url('/kegiatan/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">Kegiatan Mahasiswa</a>
+                    <a href="{{ url('/kegiatan/penelitian') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 text-sm transition">Penelitian (Riset)</a>
                 </div>
             </div>
 
-            <a href="/fasilitas" class="hover:text-yellow-400 transition">FASILITAS</a>
-            <a href="/laboratorium" class="hover:text-yellow-400 transition">LABORATORIUM</a>
+            <div class="relative group">
+    <button class="flex items-center gap-1 text-white hover:text-yellow-400 font-bold uppercase tracking-wider py-2 transition-colors">
+        FASILITAS
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+    </button>
+    
+    <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100 overflow-hidden">
+        
+        <a href="{{ url('/fasilitas') }}" class="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1a4a38] font-bold border-b border-gray-100 transition-colors uppercase">
+            RUANG KELAS
+        </a>
+        
+        <a href="{{ url('/laboratorium') }}" class="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1a4a38] font-bold transition-colors uppercase">
+            LABORATORIUM
+        </a>
+        
+    </div>
+</div>
         </div>
 
         <div class="hidden lg:flex items-center gap-4">

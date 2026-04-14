@@ -43,6 +43,9 @@
         <a href="{{ route('tenaga-pendidik.create') }}" class="bg-green-600 text-white px-5 py-2.5 rounded hover:bg-green-700 font-bold transition shadow-sm">
             + Tambah Data Dosen
         </a>
+        <a href="{{ route('profil.index') }}" class="bg-purple-600 text-white font-bold py-2 px-4 rounded shadow hover:bg-purple-700 transition text-sm">
+            Kelola Profil Institusi
+        </a>
         <button class="bg-blue-600 text-white px-5 py-2.5 rounded hover:bg-blue-700 font-bold transition shadow-sm">
             + Tambah Data Tenaga Pendidik
         </button>
