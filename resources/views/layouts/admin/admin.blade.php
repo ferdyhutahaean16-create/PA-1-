@@ -51,6 +51,9 @@
             <a href="{{ route('admin.peminjaman.index') }}" class="block px-4 py-2 hover:bg-gray-700 rounded text-white">
                 Manajemen Peminjaman
             </a>
+            <a href="{{ route('laboratorium.index') }}" class="block px-4 py-2 hover:bg-gray-700 rounded text-white font-bold">
+                Kelola Laboratorium
+            </a>
         </nav>
         <div class="p-4 border-t border-gray-800">
             <a href="/" class="block py-2 px-4 bg-red-600 text-center rounded hover:bg-red-700 transition text-sm font-bold">Kembali ke Web</a>

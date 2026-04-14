@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PrestasiController;
 use App\Http\Controllers\Admin\PublikasiController;
 use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\RuangKelasController as AdminRuangKelasController;
+use App\Http\Controllers\Admin\LaboratoriumController as AdminLaboratoriumController;
 use App\Http\Controllers\PeminjamanLabController;
 use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\RuangKelasController;       // Controller publik
@@ -99,7 +100,8 @@ Route::prefix('laboratorium')->group(function () {
     
     // INI DIA PINTU UTAMANYA YANG TERTINGGAL:
     Route::get('/', function () {
-        return view('laboratorium.index');
+        $labs = \App\Models\Laboratorium::orderBy('nama_lab', 'asc')->get();
+        return view('laboratorium.index', compact('labs'));
     })->name('lab.index');
     Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');
     Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('lab.peminjaman.cetak');
@@ -130,4 +132,5 @@ Route::prefix('admin')->group(function () {
     Route::post('/peminjaman/{id}/update', [PeminjamanLabController::class, 'updateStatus'])->name('admin.peminjaman.update');
     // ... (rute admin peminjaman sebelumnya)
     Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('admin.peminjaman.cetak');
+    Route::resource('laboratorium', AdminLaboratoriumController::class);
 });
