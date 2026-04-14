@@ -42,8 +42,15 @@
                 <svg ...>...</svg>
                 Data Kegiatan
             </a>
-            <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800 transition">Data Lab & Alat</a>
-            <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800 transition">Peminjaman Lab</a>
+            <a href="{{ route('ruang-kelas.index') }}" class="flex items-center gap-3 px-4 py-3 mt-2 text-sm font-semibold rounded-lg transition-colors {{ request()->routeIs('ruang-kelas.*') ? 'bg-blue-600 text-white shadow-md' : 'text-gray-400 hover:text-green-500 hover:bg-gray-800' }}">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                </svg>
+                Ruang Kelas
+            </a>
+            <a href="{{ route('admin.peminjaman.index') }}" class="block px-4 py-2 hover:bg-gray-700 rounded text-white">
+                Manajemen Peminjaman
+            </a>
         </nav>
         <div class="p-4 border-t border-gray-800">
             <a href="/" class="block py-2 px-4 bg-red-600 text-center rounded hover:bg-red-700 transition text-sm font-bold">Kembali ke Web</a>

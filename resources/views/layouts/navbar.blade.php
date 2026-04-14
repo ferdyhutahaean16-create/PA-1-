@@ -48,8 +48,24 @@
                 </div>
             </div>
 
-            <a href="/fasilitas" class="hover:text-yellow-400 transition">FASILITAS</a>
-            <a href="/laboratorium" class="hover:text-yellow-400 transition">LABORATORIUM</a>
+            <div class="relative group">
+    <button class="flex items-center gap-1 text-white hover:text-yellow-400 font-bold uppercase tracking-wider py-2 transition-colors">
+        FASILITAS
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+    </button>
+    
+    <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100 overflow-hidden">
+        
+        <a href="{{ url('/fasilitas') }}" class="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1a4a38] font-bold border-b border-gray-100 transition-colors uppercase">
+            RUANG KELAS
+        </a>
+        
+        <a href="{{ url('/laboratorium') }}" class="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1a4a38] font-bold transition-colors uppercase">
+            LABORATORIUM
+        </a>
+        
+    </div>
+</div>
         </div>
 
         <div class="hidden lg:flex items-center gap-4">
