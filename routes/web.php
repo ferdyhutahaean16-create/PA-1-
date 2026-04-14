@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\TenagaPendidik; // Wajib dipanggil agar sistem mengenali data Tenaga Pendidik
+use App\Http\Controllers\Admin\TenagaPendidikController;
+use App\Http\Controllers\LaboratoriumController;
 
 Route::get('/', function () {
-    return view('home'); // Pastikan ini mengarah ke 'home'
+    return view('home'); 
 });
 
 Route::get('/profil', function () {
@@ -14,16 +17,17 @@ Route::get('/struktur', function () {
     return view('struktur');
 });
 
-use App\Models\Dosen; // Tambahkan ini di bagian paling atas file jika belum ada
+// =========================================================================
+// INI ADALAH KODE YANG BENAR UNTUK MENAMPILKAN TENAGA PENDIDIK KE PENGUNJUNG
+// =========================================================================
+Route::get('/tenaga-pendidik', function () {
+    // 1. Ambil semua data menggunakan Model yang baru
+    $tenaga_pendidiks = TenagaPendidik::all(); 
 
-// ROUTE HALAMAN PUBLIK (DOSEN)
-Route::get('/dosen', function () {
-    // Ambil semua data dosen dari database
-    $dosens = Dosen::all(); 
-    
-    // Kirim data tersebut ke file view dosen.blade.php
-    return view('dosen', compact('dosens'));
+    // 2. Kirim data tersebut ke halaman depan (view tenaga_pendidik.blade.php)
+    return view('tenaga_pendidik', compact('tenaga_pendidiks')); 
 });
+// =========================================================================
 
 // Route untuk Prestasi
 Route::prefix('prestasi')->group(function () {
@@ -52,21 +56,17 @@ Route::get('/fasilitas', function () {
     return view('fasilitas');
 });
 
-use App\Http\Controllers\LaboratoriumController;
-
 // Route Halaman Laboratorium
 Route::get('/laboratorium', [LaboratoriumController::class, 'index']);
 Route::get('/laboratorium/{slug}', [LaboratoriumController::class, 'show'])->name('lab.show');
 
-use App\Http\Controllers\Admin\DosenController;
-
 // ROUTE KHUSUS ADMIN PANEL
 Route::prefix('admin')->group(function () {
-    // Halaman Dashboard Admin
     Route::get('/', function () {
         return view('admin.dashboard');
     });
+    
 
-    // Route CRUD Dosen (Otomatis membuat route index, create, store, edit, update, destroy)
-    Route::resource('dosen', DosenController::class);
+    // Rute CRUD Admin Tenaga Pendidik
+    Route::resource('tenaga-pendidik', TenagaPendidikController::class);
 });

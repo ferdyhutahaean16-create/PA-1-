@@ -7,20 +7,38 @@
     <div class="container mx-auto px-6">
         
         <div class="mb-12 flex items-center gap-4">
-            <a href="{{ route('dosen.index') }}" class="text-gray-400 hover:text-biotech-primary transition p-2 bg-white rounded-full shadow-sm">
+            <a href="{{ route('tenaga-pendidik.index') }}" class="text-gray-400 hover:text-biotech-primary transition p-2 bg-white rounded-full shadow-sm">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             </a>
             <div>
-                <h1 class="text-3xl font-bold text-gray-800">Edit Data Tenaga Pendidik</h1>
+                <h1 class="text-4xl font-extrabold text-biotech-primary uppercase tracking-wider mb-2">Edit Tenaga Pendidik</h1>
                 <div class="h-1.5 w-24 bg-yellow-500 rounded"></div>
             </div>
         </div>
 
         <div class="bg-white p-10 rounded-2xl shadow-xl border border-gray-100 border-t-4 border-t-yellow-500">
             
-            <h2 class="text-2xl font-bold text-gray-800 mb-8 pb-4 border-b border-gray-100">Update Data: <span class="text-biotech-primary">{{ $dosen->nama }}</span></h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-8 pb-4 border-b border-gray-100">Update Data: <span class="text-biotech-primary">{{ $tenaga_pendidik->nama }}</span></h2>
 
-            <form action="{{ route('dosen.update', $dosen->id) }}" method="POST" enctype="multipart/form-data">
+            @if ($errors->any())
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-8 rounded-r-lg">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800">Gagal mengupdate data:</h3>
+                            <ul class="mt-2 text-sm text-red-700 list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <form action="{{ route('tenaga-pendidik.update', $tenaga_pendidik->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 
@@ -35,12 +53,12 @@
                     
                     <div>
                         <label for="nidn" class="block text-sm font-semibold text-gray-600 mb-2">NIDN / NIK</label>
-                        <input type="text" name="nidn" id="nidn" value="{{ $dosen->nidn }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
+                        <input type="text" name="nidn" id="nidn" value="{{ old('nidn', $tenaga_pendidik->nidn) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
                     </div>
                     
                     <div>
                         <label for="nama" class="block text-sm font-semibold text-gray-600 mb-2">Nama Lengkap & Gelar</label>
-                        <input type="text" name="nama" id="nama" value="{{ $dosen->nama }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
+                        <input type="text" name="nama" id="nama" value="{{ old('nama', $tenaga_pendidik->nama) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
                     </div>
 
                     <div class="md:col-span-2 mt-4">
@@ -52,12 +70,12 @@
 
                     <div>
                         <label for="jabatan" class="block text-sm font-semibold text-gray-600 mb-2">Posisi (Jabatan)</label>
-                        <input type="text" name="jabatan" id="jabatan" value="{{ $dosen->jabatan }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
+                        <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan', $tenaga_pendidik->jabatan) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
                     </div>
 
                     <div>
                         <label for="lulusan" class="block text-sm font-semibold text-gray-600 mb-2">Latar Belakang Pendidikan</label>
-                        <input type="text" name="lulusan" id="lulusan" value="{{ $dosen->lulusan }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
+                        <input type="text" name="lulusan" id="lulusan" value="{{ old('lulusan', $tenaga_pendidik->lulusan) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
                     </div>
 
                     <div class="md:col-span-2 mt-4">
@@ -69,17 +87,17 @@
 
                     <div>
                         <label for="email" class="block text-sm font-semibold text-gray-600 mb-2">Email Resmi</label>
-                        <input type="email" name="email" id="email" value="{{ $dosen->email }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
+                        <input type="email" name="email" id="email" value="{{ old('email', $tenaga_pendidik->email) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
                     </div>
 
                     <div>
                         <label for="no_telpon" class="block text-sm font-semibold text-gray-600 mb-2">No. Telpon / WhatsApp</label>
-                        <input type="text" name="no_telpon" id="no_telpon" value="{{ $dosen->no_telpon }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition">
+                        <input type="text" name="no_telpon" id="no_telpon" value="{{ old('no_telpon', $tenaga_pendidik->no_telpon) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition">
                     </div>
 
                     <div class="md:col-span-2">
                         <label for="ruangan" class="block text-sm font-semibold text-gray-600 mb-2">Kantor (Ruangan)</label>
-                        <input type="text" name="ruangan" id="ruangan" value="{{ $dosen->ruangan }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
+                        <input type="text" name="ruangan" id="ruangan" value="{{ old('ruangan', $tenaga_pendidik->ruangan) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
                     </div>
 
                     <div class="md:col-span-2 mt-4">
@@ -92,9 +110,9 @@
                     <div class="md:col-span-2">
                         <label class="block text-sm font-semibold text-gray-600 mb-3">Foto Saat Ini</label>
                         
-                        @if($dosen->foto)
+                        @if($tenaga_pendidik->foto)
                             <div class="flex items-center gap-6 mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100 inline-block">
-                                <img src="{{ asset($dosen->foto) }}" alt="Foto Lama" class="w-24 h-24 rounded-full object-cover shadow-md border-4 border-white">
+                                <img src="{{ asset($tenaga_pendidik->foto) }}" alt="Foto Lama" class="w-24 h-24 rounded-full object-cover shadow-md border-4 border-white">
                                 <div>
                                     <p class="text-sm font-bold text-gray-700">Foto Tersimpan</p>
                                     <p class="text-xs text-gray-500">Anda tidak perlu upload ulang jika tidak ingin mengganti foto ini.</p>
@@ -108,7 +126,7 @@
 
                         <label for="foto" class="block text-sm font-semibold text-gray-600 mb-2">Upload Foto Baru (Opsional)</label>
                         <div class="relative group">
-                            <input type="file" name="foto" id="foto" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100 transition cursor-pointer">
+                            <input type="file" name="foto" id="foto" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100 transition cursor-pointer">
                         </div>
                         <p class="mt-2 text-xs text-gray-500">Format: JPG, JPEG, PNG. Maks: 2MB. Mengupload foto baru akan menimpa foto lama.</p>
                     </div>
@@ -116,7 +134,8 @@
                 </div>
 
                 <div class="flex justify-end items-center gap-4 mt-16 pt-8 border-t border-gray-100">
-                    <a href="{{ route('dosen.index') }}" class="text-gray-600 hover:text-biotech-primary transition font-medium text-sm px-6 py-2.5 rounded-lg">Batal</a>
+                    <a href="{{ route('tenaga-pendidik.index') }}" class="text-gray-600 hover:text-biotech-primary transition font-medium text-sm px-6 py-2.5 rounded-lg">Batal</a>
+                    
                     <button type="submit" class="bg-yellow-500 text-white px-10 py-3 rounded-xl hover:bg-yellow-600 transition font-bold shadow-lg text-sm flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                         Update Data
