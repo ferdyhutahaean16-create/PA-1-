@@ -14,7 +14,7 @@
         playsinline
         class="absolute inset-0 w-full h-full object-cover z-0"
     >
-        <source src="{{ asset('videos/tes.mp4') }}" type="video/mp4">
+        <source src="{{ asset('videos/profil.mp4') }}" type="video/mp4">
     </video>
 
     {{-- Overlay gelap agar teks tetap terbaca --}}
@@ -22,7 +22,7 @@
 
     {{-- Konten (tambahkan relative z-20 agar di atas overlay) --}}
     <div class="relative z-20 flex flex-col items-center justify-center w-full">
-        <img src="{{ asset('images/logo-del.png') }}" alt="Logo IT Del" class="h-24 md:h-32 mb-8">
+        <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" alt="Logo IT Del" class="h-24 md:h-32 mb-8">
         
         <h3 class="text-sm md:text-lg font-bold tracking-[0.2em] mb-4 uppercase text-gray-300">Selamat Datang Di</h3>
         <h1 class="text-4xl md:text-6xl font-extrabold mb-2 text-center tracking-tight">PRODI BIOTEKNOLOGI</h1>
