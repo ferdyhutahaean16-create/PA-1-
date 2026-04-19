@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Berita;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\StrukturOrganisasiController;
 use App\Http\Controllers\Admin\KurikulumController;
@@ -20,8 +23,14 @@ use App\Models\TenagaPendidik;
 // =====================
 
 Route::get('/', function () {
-    return view('home');
+    // Ambil 3 berita paling baru berdasarkan tanggal
+    $beritas = Berita::orderBy('tanggal', 'desc')->take(3)->get();
+
+    return view('home', compact('beritas')); 
 });
+
+// Rute untuk melihat semua berita
+Route::get('/berita-lengkap', [BeritaController::class, 'index'])->name('berita.lengkap');
 
 Route::get('/profil', function () {
     $profil = \App\Models\Profil::first();
@@ -133,4 +142,5 @@ Route::prefix('admin')->group(function () {
     // ... (rute admin peminjaman sebelumnya)
     Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('admin.peminjaman.cetak');
     Route::resource('laboratorium', AdminLaboratoriumController::class);
+    Route::resource('berita', AdminBeritaController::class);
 });

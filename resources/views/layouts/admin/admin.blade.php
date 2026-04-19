@@ -67,6 +67,9 @@
             <a href="{{ route('laboratorium.index') }}" class="block px-4 py-2.5 text-sm font-bold text-white bg-gray-800 rounded-lg transition-colors shadow-inner">
                 Kelola Laboratorium
             </a>
+            <a href="{{ route('berita.index') }}" class="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-white rounded-lg transition-colors">
+                Kelola Berita Utama
+            </a>
 
         </div>
 

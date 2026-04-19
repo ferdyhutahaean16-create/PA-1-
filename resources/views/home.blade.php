@@ -4,6 +4,7 @@
 
 @section('content')
 
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <div class="relative text-white min-h-screen flex flex-col items-center justify-center px-6 py-20 overflow-hidden">
     
     {{-- Video Background --}}
@@ -154,50 +155,99 @@
 </div>
 
 
-<div class="bg-white py-24">
+<div class="bg-gray-50 py-24 border-t border-gray-200">
     <div class="container mx-auto px-6 max-w-6xl">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Berita <span class="text-[#0b1320]">Utama</span></h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             
-            <div class="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden flex flex-col">
-                <img src="{{ asset('images/berita1.jpg') }}" alt="Berita 1" class="w-full h-48 object-cover">
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
-                        <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 2 March 2026</span>
-                        <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg> 139 views</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-800 mb-3 line-clamp-2">Prestasi Membanggakan Sebagai Juara 2 Lomba Scientific Atmosphere</h3>
-                    <p class="text-sm text-gray-500 mb-6 flex-1 line-clamp-3">Prestasi membanggakan kembali diraih oleh mahasiswa Bioteknologi Fakultas Teknik melalui keberhasilan...</p>
-                    <a href="#" class="text-[#0b1320] text-sm font-bold flex items-center gap-2 hover:text-blue-600 transition">Read more <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+            @forelse($beritas as $berita)
+            <div x-data="{ openModal: false }" class="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden flex flex-col group relative">
+                
+                <div class="overflow-hidden h-48 cursor-pointer" @click="openModal = true">
+                    @if($berita->foto)
+                        <img src="{{ asset($berita->foto) }}" alt="{{ $berita->judul }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    @else
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">No Image</div>
+                    @endif
                 </div>
-            </div>
 
-            <div class="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden flex flex-col">
-                <img src="{{ asset('images/berita2.jpg') }}" alt="Berita 2" class="w-full h-48 object-cover">
                 <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
-                        <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 2 March 2026</span>
-                        <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg> 117 views</span>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-800 mb-3 line-clamp-2">Finalis MAPRES IT Del Tahun 2026</h3>
-                    <p class="text-sm text-gray-500 mb-6 flex-1 line-clamp-3">Mahasiswa prodi Bioteknologi berhasil menorehkan prestasi membanggakan dengan terpilih sebagai finalis Mahasiswa Berprestasi...</p>
-                    <a href="#" class="text-[#0b1320] text-sm font-bold flex items-center gap-2 hover:text-blue-600 transition">Read more <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
+                    <div class="flex items-center text-xs text-gray-400 mb-3">
+                        <span class="flex items-center gap-1">
+                            <svg class="w-4 h-4 text-[#1a4a38]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 
+                            {{ \Carbon\Carbon::parse($berita->tanggal)->format('d F Y') }}
+                        </span>
+                        </div>
+                    
+                    <h3 @click="openModal = true" class="text-lg font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-[#1a4a38] transition-colors cursor-pointer">
+                        {{ $berita->judul }}
+                    </h3>
+                    
+                    <p class="text-sm text-gray-500 mb-6 flex-1 line-clamp-3">
+                        {{ Str::limit(strip_tags($berita->konten), 120) }}
+                    </p>
+                    
+                    <button type="button" @click="openModal = true" class="text-[#0b1320] text-sm font-bold flex items-center gap-2 hover:text-blue-600 transition w-fit">
+                        Baca selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
                 </div>
-            </div>
 
-            <div class="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden flex flex-col">
-                <img src="{{ asset('images/berita3.jpg') }}" alt="Berita 3" class="w-full h-48 object-cover">
-                <div class="p-6 flex-1 flex flex-col">
-                    <div class="flex items-center text-xs text-gray-400 mb-3 gap-4">
-                        <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 2 March 2026</span>
-                        <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg> 103 views</span>
+                <div x-show="openModal" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                    <div @click.away="openModal = false" 
+                         x-show="openModal" 
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0 transform scale-95 translate-y-4"
+                         x-transition:enter-end="opacity-100 transform scale-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-200"
+                         x-transition:leave-start="opacity-100 transform scale-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 transform scale-95 translate-y-4"
+                         class="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+                        
+                        <button @click="openModal = false" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black text-white rounded-full p-2 backdrop-blur-md transition duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+
+                        <div class="overflow-y-auto w-full custom-scrollbar">
+                            @if($berita->foto)
+                                <img src="{{ asset($berita->foto) }}" alt="{{ $berita->judul }}" class="w-full h-64 md:h-80 object-cover">
+                            @endif
+                            
+                            <div class="p-6 md:p-10">
+                                <div class="flex items-center text-sm font-bold text-[#1a4a38] mb-4 gap-2 uppercase tracking-wider">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    {{ \Carbon\Carbon::parse($berita->tanggal)->format('d F Y') }}
+                                </div>
+                                
+                                <h2 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-8 leading-tight">
+                                    {{ $berita->judul }}
+                                </h2>
+                                
+                                <div class="text-gray-700 leading-relaxed text-justify space-y-4 md:text-lg">
+                                    {!! nl2br(e($berita->konten)) !!}
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800 mb-3 line-clamp-2">Karya Inovasi Paling Prospektif Tahun 2026</h3>
-                    <p class="text-sm text-gray-500 mb-6 flex-1 line-clamp-3">Pengembangan material ramah lingkungan sebagai alternatif industri berhasil meraih penghargaan inovasi...</p>
-                    <a href="#" class="text-[#0b1320] text-sm font-bold flex items-center gap-2 hover:text-blue-600 transition">Read more <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></a>
                 </div>
+                </div>
+            @empty
+            <div class="col-span-3 text-center py-12 bg-white rounded-xl border border-dashed border-gray-300">
+                <p class="text-gray-500 italic">Belum ada berita yang diterbitkan oleh Admin.</p>
             </div>
+            @endforelse
+            </div>
+            
+            <div class="mt-16 text-center">
+            <a href="{{ route('berita.lengkap') }}" class="inline-flex items-center gap-3 bg-white text-[#1a4a38] border-2 border-[#1a4a38] px-10 py-3 rounded-full font-bold shadow-sm hover:bg-[#1a4a38] hover:text-white transition-all duration-300 group">
+                Lihat Semua Berita
+                <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </a>
+        </div>
+
+    </div>
+</div>
 
         </div>
     </div>
