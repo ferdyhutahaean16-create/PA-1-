@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BeritaController;
+use App\Models\TenagaPendidik; // Wajib dipanggil agar sistem mengenali data Tenaga Pendidik
+use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\LaboratoriumController;
 
 // HOME
 Route::get('/', function () {
-    return view('home');
+    return view('home'); 
 });
 
 // PROFIL
@@ -22,7 +23,19 @@ Route::get('/tenaga', function () {
     return view('tenaga');
 });
 
-// PRESTASI
+// =========================================================================
+// INI ADALAH KODE YANG BENAR UNTUK MENAMPILKAN TENAGA PENDIDIK KE PENGUNJUNG
+// =========================================================================
+Route::get('/tenaga-pendidik', function () {
+    // 1. Ambil semua data menggunakan Model yang baru
+    $tenaga_pendidiks = TenagaPendidik::all(); 
+
+    // 2. Kirim data tersebut ke halaman depan (view tenaga_pendidik.blade.php)
+    return view('tenaga_pendidik', compact('tenaga_pendidiks')); 
+});
+// =========================================================================
+
+// Route untuk Prestasi
 Route::prefix('prestasi')->group(function () {
     Route::get('/dosen', function () {
         return view('prestasi.dosen');
@@ -52,10 +65,16 @@ Route::prefix('fasilitas')->group(function () {
         return view('fasilitas.ruang-kelas');
     });
 
-    Route::get('/laboratorium', function () {
-        return view('fasilitas.laboratorium');
+// Route Halaman Laboratorium
+Route::get('/laboratorium', [LaboratoriumController::class, 'index']);
+Route::get('/laboratorium/{slug}', [LaboratoriumController::class, 'show'])->name('lab.show');
+
+// ROUTE KHUSUS ADMIN PANEL
+Route::prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('admin.dashboard');
     });
 
-    // UBAH BAGIAN INI: Arahkan ke Controller, jangan ke function()
-    Route::get('/peminjaman', [LaboratoriumController::class, 'peminjaman']);
+    // Rute CRUD Admin Tenaga Pendidik
+    Route::resource('tenaga-pendidik', TenagaPendidikController::class);
 });
