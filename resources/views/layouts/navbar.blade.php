@@ -49,23 +49,46 @@
             </div>
 
             <div class="relative group">
-    <button class="flex items-center gap-1 text-white hover:text-yellow-400 font-bold uppercase tracking-wider py-2 transition-colors">
-        FASILITAS
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </button>
-    
-    <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100 overflow-hidden">
-        
-        <a href="{{ url('/fasilitas') }}" class="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1a4a38] font-bold border-b border-gray-100 transition-colors uppercase">
-            RUANG KELAS
-        </a>
-        
-        <a href="{{ url('/laboratorium') }}" class="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1a4a38] font-bold transition-colors uppercase">
-            LABORATORIUM
-        </a>
-        
-    </div>
-</div>
+                <button class="flex items-center gap-1 text-white hover:text-yellow-400 font-bold uppercase tracking-wider py-2 transition-colors">
+                    FASILITAS
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                
+                <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100 overflow-hidden">
+                    <a href="{{ url('/fasilitas') }}" class="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1a4a38] font-bold border-b border-gray-100 transition-colors uppercase">
+                        RUANG KELAS
+                    </a>
+                    <a href="{{ url('/laboratorium') }}" class="block px-5 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1a4a38] font-bold transition-colors uppercase">
+                        LABORATORIUM
+                    </a>
+                </div>
+            </div>
+
+            <div class="group relative py-6">
+                <button class="flex items-center gap-1 hover:text-yellow-400 transition uppercase font-bold tracking-wide text-sm {{ request()->is('berita*') || request()->is('mitra*') || request()->is('testimoni*') ? 'text-yellow-400' : '' }}">
+                    BERITA 
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                
+                <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-yellow-400 min-w-[220px] top-full left-0 z-50 rounded-b-md overflow-hidden">
+                    
+                    <a href="{{ route('berita.lengkap') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 border-b border-gray-100 text-sm font-bold transition">
+                        Berita Utama
+                    </a>
+                    
+                    <a href="{{ url('/mitra') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 border-b border-gray-100 text-sm font-bold transition">
+                        Mitra Kerja Sama
+                    </a>
+                    
+                    <a href="{{ url('/testimoni') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 text-sm font-bold transition">
+                        Testimoni Alumni
+                    </a>
+            
+                </div>
+            </div>
+
         </div>
 
         <div class="hidden lg:flex items-center gap-4">

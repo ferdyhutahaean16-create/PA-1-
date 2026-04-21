@@ -32,6 +32,9 @@
             <div class="mt-8 mb-3 px-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
                 Profil Institusi
             </div>
+            <a href="{{ route('cooperation.index') }}" class="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-white rounded-lg transition-colors">
+                Mitra Kerja Sama
+            </a>
             <a href="{{ route('profil.index') }}" class="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-white rounded-lg transition-colors">
                 Informasi Umum (Visi Misi)
             </a>

@@ -16,6 +16,7 @@ use App\Http\Controllers\PeminjamanLabController;
 use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\RuangKelasController;       // Controller publik
 use App\Http\Controllers\LaboratoriumController;
+use App\Http\Controllers\Admin\CooperationController as AdminCooperationController;
 use App\Models\TenagaPendidik;
 
 // =====================
@@ -36,6 +37,14 @@ Route::get('/profil', function () {
     $profil = \App\Models\Profil::first();
     return view('profil', compact('profil'));
 });
+
+Route::get('/mitra', function () {
+    return view('mitra.index'); // Buat file index.blade.php di folder resources/views/mitra/
+})->name('mitra.index');
+
+Route::get('/testimoni', function () {
+    return view('testimoni.index'); // Buat file index.blade.php di folder resources/views/testimoni/
+})->name('testimoni.index');
 
 Route::get('/struktur', function () {
     $profil   = \App\Models\Profil::first();
@@ -143,4 +152,5 @@ Route::prefix('admin')->group(function () {
     Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('admin.peminjaman.cetak');
     Route::resource('laboratorium', AdminLaboratoriumController::class);
     Route::resource('berita', AdminBeritaController::class);
+    Route::resource('cooperation', AdminCooperationController::class);
 });
