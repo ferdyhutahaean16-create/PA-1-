@@ -1,80 +1,147 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\TenagaPendidik; // Wajib dipanggil agar sistem mengenali data Tenaga Pendidik
+use App\Models\Berita;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
+use App\Http\Controllers\Admin\ProfilController;
+use App\Http\Controllers\Admin\StrukturOrganisasiController;
+use App\Http\Controllers\Admin\KurikulumController;
+use App\Http\Controllers\Admin\PrestasiController;
+use App\Http\Controllers\Admin\PublikasiController;
+use App\Http\Controllers\Admin\KegiatanController;
+use App\Http\Controllers\Admin\RuangKelasController as AdminRuangKelasController;
+use App\Http\Controllers\Admin\LaboratoriumController as AdminLaboratoriumController;
+use App\Http\Controllers\PeminjamanLabController;
 use App\Http\Controllers\Admin\TenagaPendidikController;
+use App\Http\Controllers\RuangKelasController;       // Controller publik
 use App\Http\Controllers\LaboratoriumController;
+use App\Models\TenagaPendidik;
+
+// =====================
+// HALAMAN PUBLIK
+// =====================
 
 // HOME
 Route::get('/', function () {
-    return view('home'); 
+    // Ambil 3 berita paling baru berdasarkan tanggal
+    $beritas = Berita::orderBy('tanggal', 'desc')->take(3)->get();
+
+    return view('home', compact('beritas')); 
 });
 
-// PROFIL
+// Rute untuk melihat semua berita
+Route::get('/berita-lengkap', [BeritaController::class, 'index'])->name('berita.lengkap');
+
 Route::get('/profil', function () {
-    return view('profil');
+    $profil = \App\Models\Profil::first();
+    return view('profil', compact('profil'));
 });
 
-// 🔥 BERITA (PAKAI CONTROLLER)
-Route::get('/berita', [BeritaController::class, 'index']);
-
-// TENAGA
-Route::get('/tenaga', function () {
-    return view('tenaga');
+Route::get('/struktur', function () {
+    $profil   = \App\Models\Profil::first();
+    $struktur = \App\Models\StrukturOrganisasi::orderBy('level', 'asc')->get();
+    return view('struktur', compact('profil', 'struktur'));
 });
 
-// =========================================================================
-// INI ADALAH KODE YANG BENAR UNTUK MENAMPILKAN TENAGA PENDIDIK KE PENGUNJUNG
-// =========================================================================
+Route::get('/kurikulum', function () {
+    $kurikulum = \App\Models\Kurikulum::orderBy('semester', 'asc')
+                                      ->orderBy('mata_kuliah', 'asc')
+                                      ->get();
+    $kurikulum_per_semester = $kurikulum->groupBy('semester');
+    return view('kurikulum', compact('kurikulum_per_semester'));
+});
+
 Route::get('/tenaga-pendidik', function () {
-    // 1. Ambil semua data menggunakan Model yang baru
-    $tenaga_pendidiks = TenagaPendidik::all(); 
-
-    // 2. Kirim data tersebut ke halaman depan (view tenaga_pendidik.blade.php)
-    return view('tenaga_pendidik', compact('tenaga_pendidiks')); 
+    $tenaga_pendidiks = TenagaPendidik::all();
+    return view('tenaga_pendidik', compact('tenaga_pendidiks'));
 });
-// =========================================================================
 
-// Route untuk Prestasi
+// =====================
+// PRESTASI
+// =====================
 Route::prefix('prestasi')->group(function () {
     Route::get('/dosen', function () {
-        return view('prestasi.dosen');
+        $prestasi  = \App\Models\Prestasi::where('kategori', 'Dosen')->orderBy('tahun', 'desc')->get();
+        $publikasi = \App\Models\Publikasi::where('kategori', 'Dosen')->orderBy('created_at', 'desc')->get();
+        return view('prestasi_dosen', compact('prestasi', 'publikasi'));
     });
+
     Route::get('/mahasiswa', function () {
-        return view('prestasi.mahasiswa');
+        $prestasi  = \App\Models\Prestasi::where('kategori', 'Mahasiswa')->orderBy('tahun', 'desc')->get();
+        $publikasi = \App\Models\Publikasi::where('kategori', 'Mahasiswa')->orderBy('created_at', 'desc')->get();
+        return view('prestasi_mahasiswa', compact('prestasi', 'publikasi'));
     });
 });
 
+// =====================
 // KEGIATAN
+// =====================
 Route::prefix('kegiatan')->group(function () {
     Route::get('/dosen', function () {
-        return view('kegiatan.dosen');
+        $kegiatan = \App\Models\Kegiatan::where('kategori', 'Pengabdian Dosen')->orderBy('created_at', 'desc')->get();
+        return view('kegiatan.dosen', compact('kegiatan'));
     });
+
     Route::get('/mahasiswa', function () {
-        return view('kegiatan.mahasiswa');
+        $pkm        = \App\Models\Kegiatan::where('kategori', 'PkM Mahasiswa')->orderBy('created_at', 'desc')->get();
+        $himpunan   = \App\Models\Kegiatan::where('kategori', 'Himpunan')->orderBy('created_at', 'desc')->get();
+        $kaderisasi = \App\Models\Kegiatan::where('kategori', 'Kaderisasi')->orderBy('created_at', 'desc')->get();
+        return view('kegiatan.mahasiswa', compact('pkm', 'himpunan', 'kaderisasi'));
     });
+
     Route::get('/penelitian', function () {
-        return view('kegiatan.penelitian');
+        $penelitian = \App\Models\Kegiatan::where('kategori', 'Penelitian')->orderBy('created_at', 'desc')->get();
+        return view('kegiatan.penelitian', compact('penelitian'));
     });
 });
 
-// FASILITAS
-// FASILITAS
-Route::prefix('fasilitas')->group(function () {
-    Route::get('/ruang-kelas', function () {
-        return view('fasilitas.ruang-kelas');
-    });
+// =====================
+// FASILITAS (PUBLIK)
+// =====================
+Route::get('/fasilitas', function () {
+    // Ambil data ruang kelas untuk ditampilkan
+    $ruang_kelas = \App\Models\RuangKelas::orderBy('nama_ruangan', 'asc')->get();
+    return view('fasilitas', compact('ruang_kelas'));
+});
 
-// Route Halaman Laboratorium
-Route::get('/laboratorium', [LaboratoriumController::class, 'index']);
-Route::get('/laboratorium/{slug}', [LaboratoriumController::class, 'show'])->name('lab.show');
+Route::get('/fasilitas/ruang-kelas', [RuangKelasController::class, 'index'])->name('fasilitas.ruang-kelas');
+Route::prefix('laboratorium')->group(function () {
+    
+    // INI DIA PINTU UTAMANYA YANG TERTINGGAL:
+    Route::get('/', function () {
+        $labs = \App\Models\Laboratorium::orderBy('nama_lab', 'asc')->get();
+        return view('laboratorium.index', compact('labs'));
+    })->name('lab.index');
+    Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');
+    Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('lab.peminjaman.cetak');
 
-// ROUTE KHUSUS ADMIN PANEL
+    // Rute form alat & bahan:
+    Route::get('/pinjam-alat', [PeminjamanLabController::class, 'formAlat'])->name('lab.pinjam-alat');
+    Route::get('/pinjam-bahan', [PeminjamanLabController::class, 'formBahan'])->name('lab.pinjam-bahan');
+    Route::post('/pinjam/store', [PeminjamanLabController::class, 'store'])->name('lab.pinjam.store');
+});
+
+// =====================
+// ADMIN PANEL
+// =====================
 Route::prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     });
 
-    // Rute CRUD Admin Tenaga Pendidik
     Route::resource('tenaga-pendidik', TenagaPendidikController::class);
+    Route::resource('profil', ProfilController::class);
+    Route::resource('struktur-organisasi', StrukturOrganisasiController::class);
+    Route::resource('kurikulum', KurikulumController::class);
+    Route::resource('prestasi', PrestasiController::class);
+    Route::resource('publikasi', PublikasiController::class);
+    Route::resource('kegiatan', KegiatanController::class);
+    Route::resource('ruang-kelas', AdminRuangKelasController::class); // pakai alias Admin
+    Route::get('/peminjaman', [PeminjamanLabController::class, 'indexAdmin'])->name('admin.peminjaman.index');
+    Route::post('/peminjaman/{id}/update', [PeminjamanLabController::class, 'updateStatus'])->name('admin.peminjaman.update');
+    // ... (rute admin peminjaman sebelumnya)
+    Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('admin.peminjaman.cetak');
+    Route::resource('laboratorium', AdminLaboratoriumController::class);
+    Route::resource('berita', AdminBeritaController::class);
 });

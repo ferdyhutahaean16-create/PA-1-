@@ -3,113 +3,252 @@
 @section('title', 'Home')
 
 @section('content')
-<div class="w-full bg-white">
+
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<div class="relative text-white min-h-screen flex flex-col items-center justify-center px-6 py-20 overflow-hidden">
     
-    <section class="relative h-screen w-full flex items-center justify-center">
-        <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1920" 
-             class="absolute inset-0 w-full h-full object-cover" alt="Hero Background">
+    {{-- Video Background --}}
+    <video 
+        autoplay 
+        muted 
+        loop 
+        playsinline
+        class="absolute inset-0 w-full h-full object-cover z-0"
+    >
+        <source src="{{ asset('videos/profil.mp4') }}" type="video/mp4">
+    </video>
+
+    {{-- Overlay gelap agar teks tetap terbaca --}}
+    <div class="absolute inset-0 bg-[#0b1320]/75 z-10"></div>
+
+    {{-- Konten (tambahkan relative z-20 agar di atas overlay) --}}
+    <div class="relative z-20 flex flex-col items-center justify-center w-full">
+        <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" alt="Logo IT Del" class="h-24 md:h-32 mb-8">
         
-        <div class="absolute inset-0 bg-black/30"></div>
-
-        <div class="relative z-10 text-center text-white px-4">
-            <h1 class="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none mb-2">
-                BIOTECHNOLOGY
-            </h1>
-            <p class="text-lg md:text-2xl tracking-[0.5em] font-light uppercase opacity-90">
-                INSTITUT TEKNOLOGI DEL
-            </p>
-            
-            <div class="flex justify-center gap-3 mt-16">
-                <div class="w-2.5 h-2.5 bg-white/40 rounded-full"></div>
-                <div class="w-2.5 h-2.5 bg-white rounded-full"></div>
-                <div class="w-2.5 h-2.5 bg-white/40 rounded-full"></div>
+        <h3 class="text-sm md:text-lg font-bold tracking-[0.2em] mb-4 uppercase text-gray-300">Selamat Datang Di</h3>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-2 text-center tracking-tight">PRODI BIOTEKNOLOGI</h1>
+        <h2 class="text-2xl md:text-4xl font-bold mb-8 text-center text-gray-200">INSTITUT TEKNOLOGI DEL</h2>
+        
+        <p class="text-lg md:text-xl text-gray-400 font-light italic mb-16">"Shaping the World Through Biotechnology"</p>
+        
+        <div class="flex gap-8 items-center mt-10 opacity-70">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center text-xs">Logo</div>
+                <span class="text-sm font-semibold">Diktisaintek Berdampak</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center text-xs">Logo</div>
+                <span class="text-sm font-semibold">Akreditasi Baik</span>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <section class="max-w-4xl mx-auto py-24 px-6 text-center">
-        <h2 class="text-3xl font-black text-slate-800 uppercase tracking-tight mb-8">
-            Pusat Riset Bioteknologi Terpadu
+
+<div class="relative w-full py-32 bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('{{ asset('images/gedung-del.jpg') }}');">
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <div class="relative z-10 flex flex-col items-center justify-center h-full px-6 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-8 drop-shadow-lg uppercase tracking-wider">
+            TEKNIK BIOTEKNOLOGI IT DEL
         </h2>
-        <div class="space-y-6">
-            <p class="text-slate-500 leading-relaxed">
-                Program Studi Bioteknologi Institut Teknologi Del adalah salah satu pusat unggulan di Sumatera Utara. Di tempat ini, kami menawarkan riset mendalam dengan pemanfaatan teknologi hayati yang inovatif, modern, dan berkelanjutan.
-            </p>
-            <p class="text-slate-500 leading-relaxed text-sm italic">
-                Dilengkapi dengan fasilitas laboratorium mutakhir yang mendukung eksplorasi genetik, mikrobiologi, hingga bioproses untuk kemajuan industri hayati di masa depan.
+
+        <div class="bg-[#1c2331]/80 backdrop-blur-md p-8 md:p-12 max-w-5xl rounded-xl border border-gray-500/30 shadow-2xl">
+            <p class="text-sm md:text-base leading-loose text-justify md:text-center text-gray-200">
+                Teknik Bioteknologi adalah bidang ilmu teknik yang mempelajari proses ekstraksi, pengolahan, karakterisasi, dan rekayasa material hayati agar dapat dimanfaatkan secara optimal dalam berbagai sektor industri. Teknik Bioteknologi IT Del dikembangkan untuk menjawab tantangan industri modern dengan pendekatan yang terintegrasi antara teori, praktik laboratorium, dan pemanfaatan teknologi terkini. Fokus utamanya mencakup rekayasa bioproses, biomaterial, serta pengembangan material yang ramah lingkungan dan berkelanjutan. Melalui program ini, mahasiswa dibekali dengan kompetensi teknis, analitis, serta etika profesi yang kuat.
             </p>
         </div>
-    </section>
+    </div>
+</div>
 
-    <section class="flex gap-4 px-4 overflow-hidden mb-32 h-[550px] items-center justify-center">
-        <div class="w-1/4 h-[450px] rounded-2xl overflow-hidden shadow-2xl self-start">
-            <img src="https://images.unsplash.com/photo-1532187875462-be93c5e590b5?w=600" class="w-full h-full object-cover hover:scale-110 transition duration-700">
-        </div>
-        <div class="w-1/4 h-[450px] rounded-2xl overflow-hidden shadow-2xl translate-y-12">
-            <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=600" class="w-full h-full object-cover hover:scale-110 transition duration-700">
-        </div>
-        <div class="w-1/4 h-[450px] rounded-2xl overflow-hidden shadow-2xl self-start">
-            <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=600" class="w-full h-full object-cover hover:scale-110 transition duration-700">
-        </div>
-        <div class="w-1/4 h-[450px] rounded-2xl overflow-hidden shadow-2xl translate-y-12">
-            <img src="https://images.unsplash.com/photo-1579154235602-3c27f391d24f?w=600" class="w-full h-full object-cover hover:scale-110 transition duration-700">
-        </div>
-    </section>
 
-    <section class="relative py-24 bg-slate-50 overflow-hidden">
-        <div class="max-w-5xl mx-auto flex items-center gap-6 mb-16">
-            <div class="h-[1px] flex-grow bg-slate-300 relative">
-                <div class="absolute -left-1 -top-1 w-2 h-2 bg-slate-800 rounded-full"></div>
-            </div>
-            <h3 class="text-xl font-black uppercase tracking-widest text-slate-800">Popular Tours</h3>
-            <div class="h-[1px] flex-grow bg-slate-300 relative">
-                <div class="absolute -right-1 -top-1 w-2 h-2 bg-slate-800 rounded-full"></div>
-            </div>
-        </div>
-
-        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
-            <div class="relative group h-[480px] rounded-3xl overflow-hidden border-4 border-white shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-8 left-8 text-white">
-                    <h4 class="text-4xl font-black mb-1 uppercase tracking-tighter">LAB 1</h4>
-                    <p class="text-sm font-medium text-emerald-300 uppercase tracking-widest">Molecular Research</p>
+<div class="bg-white py-24">
+    <div class="container mx-auto px-6 max-w-6xl">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+            
+            <div class="w-full lg:w-1/2">
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="{{ asset('images/mahasiswa.jpg') }}" alt="Mahasiswa Bioteknologi" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500">
+                    <div class="absolute -z-10 -bottom-6 -left-6 w-full h-full bg-blue-50 rounded-2xl"></div>
                 </div>
             </div>
 
-            <div class="relative group h-[480px] rounded-3xl overflow-hidden border-4 border-white shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-8 left-8 text-white">
-                    <h4 class="text-4xl font-black mb-1 uppercase tracking-tighter">LAB 2</h4>
-                    <p class="text-sm font-medium text-emerald-300 uppercase tracking-widest">Microbiology Area</p>
-                </div>
-            </div>
-
-            <div class="relative group h-[480px] rounded-3xl overflow-hidden border-4 border-white shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-1000">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                <div class="absolute bottom-8 left-8 text-white">
-                    <h4 class="text-4xl font-black mb-1 uppercase tracking-tighter">LAB 3</h4>
-                    <p class="text-sm font-medium text-emerald-300 uppercase tracking-widest">Bioprocess Unit</p>
+            <div class="w-full lg:w-1/2">
+                <h2 class="text-4xl font-bold text-gray-800 mb-10">Mengapa <span class="text-[#0b1320]">Memilih</span> Kami?</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="text-[#1a4a38] mb-4">
+                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Fasilitas</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Kami memiliki berbagai fasilitas laboratorium mutakhir yang dapat menunjang aktivitas riset civitas akademika.</p>
+                    </div>
+                    <div>
+                        <div class="text-[#1a4a38] mb-4">
+                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Inovasi</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Prodi kami terus berinovasi dalam riset bioproses, energi terbarukan, dan rekayasa genetika lingkungan.</p>
+                    </div>
+                    <div>
+                        <div class="text-[#1a4a38] mb-4">
+                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 01.932.638l2.15 5.093 5.583.44a1 1 0 01.564 1.743l-4.225 3.731 1.25 5.46a1 1 0 01-1.492 1.082L10 17.317l-4.762 2.87a1 1 0 01-1.492-1.082l1.25-5.46-4.225-3.731a1 1 0 01.564-1.742l5.583-.44 2.15-5.093A1 1 0 0110 2z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Prestasi</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Telah meraih berbagai prestasi riset dan kompetisi inovasi mahasiswa baik di tingkat nasional maupun internasional.</p>
+                    </div>
+                    <div>
+                        <div class="text-[#1a4a38] mb-4">
+                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">Beasiswa</h4>
+                        <p class="text-sm text-gray-500 leading-relaxed">Memiliki berbagai program beasiswa prestasi dan bantuan finansial. Klik di sini untuk informasi beasiswa.</p>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="text-center mt-16">
-            <a href="/berita" class="px-10 py-3 bg-white/80 backdrop-blur-md border border-slate-300 rounded-xl font-black text-xs uppercase tracking-[0.3em] hover:bg-emerald-600 hover:text-white transition duration-500 shadow-lg">
-                See More >
+
+<div class="bg-gray-50 py-24">
+    <div class="container mx-auto px-6 max-w-5xl text-center">
+        <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">INFORMASI</p>
+        <h2 class="text-4xl font-bold text-gray-800 mb-16">Penerimaan <span class="text-[#0b1320]">Mahasiswa</span> Baru</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0">
+            
+            <div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] pt-12 pb-8 px-6 relative flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
+                <div class="w-20 h-20 mb-6 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Panduan Pendaftaran</h3>
+                <a href="#" class="absolute -bottom-6 w-12 h-12 bg-[#0b1320] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] pt-12 pb-8 px-6 relative flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
+                <div class="w-20 h-20 mb-6 bg-purple-50 text-purple-500 rounded-2xl flex items-center justify-center">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Biaya Pendidikan</h3>
+                <a href="#" class="absolute -bottom-6 w-12 h-12 bg-[#0b1320] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] pt-12 pb-8 px-6 relative flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
+                <div class="w-20 h-20 mb-6 bg-green-50 text-green-500 rounded-2xl flex items-center justify-center">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Syarat Pendaftaran</h3>
+                <a href="#" class="absolute -bottom-6 w-12 h-12 bg-[#0b1320] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="bg-gray-50 py-24 border-t border-gray-200">
+    <div class="container mx-auto px-6 max-w-6xl">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">Berita <span class="text-[#0b1320]">Utama</span></h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            @forelse($beritas as $berita)
+            <div x-data="{ openModal: false }" class="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden flex flex-col group relative">
+                
+                <div class="overflow-hidden h-48 cursor-pointer" @click="openModal = true">
+                    @if($berita->foto)
+                        <img src="{{ asset($berita->foto) }}" alt="{{ $berita->judul }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    @else
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">No Image</div>
+                    @endif
+                </div>
+
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="flex items-center text-xs text-gray-400 mb-3">
+                        <span class="flex items-center gap-1">
+                            <svg class="w-4 h-4 text-[#1a4a38]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 
+                            {{ \Carbon\Carbon::parse($berita->tanggal)->format('d F Y') }}
+                        </span>
+                        </div>
+                    
+                    <h3 @click="openModal = true" class="text-lg font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-[#1a4a38] transition-colors cursor-pointer">
+                        {{ $berita->judul }}
+                    </h3>
+                    
+                    <p class="text-sm text-gray-500 mb-6 flex-1 line-clamp-3">
+                        {{ Str::limit(strip_tags($berita->konten), 120) }}
+                    </p>
+                    
+                    <button type="button" @click="openModal = true" class="text-[#0b1320] text-sm font-bold flex items-center gap-2 hover:text-blue-600 transition w-fit">
+                        Baca selengkapnya <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+
+                <div x-show="openModal" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                    <div @click.away="openModal = false" 
+                         x-show="openModal" 
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0 transform scale-95 translate-y-4"
+                         x-transition:enter-end="opacity-100 transform scale-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-200"
+                         x-transition:leave-start="opacity-100 transform scale-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 transform scale-95 translate-y-4"
+                         class="relative w-full max-w-3xl bg-white rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+                        
+                        <button @click="openModal = false" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black text-white rounded-full p-2 backdrop-blur-md transition duration-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+
+                        <div class="overflow-y-auto w-full custom-scrollbar">
+                            @if($berita->foto)
+                                <img src="{{ asset($berita->foto) }}" alt="{{ $berita->judul }}" class="w-full h-64 md:h-80 object-cover">
+                            @endif
+                            
+                            <div class="p-6 md:p-10">
+                                <div class="flex items-center text-sm font-bold text-[#1a4a38] mb-4 gap-2 uppercase tracking-wider">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    {{ \Carbon\Carbon::parse($berita->tanggal)->format('d F Y') }}
+                                </div>
+                                
+                                <h2 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-8 leading-tight">
+                                    {{ $berita->judul }}
+                                </h2>
+                                
+                                <div class="text-gray-700 leading-relaxed text-justify space-y-4 md:text-lg">
+                                    {!! nl2br(e($berita->konten)) !!}
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                </div>
+            @empty
+            <div class="col-span-3 text-center py-12 bg-white rounded-xl border border-dashed border-gray-300">
+                <p class="text-gray-500 italic">Belum ada berita yang diterbitkan oleh Admin.</p>
+            </div>
+            @endforelse
+            </div>
+            
+            <div class="mt-16 text-center">
+            <a href="{{ route('berita.lengkap') }}" class="inline-flex items-center gap-3 bg-white text-[#1a4a38] border-2 border-[#1a4a38] px-10 py-3 rounded-full font-bold shadow-sm hover:bg-[#1a4a38] hover:text-white transition-all duration-300 group">
+                Lihat Semua Berita
+                <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
             </a>
         </div>
-    </section>
 
-    <footer class="py-12 bg-emerald-900/5 border-t border-slate-200">
-        <p class="text-[10px] text-slate-400 font-bold text-center uppercase tracking-[0.5em]">
-            Archived by Lza_km | BIOTEKNOLOGI IT DEL | Pict by Unsplash
-        </p>
-    </footer>
-
+    </div>
 </div>
-@endsection
 
+        </div>
+    </div>
+</div>
 
