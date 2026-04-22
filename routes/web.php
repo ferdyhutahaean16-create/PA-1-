@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Berita;
+use App\Models\Cooperation;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\ProfilController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\RuangKelasController;       // Controller publik
 use App\Http\Controllers\LaboratoriumController;
 use App\Http\Controllers\Admin\CooperationController as AdminCooperationController;
+use App\Http\Controllers\CooperationController;
 use App\Models\TenagaPendidik;
 
 // =====================
@@ -24,10 +26,14 @@ use App\Models\TenagaPendidik;
 // =====================
 
 Route::get('/', function () {
-    // Ambil 3 berita paling baru berdasarkan tanggal
+    // 1. Ambil 3 berita terbaru
     $beritas = Berita::orderBy('tanggal', 'desc')->take(3)->get();
-
-    return view('home', compact('beritas')); 
+    
+    // 2. Ambil 6 mitra terbaru
+    $mitras = Cooperation::orderBy('start_date', 'desc')->take(6)->get();
+    
+    // 3. Kirim KEDUA data (beritas dan mitras) ke halaman home
+    return view('home', compact('beritas', 'mitras')); 
 });
 
 // Rute untuk melihat semua berita
@@ -38,9 +44,7 @@ Route::get('/profil', function () {
     return view('profil', compact('profil'));
 });
 
-Route::get('/mitra', function () {
-    return view('mitra.index'); // Buat file index.blade.php di folder resources/views/mitra/
-})->name('mitra.index');
+Route::get('/mitra', [CooperationController::class, 'index'])->name('mitra.index');
 
 Route::get('/testimoni', function () {
     return view('testimoni.index'); // Buat file index.blade.php di folder resources/views/testimoni/

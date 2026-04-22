@@ -60,6 +60,14 @@
                     </div>
 
                     <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Ganti Logo Mitra</label>
+                        @if($cooperation->logo)
+                            <img src="{{ asset($cooperation->logo) }}" class="h-12 mb-2 object-contain">
+                        @endif
+                        <input type="file" name="logo" accept="image/*" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-[#1a4a38]">
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi Singkat Kerja Sama</label>
                         <textarea name="description" rows="3" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]">{{ $cooperation->description }}</textarea>
                     </div>

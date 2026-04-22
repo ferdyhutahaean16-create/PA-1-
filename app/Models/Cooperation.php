@@ -11,6 +11,7 @@ class Cooperation extends Model
 
     protected $fillable = [
         'partner_name', 
+        'logo', // TAMBAHKAN BARIS INI
         'type', 
         'start_date', 
         'end_date', 

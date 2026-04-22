@@ -253,4 +253,108 @@
     </div>
 </div>
 
+<div class="bg-white py-24">
+    <div class="container mx-auto px-6 max-w-6xl text-center">
+        <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">KOLABORASI</p>
+        <h2 class="text-3xl font-bold text-gray-800 mb-12">Mitra <span class="text-[#0b1320]">Kerja Sama</span></h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            @forelse($mitras as $mitra)
+            
+            <div x-data="{ openMitra: false }" class="relative">
+                
+                <div @click="openMitra = true" class="bg-gray-50 hover:bg-green-50 border border-gray-100 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group h-full">
+                    
+                    <div class="w-20 h-20 bg-white rounded-full shadow-sm flex items-center justify-center mb-4 group-hover:scale-110 transition-transform overflow-hidden p-3 border border-gray-100">
+                        @if($mitra->logo)
+                            <img src="{{ asset($mitra->logo) }}" alt="Logo {{ $mitra->partner_name }}" class="w-full h-full object-contain">
+                        @else
+                            @if($mitra->type == 'Industri')
+                                <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m3-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            @elseif($mitra->type == 'Pendidikan')
+                                <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+                            @else
+                                <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                            @endif
+                        @endif
+                    </div>
+                    
+                    <h3 class="text-sm font-extrabold text-gray-800 line-clamp-2 leading-tight">{{ $mitra->partner_name }}</h3>
+                </div>
+
+                <div x-show="openMitra" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm text-left">
+                    <div @click.away="openMitra = false" 
+                         x-show="openMitra" 
+                         x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0 transform scale-95"
+                         x-transition:enter-end="opacity-100 transform scale-100"
+                         class="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8">
+                        
+                        <button @click="openMitra = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+
+                        <div class="flex items-center gap-4 mb-6 border-b border-gray-100 pb-6">
+                            
+                            <div class="w-20 h-20 bg-gray-50 rounded-xl flex items-center justify-center shrink-0 overflow-hidden p-2 border border-gray-200">
+                                @if($mitra->logo)
+                                    <img src="{{ asset($mitra->logo) }}" alt="Logo {{ $mitra->partner_name }}" class="w-full h-full object-contain">
+                                @else
+                                    @if($mitra->type == 'Industri')
+                                        <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m3-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                    @elseif($mitra->type == 'Pendidikan')
+                                        <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+                                    @else
+                                        <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                                    @endif
+                                @endif
+                            </div>
+                            
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded bg-gray-100 text-gray-500 mb-1 inline-block">{{ $mitra->type }}</span>
+                                <h3 class="text-2xl font-extrabold text-gray-900 leading-tight">{{ $mitra->partner_name }}</h3>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm font-bold text-gray-800 mb-2">Deskripsi Kerja Sama:</p>
+                            <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                                {{ $mitra->description ?? 'Menjalin kolaborasi strategis dalam pengembangan pendidikan, penelitian, dan pengabdian kepada masyarakat.' }}
+                            </p>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-lg p-4 flex items-center justify-between border border-gray-100">
+                            <div>
+                                <p class="text-xs text-gray-500">Mulai Kerja Sama</p>
+                                <p class="text-sm font-bold text-gray-800">{{ \Carbon\Carbon::parse($mitra->start_date)->format('F Y') }}</p>
+                            </div>
+                            @if($mitra->document_file)
+                            <a href="{{ asset($mitra->document_file) }}" target="_blank" class="flex items-center gap-2 bg-[#1a4a38] text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-green-800 transition shadow-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                Lihat Dokumen
+                            </a>
+                            @endif
+                        </div>
+
+                    </div>
+                </div>
+                </div>
+            
+            @empty
+            <div class="col-span-2 md:col-span-3 lg:col-span-6 text-center py-10">
+                <p class="text-gray-500 italic">Belum ada data mitra.</p>
+            </div>
+            @endforelse
+        </div>
+
+        <div class="mt-12 text-center">
+            <a href="{{ route('mitra.index') }}" class="inline-flex items-center gap-2 text-[#1a4a38] font-bold hover:underline transition-all">
+                Lihat Semua Direktori Mitra 
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </a>
+        </div>
+
+    </div>
+</div>
+
 @endsection
