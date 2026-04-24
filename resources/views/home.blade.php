@@ -70,10 +70,11 @@
                 <div class="absolute -top-4 -left-4 w-24 h-24 bg-green-100 rounded-tl-3xl -z-10"></div>
                 <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-100 rounded-br-3xl -z-10"></div>
                 
-                <div class="bg-gray-50 rounded-3xl overflow-hidden aspect-[4/5] flex items-center justify-center relative shadow-lg border border-gray-100">
-                    <span class="text-gray-400 font-medium text-sm border-2 border-dashed border-gray-300 px-6 py-3 rounded-lg">
-                        📷 Mahasiswa Bioteknologi
-                    </span>
+                <div class="bg-gray-50 rounded-3xl overflow-hidden aspect-[1222/917] flex items-center justify-center relative shadow-lg border border-gray-100">
+    
+                    <img src="{{ asset('Adminlte/dist/img/kenapa_memilih.jpeg') }}" alt="Mahasiswa Bioteknologi IT Del" class="w-full h-full object-cover">
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 </div>
             </div>
 
@@ -91,20 +92,20 @@
                             <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </h3>
                         <p class="text-gray-500 text-sm leading-relaxed">
-                            Akses ke berbagai infrastruktur pendukung kampus yang nyaman dan modern.
+                            Kami memiliki berbagai fasilitas laboratorium mutakhir yang dapat menunjang aktivitas riset civitas akademika.
                         </p>
                     </a>
 
                     <a href="{{ route('fasilitas.ruang-kelas') }}" class="group block p-6 -m-6 rounded-2xl hover:bg-gray-50 border border-transparent hover:border-gray-100 hover:shadow-sm transition-all duration-300">
                         <div class="w-12 h-12 bg-[#1a4a38] text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"></path></svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1a4a38] transition-colors flex items-center gap-2">
                             Ruang Kelas
                             <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </h3>
                         <p class="text-gray-500 text-sm leading-relaxed">
-                            Lingkungan belajar kondusif dengan fasilitas multimedia lengkap untuk mendukung perkuliahan.
+                            Ruang kelas yang nyaman, modern, dan dilengkapi fasilitas multimedia interaktif untuk mendukung proses belajar mengajar.
                         </p>
                     </a>
 
@@ -117,20 +118,7 @@
                             <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </h3>
                         <p class="text-gray-500 text-sm leading-relaxed">
-                            Rekam jejak gemilang mahasiswa Bioteknologi di berbagai kompetisi nasional dan internasional.
-                        </p>
-                    </a>
-
-                    <a href="{{ route('lab.index') }}" class="group block p-6 -m-6 rounded-2xl hover:bg-gray-50 border border-transparent hover:border-gray-100 hover:shadow-sm transition-all duration-300">
-                        <div class="w-12 h-12 bg-[#1a4a38] text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4V5a2 2 0 00-2-2H9a2 2 0 00-2 2v1m4 6v6m0 0l-2-2m2 2l2-2"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1a4a38] transition-colors flex items-center gap-2">
-                            Laboratorium
-                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">
-                            Pusat riset mutakhir bioproses dan rekayasa genetika yang didukung peralatan standar industri.
+                            Telah meraih berbagai prestasi riset dan kompetisi inovasi mahasiswa baik di tingkat nasional maupun internasional.
                         </p>
                     </a>
 
