@@ -62,93 +62,131 @@
 </div>
 
 
-<div class="bg-white py-24">
+<div class="py-24 bg-white">
     <div class="container mx-auto px-6 max-w-6xl">
-        <div class="flex flex-col lg:flex-row items-center gap-16">
-            
-            <div class="w-full lg:w-1/2">
-                <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                    <img src="{{ asset('images/mahasiswa.jpg') }}" alt="Mahasiswa Bioteknologi" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500">
-                    <div class="absolute -z-10 -bottom-6 -left-6 w-full h-full bg-blue-50 rounded-2xl"></div>
-                </div>
-            </div>
+        <div class="flex flex-col lg:flex-row gap-16 items-center">
 
-            <div class="w-full lg:w-1/2">
-                <h2 class="text-4xl font-bold text-gray-800 mb-10">Mengapa <span class="text-[#0b1320]">Memilih</span> Kami?</h2>
+            <div class="w-full lg:w-5/12 relative">
+                <div class="absolute -top-4 -left-4 w-24 h-24 bg-green-100 rounded-tl-3xl -z-10"></div>
+                <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-100 rounded-br-3xl -z-10"></div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <div class="text-[#1a4a38] mb-4">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path></svg>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-2">Fasilitas</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed">Kami memiliki berbagai fasilitas laboratorium mutakhir yang dapat menunjang aktivitas riset civitas akademika.</p>
-                    </div>
-                    <div>
-                        <div class="text-[#1a4a38] mb-4">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-2">Inovasi</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed">Prodi kami terus berinovasi dalam riset bioproses, energi terbarukan, dan rekayasa genetika lingkungan.</p>
-                    </div>
-                    <div>
-                        <div class="text-[#1a4a38] mb-4">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 01.932.638l2.15 5.093 5.583.44a1 1 0 01.564 1.743l-4.225 3.731 1.25 5.46a1 1 0 01-1.492 1.082L10 17.317l-4.762 2.87a1 1 0 01-1.492-1.082l1.25-5.46-4.225-3.731a1 1 0 01.564-1.742l5.583-.44 2.15-5.093A1 1 0 0110 2z" clip-rule="evenodd"></path></svg>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-2">Prestasi</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed">Telah meraih berbagai prestasi riset dan kompetisi inovasi mahasiswa baik di tingkat nasional maupun internasional.</p>
-                    </div>
-                    <div>
-                        <div class="text-[#1a4a38] mb-4">
-                            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path></svg>
-                        </div>
-                        <h4 class="text-xl font-bold text-gray-800 mb-2">Beasiswa</h4>
-                        <p class="text-sm text-gray-500 leading-relaxed">Memiliki berbagai program beasiswa prestasi dan bantuan finansial. Klik di sini untuk informasi beasiswa.</p>
-                    </div>
+                <div class="bg-gray-50 rounded-3xl overflow-hidden aspect-[4/5] flex items-center justify-center relative shadow-lg border border-gray-100">
+                    <span class="text-gray-400 font-medium text-sm border-2 border-dashed border-gray-300 px-6 py-3 rounded-lg">
+                        📷 Mahasiswa Bioteknologi
+                    </span>
                 </div>
             </div>
 
+            <div class="w-full lg:w-7/12">
+                <h2 class="text-4xl font-extrabold text-[#0b1320] mb-12">Mengapa Memilih Kami?</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
+
+                    <a href="{{ url('/fasilitas') }}" class="group block p-6 -m-6 rounded-2xl hover:bg-gray-50 border border-transparent hover:border-gray-100 hover:shadow-sm transition-all duration-300">
+                        <div class="w-12 h-12 bg-[#1a4a38] text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m3-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1a4a38] transition-colors flex items-center gap-2">
+                            Fasilitas
+                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            Akses ke berbagai infrastruktur pendukung kampus yang nyaman dan modern.
+                        </p>
+                    </a>
+
+                    <a href="{{ route('fasilitas.ruang-kelas') }}" class="group block p-6 -m-6 rounded-2xl hover:bg-gray-50 border border-transparent hover:border-gray-100 hover:shadow-sm transition-all duration-300">
+                        <div class="w-12 h-12 bg-[#1a4a38] text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1a4a38] transition-colors flex items-center gap-2">
+                            Ruang Kelas
+                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            Lingkungan belajar kondusif dengan fasilitas multimedia lengkap untuk mendukung perkuliahan.
+                        </p>
+                    </a>
+
+                    <a href="{{ url('/prestasi/mahasiswa') }}" class="group block p-6 -m-6 rounded-2xl hover:bg-gray-50 border border-transparent hover:border-gray-100 hover:shadow-sm transition-all duration-300">
+                        <div class="w-12 h-12 bg-[#1a4a38] text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1a4a38] transition-colors flex items-center gap-2">
+                            Prestasi
+                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            Rekam jejak gemilang mahasiswa Bioteknologi di berbagai kompetisi nasional dan internasional.
+                        </p>
+                    </a>
+
+                    <a href="{{ route('lab.index') }}" class="group block p-6 -m-6 rounded-2xl hover:bg-gray-50 border border-transparent hover:border-gray-100 hover:shadow-sm transition-all duration-300">
+                        <div class="w-12 h-12 bg-[#1a4a38] text-white rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4V5a2 2 0 00-2-2H9a2 2 0 00-2 2v1m4 6v6m0 0l-2-2m2 2l2-2"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#1a4a38] transition-colors flex items-center gap-2">
+                            Laboratorium
+                            <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </h3>
+                        <p class="text-gray-500 text-sm leading-relaxed">
+                            Pusat riset mutakhir bioproses dan rekayasa genetika yang didukung peralatan standar industri.
+                        </p>
+                    </a>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 
-<div class="bg-gray-50 py-24">
-    <div class="container mx-auto px-6 max-w-5xl text-center">
-        <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">INFORMASI</p>
-        <h2 class="text-4xl font-bold text-gray-800 mb-16">Penerimaan <span class="text-[#0b1320]">Mahasiswa</span> Baru</h2>
+<div class="bg-white py-24 relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gray-50 rounded-full blur-3xl opacity-50 -z-10"></div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0">
+    <div class="container mx-auto px-6 max-w-5xl relative z-10">
+        <div class="text-center mb-16">
+            <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Pusat Informasi</p>
+            <h2 class="text-3xl font-extrabold text-gray-900">Langkah Menuju <span class="text-[#1a4a38]">Masa Depan</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
-            <div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] pt-12 pb-8 px-6 relative flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
-                <div class="w-20 h-20 mb-6 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <a href="https://semat.del.ac.id/admisi" target="_blank" class="group relative bg-white border border-gray-200 rounded-3xl p-10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col items-center text-center">
+                <div class="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div class="relative w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#1a4a38] transition-all duration-500 shadow-inner">
+                    <svg class="w-10 h-10 text-[#1a4a38] group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7"></path></svg>
                 </div>
-                <h3 class="text-lg font-bold text-gray-800 mb-4">Panduan Pendaftaran</h3>
-                <a href="#" class="absolute -bottom-6 w-12 h-12 bg-[#0b1320] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
-            </div>
 
-            <div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] pt-12 pb-8 px-6 relative flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
-                <div class="w-20 h-20 mb-6 bg-purple-50 text-purple-500 rounded-2xl flex items-center justify-center">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                </div>
-                <h3 class="text-lg font-bold text-gray-800 mb-4">Biaya Pendidikan</h3>
-                <a href="#" class="absolute -bottom-6 w-12 h-12 bg-[#0b1320] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
-            </div>
+                <h3 class="relative text-2xl font-extrabold text-gray-900 mb-4 group-hover:text-[#1a4a38] transition-colors">Penerimaan Mahasiswa Baru</h3>
+                <p class="relative text-gray-500 leading-relaxed mb-8">
+                    Temukan informasi lengkap mengenai jalur pendaftaran, syarat, panduan, dan biaya pendidikan di Program Studi Bioteknologi IT Del.
+                </p>
 
-            <div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] pt-12 pb-8 px-6 relative flex flex-col items-center hover:-translate-y-2 transition-transform duration-300">
-                <div class="w-20 h-20 mb-6 bg-green-50 text-green-500 rounded-2xl flex items-center justify-center">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                <div class="relative mt-auto inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-900 text-white group-hover:bg-[#1a4a38] group-hover:w-full transition-all duration-500 overflow-hidden">
+                    <span class="absolute left-6 opacity-0 group-hover:opacity-100 font-bold tracking-wide transition-opacity duration-500 whitespace-nowrap">Lihat Informasi Detail</span>
+                    <svg class="w-5 h-5 absolute right-3.5 group-hover:right-6 transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </div>
-                <h3 class="text-lg font-bold text-gray-800 mb-4">Syarat Pendaftaran</h3>
-                <a href="#" class="absolute -bottom-6 w-12 h-12 bg-[#0b1320] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
-            </div>
+            </a>
+
+            <a href="https://semat.del.ac.id/beasiswa" target="_blank" class="group relative bg-white border border-gray-200 rounded-3xl p-10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col items-center text-center">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div class="relative w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-blue-600 transition-all duration-500 shadow-inner">
+                    <svg class="w-10 h-10 text-blue-600 group-hover:text-white transition-colors duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+
+                <h3 class="relative text-2xl font-extrabold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">Informasi Beasiswa</h3>
+                <p class="relative text-gray-500 leading-relaxed mb-8">
+                    Jelajahi berbagai peluang beasiswa internal maupun eksternal untuk mendukung perjalanan akademik Anda bersama kami.
+                </p>
+
+                <div class="relative mt-auto inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-900 text-white group-hover:bg-blue-600 group-hover:w-full transition-all duration-500 overflow-hidden">
+                    <span class="absolute left-6 opacity-0 group-hover:opacity-100 font-bold tracking-wide transition-opacity duration-500 whitespace-nowrap">Lihat Program Beasiswa</span>
+                    <svg class="w-5 h-5 absolute right-3.5 group-hover:right-6 transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </div>
+            </a>
 
         </div>
     </div>
@@ -243,6 +281,65 @@
             <a href="{{ route('berita.lengkap') }}" class="inline-flex items-center gap-3 bg-white text-[#1a4a38] border-2 border-[#1a4a38] px-10 py-3 rounded-full font-bold shadow-sm hover:bg-[#1a4a38] hover:text-white transition-all duration-300 group">
                 Lihat Semua Berita
                 <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<div class="bg-[#0b1320] py-24 relative overflow-hidden">
+    <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-green-900 rounded-full blur-3xl opacity-20"></div>
+    <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-64 h-64 bg-blue-900 rounded-full blur-3xl opacity-20"></div>
+
+    <div class="container mx-auto px-6 max-w-6xl relative z-10">
+        <div class="text-center mb-16">
+            <p class="text-sm font-bold text-yellow-400 uppercase tracking-widest mb-2">Kisah Sukses</p>
+            <h2 class="text-3xl font-bold text-white mb-4">Suara <span class="text-green-400">Alumni</span></h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">Mendengar langsung pengalaman dan perjalanan karir para lulusan Program Studi Bioteknologi Institut Teknologi Del.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @forelse($testimonials as $testimoni)
+            <div class="bg-[#111d32] border border-gray-800 rounded-2xl p-8 hover:-translate-y-2 transition-transform duration-300 flex flex-col shadow-2xl relative">
+                
+                <div class="absolute top-6 right-8 text-gray-700 opacity-30">
+                    <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                </div>
+
+                <p class="text-gray-300 leading-relaxed mb-8 flex-1 relative z-10 italic">
+                    "{{ Str::limit($testimoni->testimony, 180) }}"
+                </p>
+
+                <div class="flex items-center gap-4 mt-auto pt-6 border-t border-gray-700">
+                    <div class="w-14 h-14 bg-gray-800 rounded-full border-2 border-green-500 flex items-center justify-center shrink-0 overflow-hidden">
+                        @if($testimoni->photo)
+                            <img src="{{ asset($testimoni->photo) }}" alt="{{ $testimoni->name }}" class="w-full h-full object-cover">
+                        @else
+                            <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        @endif
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">{{ $testimoni->name }}</h4>
+                        <p class="text-xs text-green-400 font-semibold mb-1">Alumni {{ $testimoni->graduation_year }}</p>
+                        @if($testimoni->position || $testimoni->workplace)
+                            <p class="text-xs text-gray-400">
+                                {{ $testimoni->position }}{{ $testimoni->position && $testimoni->workplace ? ' di ' : '' }}{{ $testimoni->workplace }}
+                            </p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="col-span-3 text-center py-16 bg-[#111d32] rounded-2xl border border-gray-800 border-dashed">
+                <p class="text-gray-500 italic">Belum ada cerita alumni yang dibagikan.</p>
+            </div>
+            @endforelse
+        </div>
+
+        <div class="mt-16 text-center">
+            <a href="{{ route('publik.testimoni') }}" class="inline-flex items-center gap-3 bg-transparent text-white border-2 border-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-[#0b1320] transition-colors duration-300">
+                Lihat Semua Testimoni
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
         </div>
 

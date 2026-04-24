@@ -82,7 +82,7 @@
                         Mitra Kerja Sama
                     </a>
                     
-                    <a href="{{ url('/testimoni') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 text-sm font-bold transition">
+                    <a href="{{ route('publik.testimoni') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 text-sm font-bold transition">
                         Testimoni Alumni
                     </a>
             

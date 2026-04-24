@@ -73,13 +73,33 @@
             <a href="{{ route('berita.index') }}" class="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-white rounded-lg transition-colors">
                 Kelola Berita Utama
             </a>
+            <a href="{{ route('testimoni.index') }}" class="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-white rounded-lg transition-colors">
+                Testimoni Alumni
+            </a>
 
         </div>
 
-        <div class="p-4 border-t border-gray-800 bg-[#0f172a]">
-            <a href="{{ url('/') }}" class="block w-full py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white text-center text-sm font-bold rounded-lg shadow-md transition-colors">
-                Kembali ke Web
+        <div class="p-4 border-t border-gray-800 bg-[#0b1320] flex flex-col gap-3">
+            
+            @auth
+            <div class="px-2 pb-2 border-b border-gray-800">
+                <p class="text-[10px] text-gray-500 uppercase tracking-widest">Logged in as</p>
+                <p class="text-sm font-bold text-[#22c55e] truncate">{{ Auth::user()->name }}</p>
+            </div>
+            @endauth
+
+            <a href="{{ url('/') }}" target="_blank" class="flex items-center justify-center gap-2 w-full py-2 px-4 bg-gray-800 hover:bg-gray-700 text-gray-300 text-center text-sm font-bold rounded-lg transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                Lihat Web
             </a>
+
+            <form action="{{ route('logout') }}" method="POST" class="w-full">
+                @csrf
+                <button type="submit" class="flex items-center justify-center gap-2 w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white text-center text-sm font-bold rounded-lg shadow-md transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    Logout
+                </button>
+            </form>
         </div>
 
     </aside>
