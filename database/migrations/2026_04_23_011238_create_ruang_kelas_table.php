@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('beritas', function (Blueprint $table) {
+        Schema::create('ruang_kelas', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_ruangan'); // Tambahkan nama ruangan
+            $table->text('deskripsi')->nullable(); 
+            $table->string('hari_akademik')->nullable(); // Kolom yang tadi bikin error duplikat
+            $table->string('foto')->nullable(); // Biasanya butuh foto untuk PA
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('beritas');
+        Schema::dropIfExists('ruang_kelas');
     }
 };
