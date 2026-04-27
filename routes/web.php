@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Models\Berita;
+use App\Models\Cooperation;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\ProfilController;
@@ -16,7 +18,20 @@ use App\Http\Controllers\PeminjamanLabController;
 use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\RuangKelasController;       // Controller publik
 use App\Http\Controllers\LaboratoriumController;
+use App\Http\Controllers\Admin\CooperationController as AdminCooperationController;
+use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
+use App\Http\Controllers\CooperationController;
+use App\Models\Testimonial;
+use App\Http\Controllers\TestimonialController;
 use App\Models\TenagaPendidik;
+
+
+// ==========================================
+// RUTE LOGIN & LOGOUT
+// ==========================================
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // =====================
 // HALAMAN PUBLIK
@@ -24,10 +39,17 @@ use App\Models\TenagaPendidik;
 
 // HOME
 Route::get('/', function () {
-    // Ambil 3 berita paling baru berdasarkan tanggal
+    // 1. Ambil 3 berita terbaru
     $beritas = Berita::orderBy('tanggal', 'desc')->take(3)->get();
+    
+    // 2. Ambil 6 mitra terbaru
+    $mitras = Cooperation::orderBy('start_date', 'desc')->take(6)->get();
 
-    return view('home', compact('beritas')); 
+    // 3. Ambil 3 testimoni terbaru
+    $testimonials = Testimonial::orderBy('created_at', 'desc')->take(3)->get();
+    
+    // Kirim semua data ke halaman home
+    return view('home', compact('beritas', 'mitras', 'testimonials')); 
 });
 
 // Rute untuk melihat semua berita
@@ -37,6 +59,10 @@ Route::get('/profil', function () {
     $profil = \App\Models\Profil::first();
     return view('profil', compact('profil'));
 });
+
+Route::get('/mitra', [CooperationController::class, 'index'])->name('mitra.index');
+
+Route::get('/kisah-alumni', [App\Http\Controllers\TestimonialController::class, 'index'])->name('publik.testimoni');
 
 Route::get('/struktur', function () {
     $profil   = \App\Models\Profil::first();
@@ -125,7 +151,7 @@ Route::prefix('laboratorium')->group(function () {
 // =====================
 // ADMIN PANEL
 // =====================
-Route::prefix('admin')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     });
@@ -143,5 +169,7 @@ Route::prefix('admin')->group(function () {
     // ... (rute admin peminjaman sebelumnya)
     Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('admin.peminjaman.cetak');
     Route::resource('laboratorium', AdminLaboratoriumController::class);
+    Route::resource('testimoni', App\Http\Controllers\Admin\TestimonialController::class);
+    Route::resource('cooperation', AdminCooperationController::class);
     Route::resource('berita', AdminBeritaController::class);
 });
