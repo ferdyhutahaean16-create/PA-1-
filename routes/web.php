@@ -37,7 +37,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // HALAMAN PUBLIK
 // =====================
 
-// HOME
 Route::get('/', function () {
     // 1. Ambil 3 berita terbaru
     $beritas = Berita::orderBy('tanggal', 'desc')->take(3)->get();
