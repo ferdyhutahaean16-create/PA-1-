@@ -125,7 +125,7 @@ Route::prefix('kegiatan')->group(function () {
 // FASILITAS (PUBLIK)
 // =====================
 Route::get('/fasilitas', function () {
-    // Ambil data ruang kelas untuk ditampilkan
+    // Ambil data ruang kelas untuk ditampilkan--
     $ruang_kelas = \App\Models\RuangKelas::orderBy('nama_ruangan', 'asc')->get();
     return view('fasilitas', compact('ruang_kelas'));
 });
