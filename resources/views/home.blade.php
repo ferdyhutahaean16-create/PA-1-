@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Beranda - Prodi Bioteknologi IT Del')
+@section('title', 'Home')
 
 @section('content')
 

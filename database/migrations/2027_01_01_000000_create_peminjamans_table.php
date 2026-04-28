@@ -9,30 +9,37 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
-{
-    Schema::create('peminjamans', function (Blueprint $table) {
-        $table->id();
-        $table->string('nim_mahasiswa');
-        $table->string('nama_mahasiswa');
-        
-        // Berelasi dengan tabel laboratorium (barang yang dipinjam)
-        $table->foreignId('laboratorium_id')->constrained('laboratoria')->onDelete('cascade');
-        
-        $table->date('tanggal_peminjaman');
-        $table->date('tanggal_kembali');
-        // Status untuk fitur Approve/Reject
-        $table->enum('status_peminjaman', ['Pending', 'Disetujui', 'Ditolak', 'Dikembalikan'])->default('Pending');
-        $table->text('catatan_admin')->nullable(); // Alasan jika ditolak
-        $table->timestamps();
-    });
-}
+    public function up(): void
+    {
+        Schema::create('peminjamans', function (Blueprint $table) {
+            $table->id();
+            $table->string('nim_mahasiswa');
+            $table->string('nama_mahasiswa');
+            
+            // Menggunakan unsignedBigInteger untuk memastikan tipenya persis sama dengan id tabel laboratoria
+            $table->unsignedBigInteger('laboratorium_id');
+            
+            $table->date('tanggal_peminjaman');
+            $table->date('tanggal_kembali');
+            
+            // Status untuk fitur Approve/Reject
+            $table->enum('status_peminjaman', ['Pending', 'Disetujui', 'Ditolak', 'Dikembalikan'])->default('Pending');
+            $table->text('catatan_admin')->nullable(); 
+            $table->timestamps();
+
+            // Mendefinisikan foreign key secara manual untuk menghindari error otomatis Laravel
+            $table->foreign('laboratorium_id')
+                  ->references('id')
+                  ->on('laboratoria')
+                  ->onDelete('cascade');
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('peminjamen');
+        Schema::dropIfExists('peminjamans');
     }
 };

@@ -4,19 +4,21 @@
         <a href="/" class="flex items-center gap-3">
             <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" alt="Logo" class="h-12 w-auto">
             <div class="hidden md:block">
-                <p class="text-xs font-bold text-gray-300 tracking-widest uppercase mb-0.5">Institut Teknologi Del</p>
-                <h1 class="text-lg font-bold text-white hover:text-yellow-400 transition">PRODI BIOTEKNOLOGI</h1>
+                <p class="text-xs font-bold text-gray-500 tracking-widest uppercase mb-0.5">Institut Teknologi Del</p>
+                <h1 class="text-lg font-bold text-emerald-700 leading-none uppercase">Prodi Bioteknologi</h1>
             </div>
         </a>
 
-        <div class="hidden lg:flex items-center gap-6 font-bold text-white text-sm uppercase tracking-wide">
+        <div class="hidden lg:flex items-center gap-6 font-bold text-emerald-900 text-sm uppercase tracking-wide">
             
             <a href="/" class="hover:text-yellow-400 transition">BERANDA</a>
 
             <div class="group relative py-6">
-                <button class="flex items-center gap-1 hover:text-yellow-400 transition uppercase font-bold tracking-wide text-sm">
+                <button class="flex items-center gap-1 transition {{ request()->is('profil*') ? 'text-emerald-700 font-extrabold border-b-2 border-emerald-700' : 'hover:text-emerald-600' }}">
                     PROFIL 
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
                 </button>
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-yellow-400 min-w-[220px] top-full left-0 z-50 rounded-b-md overflow-hidden">
                     <a href="/profil" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-green-800 border-b border-gray-100 text-sm font-bold transition">Tentang Program Studi</a>
@@ -25,11 +27,20 @@
                 </div>
             </div>
 
-            <a href="/tenaga-pendidik" class="hover:text-yellow-400 transition">TENAGA PENDIDIK</a>
+            <a href="/berita" class="transition py-6 {{ request()->is('berita*') ? 'text-emerald-700 font-extrabold border-b-2 border-emerald-700' : 'hover:text-emerald-600' }}">
+                BERITA
+            </a>
+
+            <a href="/tenaga" class="transition py-6 {{ request()->is('tenaga*') ? 'text-emerald-700 font-extrabold border-b-2 border-emerald-700' : 'hover:text-emerald-600' }}">
+                TENAGA PENGAJAR
+            </a>
             
             <div class="group relative py-6">
-                <button class="flex items-center gap-1 hover:text-yellow-400 transition uppercase font-bold tracking-wide text-sm">
-                    PRESTASI <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <button class="flex items-center gap-1 transition {{ request()->is('prestasi*') ? 'text-emerald-700 font-extrabold border-b-2 border-emerald-700' : 'hover:text-emerald-600' }}">
+                    PRESTASI 
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
                 </button>
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-yellow-400 min-w-[200px] top-full left-0 z-50">
                     <a href="/prestasi/dosen" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">Prestasi Dosen</a>
@@ -38,8 +49,11 @@
             </div>
 
             <div class="group relative py-6">
-                <button class="flex items-center gap-1 hover:text-yellow-400 transition uppercase font-bold tracking-wide text-sm">
-                    KEGIATAN <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <button class="flex items-center gap-1 transition {{ request()->is('kegiatan*') ? 'text-emerald-700 font-extrabold border-b-2 border-emerald-700' : 'hover:text-emerald-600' }}">
+                    KEGIATAN 
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
                 </button>
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-yellow-400 min-w-[240px] top-full left-0 z-50">
                     <a href="{{ url('/kegiatan/dosen') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 border-b border-gray-100 text-sm transition">PENGABDIAN DOSEN (PKM)</a>
@@ -91,10 +105,10 @@
 
         </div>
 
-        <div class="hidden lg:flex items-center gap-4">
-            
-            <button class="text-white hover:text-yellow-400 transition transform hover:scale-110">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <button class="text-gray-400 hover:text-emerald-700 ml-4 transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
             </button>
 
             <div class="h-6 w-px bg-white/40"></div>
@@ -107,8 +121,10 @@
         </div>
 
         <div class="lg:hidden">
-            <button class="text-white hover:text-yellow-400 transition">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <button class="text-emerald-700">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
             </button>
         </div>
 

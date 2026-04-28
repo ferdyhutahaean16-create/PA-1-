@@ -10,7 +10,6 @@
         <h1 class="text-3xl md:text-4xl font-bold text-[#1a4a38] mb-3 uppercase tracking-wide">Laboratorium Terpadu</h1>
         <p class="text-gray-600 max-w-2xl mx-auto">Informasi fasilitas riset dan layanan administrasi peminjaman untuk sivitas akademika Program Studi Bioteknologi.</p>
     </div>
-</div>
 
 <div class="container mx-auto px-6 py-16 max-w-5xl min-h-screen">
     
@@ -118,4 +117,11 @@
     </div>
 
 </div>
+
+<style>
+    .text-outline {
+        -webkit-text-stroke: 1px rgba(255,255,255,0.5);
+        color: transparent;
+    }
+</style>
 @endsection
