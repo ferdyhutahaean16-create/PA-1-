@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nim_mahasiswa');
             $table->string('nama_mahasiswa');
             
-            // Menggunakan unsignedBigInteger untuk memastikan tipenya persis sama dengan id tabel laboratoria
+            // Menggunakan unsignedBigInteger untuk memastikan tipenya persis sama dengan id tabel laboratoriums
             $table->unsignedBigInteger('laboratorium_id');
             
             $table->date('tanggal_peminjaman');
@@ -30,7 +30,7 @@ return new class extends Migration
             // Mendefinisikan foreign key secara manual untuk menghindari error otomatis Laravel
             $table->foreign('laboratorium_id')
                   ->references('id')
-                  ->on('laboratoria')
+                  ->on('laboratoriums')
                   ->onDelete('cascade');
         });
     }

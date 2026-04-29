@@ -9,8 +9,8 @@ class BeritaController extends Controller
 {
     public function index()
     {
-        // Mengambil semua berita dengan pagination (9 berita per halaman)
-        $berita = Berita::latest()->limit(3)->get(); // Default menggunakan 'created_at'
+        // Mengambil berita terbaru dengan pagination (9 per halaman)
+        $beritas = Berita::orderBy('tanggal', 'desc')->paginate(9);
         return view('berita.index', compact('beritas'));
     }
 }

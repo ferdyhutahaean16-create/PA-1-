@@ -54,6 +54,11 @@ Route::get('/', function () {
 // Rute untuk melihat semua berita
 Route::get('/berita-lengkap', [BeritaController::class, 'index'])->name('berita.lengkap');
 
+// Alias used by the nav: `/berita` -> `/berita-lengkap`
+Route::get('/berita', function () {
+    return redirect('/berita-lengkap');
+});
+
 Route::get('/profil', function () {
     $profil = \App\Models\Profil::first();
     return view('profil', compact('profil'));
@@ -80,6 +85,11 @@ Route::get('/kurikulum', function () {
 Route::get('/tenaga-pendidik', function () {
     $tenaga_pendidiks = TenagaPendidik::all();
     return view('tenaga_pendidik', compact('tenaga_pendidiks'));
+});
+
+// Alias route used by the nav: keep backwards-compatible `/tenaga`
+Route::get('/tenaga', function () {
+    return redirect('/tenaga-pendidik');
 });
 
 // =====================
