@@ -1,98 +1,86 @@
 @extends('layouts.main')
 
-@section('title', 'Form Pengambilan Bahan')
+@section('title', 'Form Pengambilan Bahan - Clean Professional')
 
 @section('content')
-
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<div class="container mx-auto px-6 py-12 max-w-5xl">
-    <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
-        <div class="bg-purple-800 p-8 text-white text-center">
-            <h2 class="text-2xl font-bold uppercase">Bon Pengambilan Bahan</h2>
-            <p class="text-purple-200 mt-1 italic">Program Studi Teknik Bioproses / Bioteknologi - Institut Teknologi Del</p>
-        </div>
+<style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1e293b; }
+    .card-container { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+    .input-clean { border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 14px; transition: all 0.2s; font-size: 0.875rem; }
+    .input-clean:focus { border-color: #6b21a8; outline: none; box-shadow: 0 0 0 3px rgba(107, 33, 168, 0.1); }
+    .label-clean { font-size: 0.813rem; font-weight: 600; color: #475569; margin-bottom: 6px; display: block; }
+</style>
 
-        <form action="{{ route('lab.pinjam.store') }}" method="POST" class="p-8">
+<div class="min-h-screen py-12 px-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold text-slate-800 mb-8">Bon Pengambilan Bahan</h1>
+
+        <form action="{{ route('lab.pinjam.store') }}" method="POST">
             @csrf
             <input type="hidden" name="jenis_form" value="Bahan">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">1. Judul Penelitian</label>
-                        <input type="text" name="judul_penelitian" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">2. Laboratorium yang Digunakan</label>
-                        <select name="laboratorium" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-purple-500" required>
-                            <option value="">-- Pilih Laboratorium --</option>
-                            <option value="Lab Biologi Dasar">Lab Biologi Dasar</option>
-                            <option value="Lab Mikrobiologi">Lab Mikrobiologi</option>
-                            <option value="Lab Kimia Dasar">Lab Kimia Dasar</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">3. Nama Peminjam / NIM</label>
-                        <div class="flex gap-2">
-                            <input type="text" name="nama_peminjam" placeholder="Nama Lengkap" class="w-2/3 border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500" required>
-                            <input type="text" name="nim" placeholder="NIM" class="w-1/3 border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500" required>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">4. Prodi / Instansi</label>
-                        <input type="text" name="prodi" value="Teknik Bioteknologi" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500">
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-8" x-data="{ items: [{ nama: '', jumlah: '', harga: '' }] }">
-                <label class="block text-sm font-bold text-gray-700 mb-4">5. Daftar Bahan yang Dipakai :</label>
+            <!-- Section 1: Identitas -->
+            <div class="card-container p-8 mb-6">
+                <p class="text-sm text-slate-500 mb-6">Lengkapi informasi pemohon untuk pengambilan bahan habis pakai.</p>
                 
-                <div class="overflow-x-auto">
-                    <table class="w-full border-collapse border border-gray-200 rounded-lg">
-                        <thead class="bg-gray-50 text-gray-700 text-xs uppercase">
-                            <tr>
-                                <th class="border p-3 text-left">Nama Bahan</th>
-                                <th class="border p-3 w-32">Jumlah</th>
-                                <th class="border p-3 w-40">Harga (Opsional)</th>
-                                <th class="border p-3 w-16 text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <template x-for="(item, index) in items" :key="index">
-                                <tr>
-                                    <td class="border p-2">
-                                        <input type="text" x-model="item.nama" :name="'items['+index+'][nama]'" placeholder="Misal: Etanol 96%" required class="w-full border-0 focus:ring-0 text-sm">
-                                    </td>
-                                    <td class="border p-2">
-                                        <input type="number" x-model="item.jumlah" :name="'items['+index+'][jumlah]'" placeholder="Misal: 2" required class="w-full border-0 focus:ring-0 text-sm text-center">
-                                    </td>
-                                    <td class="border p-2">
-                                        <input type="text" x-model="item.harga" :name="'items['+index+'][harga]'" placeholder="Rp..." class="w-full border-0 focus:ring-0 text-sm">
-                                    </td>
-                                    <td class="border p-2 text-center">
-                                        <button type="button" @click="items.splice(index, 1)" x-show="items.length > 1" class="text-red-500 hover:text-red-700">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label class="label-clean">Nama Lengkap Anda</label>
+                        <input type="text" name="nama_peminjam" placeholder="Masukkan nama sesuai KTM" class="input-clean w-full" required>
+                    </div>
+                    <div>
+                        <label class="label-clean">NIM</label>
+                        <input type="text" name="nim" placeholder="Contoh: 11S22001" class="input-clean w-full" required>
+                    </div>
+                    <div>
+                        <label class="label-clean">Program Studi</label>
+                        <input type="text" name="prodi" value="Teknik Bioteknologi" class="input-clean w-full bg-slate-50 text-slate-500" readonly>
+                    </div>
                 </div>
-
-                <button type="button" @click="items.push({ nama: '', jumlah: '', harga: '' })" class="mt-4 flex items-center gap-2 text-sm text-purple-700 font-bold hover:text-purple-800">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                    Tambah Bahan Lagi
-                </button>
             </div>
 
-            <div class="flex justify-end pt-6 border-t border-gray-100">
-                <button type="submit" class="bg-purple-800 text-white px-10 py-3 rounded-xl font-bold shadow-lg hover:bg-purple-900 transition transform hover:-translate-y-1">
-                    Kirim Permohonan Bahan
+            <!-- Section 2: Keperluan -->
+            <div class="card-container p-8 mb-6">
+                <label class="label-clean">Keperluan Penggunaan Bahan</label>
+                <textarea name="judul_penelitian" rows="3" placeholder="Jelaskan alasan pengambilan bahan (misal: Praktikum Mikrobiologi)..." class="input-clean w-full" required></textarea>
+            </div>
+
+            <!-- Section 3: Daftar Bahan -->
+            <div class="card-container p-8 mb-8" x-data="{ items: [{ nama: '', jumlah: '' }] }">
+                <div class="flex justify-between items-center mb-6">
+                    <label class="label-clean !mb-0">Daftar Bahan / Reagen</label>
+                    <button type="button" @click="items.push({ nama: '', jumlah: '' })" class="text-xs font-bold text-purple-700 hover:text-purple-800 flex items-center gap-1 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        Tambah Bahan
+                    </button>
+                </div>
+
+                <div class="space-y-4">
+                    <template x-for="(item, index) in items" :key="index">
+                        <div class="flex flex-col md:flex-row gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100 relative">
+                            <div class="flex-grow">
+                                <label class="text-[10px] uppercase font-bold text-slate-400 mb-1 block">Nama Bahan</label>
+                                <input type="text" x-model="item.nama" :name="'items['+index+'][nama]'" placeholder="Contoh: Etanol 96% atau Media Agar" class="input-clean w-full !bg-white" required>
+                            </div>
+                            <div class="w-full md:w-64">
+                                <label class="text-[10px] uppercase font-bold text-slate-400 mb-1 block text-center">Jumlah / Volume</label>
+                                <input type="text" x-model="item.jumlah" :name="'items['+index+'][jumlah]'" placeholder="Contoh: 500 ml / 1 Pack" class="input-clean w-full text-center !bg-white" required>
+                            </div>
+                            <button type="button" @click="items.splice(index, 1)" x-show="items.length > 1" class="absolute -right-2 -top-2 bg-white border border-slate-200 text-red-400 hover:text-red-600 rounded-full p-1 shadow-sm transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="bg-purple-800 text-white px-10 py-3 rounded-lg font-bold shadow-sm hover:shadow-md transition transform active:scale-95">
+                    Kirim Permohonan
                 </button>
             </div>
         </form>

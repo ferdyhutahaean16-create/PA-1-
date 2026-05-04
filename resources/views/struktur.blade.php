@@ -1,51 +1,99 @@
-@extends('layouts.main') @section('title', 'Struktur Organisasi')
+@extends('layouts.main')
+@section('title', 'Struktur Organisasi')
 
 @section('content')
-<div class="py-16 bg-gray-50 min-h-screen">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+    --forest: #1a4a38;
+    --forest-dark: #0c241c;
+    --forest-light: #2f7a5a;
+    --gold: #c6a54a;
+    --soft-bg: #f5f7f6;
+}
+
+.font-serif { font-family: 'Cormorant Garamond', serif; }
+.font-sans { font-family: 'Jost', sans-serif; }
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.org-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.org-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(26, 74, 56, 0.1);
+}
+
+/* Garis penghubung antar level */
+.connector-line {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+}
+</style>
+
+<div class="py-20 bg-[var(--soft-bg)] min-h-screen font-sans">
     <div class="container mx-auto px-6">
         
-        <div class="text-center mb-16">
-            <h1 class="text-4xl font-bold text-green-800 mb-4">Struktur Organisasi</h1>
-            <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+        <!-- HEADER -->
+        <div class="text-center mb-20">
+            <span class="text-[var(--gold)] tracking-[0.4em] uppercase text-xs font-bold mb-4 block">Tata Kelola Prodi</span>
+            <h1 class="text-5xl font-serif text-[var(--forest-dark)] mb-6">Struktur Organisasi</h1>
+            <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mb-6"></div>
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
                 Struktur organisasi kami dirancang untuk memastikan tata kelola yang transparan, efisien, dan kolaboratif demi mendukung visi menjadi program studi unggulan.
             </p>
         </div>
 
-        <div class="flex flex-col items-center space-y-12 overflow-x-auto pb-10">
+        <div class="flex flex-col items-center space-y-0">
 
             @if($struktur->isEmpty())
-                <div class="bg-yellow-50 text-yellow-800 p-6 rounded-lg border border-yellow-200">
-                    <p class="text-center font-semibold">Bagan belum tersedia. Admin belum memasukkan data struktur organisasi.</p>
+                <div class="glass-card text-[var(--forest)] p-10 rounded-3xl border border-[var(--forest)]/20 shadow-sm">
+                    <p class="text-center font-medium italic">Data struktur organisasi belum tersedia saat ini.</p>
                 </div>
             @else
                 
                 @for($i = 1; $i <= 4; $i++)
                     @php 
-                        // Menyaring data hanya untuk level yang sedang di-looping
                         $levelItems = $struktur->where('level', $i); 
                     @endphp
 
                     @if($levelItems->count() > 0)
-                        <div class="flex flex-wrap justify-center gap-8 relative w-full max-w-6xl">
+                        <div class="flex flex-wrap justify-center gap-10 relative w-full max-w-7xl py-8">
                             
                             @foreach($levelItems as $item)
-                                <div class="bg-[#0070c0] text-white rounded-xl shadow-xl w-64 flex flex-col items-center p-6 text-center z-10 transition-transform duration-300 hover:-translate-y-2 border-b-4 border-green-600">
+                                <div class="org-card glass-card rounded-[2.5rem] w-72 flex flex-col items-center p-8 text-center z-10 shadow-sm border-b-4 border-[var(--gold)]">
                                     
-                                    @if($item->foto)
-                                        <img src="{{ asset($item->foto) }}" alt="{{ $item->nama }}" class="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md mb-5 bg-white">
-                                    @else
-                                        <div class="w-28 h-28 rounded-full bg-blue-400 border-4 border-white flex items-center justify-center mb-5 shadow-md">
-                                            <svg class="w-12 h-12 text-white/70" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                                    <!-- Foto Frame -->
+                                    <div class="relative mb-6">
+                                        @if($item->foto)
+                                            <img src="{{ asset($item->foto) }}" alt="{{ $item->nama }}" 
+                                                 class="w-32 h-32 rounded-2xl object-cover border-4 border-white shadow-lg bg-white">
+                                        @else
+                                            <div class="w-32 h-32 rounded-2xl bg-gray-100 border-4 border-white flex items-center justify-center shadow-lg text-gray-300">
+                                                <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                                            </div>
+                                        @endif
+                                        <!-- Badge Level (Optional) -->
+                                        <div class="absolute -bottom-2 -right-2 bg-[var(--forest)] text-[var(--gold)] text-[10px] font-bold px-3 py-1 rounded-full shadow-sm uppercase tracking-tighter">
+                                            Level {{ $i }}
                                         </div>
-                                    @endif
+                                    </div>
 
-                                    <h3 class="font-bold text-sm uppercase tracking-wide mb-2 min-h-[40px] flex items-center justify-center leading-snug">
+                                    <h3 class="font-serif text-[var(--forest)] text-base font-bold uppercase tracking-wider mb-2 min-h-[40px] flex items-center justify-center leading-tight">
                                         {{ $item->jabatan }}
                                     </h3>
                                     
-                                    <div class="w-12 h-1 bg-yellow-400 mb-4 rounded-full"></div>
+                                    <div class="w-10 h-[1px] bg-[var(--gold)]/50 mb-4"></div>
                                     
-                                    <p class="text-sm font-medium tracking-wide">
+                                    <p class="text-[var(--forest-dark)] text-sm font-semibold tracking-wide">
                                         {{ $item->nama }}
                                     </p>
                                 </div>
@@ -53,8 +101,9 @@
 
                         </div>
 
-                        @if($i < $struktur->max('level'))
-                            <div class="w-1 h-8 bg-gray-300 rounded-full my-[-24px] z-0"></div>
+                        <!-- Garis Penghubung antar Level -->
+                        @if($i < $struktur->max('level') && $struktur->where('level', $i+1)->count() > 0)
+                            <div class="connector-line"></div>
                         @endif
 
                     @endif

@@ -1,59 +1,175 @@
-@extends('layouts.main') @section('title', 'Kurikulum Program Studi')
+@extends('layouts.main')
+@section('title', 'Kurikulum Program Studi - Bioteknologi')
 
 @section('content')
-<div class="py-16 bg-white min-h-screen font-sans">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+    --forest: #1a4a38;
+    --forest-dark: #0c241c;
+    --forest-light: #2f7a5a;
+    --gold: #c6a54a;
+    --soft-bg: #f5f7f6;
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+    background-color: var(--soft-bg);
+}
+
+.font-serif { font-family: 'Cormorant Garamond', serif; }
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.semester-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(26, 74, 56, 0.08);
+}
+
+/* Table Styling */
+.premium-table thead {
+    background-color: var(--forest);
+    color: white;
+}
+
+.premium-table th {
+    font-family: 'Jost', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.premium-table tr {
+    transition: background-color 0.2s ease;
+}
+
+.premium-table tbody tr:hover {
+    background-color: rgba(198, 165, 74, 0.05); /* Very light gold */
+}
+
+/* Image Accent */
+.image-accent {
+    position: relative;
+}
+
+.image-accent::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: -15px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--gold);
+    z-index: -1;
+    border-radius: 0.5rem;
+}
+
+/* Animation */
+.fade-up {
+    animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<!-- HEADER SECTION -->
+<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/microarray.png');"></div>
+    <div class="relative z-10 py-24 text-center px-6">
+        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Educational Path</span>
+        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">
+            Kurikulum Akademik
+        </h1>
+        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
+    </div>
+</div>
+
+<div class="py-16 bg-[var(--soft-bg)] min-h-screen">
     <div class="container mx-auto px-6 max-w-6xl">
         
-        <h1 class="text-3xl font-bold text-center mb-12 uppercase tracking-widest text-black">
-            Kurikulum
-        </h1>
-
-        <div class="flex flex-col md:flex-row gap-8 items-center mb-20">
-            <div class="w-full md:w-2/5">
-                <img src="https://via.placeholder.com/600x400?text=Foto+Kegiatan+Bioteknologi" alt="Suasana Kelas" class="rounded-lg shadow-md w-full object-cover border border-gray-200">
+        <!-- INTRO SECTION -->
+        <div class="flex flex-col md:flex-row gap-12 items-center mb-24 fade-up">
+            <div class="w-full md:w-5/12">
+                <div class="image-accent">
+                    <img src="https://via.placeholder.com/600x450?text=Laboratorium+Bioteknologi" alt="Suasana Laboratorium" class="rounded-lg shadow-2xl w-full object-cover">
+                </div>
             </div>
             
-            <div class="w-full md:w-3/5 text-gray-800 leading-relaxed text-justify text-sm md:text-base">
-                <p>
-                    Salah satu unsur utama untuk mencapai pembelajaran yang baik, Perguruan Tinggi harus memiliki rancangan pembelajaran dalam bentuk kurikulum yang disusun berdasarkan kebutuhan dan tantangan di masa depan. Kurikulum ini merupakan kurikulum yang diterapkan pada Program Studi Bioteknologi. Penyusunan kurikulum ini didasarkan pada konsep ilmu dasar serta perkembangan dan kebutuhan ilmu bioteknologi pada dunia industri. Rumusan kompetensi dan urutan strategi pembelajarannya disusun secara bertahap menurut semesternya.
-                </p>
+            <div class="w-full md:w-7/12">
+                <h2 class="font-serif text-3xl text-[var(--forest-dark)] mb-6">Membangun Kompetensi Masa Depan</h2>
+                <div class="text-gray-700 leading-relaxed text-justify space-y-4">
+                    <p class="first-letter:text-5xl first-letter:font-serif first-letter:text-[var(--forest)] first-letter:mr-3 first-letter:float-left">
+                        Kurikulum Program Studi Bioteknologi disusun secara visioner untuk menjawab tantangan industri hayati global. Kami memadukan landasan teori yang kuat dengan praktik laboratorium mutakhir, memastikan setiap lulusan memiliki ketajaman analisis dan keterampilan teknis yang mumpuni.
+                    </p>
+                    <p>
+                        Struktur mata kuliah kami dirancang secara bertahap, mulai dari penguatan sains dasar hingga aplikasi bioteknologi spesifik di sektor medis, pertanian, dan lingkungan.
+                    </p>
+                </div>
             </div>
         </div>
 
+        <!-- CURRICULUM GRID -->
         @if($kurikulum_per_semester->isEmpty())
-            <div class="text-center text-gray-500 py-10 italic">
-                Data kurikulum belum tersedia.
+            <div class="glass-card rounded-[2rem] p-16 text-center">
+                <div class="text-[var(--gold)] mb-4">
+                    <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                </div>
+                <p class="text-gray-500 italic font-serif text-xl">Rencana studi sedang dalam tahap finalisasi oleh tim akademik.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 
                 @foreach($kurikulum_per_semester as $semester => $matkul)
-                    <div>
-                        <h3 class="text-lg font-normal text-center mb-6 uppercase tracking-wide text-black">
-                            Semester {{ $semester }}
-                        </h3>
+                    <div class="semester-card glass-card rounded-[2.5rem] overflow-hidden fade-up" style="animation-delay: {{ $loop->index * 0.1 }}s">
+                        <!-- Semester Header -->
+                        <div class="px-8 py-6 bg-gradient-to-r from-[var(--forest-dark)] to-[var(--forest)] flex justify-between items-center">
+                            <h3 class="font-serif text-xl text-white tracking-wide">
+                                Semester <span class="text-[var(--gold)] font-bold ml-1">{{ $semester }}</span>
+                            </h3>
+                            <span class="text-[10px] bg-white/10 text-white/80 px-3 py-1 rounded-full border border-white/20 uppercase tracking-widest">Core Modules</span>
+                        </div>
                         
-                        <div class="w-full">
-                            <table class="w-full border-collapse text-sm">
+                        <div class="p-2">
+                            <table class="w-full premium-table">
                                 <thead>
-                                    <tr class="bg-[#e5e7eb] text-black">
-                                        <th class="py-3 px-2 text-center font-normal">Kode Mata Kuliah</th>
-                                        <th class="py-3 px-2 text-center font-normal">Nama Mata Kuliah</th>
-                                        <th class="py-3 px-2 text-center font-normal w-16">SKS</th>
+                                    <tr>
+                                        <th class="py-4 px-4 text-left">Kode</th>
+                                        <th class="py-4 px-4 text-left">Mata Kuliah</th>
+                                        <th class="py-4 px-4 text-center">SKS</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-gray-700">
                                     @foreach($matkul as $item)
-                                        <tr class="border-b border-gray-400">
-                                            <td class="py-4 px-2 text-center font-bold text-black">{{ $item->kode_mk }}</td>
-                                            
-                                            <td class="py-4 px-2 text-center text-black">{{ $item->mata_kuliah }}</td>
-                                            
-                                            <td class="py-4 px-2 text-center text-black">{{ $item->sks }}</td>
+                                        <tr class="border-b border-gray-100 last:border-0">
+                                            <td class="py-4 px-4 text-[11px] font-bold text-[var(--forest)] tracking-tighter">{{ $item->kode_mk }}</td>
+                                            <td class="py-4 px-4 text-sm leading-snug">{{ $item->mata_kuliah }}</td>
+                                            <td class="py-4 px-4 text-center">
+                                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-50 text-[var(--gold)] font-bold text-xs border border-gray-100">
+                                                    {{ $item->sks }}
+                                                </span>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+
+                        <!-- Semester Footer Summary (Optional) -->
+                        <div class="px-8 py-4 bg-gray-50/50 border-t border-gray-100 flex justify-end">
+                            <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Total SKS Semester: <span class="text-[var(--forest)]">{{ $matkul->sum('sks') }}</span></p>
                         </div>
                     </div>
                 @endforeach
@@ -61,6 +177,15 @@
             </div>
         @endif
 
+        <!-- CONTACT/DOWNLOAD SECTION -->
+        <div class="mt-20 text-center fade-up">
+            <div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent w-full max-w-lg mb-8"></div>
+            <p class="text-gray-500 text-sm italic mb-6">Memerlukan salinan kurikulum dalam format PDF?</p>
+            <a href="#" class="inline-flex items-center gap-3 px-8 py-4 bg-[var(--forest)] text-white rounded-full hover:bg-[var(--forest-dark)] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span class="text-xs font-bold uppercase tracking-widest">Unduh Katalog Kurikulum</span>
+            </a>
+        </div>
     </div>
 </div>
 @endsection

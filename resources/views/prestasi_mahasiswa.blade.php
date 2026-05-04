@@ -1,150 +1,212 @@
-@extends('layouts.main') 
+@extends('layouts.main')
 
-@section('title', 'Mahasiswa Berprestasi')
+@section('title', 'Mahasiswa Berprestasi - Bioteknologi IT Del')
 
 @section('content')
-<div class="bg-gray-50 py-12 border-b border-gray-200">
-    <div class="container mx-auto px-6 text-center">
-        <h1 class="text-3xl font-bold text-[#1a4a38] mb-3">Mahasiswa Berprestasi</h1>
-        <p class="text-gray-600">Pencapaian kompetisi, publikasi, dan tugas akhir mahasiswa</p>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+    --forest: #1a4a38;
+    --forest-dark: #0c241c;
+    --gold: #c6a54a;
+    --soft-bg: #f5f7f6;
+}
+
+.font-serif { font-family: 'Cormorant Garamond', serif; }
+.font-sans { font-family: 'Jost', sans-serif; }
+
+/* Tab Animation */
+.tab-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.5s ease-out;
+}
+.tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tab Button Styling */
+.tab-btn {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.tab-btn.active-tab {
+    background: var(--forest);
+    color: white;
+    box-shadow: 0 10px 20px -5px rgba(26, 74, 56, 0.3);
+}
+
+/* Glass Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 2rem;
+}
+
+.hover-gold:hover {
+    border-top: 4px solid var(--gold);
+    transform: translateY(-8px);
+}
+</style>
+
+<!-- HEADER SECTION -->
+<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+    <div class="relative z-10 py-24 text-center px-6">
+        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Student Hall of Fame</span>
+        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">Mahasiswa Berprestasi</h1>
+        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
     </div>
 </div>
 
-<div class="container mx-auto px-6 py-12 max-w-6xl font-sans">
-    
-    <div class="flex justify-center gap-4 mb-16 overflow-x-auto pb-4">
-        <button onclick="switchTab('tab-prestasi')" id="btn-prestasi" class="tab-btn active bg-[#1a4a38] text-white px-6 py-2.5 rounded-full font-semibold text-sm shadow-md transition whitespace-nowrap border border-transparent">
-            Prestasi & Lomba
-        </button>
-        <button onclick="switchTab('tab-publikasi')" id="btn-publikasi" class="tab-btn bg-white text-[#1a4a38] border border-gray-300 px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-50 transition whitespace-nowrap">
-            Publikasi
-        </button>
-        <button onclick="switchTab('tab-tugas')" id="btn-tugas" class="tab-btn bg-white text-[#1a4a38] border border-gray-300 px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-50 transition whitespace-nowrap">
-            Hasil Tugas Akhir
-        </button>
-    </div>
-
-    <div id="tab-prestasi" class="tab-content block">
-        <div class="mb-8 border-b border-[#1a4a38] pb-3">
-            <h2 class="text-2xl font-bold text-[#1a4a38]">Prestasi Kompetisi</h2>
+<div class="bg-[var(--soft-bg)] py-16 min-h-screen font-sans">
+    <div class="container mx-auto px-6 max-w-6xl">
+        
+        <!-- TAB NAVIGATION -->
+        <div class="flex flex-wrap justify-center gap-4 mb-20">
+            <button onclick="switchTab('tab-prestasi', this)" class="tab-btn active-tab px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest border border-gray-200">
+                Prestasi & Lomba
+            </button>
+            <button onclick="switchTab('tab-publikasi', this)" class="tab-btn bg-white text-gray-500 px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest border border-gray-200">
+                Publikasi Ilmiah
+            </button>
+            <button onclick="switchTab('tab-tugas', this)" class="tab-btn bg-white text-gray-500 px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest border border-gray-200">
+                Hasil Tugas Akhir
+            </button>
         </div>
 
-        @if($prestasi->isEmpty())
-            <div class="text-gray-500 italic p-6 bg-gray-50 rounded-lg border border-gray-100">Belum ada data prestasi.</div>
-        @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($prestasi as $item)
-                <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden relative flex flex-col hover:-translate-y-1 transition-transform">
-                    <div class="h-2 w-full bg-yellow-500 absolute top-0 left-0"></div>
-                    <div class="p-6 pt-8 flex-1 flex flex-col">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="bg-yellow-100 text-yellow-800 text-[10px] font-bold px-2.5 py-1 rounded tracking-wider uppercase">{{ $item->tingkat ?? 'PRESTASI' }}</span>
-                            <span class="text-sm text-gray-400 font-medium">{{ $item->tahun }}</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">{{ $item->judul_prestasi }}</h3>
-                        <p class="text-sm text-gray-600 mb-6 line-clamp-2 flex-1">{{ $item->deskripsi }}</p>
-                        <div class="border-t border-gray-200 pt-4 flex items-center gap-3 mt-auto">
-                            @if($item->foto)
-                                <img src="{{ asset($item->foto) }}" class="w-10 h-10 rounded-full object-cover border border-gray-200">
-                            @else
-                                <div class="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-500 font-bold text-xs">{{ substr($item->nama_peraih, 0, 2) }}</div>
-                            @endif
-                            <div>
-                                <p class="text-sm font-bold text-gray-900">{{ $item->nama_peraih }}</p>
-                                <p class="text-[11px] text-gray-500 uppercase tracking-wide">Mahasiswa</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+        <!-- TAB: PRESTASI -->
+        <div id="tab-prestasi" class="tab-content active">
+            <div class="mb-12 flex items-center gap-4">
+                <div class="h-[1px] flex-1 bg-gray-200"></div>
+                <h2 class="font-serif text-3xl text-[var(--forest-dark)]">Pencapaian Kompetisi</h2>
+                <div class="h-[1px] flex-1 bg-gray-200"></div>
             </div>
-        @endif
-    </div>
 
-    <div id="tab-publikasi" class="tab-content hidden">
-        <div class="mb-10 flex justify-center">
-            <h2 class="text-2xl font-bold text-gray-900 uppercase tracking-wide">Publikasi</h2>
-        </div>
-
-        @if($publikasi->isEmpty())
-            <div class="text-gray-500 italic p-6 bg-gray-50 rounded-lg border border-gray-100 text-center">Belum ada data publikasi mahasiswa.</div>
-        @else
-            <div class="space-y-8">
-                @foreach($publikasi as $pub)
-                <div class="flex flex-col md:flex-row bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                    
-                    <div class="w-full md:w-[35%] lg:w-[30%] p-6 flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-200 bg-white">
-                        @if($pub->gambar)
-                            <img src="{{ asset($pub->gambar) }}" alt="Cover Jurnal" class="max-h-48 w-auto object-contain">
-                        @else
-                            <div class="h-32 w-full bg-gray-100 flex items-center justify-center text-gray-400 text-sm italic rounded">Sampul Belum Tersedia</div>
-                        @endif
-                    </div>
-
-                    <div class="w-full md:w-[65%] lg:w-[70%] p-6 md:p-8 flex flex-col justify-center">
-                        <h3 class="text-xl md:text-2xl font-bold text-[#0056b3] mb-4 leading-snug uppercase">
-                            {{ $pub->judul }}
-                        </h3>
+            @if($prestasi->isEmpty())
+                <div class="glass-card p-16 text-center italic text-gray-400">Belum ada data prestasi yang tercatat.</div>
+            @else
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach($prestasi as $item)
+                    <div class="glass-card p-8 hover-gold transition-all duration-300 flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="bg-[var(--forest)] text-[var(--gold)] text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
+                                {{ $item->tingkat ?? 'National' }}
+                            </span>
+                            <span class="font-serif text-xl text-[var(--gold)]">{{ $item->tahun }}</span>
+                        </div>
                         
-                        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-900 font-bold mb-6">
-                            <p>By: <span class="font-normal text-gray-600">{{ $pub->penulis }}</span></p>
-                            <p>Date: <span class="font-normal text-gray-600">{{ $pub->tanggal_publikasi }}</span></p>
-                            <p>Type: <span class="font-normal text-gray-600">{{ $pub->tipe_publikasi ?? 'Jurnal Ilmiah' }}</span></p>
+                        <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-4 leading-snug">{{ $item->judul_prestasi }}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-8 flex-1 italic">"{{ $item->deskripsi }}"</p>
+                        
+                        <div class="flex items-center gap-4 pt-6 border-t border-gray-100 mt-auto">
+                            <div class="relative">
+                                @if($item->foto)
+                                    <img src="{{ asset($item->foto) }}" class="w-12 h-12 rounded-full object-cover border-2 border-[var(--gold)] shadow-sm">
+                                @else
+                                    <div class="w-12 h-12 rounded-full bg-[var(--forest)] flex items-center justify-center text-[var(--gold)] font-bold text-xs">
+                                        {{ substr($item->nama_peraih, 0, 1) }}
+                                    </div>
+                                @endif
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-[var(--forest-dark)]">{{ $item->nama_peraih }}</p>
+                                <p class="text-[10px] uppercase text-[var(--gold)] font-bold tracking-widest">Student</p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+
+        <!-- TAB: PUBLIKASI -->
+        <div id="tab-publikasi" class="tab-content">
+            <div class="mb-12 flex items-center gap-4">
+                <div class="h-[1px] flex-1 bg-gray-200"></div>
+                <h2 class="font-serif text-3xl text-[var(--forest-dark)]">Publikasi Riset Mahasiswa</h2>
+                <div class="h-[1px] flex-1 bg-gray-200"></div>
+            </div>
+
+            @if($publikasi->isEmpty())
+                <div class="glass-card p-16 text-center italic text-gray-400">Belum ada data publikasi mahasiswa.</div>
+            @else
+                <div class="space-y-8">
+                    @foreach($publikasi as $pub)
+                    <div class="glass-card overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition-all">
+                        <div class="md:w-1/4 bg-white/50 p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100">
+                            @if($pub->gambar)
+                                <img src="{{ asset($pub->gambar) }}" class="max-h-40 rounded shadow-md transform -rotate-2">
+                            @else
+                                <div class="w-32 h-40 bg-gray-100 rounded flex items-center justify-center text-gray-300">
+                                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="md:w-3/4 p-10 flex flex-col justify-center">
+                            <div class="flex flex-wrap items-center gap-3 mb-4">
+                                <span class="text-[var(--gold)] text-[10px] font-bold uppercase tracking-widest">{{ $pub->tipe_publikasi ?? 'International Journal' }}</span>
+                                <div class="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+                                <span class="text-gray-400 text-xs">{{ $pub->tanggal_publikasi }}</span>
+                            </div>
+                            <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-4 leading-snug">{{ $pub->judul }}</h3>
+                            <p class="text-gray-500 text-sm mb-6">Penulis: <span class="text-[var(--forest)] font-bold italic">{{ $pub->penulis }}</span></p>
                             
-                            <div class="flex items-center gap-4 ml-auto text-[#0056b3] font-normal">
-                                @if($pub->link_download)
-                                <a href="{{ $pub->link_download }}" target="_blank" class="flex items-center gap-1 hover:underline">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                    Download
+                            <div class="flex gap-4">
+                                @if($pub->link_view)
+                                <a href="{{ $pub->link_view }}" target="_blank" class="text-[10px] font-bold uppercase text-[var(--forest)] flex items-center gap-2 hover:text-[var(--gold)] transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    View Full Paper
                                 </a>
                                 @endif
-                                @if($pub->link_view)
-                                <a href="{{ $pub->link_view }}" target="_blank" class="flex items-center gap-1 hover:underline">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                    View
+                                @if($pub->link_download)
+                                <a href="{{ $pub->link_download }}" target="_blank" class="text-[10px] font-bold uppercase text-[var(--forest)] flex items-center gap-2 hover:text-[var(--gold)] transition">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    Download PDF
                                 </a>
                                 @endif
                             </div>
                         </div>
-
-                        <p class="text-gray-700 text-sm md:text-base leading-relaxed text-justify">
-                            {{ $pub->deskripsi }}
-                        </p>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
-        @endif
-    </div>
-
-    <div id="tab-tugas" class="tab-content hidden">
-        <div class="text-center py-20 bg-white border border-gray-200 rounded-xl">
-            <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-            <h3 class="text-xl font-bold text-gray-500">Hasil Tugas Akhir</h3>
-            <p class="text-gray-400 mt-2">Data sedang dalam tahap pengembangan.</p>
+            @endif
         </div>
-    </div>
 
+        <!-- TAB: TUGAS AKHIR -->
+        <div id="tab-tugas" class="tab-content">
+            <div class="glass-card p-24 text-center border-dashed border-2 border-gray-200">
+                <div class="w-20 h-20 bg-white rounded-full shadow-sm flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-[var(--gold)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h3 class="font-serif text-3xl text-[var(--forest-dark)] mb-2">Digital Archive</h3>
+                <p class="text-gray-400 italic">Katalog Tugas Akhir mahasiswa sedang dalam tahap kurasi digital.</p>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <script>
-    function switchTab(tabId) {
-        // Sembunyikan semua konten
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-        // Ubah semua tombol jadi gaya tidak aktif (Putih)
+    function switchTab(tabId, btn) {
+        // Hide all
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        
+        // Reset buttons
         document.querySelectorAll('.tab-btn').forEach(el => {
-            el.classList.remove('bg-[#1a4a38]', 'text-white', 'shadow-md', 'active');
-            el.classList.add('bg-white', 'text-[#1a4a38]');
+            el.classList.remove('active-tab', 'text-white');
+            el.classList.add('bg-white', 'text-gray-500');
         });
 
-        // Tampilkan konten yang diklik
-        document.getElementById(tabId).classList.remove('hidden');
-        
-        // Ubah tombol yang diklik jadi gaya aktif (Hijau Gelap)
-        let activeBtnId = tabId.replace('tab-', 'btn-');
-        let activeBtn = document.getElementById(activeBtnId);
-        activeBtn.classList.remove('bg-white', 'text-[#1a4a38]');
-        activeBtn.classList.add('bg-[#1a4a38]', 'text-white', 'shadow-md', 'active');
+        // Activate
+        const target = document.getElementById(tabId);
+        target.classList.add('active');
+        btn.classList.add('active-tab');
+        btn.classList.remove('bg-white', 'text-gray-500');
     }
 </script>
 @endsection

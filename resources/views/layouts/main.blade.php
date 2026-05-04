@@ -39,9 +39,10 @@
         {{-- @include('layouts.sidebar') --}}
 
         <div class="flex-1 flex flex-col min-w-0">
-            @include('layouts.content_header')
+            
+            {{-- KODE CONTENT_HEADER SUDAH DIHAPUS TOTAL DARI SINI --}}
 
-            <main class="flex-grow p-4 md:p-8">
+            <main class="flex-grow {{ request()->is('/') ? 'p-0' : 'p-4 md:p-8' }}">
                 @yield('content')
             </main>
 

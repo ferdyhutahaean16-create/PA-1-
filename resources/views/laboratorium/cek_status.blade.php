@@ -1,95 +1,153 @@
 @extends('layouts.main')
 
-@section('title', 'Cek Status Peminjaman')
+@section('title', 'Lacak Permohonan - Prodi Bioteknologi IT Del')
 
 @section('content')
-<div class="bg-gray-50 py-10 border-b border-gray-200">
-    <div class="container mx-auto px-6 text-center">
-        <h1 class="text-3xl font-bold text-[#1a4a38] mb-2 uppercase tracking-wide">Lacak Permohonan</h1>
-        <p class="text-gray-600">Cek status persetujuan peminjaman alat atau bahan Anda.</p>
-    </div>
-</div>
+<!-- Tailwind & Google Fonts -->
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 
-<div class="container mx-auto px-6 py-12 max-w-6xl min-h-screen">
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: { 
+                    'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
+                    'serif': ['Playfair Display', 'serif']
+                },
+                colors: {
+                    'itdel-green': '#1a4a38',
+                    'itdel-dark': '#0f2d22',
+                    'itdel-gold': '#eab308',
+                    'itdel-soft': '#f8fafc',
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfcfc; }
+    .hero-gradient {
+        background: linear-gradient(rgba(26, 74, 56, 0.95), rgba(15, 45, 34, 0.98)), 
+                    url('https://www.del.ac.id/wp-content/uploads/2013/05/gedung-del.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    .status-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .status-card:hover {
+        border-color: #eab308;
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+</style>
+
+<div class="min-h-screen pb-20">
     
-    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 mb-8 max-w-2xl mx-auto text-center">
-        <form action="{{ route('lab.cek-status') }}" method="GET" class="flex flex-col md:flex-row gap-4 justify-center items-center">
-            <input type="text" name="nim" value="{{ $nim }}" placeholder="Masukkan NIM Anda..." class="w-full md:w-2/3 border-gray-300 rounded-xl shadow-sm focus:ring-[#1a4a38] focus:border-[#1a4a38] px-4 py-3" required>
-            <button type="submit" class="w-full md:w-auto bg-[#1a4a38] text-white px-8 py-3 rounded-xl font-bold shadow hover:bg-green-800 transition">
-                Cari Riwayat
-            </button>
-        </form>
+    <!-- Hero Section: Mewah & Serasi dengan Homepage -->
+    <div class="hero-gradient pt-24 pb-32 px-6 relative overflow-hidden">
+        <!-- Dekorasi Aksen Gold -->
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-itdel-gold"></div>
+        
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <p class="text-itdel-gold font-bold tracking-[0.4em] uppercase text-xs mb-4">Monitoring System</p>
+            <h1 class="font-serif text-4xl md:text-5xl text-white mb-6 italic">Lacak Permohonan Laboratorium</h1>
+            <div class="h-0.5 w-24 bg-itdel-gold/50 mx-auto mb-8"></div>
+            <p class="text-white/70 text-sm md:text-base font-light italic max-w-2xl mx-auto">
+                "Shaping the World Through Biotechnology"
+            </p>
+        </div>
+    </div>
+
+    <!-- Search Hub: Elemen Floating -->
+    <div class="max-w-3xl mx-auto -mt-16 px-6 relative z-20">
+        <div class="bg-white p-2 rounded-[2rem] shadow-2xl border border-slate-100">
+            <form action="{{ route('lab.cek-status') }}" method="GET" class="flex flex-col md:flex-row gap-2">
+                <div class="relative flex-grow">
+                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-itdel-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v11m1 5l4-4m0 0l4 4m-4-4v12"></path></svg>
+                    </div>
+                    <input type="text" name="nim" value="{{ $nim }}" placeholder="Masukkan Nomor Induk Mahasiswa..." 
+                           class="w-full pl-14 pr-6 py-5 bg-transparent rounded-[1.5rem] focus:outline-none font-bold text-itdel-green placeholder:text-slate-300">
+                </div>
+                <button type="submit" class="bg-itdel-green hover:bg-itdel-dark text-white font-black px-10 py-5 rounded-[1.5rem] transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-itdel-green/20">
+                    <span>CARI DATA</span>
+                    <svg class="w-4 h-4 text-itdel-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+            </form>
+        </div>
     </div>
 
     @if($nim)
-        <div class="mb-4 flex justify-between items-end">
-            <h2 class="text-xl font-bold text-gray-800">Hasil Pencarian untuk NIM: <span class="text-[#1a4a38]">{{ $nim }}</span></h2>
-        </div>
-
-        @if($peminjamans->isEmpty())
-            <div class="bg-yellow-50 text-yellow-700 p-6 rounded-xl border border-yellow-200 text-center">
-                Belum ada riwayat peminjaman yang ditemukan untuk NIM tersebut. Pastikan NIM yang dimasukkan benar.
-            </div>
-        @else
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
-                            <tr>
-                                <th class="p-4">Tanggal Diajukan</th>
-                                <th class="p-4">Formulir</th>
-                                <th class="p-4">Judul Penelitian</th>
-                                <th class="p-4">Status</th>
-                                <th class="p-4">Catatan Admin</th>
-                                <th class="p-4 text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            @foreach($peminjamans as $p)
-                            <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="p-4 text-sm text-gray-600">{{ $p->created_at->format('d M Y, H:i') }}</td>
-                                <td class="p-4">
-                                    <span class="px-2 py-1 rounded text-xs font-bold {{ $p->jenis_form == 'Alat' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' }}">
-                                        Pinjam {{ $p->jenis_form }}
-                                    </span>
-                                </td>
-                                <td class="p-4">
-                                    <div class="font-bold text-gray-800">{{ $p->judul_penelitian }}</div>
-                                    <div class="text-xs text-gray-500">{{ $p->laboratorium }}</div>
-                                </td>
-                                <td class="p-4">
-                                    @php
-                                        $color = 'bg-yellow-100 text-yellow-700';
-                                        $icon = 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z';
-                                        if($p->status == 'Disetujui') { $color = 'bg-green-100 text-green-700'; $icon = 'M5 13l4 4L19 7'; }
-                                        if($p->status == 'Ditolak') { $color = 'bg-red-100 text-red-700'; $icon = 'M6 18L18 6M6 6l12 12'; }
-                                    @endphp
-                                    <span class="px-3 py-1.5 rounded-full text-xs font-bold flex items-center w-fit gap-1 {{ $color }}">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $icon }}"></path></svg>
-                                        {{ $p->status }}
-                                    </span>
-                                </td>
-                                <td class="p-4 text-sm text-gray-600 italic">
-                                    {{ $p->catatan_admin ?? '-' }}
-                                </td>
-                                
-                                <td class="p-4 text-center">
-                                    @if($p->status == 'Disetujui')
-                                        <a href="{{ route('lab.peminjaman.cetak', $p->id) }}" target="_blank" class="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-sm transition">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z"></path></svg>
-                                            Unduh Bon
-                                        </a>
-                                    @else
-                                        <span class="text-xs text-gray-400 italic">Belum Tersedia</span>
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+        <div class="max-w-6xl mx-auto mt-20 px-6">
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-12 h-12 bg-itdel-green rounded-2xl flex items-center justify-center shadow-lg">
+                    <svg class="w-6 h-6 text-itdel-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-extrabold text-itdel-green uppercase tracking-tight">Riwayat Peminjaman</h2>
+                    <p class="text-slate-400 text-xs">Menampilkan hasil pencarian untuk <span class="text-itdel-green font-bold">{{ $nim }}</span></p>
                 </div>
             </div>
-        @endif
+
+            @if($peminjamans->isEmpty())
+                <div class="status-card p-20 rounded-[3rem] text-center">
+                    <p class="text-slate-400 italic">Data tidak ditemukan. Silakan pastikan NIM anda sudah benar.</p>
+                </div>
+            @else
+                <div class="space-y-6">
+                    @foreach($peminjamans as $p)
+                    <div class="status-card p-8 rounded-[2.5rem] flex flex-col md:flex-row items-center gap-8">
+                        <!-- Waktu & Kategori -->
+                        <div class="text-center md:text-left min-w-[150px]">
+                            <p class="text-[10px] font-black text-itdel-gold uppercase tracking-[0.2em] mb-1">{{ $p->jenis_form }}</p>
+                            <p class="text-sm font-bold text-itdel-green">{{ $p->created_at->format('d M Y') }}</p>
+                            <p class="text-[10px] text-slate-400 font-mono">{{ $p->created_at->format('H:i') }} WIB</p>
+                        </div>
+
+                        <!-- Info Judul -->
+                        <div class="flex-grow">
+                            <h3 class="text-lg font-bold text-slate-800 leading-tight mb-2">{{ $p->judul_penelitian }}</h3>
+                            <div class="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                <svg class="w-3 h-3 text-itdel-green" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"></path></svg>
+                                {{ $p->laboratorium }}
+                            </div>
+                        </div>
+
+                        <!-- Status Badge -->
+                        <div class="min-w-[180px] flex flex-col items-center">
+                            @php
+                                $statusStyle = 'bg-slate-100 text-slate-400';
+                                if($p->status == 'Disetujui') $statusStyle = 'bg-green-50 text-green-700 border border-green-100';
+                                if($p->status == 'Ditolak') $statusStyle = 'bg-red-50 text-red-700 border border-red-100';
+                            @endphp
+                            <div class="px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest {{ $statusStyle }} mb-2">
+                                {{ $p->status }}
+                            </div>
+                            <p class="text-[9px] text-slate-400 italic text-center px-4">{{ $p->catatan_admin ?? 'Tidak ada catatan' }}</p>
+                        </div>
+
+                        <!-- Aksi -->
+                        <div class="min-w-[150px] text-right">
+                            @if($p->status == 'Disetujui')
+                                <a href="{{ route('lab.peminjaman.cetak', $p->id) }}" target="_blank" 
+                                   class="inline-flex items-center gap-2 bg-itdel-green hover:bg-itdel-dark text-white text-[10px] font-black px-6 py-3 rounded-2xl shadow-lg transition-all transform hover:-translate-y-1">
+                                    <svg class="w-4 h-4 text-itdel-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z"></path></svg>
+                                    UNDUH PDF
+                                </a>
+                            @else
+                                <span class="text-[10px] font-bold text-slate-300 uppercase italic">Akses Terkunci</span>
+                            @endif
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
     @endif
 </div>
 @endsection

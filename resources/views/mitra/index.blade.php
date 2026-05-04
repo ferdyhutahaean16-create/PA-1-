@@ -3,77 +3,174 @@
 @section('title', 'Mitra Kerja Sama - Prodi Bioteknologi IT Del')
 
 @section('content')
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+    --forest: #1a4a38;
+    --forest-dark: #0c241c;
+    --gold: #c6a54a;
+    --soft-bg: #f5f7f6;
+}
+
+.font-serif { font-family: 'Cormorant Garamond', serif; }
+.font-sans { font-family: 'Jost', sans-serif; }
+
+/* Glassmorphism */
+.glass-nav {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(26, 74, 56, 0.1);
+}
+
+/* Partnership Card */
+.partner-card {
+    background: white;
+    border-radius: 2rem;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    border: 1px solid rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+.partner-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px -12px rgba(26, 74, 56, 0.12);
+    border-color: var(--gold);
+}
+
+.logo-wrapper {
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.logo-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 1px solid var(--gold);
+    border-radius: 1.5rem;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.partner-card:hover .logo-wrapper::after {
+    opacity: 1;
+    inset: -8px;
+}
+
+/* Type Badges */
+.badge-industri { background: #f0fdf4; color: #166534; }
+.badge-pendidikan { background: #eff6ff; color: #1e40af; }
+.badge-pemerintah { background: #faf5ff; color: #6b21a8; }
+
+.filter-btn {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+.filter-btn.active {
+    background: var(--forest);
+    color: var(--gold);
+    box-shadow: 0 10px 20px -5px rgba(26, 74, 56, 0.3);
+}
+</style>
+
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-<div class="bg-white min-h-screen" x-data="{ filter: 'Semua' }">
-    <div class="bg-[#1a4a38] py-20 px-6">
-        <div class="container mx-auto max-w-6xl text-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6 uppercase tracking-tight">Mitra Kerja Sama</h1>
-            <p class="text-green-100 text-lg max-w-3xl mx-auto leading-relaxed">
-                Prodi Bioteknologi IT Del menjalin kolaborasi strategis dengan berbagai instansi di tingkat nasional maupun internasional untuk meningkatkan kualitas pendidikan, riset, dan pengabdian masyarakat.
+<div class="bg-[var(--soft-bg)] min-h-screen font-sans" x-data="{ filter: 'Semua' }">
+    
+    <!-- PREMIUM HERO SECTION -->
+    <div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+        <div class="relative z-10 py-28 text-center px-6">
+            <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Strategic Alliances</span>
+            <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">Mitra Kerja Sama</h1>
+            <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 mb-8 opacity-60"></div>
+            <p class="text-green-100/70 text-lg max-w-2xl mx-auto font-light leading-relaxed">
+                Membangun ekosistem inovasi melalui kolaborasi strategis dengan institusi global untuk memajukan pendidikan dan riset bioteknologi.
             </p>
         </div>
     </div>
 
-    <div class="sticky top-20 z-40 bg-white border-b border-gray-100 shadow-sm">
-        <div class="container mx-auto px-6 py-4 max-w-6xl flex flex-wrap justify-center gap-4">
+    <!-- STICKY FILTER BAR -->
+    <div class="sticky top-0 z-40 glass-nav shadow-sm">
+        <div class="container mx-auto px-6 py-5 max-w-6xl flex flex-wrap justify-center gap-3">
             <template x-for="category in ['Semua', 'Industri', 'Pendidikan', 'Pemerintah']">
                 <button 
                     @click="filter = category"
-                    :class="filter === category ? 'bg-[#1a4a38] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'"
-                    class="px-6 py-2 rounded-full text-sm font-bold transition-all duration-300"
-                    x-text="category">
+                    :class="filter === category ? 'active' : 'bg-white text-gray-400 border-gray-100'"
+                    class="filter-btn px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all">
+                    <span x-text="category"></span>
                 </button>
             </template>
         </div>
     </div>
 
-    <div class="container mx-auto px-6 py-16 max-w-6xl">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- PARTNERS GRID -->
+    <div class="container mx-auto px-6 py-20 max-w-6xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             @forelse($cooperations as $mitra)
             <div 
                 x-show="filter === 'Semua' || filter === '{{ $mitra->type }}'"
-                x-transition:enter="transition ease-out duration-300"
-                x-transition:enter-start="opacity-0 transform scale-95"
-                x-transition:enter-end="opacity-100 transform scale-100"
-                class="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group">
+                x-transition:enter="transition ease-out duration-500"
+                x-transition:enter-start="opacity-0 translate-y-8"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                class="partner-card p-10 group">
                 
-                <div class="w-24 h-24 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center mb-6 overflow-hidden p-3 group-hover:scale-110 transition-transform duration-300">
+                <!-- Logo Container -->
+                <div class="logo-wrapper w-28 h-28 bg-white rounded-2xl flex items-center justify-center mb-8 mx-auto shadow-sm p-4">
                     @if($mitra->logo)
-                        <img src="{{ asset($mitra->logo) }}" alt="Logo {{ $mitra->partner_name }}" class="w-full h-full object-contain">
+                        <img src="{{ asset($mitra->logo) }}" alt="{{ $mitra->partner_name }}" class="w-full h-full object-contain">
                     @else
-                        @if($mitra->type == 'Industri')
-                            <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m3-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        @elseif($mitra->type == 'Pendidikan')
-                            <svg class="w-10 h-10 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
-                        @else
-                            <svg class="w-10 h-10 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
-                        @endif
+                        <div class="text-[var(--gold)]">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m3-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
                     @endif
                 </div>
 
-                <span class="text-[10px] font-bold uppercase tracking-[0.2em] mb-2 px-3 py-1 rounded-full 
-                    {{ $mitra->type == 'Industri' ? 'bg-blue-50 text-blue-600' : '' }}
-                    {{ $mitra->type == 'Pendidikan' ? 'bg-emerald-50 text-emerald-600' : '' }}
-                    {{ $mitra->type == 'Pemerintah' ? 'bg-purple-50 text-purple-600' : '' }}">
-                    {{ $mitra->type }}
-                </span>
+                <!-- Content -->
+                <div class="text-center flex-1 flex flex-col">
+                    <span class="inline-block text-[9px] font-extrabold uppercase tracking-[0.2em] mb-4 px-4 py-1.5 rounded-full mx-auto
+                        {{ $mitra->type == 'Industri' ? 'badge-industri' : '' }}
+                        {{ $mitra->type == 'Pendidikan' ? 'badge-pendidikan' : '' }}
+                        {{ $mitra->type == 'Pemerintah' ? 'badge-pemerintah' : '' }}">
+                        {{ $mitra->type }}
+                    </span>
 
-                <h3 class="text-xl font-extrabold text-gray-800 mb-4">{{ $mitra->partner_name }}</h3>
-                
-                <p class="text-sm text-gray-500 leading-relaxed mb-6 flex-1">
-                    {{ $mitra->description ?? 'Menjalin kolaborasi dalam pengembangan riset bioteknologi dan program magang mahasiswa.' }}
-                </p>
+                    <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-4 leading-tight group-hover:text-[var(--gold)] transition-colors">
+                        {{ $mitra->partner_name }}
+                    </h3>
+                    
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 flex-1 italic">
+                        "{{ $item->description ?? 'Berkolaborasi dalam penguatan kurikulum berbasis industri dan riset terapan untuk solusi masa depan.' }}"
+                    </p>
 
-                <div class="pt-6 border-t border-gray-50 w-full">
-                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Sejak {{ \Carbon\Carbon::parse($mitra->start_date)->format('Y') }}</p>
+                    <div class="pt-6 border-t border-gray-50 mt-auto">
+                        <div class="flex items-center justify-center gap-2">
+                            <svg class="w-3 h-3 text-[var(--gold)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Partner Since {{ \Carbon\Carbon::parse($mitra->start_date)->format('Y') }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             @empty
-            <div class="col-span-3 text-center py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
-                <p class="text-gray-400 italic">Belum ada data mitra yang dipublikasikan.</p>
+            <div class="col-span-full py-24 text-center">
+                <div class="glass-card rounded-[3rem] p-16 inline-block border-dashed border-2 border-gray-200">
+                    <p class="text-gray-400 font-serif text-xl italic">Database mitra sedang diperbarui.</p>
+                </div>
             </div>
             @endforelse
+        </div>
+
+        <!-- FOOTER QUOTE -->
+        <div class="mt-32 text-center">
+            <div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent w-full max-w-lg mb-12"></div>
+            <h4 class="font-serif text-3xl text-[var(--forest-dark)] mb-6">Bersinergi Menuju Inovasi Global</h4>
+            <div class="flex justify-center gap-2">
+                <div class="w-1.5 h-1.5 rounded-full bg-[var(--gold)]"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-[var(--gold)] opacity-50"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-[var(--gold)] opacity-20"></div>
+            </div>
         </div>
     </div>
 </div>

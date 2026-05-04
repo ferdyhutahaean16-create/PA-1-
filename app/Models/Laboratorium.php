@@ -9,10 +9,17 @@ class Laboratorium extends Model
 {
     use HasFactory;
 
+    // Pastikan ada huruf 's' di akhir karena di database namanya 'laboratoriums'
     protected $table = 'laboratoriums';
 
     protected $fillable = [
-        'nama_lab', 'kepala_lab', 'fasilitas', 'deskripsi', 
-        'foto', 'foto_2', 'foto_3', 'foto_4'
+        'nama_lab', 
+        'kepala_lab', 
+        'fasilitas', 
+        'deskripsi', 
+        'foto', 
+        'foto_2', 
+        'foto_3', 
+        'foto_4'
     ];
 }

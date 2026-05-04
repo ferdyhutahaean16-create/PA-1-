@@ -1,59 +1,173 @@
 @extends('layouts.main')
 
-@section('title', 'Kisah Sukses Alumni - Prodi Bioteknologi IT Del')
+@section('title', 'Kisah Sukses & Testimoni - Prodi Bioteknologi IT Del')
 
 @section('content')
-<div class="bg-[#1a4a38] py-20 px-6">
-    <div class="container mx-auto max-w-6xl text-center">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6 uppercase tracking-tight">Kisah Sukses Alumni</h1>
-        <p class="text-green-100 text-lg max-w-3xl mx-auto leading-relaxed">
-            Jejak langkah, pengalaman, dan inspirasi dari para lulusan Program Studi Bioteknologi Institut Teknologi Del yang kini berkarya di berbagai sektor.
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+    --forest: #1a4a38;
+    --forest-dark: #0c241c;
+    --gold: #c6a54a;
+    /* Aku gelapkan SEDIKIT SAJA background luar kartunya biar kartu putihnya "muncul" */
+    --soft-bg: #eef2f0; 
+}
+
+.font-serif { font-family: 'Cormorant Garamond', serif; }
+.font-sans { font-family: 'Jost', sans-serif; }
+
+/* Hero Texture */
+.bg-pattern {
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23c6a54a" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+}
+
+/* Card Editorial Style */
+.testimonial-card {
+    background: white;
+    border-radius: 2.5rem;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    /* Tambah shadow & border tipis biar kartunya punya bentuk walau isinya dikit */
+    border: 1px solid rgba(26, 74, 56, 0.1); 
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08); 
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 60px -12px rgba(26, 74, 56, 0.15);
+}
+
+.quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.15;
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    pointer-events: none;
+}
+
+.profile-border {
+    position: relative;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--forest), var(--gold));
+}
+
+.status-badge {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 99px;
+}
+
+/* Custom Pagination Style */
+.pagination-wrapper nav {
+    display: inline-flex;
+    border-radius: 99px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+</style>
+
+<!-- HEADER / HERO -->
+<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
+    <div class="absolute inset-0 bg-pattern opacity-20"></div>
+    <div class="relative z-10 py-28 text-center px-6">
+        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Voices of Excellence</span>
+        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight mb-6">
+            Kisah Sukses & Suara Mahasiswa
+        </h1>
+        <p class="text-green-100/70 text-lg max-w-2xl mx-auto font-sans font-light leading-relaxed">
+            Inspirasi nyata dari perjalanan akademik mahasiswa dan kontribusi profesional alumni Bioteknologi IT Del di kancah nasional maupun global.
         </p>
+        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-10 opacity-60"></div>
     </div>
 </div>
 
-<div class="bg-gray-50 py-16 min-h-screen">
-    <div class="container mx-auto px-6 max-w-6xl">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-[var(--soft-bg)] py-20 min-h-screen font-sans">
+    <div class="container mx-auto px-6 max-w-7xl">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             @forelse($testimonials as $testimoni)
-            <div class="bg-white border border-gray-100 rounded-2xl p-8 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex flex-col shadow-sm relative group">
+            <div class="testimonial-card p-10 flex flex-col relative group overflow-hidden">
                 
-                <div class="absolute top-6 right-8 text-green-100 group-hover:text-green-200 transition-colors">
-                    <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                <!-- Floating Quote Icon -->
+                <span class="quote-mark">“</span>
+
+                <!-- Testimony Text -->
+                <!-- Aku tambahkan mt-6, flex-grow, dan ubah teks ke font-medium (biar lebih tebal) dan posisinya di tengah -->
+                <div class="relative z-10 flex-grow mb-10 mt-6 flex flex-col justify-center">
+                    <p class="font-serif text-2xl font-medium leading-relaxed text-[var(--forest-dark)] text-center">
+                        "{{ $testimoni->testimony }}"
+                    </p>
                 </div>
 
-                <p class="text-gray-600 leading-relaxed mb-8 flex-1 relative z-10 italic text-justify">
-                    "{{ $testimoni->testimony }}"
-                </p>
-
-                <div class="flex items-center gap-4 mt-auto pt-6 border-t border-gray-100">
-                    <div class="w-16 h-16 bg-gray-50 rounded-full border-2 border-[#1a4a38] flex items-center justify-center shrink-0 overflow-hidden shadow-inner">
-                        @if($testimoni->photo)
-                            <img src="{{ asset($testimoni->photo) }}" alt="{{ $testimoni->name }}" class="w-full h-full object-cover">
-                        @else
-                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        @endif
+                <!-- Profile Section -->
+                <!-- Tambah mt-auto biar bagian profil selalu terdorong ke bawah mentok -->
+                <div class="relative z-10 flex items-center gap-5 pt-8 border-t border-gray-200 mt-auto">
+                    <div class="profile-border rounded-full flex-shrink-0 shadow-lg">
+                        <div class="w-16 h-16 rounded-full bg-white overflow-hidden">
+                            @if($testimoni->photo)
+                                <img src="{{ asset($testimoni->photo) }}" alt="{{ $testimoni->name }}" class="w-full h-full object-cover">
+                            @else
+                                <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">
+                                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                </div>
+                            @endif
+                        </div>
                     </div>
+
                     <div>
-                        <h4 class="text-gray-900 font-extrabold text-lg">{{ $testimoni->name }}</h4>
-                        <p class="text-xs font-bold text-[#1a4a38] bg-green-50 inline-block px-2 py-1 rounded mb-1">Alumni {{ $testimoni->graduation_year }}</p>
-                        @if($testimoni->position || $testimoni->workplace)
-                            <p class="text-xs text-gray-500 font-medium">
-                                {{ $testimoni->position }}{{ $testimoni->position && $testimoni->workplace ? ' di ' : '' }}{{ $testimoni->workplace }}
+                        <h4 class="text-[var(--forest-dark)] font-bold text-lg leading-tight mb-1">{{ $testimoni->name }}</h4>
+                        
+                        <!-- Dynamic Status Badge -->
+                        @if($testimoni->graduation_year)
+                            <span class="status-badge bg-amber-50 text-[var(--gold)] border border-amber-100">Alumni {{ $testimoni->graduation_year }}</span>
+                        @else
+                            <span class="status-badge bg-emerald-50 text-[var(--forest)] border border-emerald-100">Mahasiswa Aktif</span>
+                        @endif
+
+                        @if($testimoni->workplace)
+                            <p class="text-[11px] text-gray-500 font-medium mt-2 leading-snug">
+                                <span class="text-[var(--forest)] font-bold">{{ $testimoni->position ?? 'Contributor' }}</span> @ {{ $testimoni->workplace }}
                             </p>
                         @endif
                     </div>
                 </div>
+
+                <!-- Decoration background effect on hover -->
+                <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-[var(--gold)] opacity-0 group-hover:opacity-5 rounded-full transition-opacity duration-700"></div>
             </div>
             @empty
-            <div class="col-span-3 text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-200">
-                <p class="text-gray-400 italic">Belum ada cerita alumni yang dipublikasikan.</p>
+            <div class="col-span-full py-24 text-center">
+                <div class="inline-block p-16 bg-white rounded-[3rem] shadow-sm border-dashed border-2 border-gray-300">
+                    <p class="text-gray-500 font-serif text-2xl italic">Belum ada cerita yang dibagikan saat ini.</p>
+                </div>
             </div>
             @endforelse
         </div>
 
-        <div class="mt-12">
-            {{ $testimonials->links() }}
+        <!-- STYLED PAGINATION -->
+        <div class="mt-20 flex justify-center pagination-wrapper">
+            <div class="bg-white px-6 py-2 rounded-full shadow-sm border border-gray-200">
+                {{ $testimonials->links() }}
+            </div>
+        </div>
+
+        <!-- BOTTOM DECORATION -->
+        <div class="mt-32 text-center opacity-40">
+            <div class="flex justify-center gap-3">
+                <div class="w-1.5 h-1.5 rounded-full bg-[var(--gold)]"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-[var(--gold)]"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-[var(--gold)]"></div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,112 +1,141 @@
 @extends('layouts.main')
-
 @section('title', 'Tenaga Pendidik - Prodi Bioteknologi IT Del')
 
 @section('content')
-<div class="bg-gray-50 py-16 min-h-screen">
-    <div class="container mx-auto px-4 sm:px-6 max-w-5xl">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap');
+
+:root {
+    --forest: #1a4a38;
+    --forest-dark: #0c241c;
+    --gold: #c6a54a;
+    --soft-bg: #f5f7f6;
+}
+
+.font-serif { font-family: 'Cormorant Garamond', serif; }
+.font-sans { font-family: 'Jost', sans-serif; }
+
+/* Faculty Card Design */
+.faculty-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faculty-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px -12px rgba(26, 74, 56, 0.15);
+}
+
+.photo-frame {
+    position: relative;
+    display: inline-block;
+}
+
+.photo-frame::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--gold);
+    border-radius: 1.5rem;
+    z-index: -1;
+}
+
+.info-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    font-weight: 700;
+}
+</style>
+
+<!-- HEADER -->
+<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+    <div class="relative z-10 py-24 text-center px-6">
+        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Academic Excellence</span>
+        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">Tenaga Pendidik</h1>
+        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
+    </div>
+</div>
+
+<div class="bg-[var(--soft-bg)] py-20 min-h-screen font-sans">
+    <div class="container mx-auto px-6 max-w-6xl">
         
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-extrabold text-gray-800 uppercase tracking-wider mb-2">Tenaga Pendidik</h1>
-            <div class="h-1.5 w-24 bg-blue-600 mx-auto rounded"></div>
-            <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Profil jajaran tenaga pendidik Program Studi Bioteknologi Institut Teknologi Del.</p>
-        </div>
-
-        <div class="space-y-10">
-            
+        <div class="grid grid-cols-1 gap-12">
             @forelse($tenaga_pendidiks as $tenaga_pendidik)
-            <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden flex flex-col md:flex-row">
-
-                <div class="w-full md:w-1/3 p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100">
-                    @if($tenaga_pendidik->foto)
-                        <img src="{{ asset($tenaga_pendidik->foto) }}" alt="Foto {{ $tenaga_pendidik->nama }}" class="w-56 h-56 rounded-full object-cover shadow-sm bg-gray-100">
-                    @else
-                        <div class="w-56 h-56 bg-gray-200 text-gray-500 rounded-full flex items-center justify-center">
-                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        </div>
-                    @endif
+            <div class="faculty-card overflow-hidden shadow-sm flex flex-col md:flex-row">
+                
+                <!-- PHOTO SECTION -->
+                <div class="w-full md:w-5/12 lg:w-4/12 p-10 flex items-center justify-center bg-white/30">
+                    <div class="photo-frame">
+                        @if($tenaga_pendidik->foto)
+                            <img src="{{ asset($tenaga_pendidik->foto) }}" alt="{{ $tenaga_pendidik->nama }}" 
+                                 class="w-64 h-80 rounded-2xl object-cover shadow-xl bg-white border-4 border-white">
+                        @else
+                            <div class="w-64 h-80 rounded-2xl bg-gray-200 flex items-center justify-center border-4 border-white shadow-xl text-gray-400">
+                                <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
-                <div class="w-full md:w-2/3 flex flex-col">
-                    
-                    <div class="flex flex-wrap border-b border-gray-100 bg-gray-50/50">
-                        <div class="flex-1 min-w-[120px] bg-blue-600 text-white font-bold py-4 px-2 text-center text-xs sm:text-sm flex items-center justify-center gap-2 cursor-pointer transition">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                            PROFIL
-                        </div>
-                        <div class="flex-1 min-w-[120px] text-gray-500 font-bold py-4 px-2 text-center text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-gray-100 cursor-pointer transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            PENGAJARAN
-                        </div>
-                        <div class="flex-1 min-w-[120px] text-gray-500 font-bold py-4 px-2 text-center text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-gray-100 cursor-pointer transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                            RISET
-                        </div>
-                        <div class="flex-1 min-w-[120px] text-gray-500 font-bold py-4 px-2 text-center text-xs sm:text-sm flex items-center justify-center gap-2 hover:bg-gray-100 cursor-pointer transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                            PENGABDIAN
-                        </div>
-                    </div>
-
-                    <div class="p-8 sm:p-10">
-                        
-                        <span class="inline-block bg-blue-600 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4 shadow-sm">
-                            DOSEN
+                <!-- INFO SECTION -->
+                <div class="w-full md:w-7/12 lg:w-8/12 p-10 md:p-14 flex flex-col justify-center">
+                    <div class="mb-6">
+                        <span class="inline-block px-4 py-1 rounded-full bg-[var(--forest)] text-[var(--gold)] text-[10px] font-bold uppercase tracking-widest mb-4">
+                            Faculty Member
                         </span>
+                        <h2 class="font-serif text-3xl md:text-4xl text-[var(--forest-dark)] leading-tight">{{ $tenaga_pendidik->nama }}</h2>
+                        <p class="text-[var(--gold)] font-medium mt-1 tracking-wide">{{ $tenaga_pendidik->jabatan }}</p>
+                    </div>
 
-                        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-8">{{ $tenaga_pendidik->nama }}</h2>
-
-                        <div class="space-y-4 text-gray-700 text-[15px]">
-                            
-                            <div class="flex items-start gap-4">
-                                <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                                <div><span class="font-bold text-gray-900">NIDN:</span> {{ $tenaga_pendidik->nidn }}</div>
-                            </div>
-
-                            <div class="flex items-start gap-4">
-                                <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path><path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path></svg>
-                                <div><span class="font-bold text-gray-900">Posisi:</span> {{ $tenaga_pendidik->jabatan }}</div>
-                            </div>
-
-                            <div class="flex items-start gap-4">
-                                <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-                                <div><span class="font-bold text-gray-900">Email:</span> <a href="mailto:{{ $tenaga_pendidik->email }}" class="text-blue-600 hover:underline">{{ $tenaga_pendidik->email }}</a></div>
-                            </div>
-
-                            <div class="flex items-start gap-4">
-                                <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd"></path></svg>
-                                <div><span class="font-bold text-gray-900">Kantor:</span> {{ $tenaga_pendidik->ruangan }}</div>
-                            </div>
-
-                            <div class="flex items-start gap-4">
-                                <svg class="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0z"></path></svg>
-                                <div class="w-full">
-                                    <span class="font-bold text-gray-900 block mb-2">Latar Belakang Pendidikan:</span>
-                                    <ul class="list-disc list-inside text-gray-600 space-y-1.5 ml-1">
-                                        @foreach(explode(',', $tenaga_pendidik->lulusan) as $pendidikan)
-                                            @if(trim($pendidikan) != '')
-                                                <li>{{ trim($pendidikan) }}</li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                            
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-gray-700">
+                        <!-- NIDN -->
+                        <div>
+                            <p class="info-label mb-1">NIDN</p>
+                            <p class="font-semibold text-[var(--forest-dark)]">{{ $tenaga_pendidik->nidn }}</p>
                         </div>
+                        <!-- Email -->
+                        <div>
+                            <p class="info-label mb-1">Email Official</p>
+                            <a href="mailto:{{ $tenaga_pendidik->email }}" class="font-semibold text-blue-700 hover:underline break-words">
+                                {{ $tenaga_pendidik->email }}
+                            </a>
+                        </div>
+                        <!-- Ruangan -->
+                        <div>
+                            <p class="info-label mb-1">Ruang Kerja</p>
+                            <p class="font-semibold text-[var(--forest-dark)]">{{ $tenaga_pendidik->ruangan }}</p>
+                        </div>
+                    </div>
 
+                    <div class="mt-10 pt-8 border-t border-gray-100">
+                        <p class="info-label mb-4 text-[var(--gold)]">Latar Belakang Pendidikan</p>
+                        <ul class="space-y-3">
+                            @foreach(explode(',', $tenaga_pendidik->lulusan) as $pendidikan)
+                                @if(trim($pendidikan) != '')
+                                <li class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-[var(--forest)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                                    <span class="text-gray-600 leading-snug">{{ trim($pendidikan) }}</span>
+                                </li>
+                                @endif
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
-
             </div>
             @empty
-            
-            <div class="col-span-full text-center py-16 bg-white rounded-xl shadow-sm border border-gray-100">
-                <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                <p class="text-gray-500 text-lg">Belum ada data tenaga pendidik yang dipublikasikan.</p>
+            <div class="faculty-card p-20 text-center border-dashed border-2 border-gray-300">
+                <p class="text-gray-400 font-serif text-2xl italic">Data dosen sedang diperbarui.</p>
             </div>
-            
             @endforelse
-
         </div>
     </div>
 </div>
