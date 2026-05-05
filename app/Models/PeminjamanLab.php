@@ -10,8 +10,14 @@ class PeminjamanLab extends Model
     use HasFactory;
 
     protected $fillable = [
-        'jenis_form', 'judul_penelitian', 'laboratorium', 
-        'nama_peminjam', 'nim', 'prodi', 'status', 'catatan_admin'
+        'jenis_form',
+        'judul_penelitian',
+        'laboratorium',
+        'nama_peminjam',
+        'nim',
+        'prodi',
+        'status',
+        'catatan_admin'
     ];
 
     // Relasi ke tabel rincian alat

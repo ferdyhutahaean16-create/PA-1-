@@ -40,6 +40,13 @@
                         <label class="label-clean">Program Studi</label>
                         <input type="text" name="prodi" value="Teknik Bioteknologi" class="input-clean w-full bg-slate-50 text-slate-500" readonly>
                     </div>
+
+                    <div class="mb-4">
+                        <label class="label-clean">Nama Laboratorium</label>
+                        <!-- Pastikan name-nya persis "laboratorium" -->
+                        <input type="text" name="laboratorium" class="input-clean w-full" placeholder="Contoh: Lab Mikrobiologi" required>
+                    </div>
+
                 </div>
             </div>
 
