@@ -27,7 +27,18 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/admin/testimoni'); // Arahkan ke admin setelah berhasil
+
+            // Pengecekan Jalur Berdasarkan Email
+            $userEmail = Auth::user()->email;
+
+            if ($userEmail === 'adminlab@del.ac.id') {
+                // Jika Admin Lab, arahkan langsung ke halaman tabel peminjaman
+                // Sesuaikan '/admin/peminjaman' dengan URL rute tabel peminjaman Anda
+                return redirect()->intended('/admin/peminjaman'); 
+            }
+
+            // Jika Super Admin (admin@del.ac.id), arahkan ke Dashboard Utama
+            return redirect()->intended('/admin'); 
         }
 
         return back()->withErrors([

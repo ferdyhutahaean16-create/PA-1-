@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Admin dapat menyetujui banyak peminjaman
+    public function persetujuanPeminjaman()
+    {
+        return $this->hasMany(PeminjamanLab::class, 'approved_by');
+    }
 }

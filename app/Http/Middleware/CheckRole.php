@@ -26,10 +26,12 @@ class CheckRole
 
         // 2. Bandingkan role user di database dengan role yang diminta di route
         // Jika tidak sesuai, akses akan ditolak (403 Forbidden)
-        if (Auth::user()->role !== $role) {
-            abort(403, 'Maaf, Anda tidak memiliki otoritas untuk mengakses halaman ini.');
+        
+        if (auth()->user()->email !== 'admin@del.ac.id') {
+            abort(403, 'MAAF, ANDA TIDAK MEMILIKI OTORITAS UNTUK MENGAKSES HALAMAN INI.');
         }
-
+        
+        // Lanjutkan perjalanan jika dia adalah admin@del.ac.id
         return $next($request);
     }
 }

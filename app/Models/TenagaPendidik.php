@@ -23,4 +23,21 @@ class TenagaPendidik extends Model
         'foto',
         'pengampu_matkul' // <--- Tambahkan ini di bagian akhir
     ];
+
+    // Seorang dosen bisa menjadi kepala di sebuah lab
+    public function laboratorium()
+    {
+        return $this->hasOne(Laboratorium::class, 'head_of_lab_id');
+    }
+
+    // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+    
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

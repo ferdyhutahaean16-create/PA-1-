@@ -20,15 +20,32 @@ class PeminjamanLab extends Model
         'catatan_admin'
     ];
 
-    // Relasi ke tabel rincian alat
-    public function detailAlat()
+    // 1. Relasi ke Admin yang menyetujui
+    public function penyetuju()
     {
-        return $this->hasMany(DetailAlat::class);
+        return $this->belongsTo(User::class, 'approved_by');
     }
 
-    // Relasi ke tabel rincian bahan
+    // 2. Relasi ke daftar alat (tanpa terikat ke master inventaris)
+    public function detailAlat()
+    {
+        return $this->hasMany(DetailAlat::class, 'peminjaman_lab_id');
+    }
+
+    // 3. Relasi ke daftar bahan (tanpa terikat ke master inventaris)
     public function detailBahan()
     {
-        return $this->hasMany(DetailBahan::class);
+        return $this->hasMany(DetailBahan::class, 'peminjaman_lab_id');
+    }
+
+    // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+    
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }
