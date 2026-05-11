@@ -260,87 +260,81 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
 <div id="pgbar"></div>
 
 {{-- ══════════════════════════════════════
-     HERO SECTION
+     HERO SECTION - REDESIGN AESTHETIC
 ══════════════════════════════════════ --}}
-<section class="hero relative h-screen min-h-[600px] flex items-center justify-content overflow-hidden">
+<section class="hero relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
     
     {{-- Video Background --}}
-    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover scale-105">
         <source src="{{ asset('videos/profil.mp4') }}" type="video/mp4">
     </video>
     
-    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-[#0f2d22]/80 z-[1]"></div>
+    {{-- Overlay: Kombinasi multiply gradient dan solid black untuk kontras teks yang cinematic --}}
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0c1118]/80 via-[#0c1118]/40 to-[var(--forest3)]/90 z-[1] mix-blend-multiply"></div>
+    <div class="absolute inset-0 bg-black/30 z-[1]"></div>
     
     {{-- Main Content --}}
-    <div class="relative z-[3] flex flex-col items-center text-center px-6 w-full max-w-4xl mx-auto mt-10">
+    <div class="relative z-[3] flex flex-col items-center text-center px-6 w-full max-w-5xl mx-auto transform -translate-y-4">
         
         {{-- Logo IT Del --}}
         <div class="rv" style="animation-delay:.08s">
-            <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" alt="Logo IT Del" class="h-20 md:h-24 drop-shadow-2xl mx-auto">
+            <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" alt="Logo IT Del" class="h-16 md:h-20 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] mx-auto mb-6">
         </div>
 
-        {{-- Eyebrow --}}
-        <p class="rv text-[11px] md:text-xs tracking-[0.4em] uppercase text-green-400 font-bold mt-8 mb-4 drop-shadow-md" style="animation-delay:.22s">
-            Selamat Datang Di
-        </p>
+        {{-- Eyebrow dengan aksen garis --}}
+        <div class="rv flex items-center gap-4 mb-5" style="animation-delay:.22s">
+            <div class="h-[1px] w-8 md:w-16 bg-green-400/40"></div>
+            <p class="text-[10px] md:text-xs tracking-[0.4em] uppercase text-green-300 font-semibold drop-shadow-md">
+                Selamat Datang Di
+            </p>
+            <div class="h-[1px] w-8 md:w-16 bg-green-400/40"></div>
+        </div>
 
         {{-- Title --}}
-        <h1 class="rv serif text-5xl md:text-6xl lg:text-7xl font-light text-white leading-tight tracking-wide drop-shadow-2xl" style="animation-delay:.38s">
+        <h1 class="rv serif text-5xl md:text-7xl lg:text-8xl font-light text-white leading-[1.1] tracking-wide drop-shadow-2xl mb-2" style="animation-delay:.38s">
             Prodi Bioteknologi
         </h1>
-        <h2 class="rv text-xs md:text-sm font-medium tracking-[0.3em] uppercase text-white/80 mt-4 mb-8 drop-shadow-md" style="animation-delay:.5s">
+        <h2 class="rv text-xs md:text-sm font-medium tracking-[0.3em] uppercase text-gray-300 drop-shadow-md mb-8" style="animation-delay:.5s">
             Institut Teknologi Del
         </h2>
 
-        {{-- Divider --}}
-        <div class="rv flex items-center gap-4 mb-6" style="animation-delay:.6s">
-            <div class="h-px w-12 bg-white/40"></div>
-            <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]"></div>
-            <div class="h-px w-12 bg-white/40"></div>
-        </div>
-
         {{-- Tagline --}}
-        <p class="rv serif italic text-lg md:text-xl text-white font-medium drop-shadow-lg" style="animation-delay:.7s">
+        <p class="rv serif italic text-xl md:text-2xl text-white/90 font-light drop-shadow-lg mb-14" style="animation-delay:.6s">
             "Shaping the World Through Biotechnology"
         </p>
 
-        {{-- ✦ BADGES AKREDITASI — DIPERCANTIK --}}
-        <div class="rv flex flex-wrap gap-4 justify-center mt-10" style="animation-delay:.86s">
+        {{-- ✦ BADGES AKREDITASI — MODERN PILL DESIGN ✦ --}}
+        <div class="rv flex flex-col sm:flex-row gap-5 justify-center" style="animation-delay:.75s">
 
             {{-- Badge 1: Diktisaintek --}}
-            <div class="group relative flex items-center gap-3 px-5 py-3 rounded-2xl overflow-hidden cursor-default"
-                 style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(12px);">
-                {{-- shine sweep on hover --}}
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                     style="background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%);"></div>
-                {{-- icon circle --}}
-                <div class="relative z-10 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
-                     style="background: linear-gradient(135deg, #16a34a, #15803d); box-shadow: 0 0 12px rgba(34,197,94,0.45);">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <div class="group relative flex items-center gap-4 px-6 py-3 rounded-full overflow-hidden cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.3)] border border-white/10 bg-white/5 backdrop-blur-md">
+                {{-- Shine Effect Hover --}}
+                <div class="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {{-- Icon Circle --}}
+                <div class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-green-500/20 border border-green-400/30 text-green-400 group-hover:bg-green-500 group-hover:text-white transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
                     </svg>
                 </div>
                 <div class="relative z-10 text-left">
-                    <p class="text-[9px] font-semibold tracking-[0.2em] uppercase text-green-400 leading-none mb-0.5">Program Unggulan</p>
-                    <p class="text-[11px] font-bold tracking-[0.1em] uppercase text-white leading-none">Diktisaintek Berdampak</p>
+                    <p class="text-[9px] font-semibold tracking-[0.2em] uppercase text-green-300/80 mb-0.5">Program Unggulan</p>
+                    <p class="text-[13px] font-bold tracking-[0.05em] uppercase text-white">Diktisaintek</p>
                 </div>
             </div>
 
             {{-- Badge 2: Akreditasi --}}
-            <div class="group relative flex items-center gap-3 px-5 py-3 rounded-2xl overflow-hidden cursor-default"
-                 style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(12px);">
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                     style="background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%);"></div>
-                {{-- icon circle --}}
-                <div class="relative z-10 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
-                     style="background: linear-gradient(135deg, #b8963e, #d4a84b); box-shadow: 0 0 12px rgba(184,150,62,0.45);">
-                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <div class="group relative flex items-center gap-4 px-6 py-3 rounded-full overflow-hidden cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(234,179,8,0.3)] border border-white/10 bg-white/5 backdrop-blur-md">
+                <div class="absolute inset-0 bg-gradient-to-r from-yellow-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-yellow-500/20 border border-yellow-400/30 text-yellow-400 group-hover:bg-yellow-500 group-hover:text-white transition-colors duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
                     </svg>
                 </div>
                 <div class="relative z-10 text-left">
-                    <p class="text-[9px] font-semibold tracking-[0.2em] uppercase text-yellow-400 leading-none mb-0.5">Status Resmi</p>
-                    <p class="text-[11px] font-bold tracking-[0.1em] uppercase text-white leading-none">Akreditasi Baik</p>
+                    <p class="text-[9px] font-semibold tracking-[0.2em] uppercase text-yellow-300/80 mb-0.5">Status Resmi</p>
+                    <p class="text-[13px] font-bold tracking-[0.05em] uppercase text-white">Akreditasi Baik</p>
                 </div>
             </div>
 
@@ -349,36 +343,6 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
 
     </div>
     
-</section>
-{{-- ══════════════════════════════════════
-     ABOUT  — Estetik IT Del (Gaya Foto 2)
-══════════════════════════════════════ --}}
-<section class="about-parallax">
-    {{-- Overlay Gelap --}}
-    <div class="about-overlay"></div>
-
-    <div class="relative z-10 container mx-auto px-6 max-w-5xl">
-        
-        {{-- Kotak Transparan (Glassmorphism) --}}
-        <div class="bg-gray-900/50 backdrop-blur-md border border-gray-600/50 rounded-3xl p-10 md:p-16 text-center shadow-2xl">
-
-            {{-- Judul --}}
-            <h2 class="serif text-3xl md:text-5xl font-bold text-white mb-8 tracking-[0.15em] uppercase drop-shadow-md">
-                Teknik Bioteknologi IT Del
-            </h2>
-
-            {{-- Paragraf Teks --}}
-            <p class="text-gray-200 leading-8 text-base md:text-lg text-justify font-light mx-auto mb-10 drop-shadow-sm">
-                Teknik Bioteknologi adalah bidang ilmu teknik yang mempelajari proses ekstraksi, pengolahan, karakterisasi, dan rekayasa material hayati agar dapat dimanfaatkan secara optimal dalam berbagai sektor industri. Teknik Bioteknologi IT Del dikembangkan untuk menjawab tantangan industri modern dengan pendekatan yang terintegrasi antara teori, praktik laboratorium, dan pemanfaatan teknologi terkini. Fokus utamanya mencakup rekayasa bioproses, biomaterial, serta pengembangan material yang ramah lingkungan dan berkelanjutan. Melalui program ini, mahasiswa dibekali dengan kompetensi teknis, analitis, serta etika profesi yang kuat.
-            </p>
-
-            {{-- Tombol --}}
-            <a href="/profil" class="inline-block border-2 border-gray-400/70 hover:bg-white hover:text-gray-900 text-white px-8 py-3.5 rounded-xl font-bold uppercase tracking-widest text-xs transition-all duration-300 shadow-lg">
-                Ingin Tau Lebih Banyak Tentang Bioteknologi IT Del?
-            </a>
-
-        </div>
-    </div>
 </section>
 
 {{-- ══════════════════════════════════════
