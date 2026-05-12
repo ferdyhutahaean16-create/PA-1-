@@ -133,9 +133,14 @@ Route::get('/fasilitas/ruang-kelas', [RuangKelasController::class, 'index'])->na
 
 // Hapus atau ganti rute /form-alat dan /form-bahan sebelumnya menjadi ini:
 Route::prefix('laboratorium')->group(function () {
-    // 1 Pintu masuk untuk form gabungan
-    Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam']);
     
+    // 1. TAMBAHKAN BARIS INI: Rute untuk halaman utama daftar fasilitas lab
+    Route::get('/', function () {
+        return view('laboratorium.index'); // Pastikan nama file view-nya sesuai
+    });
+    
+    // 2. Rute-rute yang sudah Anda buat sebelumnya tetap di bawahnya
+    Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam']);
     Route::post('/store', [PeminjamanLabController::class, 'store'])->name('laboratorium.store');
     Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus']);
 });
