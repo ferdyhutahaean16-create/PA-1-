@@ -43,8 +43,10 @@
             {{-- KOLOM 1: IDENTITAS --}}
             <div class="md:col-span-5">
                 <div class="flex items-center gap-4 mb-8">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Logo_IT_Del.png" 
-                         class="h-16 brightness-0 invert" alt="Logo IT Del">
+
+                    <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" 
+                         class="h-16" alt="Logo IT Del">
+
                     <div class="h-12 w-[1px] bg-white/20 hidden md:block"></div>
                     <div>
                         <h3 class="font-serif text-2xl font-bold text-[var(--gold)] leading-tight">Prodi Bioteknologi</h3>
@@ -69,7 +71,14 @@
                     <li><a href="#" class="footer-link">Kurikulum Akademik</a></li>
                     <li><a href="#" class="footer-link">Fasilitas Laboratorium</a></li>
                     <li><a href="#" class="footer-link">Penelitian & Riset</a></li>
-                    <li><a href="#" class="footer-link">Kemahasiswaan</a></li>
+                    <li><a href="{{ url('/laboratorium/pinjam') }}" class="footer-link">Form Peminjaman & Bahan</a></li>
+                    <li><a href="{{ url('/laboratorium/cek-status') }}" class="footer-link">Cek Status Permohonan</a></li>
+                    <li class="pt-4 mt-4 border-t border-white/10">
+                    <a href="{{ route('login') }}" class="footer-link text-[var(--gold)] hover:text-white font-bold flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        Portal Admin & Dosen
+                    </a>
+        </li>
                 </ul>
             </div>
 

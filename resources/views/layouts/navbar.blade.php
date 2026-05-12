@@ -104,14 +104,14 @@
                     PROFIL <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-[#064e3b] min-w-[220px] top-[calc(100%-4px)] left-0 z-50 rounded-b-md overflow-hidden">
-                    <a href="/profil" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">Tentang Program Studi</a>
+                    <a href="/profil" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">Profil</a>
                     <a href="/struktur" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">Struktur Organisasi</a>
                     <a href="{{ url('/kurikulum') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-[#064e3b] text-sm font-bold transition">KURIKULUM</a>
                 </div>
             </div>
 
             <a href="/tenaga" class="py-5 relative whitespace-nowrap {{ request()->is('tenaga*') ? 'nav-active' : 'nav-item' }}">
-                TENAGA PENGAJAR
+                TENAGA Pendidik
             </a>
             
             <div class="group relative py-5">
@@ -129,8 +129,8 @@
                     KEGIATAN <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-[#064e3b] min-w-[240px] top-[calc(100%-4px)] left-0 z-50 rounded-b-md overflow-hidden">
-                    <a href="{{ url('/kegiatan/dosen') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">PENGABDIAN DOSEN (PKM)</a>
-                    <a href="{{ url('/kegiatan/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">Kegiatan Mahasiswa</a>
+                    <a href="{{ url('/kegiatan/dosen') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">KEGIATAN DOSEN</a>
+                    <a href="{{ url('/kegiatan/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">KEGIATAN MAHASISWA</a>
                     <a href="{{ url('/kegiatan/penelitian') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] text-sm font-bold transition">Penelitian (Riset)</a>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                         RUANG KELAS
                     </a>
                     <a href="{{ url('/laboratorium') }}" class="block px-5 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-[#064e3b] font-bold transition-colors uppercase">
-                        LABORATORIUM
+                        RUANG LABORATORIUM
                     </a>
                 </div>
             </div>
@@ -167,10 +167,6 @@
             <button class="nav-item transition">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </button>
-            <div class="h-4 w-px bg-current opacity-30 nav-item"></div>
-            <a href="/admin" class="nav-item transition transform hover:scale-110" title="Login Admin">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            </a>
         </div>
 
         <!-- Tombol Mobile Menu -->
