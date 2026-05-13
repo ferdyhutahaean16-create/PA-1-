@@ -18,10 +18,7 @@ class DatabaseSeeder extends Seeder
             'name'     => 'Super Admin Bioteknologi',
             'email'    => 'admin@del.ac.id',
             'password' => Hash::make('admin123'),
-            
-            // PENTING: Jika di tabel users Anda ada kolom 'role' atau 'level', 
-            // hapus tanda miring ganda (//) di bawah ini agar hak aksesnya terpisah:
-            // 'role'  => 'superadmin', 
+            'role'     => 'super_admin', // Sesuai dengan enum di tabel users
         ]);
 
         // 2. Akun Admin Laboratorium (Khusus Lab & Peminjaman)
@@ -29,9 +26,7 @@ class DatabaseSeeder extends Seeder
             'name'     => 'Admin Laboratorium',
             'email'    => 'adminlab@del.ac.id',
             'password' => Hash::make('admin123'),
-            
-            // PENTING: Sama seperti di atas, buka komentar ini jika ada kolom 'role':
-            // 'role'  => 'adminlab', 
+            'role'     => 'admin_lab', // Sesuai dengan enum di tabel users
         ]);
         
         $this->command->info('Dua akun Admin (Super Admin & Admin Lab) berhasil dibuat dengan sempurna!');
