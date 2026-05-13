@@ -239,26 +239,27 @@ body {
 
 <script>
 function switchTab(tabId, element) {
-    // 1. Reset all buttons
+    // 1. Reset semua tombol
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
 
-    // 2. Activate clicked button
+    // 2. Aktifkan tombol yang diklik
     element.classList.add('active');
 
-    // 3. Hide all content with a quick fade-out
+    // 3. Sembunyikan semua konten (hanya dengan menghapus class active)
     document.querySelectorAll('.tab-content').forEach(content => {
-        content.style.opacity = '0';
+        // HAPUS baris 'content.style.opacity = 0'
         content.classList.remove('active');
     });
 
-    // 4. Show target content with animation
+    // 4. Tampilkan konten yang dituju (dengan menambahkan class active)
     const target = document.getElementById('content-' + tabId);
     if(target) {
+        // Memberikan sedikit jeda agar transisi CSS terlihat lebih mulus
         setTimeout(() => {
             target.classList.add('active');
-        }, 50);
+        }, 50); 
     }
 }
 </script>
