@@ -131,17 +131,18 @@ Route::get('/fasilitas', function () {
 
 Route::get('/fasilitas/ruang-kelas', [RuangKelasController::class, 'index'])->name('fasilitas.ruang-kelas');
 
+// Hapus atau ganti rute /form-alat dan /form-bahan sebelumnya menjadi ini:
 Route::prefix('laboratorium')->group(function () {
+    
+    // 1. TAMBAHKAN BARIS INI: Rute untuk halaman utama daftar fasilitas lab
     Route::get('/', function () {
-        $labs = Laboratorium::orderBy('nama_lab', 'asc')->get();
-        return view('laboratorium.index', compact('labs'));
-    })->name('lab.index');
-
-    Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');
-    Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('lab.peminjaman.cetak');
-    Route::get('/pinjam-alat', [PeminjamanLabController::class, 'formAlat'])->name('lab.pinjam-alat');
-    Route::get('/pinjam-bahan', [PeminjamanLabController::class, 'formBahan'])->name('lab.pinjam-bahan');
-    Route::post('/pinjam/store', [PeminjamanLabController::class, 'store'])->name('lab.pinjam.store');
+        return view('laboratorium.index'); // Pastikan nama file view-nya sesuai
+    });
+    
+    // 2. Rute-rute yang sudah Anda buat sebelumnya tetap di bawahnya
+    Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam']);
+    Route::post('/store', [PeminjamanLabController::class, 'store'])->name('laboratorium.store');
+    Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus']);
 });
 
 // ==========================================

@@ -31,7 +31,7 @@ class CheckRole
             abort(403, 'MAAF, ANDA TIDAK MEMILIKI OTORITAS UNTUK MENGAKSES HALAMAN INI.');
         }
         
-        // Lanjutkan perjalanan jika dia adalah admin@del.ac.id
+        // untuk login admin@del.ac.id
         return $next($request);
     }
 }

@@ -10,12 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class PeminjamanLabController extends Controller 
 {
-    public function formAlat() {
-        return view('laboratorium.pinjam_alat');
-    }
-
-    public function formBahan() {
-        return view('laboratorium.pinjam_bahan');
+    // Fungsi untuk memanggil form gabungan
+    public function formPinjam() {
+        return view('laboratorium.pinjam');
     }
 
     public function store(Request $request)
