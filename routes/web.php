@@ -142,7 +142,8 @@ Route::prefix('laboratorium')->group(function () {
     // 2. Rute-rute yang sudah Anda buat sebelumnya tetap di bawahnya
     Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam']);
     Route::post('/store', [PeminjamanLabController::class, 'store'])->name('laboratorium.store');
-    Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus']);
+    Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');
+    Route::get('/laboratorium/peminjaman/cetak/{id}', [App\Http\Controllers\PeminjamanLabController::class, 'cetakBon'])->name('lab.peminjaman.cetak');
 });
 
 // ==========================================
