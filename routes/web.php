@@ -97,7 +97,7 @@ Route::prefix('prestasi')->group(function () {
     })->name('prestasi.dosen');
 
     Route::get('/mahasiswa', function () {
-        $prestasi  = Prestasi::where('kategori', 'Mahasiswa')->orderBy('tahun', 'desc')->get();
+        $prestasi = Prestasi::orderBy('tanggal_perolehan', 'desc')->get();
         $publikasi = Publikasi::where('kategori', 'Mahasiswa')->orderBy('created_at', 'desc')->get();
         return view('prestasi_mahasiswa', compact('prestasi', 'publikasi'));
     })->name('prestasi.mahasiswa');

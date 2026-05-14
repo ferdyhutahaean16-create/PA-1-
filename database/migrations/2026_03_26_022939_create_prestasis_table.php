@@ -9,18 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+public function up(): void
 {
     Schema::create('prestasis', function (Blueprint $table) {
         $table->id();
-        // Membedakan apakah ini prestasi dosen atau mahasiswa
-        $table->enum('kategori', ['Dosen', 'Mahasiswa']); 
-        $table->string('nama_peraih'); // Nama dosen atau mahasiswa yang juara
-        $table->string('judul_prestasi'); // Contoh: Juara 1 Lomba Karya Tulis Ilmiah
-        $table->string('tingkat')->nullable(); // Contoh: Nasional, Internasional, Provinsi
-        $table->integer('tahun'); // Tahun perolehan prestasi
-        $table->text('deskripsi')->nullable(); // Penjelasan singkat
-        $table->string('foto')->nullable(); // Foto saat menerima penghargaan/medali
+        $table->string('nama_prestasi');
+        $table->string('nama_mahasiswa');
+        
+        // KODE ENUM ANDA DITAMBAHKAN DI SINI
+        $table->enum('tingkat', ['Lokal', 'Regional', 'Nasional', 'Internasional'])->default('Lokal');
+        
+        $table->date('tanggal_perolehan');
+        $table->string('bukti_sertifikat')->nullable();
         $table->timestamps();
     });
 }

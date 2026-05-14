@@ -36,27 +36,27 @@
 
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Sejarah Singkat</label>
-                        <textarea name="sejarah" rows="5" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $profil->sejarah }}</textarea>
+                        <textarea name="sejarah" rows="5" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $profil->sejarah }}</textarea>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Visi</label>
-                            <textarea name="visi" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $profil->visi }}</textarea>
+                            <textarea name="visi" rows="4" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $profil->visi }}</textarea>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Misi</label>
-                            <textarea name="misi" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $profil->misi }}</textarea>
+                            <textarea name="misi" rows="4" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $profil->misi }}</textarea>
                         </div>
                     </div>
 
                     <div class="hidden"> <label class="block text-sm font-bold text-gray-700 mb-2">Tujuan</label>
-                        <textarea name="tujuan" rows="2" class="w-full p-3 border border-gray-300 rounded-lg">{{ $profil->tujuan ?? '-' }}</textarea>
+                        <textarea name="tujuan" rows="2" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg">{{ $profil->tujuan ?? '-' }}</textarea>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Prospek Karir</label>
-                        <textarea name="prospek_karir" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $profil->prospek_karir }}</textarea>
+                        <textarea name="prospek_karir" rows="4" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">{{ $profil->prospek_karir }}</textarea>
                     </div>
                 </div>
 
@@ -116,4 +116,41 @@
         document.getElementById('tab-' + tab).classList.remove('border-transparent', 'text-gray-500');
     }
 </script>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cari semua elemen yang punya class 'ckeditor-field'
+        let editors = document.querySelectorAll('.ckeditor-field');
+        
+        // Loop dan ubah satu per satu menjadi editor
+        editors.forEach(function(editorElement) {
+            ClassicEditor
+                .create(editorElement, {
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo' ]
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    });
+</script>
+
+<style>
+    /* Mengatur tinggi minimal editor agar lebih nyaman digunakan mengetik */
+    .ck-editor__editable_inline {
+        min-height: 250px;
+    }
+    /* Memperbaiki tampilan border agar menyatu dengan desain Tailwind Anda */
+    .ck-editor__main .ck-content {
+        border-radius: 0 0 0.5rem 0.5rem !important;
+        border-color: #d1d5db !important;
+    }
+    .ck-toolbar {
+        border-radius: 0.5rem 0.5rem 0 0 !important;
+        background-color: #f9fafb !important;
+        border-color: #d1d5db !important;
+    }
+</style>
+
 @endsection

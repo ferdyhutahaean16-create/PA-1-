@@ -32,7 +32,7 @@
                     <div><label class="block text-sm font-bold mb-2">Link Download PDF (Url)</label><input type="url" name="link_download" class="w-full p-3 border rounded-lg"></div>
                     <div><label class="block text-sm font-bold mb-2">Link Website Jurnal (Url)</label><input type="url" name="link_view" class="w-full p-3 border rounded-lg"></div>
                 </div>
-                <div><label class="block text-sm font-bold mb-2">Abstrak / Deskripsi</label><textarea name="deskripsi" rows="4" class="w-full p-3 border rounded-lg"></textarea></div>
+                <div><label class="block text-sm font-bold mb-2">Abstrak / Deskripsi</label><textarea name="deskripsi" rows="4" class="ckeditor-field w-full p-3 border rounded-lg"></textarea></div>
                 <div><label class="block text-sm font-bold mb-2">Cover Jurnal/Artikel (Gambar)</label><input type="file" name="gambar" class="w-full border p-2 rounded-lg bg-gray-50"></div>
                 <button type="submit" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto">Simpan</button>
             </form>
@@ -73,11 +73,39 @@
                     <div><label class="block text-sm font-bold mb-2">Link Download PDF (Url)</label><input type="url" name="link_download" class="w-full p-3 border rounded-lg"></div>
                     <div><label class="block text-sm font-bold mb-2">Link Website Jurnal (Url)</label><input type="url" name="link_view" class="w-full p-3 border rounded-lg"></div>
                 </div>
-                <div><label class="block text-sm font-bold mb-2">Abstrak / Deskripsi</label><textarea name="deskripsi" rows="4" class="w-full p-3 border rounded-lg"></textarea></div>
+                <div><label class="block text-sm font-bold mb-2">Abstrak / Deskripsi</label><textarea name="deskripsi" rows="4" class="ckeditor-field w-full p-3 border rounded-lg"></textarea></div>
                 <div><label class="block text-sm font-bold mb-2">Cover Jurnal/Artikel (Gambar)</label><input type="file" name="gambar" class="w-full border p-2 rounded-lg bg-gray-50"></div>
                 <button type="submit" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto">Simpan</button>
             </form>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cari semua elemen yang punya class 'ckeditor-field'
+        let editors = document.querySelectorAll('.ckeditor-field');
+        
+        // Loop dan ubah satu per satu menjadi editor
+        editors.forEach(function(editorElement) {
+            ClassicEditor
+                .create(editorElement, {
+                    // Opsional: Anda bisa mengatur menu toolbar di sini
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo' ]
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    });
+</script>
+
+<style>
+    /* Sedikit perbaikan CSS agar editornya tidak terlalu pendek */
+    .ck-editor__editable_inline {
+        min-height: 200px;
+    }
+</style>
 @endsection

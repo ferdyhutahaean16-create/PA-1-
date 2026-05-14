@@ -61,7 +61,7 @@
 
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi Singkat Kerja Sama</label>
-                        <textarea name="description" rows="3" placeholder="Fokus pada penelitian bersama, magang mahasiswa, dll..." class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]"></textarea>
+                        <textarea name="description" rows="3" placeholder="Fokus pada penelitian bersama, magang mahasiswa, dll..." class="ckeditor-field w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]"></textarea>
                     </div>
                 </div>
 
@@ -72,4 +72,32 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cari semua elemen yang punya class 'ckeditor-field'
+        let editors = document.querySelectorAll('.ckeditor-field');
+        
+        // Loop dan ubah satu per satu menjadi editor
+        editors.forEach(function(editorElement) {
+            ClassicEditor
+                .create(editorElement, {
+                    // Opsional: Anda bisa mengatur menu toolbar di sini
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo' ]
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    });
+</script>
+
+<style>
+    /* Sedikit perbaikan CSS agar editornya tidak terlalu pendek */
+    .ck-editor__editable_inline {
+        min-height: 200px;
+    }
+</style>
 @endsection

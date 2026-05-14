@@ -12,7 +12,7 @@ class PrestasiController extends Controller
     public function index()
     {
         // Mengambil semua data prestasi, diurutkan dari tahun terbaru
-        $prestasi = Prestasi::orderBy('tahun', 'desc')->get();
+        $prestasi = Prestasi::orderBy('tanggal_perolehan', 'desc')->get();
         return view('admin.prestasi.index', compact('prestasi'));
     }
 
@@ -26,8 +26,15 @@ class PrestasiController extends Controller
         $request->validate([
             'kategori' => 'required|in:Dosen,Mahasiswa',
             'nama_peraih' => 'required|string|max:255',
+            'penyelenggara' => 'required|string|max:255',
             'judul_prestasi' => 'required|string|max:255',
-            'tingkat' => 'nullable|string|max:100',
+            'nama_prestasi' => 'required|string|max:255',
+            'nama_mahasiswa' => 'required|string|max:255',
+            
+            // VALIDASI ENUM: Pastikan input ada di dalam list ini
+            'tingkat' => 'required|in:Lokal,Regional,Nasional,Internasional',
+            
+            'tanggal_perolehan' => 'required|date',
             'tahun' => 'required|integer',
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',

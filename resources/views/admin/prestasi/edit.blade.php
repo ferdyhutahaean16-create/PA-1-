@@ -36,20 +36,36 @@
                     <input type="text" name="nama_peraih" value="{{ $prestasi->nama_peraih }}" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
                 </div>
 
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Pihak Penyelenggara</label>
+                    <input type="text" name="penyelenggara" 
+                           value="{{ old('penyelenggara', $prestasi->penyelenggara ?? '') }}" 
+                           placeholder="Contoh: Kemendikbudristek, LIPI, atau Universitas Gadjah Mada"
+                           required 
+                           class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none">
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Judul Prestasi <span class="text-red-500">*</span></label>
                         <input type="text" name="judul_prestasi" value="{{ $prestasi->judul_prestasi }}" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Tingkat / Skala</label>
-                        <input type="text" name="tingkat" value="{{ $prestasi->tingkat }}" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Tingkat Prestasi</label>
+                        <select name="tingkat" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-600 outline-none bg-white">
+                            <option value="" disabled selected>-- Pilih Tingkat Prestasi --</option>
+
+                            <option value="Lokal">Tingkat Lokal (Kampus/Sekitar)</option>
+                            <option value="Regional">Regional (Wilayah/Provinsi)</option>
+                            <option value="Nasional">Luar Provinsi (Nasional)</option>
+                            <option value="Internasional">Internasional</option>
+                        </select>
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi Singkat</label>
-                    <textarea name="deskripsi" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">{{ $prestasi->deskripsi }}</textarea>
+                    <textarea name="deskripsi" rows="3" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">{{ $prestasi->deskripsi }}</textarea>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
@@ -73,4 +89,32 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cari semua elemen yang punya class 'ckeditor-field'
+        let editors = document.querySelectorAll('.ckeditor-field');
+        
+        // Loop dan ubah satu per satu menjadi editor
+        editors.forEach(function(editorElement) {
+            ClassicEditor
+                .create(editorElement, {
+                    // Opsional: Anda bisa mengatur menu toolbar di sini
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo' ]
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    });
+</script>
+
+<style>
+    /* Sedikit perbaikan CSS agar editornya tidak terlalu pendek */
+    .ck-editor__editable_inline {
+        min-height: 200px;
+    }
+</style>
 @endsection

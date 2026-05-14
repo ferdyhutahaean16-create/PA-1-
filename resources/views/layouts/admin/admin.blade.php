@@ -83,13 +83,12 @@
             <div class="mt-8 mb-3 px-4 text-[10px] font-bold text-[#22c55e] uppercase tracking-widest">
                 Manajemen Laboratorium
             </div>
+            <a href="{{ route('laboratorium.index') }}" class="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-white rounded-lg transition-colors">
+                <i class="nav-icon fas fa-door-open"></i> <p>Fasilitas Laboratorium</p>
+            </a>
             <a href="{{ route('admin.peminjaman.index') }}" class="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-white rounded-lg transition-colors">
                 Manajemen Peminjaman
             </a>
-            <a href="#" class="block px-4 py-2.5 text-sm hover:bg-gray-800 hover:text-white rounded-lg transition-colors">
-                Data Inventaris Lab
-            </a>
-
         </div>
 
         <div class="p-4 border-t border-gray-800 bg-[#0b1320] flex flex-col gap-3">
