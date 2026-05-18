@@ -131,7 +131,7 @@ Route::get('/fasilitas', function () {
 
 Route::get('/fasilitas/ruang-kelas', [RuangKelasController::class, 'index'])->name('fasilitas.ruang-kelas');
 
-// Hapus atau ganti rute /form-alat dan /form-bahan sebelumnya menjadi ini:
+// rute alat dan bahan
 Route::prefix('laboratorium')->group(function () {
     
     // 1. TAMBAHKAN BARIS INI: Rute untuk halaman utama daftar fasilitas lab
