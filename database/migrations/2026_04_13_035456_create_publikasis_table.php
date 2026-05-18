@@ -13,6 +13,7 @@ return new class extends Migration
 {
     Schema::create('publikasis', function (Blueprint $table) {
         $table->id();
+        $table->foreignId('tenaga_pendidik_id')->constrained('tenaga_pendidiks')->onDelete('cascade');
         $table->enum('kategori', ['Dosen', 'Mahasiswa']); // Penanda milik siapa
         $table->string('judul'); // Judul Publikasi/Jurnal
         $table->string('penulis'); // Nama Penulis

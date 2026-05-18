@@ -76,7 +76,8 @@ Route::get('/kurikulum', function () {
 
 // Tenaga Pendidik
 Route::get('/tenaga-pendidik', function () {
-    $tenaga_pendidiks = TenagaPendidik::all();
+    $tenaga_pendidiks = TenagaPendidik::with(['pengajarans', 'publikasis'])->get();
+    
     return view('tenaga_pendidik', compact('tenaga_pendidiks'));
 })->name('dosen.publik');
 
@@ -91,7 +92,7 @@ Route::get('/kisah-alumni', [TestimonialController::class, 'index'])->name('publ
 // Prestasi
 Route::prefix('prestasi')->group(function () {
     Route::get('/dosen', function () {
-        $prestasi  = Prestasi::where('kategori', 'Dosen')->orderBy('tahun', 'desc')->get();
+        $prestasi = Prestasi::orderBy('tanggal_perolehan', 'desc')->get();
         $publikasi = Publikasi::where('kategori', 'Dosen')->orderBy('created_at', 'desc')->get();
         return view('prestasi_dosen', compact('prestasi', 'publikasi'));
     })->name('prestasi.dosen');

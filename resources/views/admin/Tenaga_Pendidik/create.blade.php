@@ -92,6 +92,124 @@
                         <p class="mt-2 text-xs text-gray-500">Format yang diterima: JPG, JPEG, PNG. Ukuran maksimum: 2MB. Disarankan foto berasio 3:4 atau persegi.</p>
                     </div>
 
+                    <div class="mt-10 pt-6 border-t border-gray-200">
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-800">Daftar Mata Kuliah yang Diampu</h3>
+                                <p class="text-xs text-gray-500 font-semibold">Masukkan daftar mata kuliah yang diajarkan oleh tenaga pendidik ini.</p>
+                            </div>
+                            <button type="button" id="btn-tambah-pengajaran" class="bg-green-600 hover:bg-green-700 text-white text-xs font-bold py-2 px-4 rounded-lg shadow transition">
+                                + Tambah Mata Kuliah
+                            </button>
+                        </div>
+                    
+                        <div class="overflow-x-auto shadow border border-gray-200 rounded-xl bg-white p-4">
+                            <table class="min-w-full divide-y divide-gray-200" id="tabel-pengajaran">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Mata Kuliah</th>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Semester</th>
+                                        <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Tahun Akademik</th>
+                                        <th class="px-4 py-3 text-center text-xs font-bold text-gray-500 uppercase" style="width: 80px;">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200" id="wrapper-pengajaran">
+                                    @if(isset($tenagaPendidik) && $tenagaPendidik->pengajarans->count() > 0)
+                                        @foreach($tenagaPendidik->pengajarans as $index => $ajar)
+                                            <tr>
+                                                <td class="p-2">
+                                                    <input type="text" name="mata_kuliah[]" value="{{ $ajar->mata_kuliah }}" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
+                                                </td>
+                                                <td class="p-2">
+                                                    <select name="semester[]" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                                        <option value="Ganjil" {{ $ajar->semester == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
+                                                        <option value="Genap" {{ $ajar->semester == 'Genap' ? 'selected' : '' }}>Genap</option>
+                                                    </select>
+                                                </td>
+                                                <td class="p-2">
+                                                    <input type="text" name="tahun_akademik[]" value="{{ $ajar->tahun_akademik }}" placeholder="Contoh: 2025/2026" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
+                                                </td>
+                                                <td class="p-2 text-center">
+                                                    <button type="button" class="btn-hapus-baris bg-red-100 hover:bg-red-200 text-red-600 p-2 rounded-lg transition">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td class="p-2">
+                                                <input type="text" name="mata_kuliah[]" required placeholder="Nama Mata Kuliah" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
+                                            </td>
+                                            <td class="p-2">
+                                                <select name="semester[]" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                                    <option value="Ganjil">Ganjil</option>
+                                                    <option value="Genap">Genap</option>
+                                                </select>
+                                            </td>
+                                            <td class="p-2">
+                                                <input type="text" name="tahun_akademik[]" required placeholder="Contoh: 2025/2026" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
+                                            </td>
+                                            <td class="p-2 text-center">
+                                                <button type="button" class="btn-hapus-baris bg-red-100 hover:bg-red-200 text-red-600 p-2 rounded-lg transition">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const wrapper = document.getElementById('wrapper-pengajaran');
+                            const btnTambah = document.getElementById('btn-tambah-pengajaran');
+                    
+                            // Template HTML untuk baris baru saat tombol diklik
+                            const barisBaru = `
+                                <tr>
+                                    <td class="p-2">
+                                        <input type="text" name="mata_kuliah[]" required placeholder="Nama Mata Kuliah" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
+                                    </td>
+                                    <td class="p-2">
+                                        <select name="semester[]" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                            <option value="Ganjil">Ganjil</option>
+                                            <option value="Genap">Genap</option>
+                                        </select>
+                                    </td>
+                                    <td class="p-2">
+                                        <input type="text" name="tahun_akademik[]" required placeholder="Contoh: 2025/2026" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
+                                    </td>
+                                    <td class="p-2 text-center">
+                                        <button type="button" class="btn-hapus-baris bg-red-100 hover:bg-red-200 text-red-600 p-2 rounded-lg transition">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                    
+                            // Aksi Tambah Baris
+                            btnTambah.addEventListener('click', function() {
+                                wrapper.insertAdjacentHTML('beforeend', barisBaru);
+                            });
+                    
+                            // Aksi Hapus Baris (Menggunakan Event Delegation karena baris dibuat dinamis)
+                            wrapper.addEventListener('click', function(e) {
+                                if (e.target.closest('.btn-hapus-baris')) {
+                                    const baris = e.target.closest('tr');
+                                    // Sisakan minimal 1 baris input agar form tidak kosong total
+                                    if (wrapper.querySelectorAll('tr').length > 1) {
+                                        baris.remove();
+                                    } else {
+                                        alert('Harus ada minimal satu mata kuliah yang diisi.');
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+
                 </div>
 
                 <div class="flex justify-end items-center gap-4 mt-16 pt-8 border-t border-gray-100">

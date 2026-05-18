@@ -11,14 +11,15 @@ class Publikasi extends Model
 
     protected $fillable = [
         'kategori',
-        'judul',
-        'penulis',
         'tanggal_publikasi',
+        'judul',
         'tipe_publikasi',
         'link_download',
         'link_view',
         'deskripsi',
-        'gambar'
+        'penulis',
+        'gambar',
+        'tenaga_pendidik_id', 
     ];
 
     // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.

@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\TenagaPendidik;
+use App\Models\Pengajaran; // 1. WAJIB IMPORT MODEL PENGAJARAN
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB; // Digunakan untuk DB::transaction
 
 class TenagaPendidikController extends Controller
 {
     // 1. Menampilkan Tabel Data
     public function index()
     {
-        $tenaga_pendidiks = TenagaPendidik::all();
+        // Menggunakan with('pengajarans') agar query lebih cepat (Eager Loading)
+        $tenaga_pendidiks = TenagaPendidik::with('pengajarans')->get();
         return view('admin.tenaga_pendidik.index', compact('tenaga_pendidiks'));
     }
 
@@ -22,26 +25,27 @@ class TenagaPendidikController extends Controller
         return view('admin.tenaga_pendidik.create');
     }
 
-    // 3. Menyimpan Data Baru ke Database
+    // 3. Menyimpan Data Baru ke Database (Profil + Pengajaran)
     public function store(Request $request)
     {
-        // Validasi input
+        // Validasi Data Dosen dan Array Pengajaran sekaligus
         $request->validate([
-            'nidn' => 'required',
-            'nama' => 'required',
+            'nama' => 'required|string|max:255',
+            'nidn' => 'required|string|unique:tenaga_pendidiks,nidn',
             'lulusan' => 'required',
             'jabatan' => 'required',
             'email' => 'required|email',
-            'no_telpon' => 'nullable',
             'ruangan' => 'required',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', 
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            // Validasi array input pengajaran dinamis
+            'mata_kuliah' => 'required|array',
+            'mata_kuliah.*' => 'required|string|max:255',
+            'semester' => 'required|array',
+            'tahun_akademik' => 'required|array',
         ]);
 
         $data = $request->all();
-
-        // INI DIA SOLUSI ERROR DATABASE-NYA:
-        // Kita paksa isi kolom pengampu_matkul dengan tanda strip
-        $data['pengampu_matkul'] = '-';
+        $data['pengampu_matkul'] = '-'; // Membypas kolom lama
 
         // Proses Upload Foto jika ada
         if ($request->hasFile('foto')) {
@@ -52,26 +56,46 @@ class TenagaPendidikController extends Controller
             $data['foto'] = $tujuan_upload . '/' . $nama_foto;
         }
 
-        // Simpan ke database
-        TenagaPendidik::create($data);
+        // BUNGKUS DENGAN TRANSACTION AGAR AMAN
+        DB::transaction(function () use ($data, $request) {
+            // A. Simpan data Tenaga Pendidik utama
+            $tenaga_pendidik = TenagaPendidik::create($data);
 
-        return redirect()->route('tenaga-pendidik.index')->with('success', 'Data Tenaga Pendidik berhasil ditambahkan!');
+            // B. Ambil data array dari form dinamis
+            $mataKuliah = $request->mata_kuliah;
+            $semester = $request->semester;
+            $tahunAkademik = $request->tahun_akademik;
+
+            // C. Looping array untuk menyimpan setiap baris mengajar
+            foreach ($mataKuliah as $key => $val) {
+                Pengajaran::create([
+                    'tenaga_pendidik_id' => $tenaga_pendidik->id, // Hubungkan foreign key ke ID dosen baru
+                    'mata_kuliah'        => $val,
+                    'semester'           => $semester[$key],
+                    'tahun_akademik'     => $tahunAkademik[$key],
+                ]);
+            }
+        });
+
+        return redirect()->route('tenaga-pendidik.index')->with('success', 'Data Tenaga Pendidik & Pengajaran berhasil ditambahkan!');
     }
 
     // 4. Menampilkan Form Edit
     public function edit($id)
     {
-        $tenaga_pendidik = TenagaPendidik::findOrFail($id);
+        // Cari data dosen beserta list pengajarannya sekalian
+        $tenaga_pendidik = TenagaPendidik::with('pengajarans')->findOrFail($id);
         return view('admin.tenaga_pendidik.edit', compact('tenaga_pendidik'));
     }
 
-    // 5. Menyimpan Perubahan Data (Update)
+    // 5. Menyimpan Perubahan Data (Update Profil + Pengajaran)
     public function update(Request $request, $id)
     {
         $tenaga_pendidik = TenagaPendidik::findOrFail($id);
 
+        // Tambahkan validasi array pengajaran di form update agar aman dari manipulasi
         $request->validate([
-            'nidn' => 'required',
+            'nidn' => 'required|string|unique:tenaga_pendidiks,nidn,' . $id,
             'nama' => 'required',
             'lulusan' => 'required',
             'jabatan' => 'required',
@@ -79,21 +103,22 @@ class TenagaPendidikController extends Controller
             'no_telpon' => 'nullable',
             'ruangan' => 'required',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            // Aturan array pengajaran dinamis
+            'mata_kuliah' => 'required|array',
+            'mata_kuliah.*' => 'required|string|max:255',
+            'semester' => 'required|array',
+            'tahun_akademik' => 'required|array',
         ]);
 
         $data = $request->all();
-
-        // INI DIA SOLUSI ERROR DATABASE-NYA:
         $data['pengampu_matkul'] = '-';
 
         // Jika user upload foto baru
         if ($request->hasFile('foto')) {
-            // Hapus foto lama jika ada
             if ($tenaga_pendidik->foto && File::exists(public_path($tenaga_pendidik->foto))) {
                 File::delete(public_path($tenaga_pendidik->foto));
             }
 
-            // Upload foto baru
             $foto = $request->file('foto');
             $nama_foto = time() . "_" . $foto->getClientOriginalName();
             $tujuan_upload = 'uploads/foto_pendidik';
@@ -101,17 +126,37 @@ class TenagaPendidikController extends Controller
             $data['foto'] = $tujuan_upload . '/' . $nama_foto;
         }
 
-        $tenaga_pendidik->update($data);
+        // BUNGKUS DENGAN TRANSACTION SAAT UPDATE RELASI ARRAY
+        DB::transaction(function () use ($tenaga_pendidik, $data, $request) {
+            // A. Update data utama dosen
+            $tenaga_pendidik->update($data);
 
-        return redirect()->route('tenaga-pendidik.index')->with('success', 'Data Tenaga Pendidik berhasil diupdate!');
+            // B. Strategi Update Array: Hapus semua data mengajar yang lama terlebih dahulu
+            $tenaga_pendidik->pengajarans()->delete();
+
+            // C. Masukkan kembali baris pengajaran baru hasil modifikasi admin
+            $mataKuliah = $request->mata_kuliah;
+            $semester = $request->semester;
+            $tahunAkademik = $request->tahun_akademik;
+
+            foreach ($mataKuliah as $key => $val) {
+                Pengajaran::create([
+                    'tenaga_pendidik_id' => $tenaga_pendidik->id,
+                    'mata_kuliah'        => $val,
+                    'semester'           => $semester[$key],
+                    'tahun_akademik'     => $tahunAkademik[$key],
+                ]);
+            }
+        });
+
+        return redirect()->route('tenaga-pendidik.index')->with('success', 'Data Tenaga Pendidik & Pengajaran berhasil diperbarui!');
     }
 
-    // 6. Menghapus Data
+    // 6. Menghapus Data (Otomatis menghapus pengajaran karena Cascade pada DB)
     public function destroy($id)
     {
         $tenaga_pendidik = TenagaPendidik::findOrFail($id);
 
-        // Hapus file foto dari folder jika ada
         if ($tenaga_pendidik->foto && File::exists(public_path($tenaga_pendidik->foto))) {
             File::delete(public_path($tenaga_pendidik->foto));
         }

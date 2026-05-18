@@ -10,7 +10,7 @@ class TenagaPendidik extends Model
     use HasFactory;
 
     // Trik agar kita tidak perlu membongkar database
-    protected $table = 'dosens'; 
+    protected $table = 'tenaga_pendidiks';
 
     protected $fillable = [
         'nidn', 
@@ -28,6 +28,16 @@ class TenagaPendidik extends Model
     public function laboratorium()
     {
         return $this->hasOne(Laboratorium::class, 'head_of_lab_id');
+    }
+
+    public function pengajarans() {
+        return $this->hasMany(Pengajaran::class);
+    }
+    public function publikasis() {
+        return $this->hasMany(Publikasi::class);
+    }
+    public function pengabdians() {
+        return $this->hasMany(Pengabdian::class);
     }
 
     // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.

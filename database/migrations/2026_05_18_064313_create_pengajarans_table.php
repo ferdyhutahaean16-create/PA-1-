@@ -9,21 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
 {
-    Schema::create('kegiatans', function (Blueprint $table) {
+    Schema::create('pengajarans', function (Blueprint $table) {
         $table->id();
+        
+        // Relasi ke tabel tenaga_pendidiks
         $table->foreignId('tenaga_pendidik_id')->constrained('tenaga_pendidiks')->onDelete('cascade');
-        $table->string('kategori'); 
-        $table->string('judul'); 
-        $table->string('pelaksana'); 
         
-        // PASTIKAN BARIS INI ADA DAN TULISANNYA BENAR:
-        $table->string('waktu_pelaksanaan'); 
+        $table->string('mata_kuliah'); // Contoh: Biologi Sel, Kimia Organik
+        $table->string('program_studi')->default('Bioteknologi'); // Tempat dia mengajar
+        $table->string('semester'); // Contoh: Ganjil, Genap
+        $table->string('tahun_akademik'); // Contoh: 2025/2026
         
-        $table->string('tempat')->nullable(); 
-        $table->text('deskripsi')->nullable(); 
-        $table->string('foto')->nullable(); 
         $table->timestamps();
     });
 }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kegiatans');
+        Schema::dropIfExists('pengajarans');
     }
 };

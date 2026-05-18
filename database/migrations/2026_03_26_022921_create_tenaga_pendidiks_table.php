@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('dosens', function (Blueprint $table) {
+        Schema::create('tenaga_pendidiks', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('nidn')->nullable(); // ✅ FIX (ga wajib & ga unique)
@@ -25,6 +25,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('dosens');
+        Schema::dropIfExists('tenaga_pendidiks');
     }
 };
