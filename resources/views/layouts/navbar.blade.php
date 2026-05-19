@@ -91,6 +91,7 @@
                 <h1 class="text-xs md:text-sm xl:text-base font-bold leading-none uppercase">Prodi Bioteknologi</h1>
             </div>
         </a>
+
         <div class="hidden lg:flex items-center gap-4 xl:gap-6 font-bold text-[12px] xl:text-sm uppercase tracking-wide">
             
             <a href="/" class="py-5 relative {{ request()->is('/') ? 'nav-active' : 'nav-item' }}">BERANDA</a>
@@ -114,9 +115,10 @@
                 <button class="flex items-center gap-1 whitespace-nowrap {{ request()->is('prestasi*') ? 'nav-active' : 'nav-item' }}">
                     PRESTASI <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-[#064e3b] min-w-[200px] top-[calc(100%-4px)] left-0 z-50 rounded-b-md overflow-hidden">
+                <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-[#064e3b] min-w-[220px] top-[calc(100%-4px)] left-0 z-50 rounded-b-md overflow-hidden">
                     <a href="/prestasi/dosen" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">Prestasi Dosen</a>
                     <a href="{{ url('/prestasi/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">PRESTASI MAHASISWA</a>
+                    <a href="{{ url('/kegiatan/penelitian') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] text-sm font-bold transition">Penelitian (Riset)</a>
                 </div>
             </div>
 
@@ -126,9 +128,8 @@
                 </button>
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-[#064e3b] min-w-[240px] top-[calc(100%-4px)] left-0 z-50 rounded-b-md overflow-hidden">
                     <a href="{{ url('/kegiatan/dosen') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">KEGIATAN DOSEN</a>
-                    <a href="{{ url('/kegiatan/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">KEGIATAN MAHASISWA</a>
-                    <a href="{{ url('/kegiatan/penelitian') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] text-sm font-bold transition">Penelitian (Riset)</a>
-                </div>
+                    <a href="{{ url('/kegiatan/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] text-sm font-bold transition">KEGIATAN MAHASISWA</a>
+                    </div>
             </div>
 
             <div class="group relative py-5">
@@ -191,6 +192,7 @@
                     <div class="flex flex-col gap-3 pl-4 text-xs font-normal text-gray-600">
                         <a href="/prestasi/dosen" class="hover:text-[#064e3b] transition-colors">Prestasi Dosen</a>
                         <a href="{{ url('/prestasi/mahasiswa') }}" class="hover:text-[#064e3b] transition-colors">Prestasi Mahasiswa</a>
+                        <a href="{{ url('/kegiatan/penelitian') }}" class="hover:text-[#064e3b] transition-colors">Penelitian (Riset)</a>
                     </div>
                 </div>
 
@@ -199,7 +201,6 @@
                     <div class="flex flex-col gap-3 pl-4 text-xs font-normal text-gray-600">
                         <a href="{{ url('/kegiatan/dosen') }}" class="hover:text-[#064e3b] transition-colors">Pengabdian Dosen (PKM)</a>
                         <a href="{{ url('/kegiatan/mahasiswa') }}" class="hover:text-[#064e3b] transition-colors">Kegiatan Mahasiswa</a>
-                        <a href="{{ url('/kegiatan/penelitian') }}" class="hover:text-[#064e3b] transition-colors">Penelitian (Riset)</a>
                     </div>
                 </div>
 
@@ -256,7 +257,6 @@
         const mobileDropdown = document.getElementById('mobile-dropdown');
 
         burgerBtn.addEventListener('click', () => {
-            // Mengubah status class 'hidden' menjadi 'flex' secara bergantian saat diklik
             mobileDropdown.classList.toggle('hidden');
             mobileDropdown.classList.toggle('flex');
         });
