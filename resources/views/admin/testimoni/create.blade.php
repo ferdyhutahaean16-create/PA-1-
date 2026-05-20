@@ -16,25 +16,36 @@
             </a>
         </div>
 
-        <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
+        @if ($errors->any())
+            <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg shadow-sm">
+                <strong class="font-bold">Gagal Menyimpan!</strong> Silakan perbaiki kesalahan berikut:
+                <ul class="list-disc ml-5 mt-2 text-sm">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden border-t-4 border-t-[#1a4a38]">
             <form action="{{ route('testimoni.store') }}" method="POST" enctype="multipart/form-data" class="p-8">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Nama Alumni <span class="text-red-500">*</span></label>
-                        <input type="text" name="name" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required>
+                        <input type="text" name="name" value="{{ old('name') }}" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Angkatan (Tahun Lulus) <span class="text-red-500">*</span></label>
-                        <input type="number" name="graduation_year" placeholder="Contoh: 2022" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required>
+                        <input type="number" name="graduation_year" value="{{ old('graduation_year') }}" placeholder="Contoh: 2022" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Pekerjaan / Jabatan Saat Ini</label>
-                        <input type="text" name="position" placeholder="Contoh: Senior Researcher" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]">
+                        <input type="text" name="position" value="{{ old('position') }}" placeholder="Contoh: Senior Researcher" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Instansi / Perusahaan</label>
-                        <input type="text" name="workplace" placeholder="Contoh: PT. Kimia Farma" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]">
+                        <input type="text" name="workplace" value="{{ old('workplace') }}" placeholder="Contoh: PT. Kimia Farma" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]">
                     </div>
                 </div>
 
@@ -46,11 +57,11 @@
 
                 <div class="mb-6">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Isi Testimoni <span class="text-red-500">*</span></label>
-                    <textarea name="testimony" rows="5" class="ckeditor-field w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required placeholder="Ceritakan pengalaman selama kuliah di Bioteknologi IT Del..."></textarea>
+                    <textarea name="testimony" rows="5" class="ckeditor-field w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" placeholder="Ceritakan pengalaman selama kuliah di Bioteknologi IT Del...">{{ old('testimony') }}</textarea>
                 </div>
 
                 <div class="flex justify-end">
-                    <button type="submit" class="bg-[#1a4a38] text-white px-8 py-3 rounded-lg font-bold shadow-md hover:bg-green-800 transition">Simpan Testimoni</button>
+                    <button type="submit" class="bg-[#1a4a38] hover:bg-emerald-900 text-white px-8 py-3 rounded-lg font-bold shadow-md transition">Simpan Testimoni</button>
                 </div>
             </form>
         </div>
@@ -61,14 +72,11 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Cari semua elemen yang punya class 'ckeditor-field'
         let editors = document.querySelectorAll('.ckeditor-field');
         
-        // Loop dan ubah satu per satu menjadi editor
         editors.forEach(function(editorElement) {
             ClassicEditor
                 .create(editorElement, {
-                    // Opsional: Anda bisa mengatur menu toolbar di sini
                     toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo' ]
                 })
                 .catch(error => {
@@ -79,7 +87,6 @@
 </script>
 
 <style>
-    /* Sedikit perbaikan CSS agar editornya tidak terlalu pendek */
     .ck-editor__editable_inline {
         min-height: 200px;
     }
