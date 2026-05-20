@@ -345,6 +345,40 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
     
 </section>
 
+    <div class="bg-white py-24 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-green-50 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/3"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-yellow-50 rounded-full blur-3xl opacity-50 translate-y-1/3 -translate-x-1/3"></div>
+    
+        <div class="container mx-auto px-6 max-w-4xl relative z-10">
+            <div class="text-center">
+                <span class="inline-block text-[var(--gold)] tracking-[0.2em] uppercase text-[10px] font-bold mb-4">
+                    Tentang Program Studi
+                </span>
+                
+                <h2 class="font-serif text-4xl md:text-5xl text-[var(--forest-dark)] mb-6 leading-tight">
+                    Sejarah Bioteknologi
+                </h2>
+                
+                <div class="w-16 h-[2px] bg-[var(--gold)] mx-auto mb-10"></div>
+    
+                <div class="text-gray-600 text-lg leading-relaxed mb-10 text-justify md:text-center">
+                    {{-- Jika data dari database ada, potong teks menjadi 300 karakter --}}
+                    @if(isset($profil) && $profil->sejarah)
+                        {!! Str::limit(strip_tags($profil->sejarah), 300, '...') !!}
+                    @else
+                        {{-- Teks statis sementara (Placeholder) jika database masih kosong --}}
+                        Program Studi Bioteknologi Institut Teknologi Del didirikan dengan visi untuk menjadi pusat keunggulan dalam inovasi teknologi berbasis sumber daya alam hayati. Kami berkomitmen menghasilkan lulusan yang tidak hanya unggul dan cerdas secara akademis, tetapi juga memiliki karakter marroha, tangguh, dan siap berkontribusi bagi kemajuan bangsa di era global.
+                    @endif
+                </div>
+    
+                <a href="/profil" class="group inline-flex items-center gap-3 px-8 py-3.5 border-2 border-[var(--forest)] text-[var(--forest)] font-bold text-xs uppercase tracking-widest rounded-full hover:bg-[var(--forest)] hover:text-white transition-all duration-300 shadow-sm hover:shadow-md">
+                    Baca Selengkapnya
+                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
 {{-- ══════════════════════════════════════
      WHY CHOOSE — Layout Foto Kiri & List Kanan (Gaya Foto 1)
 ══════════════════════════════════════ --}}

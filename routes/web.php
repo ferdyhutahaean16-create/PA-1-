@@ -14,6 +14,7 @@ use App\Models\Publikasi;
 use App\Models\Kegiatan;
 use App\Models\RuangKelas;
 use App\Models\Laboratorium;
+use App\Models\DokumenRkf;
 
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\CooperationController;
@@ -34,6 +35,7 @@ use App\Http\Controllers\Admin\LaboratoriumController as AdminLaboratoriumContro
 use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\Admin\CooperationController as AdminCooperationController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
+use App\Http\Controllers\Admin\DokumenRkfController;
 
 // ==========================================
 // RUTE LOGIN & LOGOUT
@@ -51,6 +53,8 @@ Route::get('/', function () {
     $mitras = Cooperation::orderBy('start_date', 'desc')->take(6)->get();
     $testimonials = Testimonial::orderBy('created_at', 'desc')->take(3)->get();
     return view('home', compact('beritas', 'mitras', 'testimonials'));
+    $profil = \App\Models\Profil::first(); 
+    return view('welcome', compact('profil'));
 })->name('home');
 
 // Profil & Struktur
@@ -138,6 +142,10 @@ Route::prefix('laboratorium')->group(function () {
     // 1. TAMBAHKAN BARIS INI: Rute untuk halaman utama daftar fasilitas lab
     Route::get('/', function () {
         return view('laboratorium.index'); // Pastikan nama file view-nya sesuai
+
+    $dokumen_rkfs = DokumenRkf::orderBy('created_at', 'desc')->get();
+    
+    return view('laboratorium', compact('dokumen_rkfs'));
     });
     
     // 2. Rute-rute yang sudah Anda buat sebelumnya tetap di bawahnya
@@ -179,5 +187,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::resource('testimoni', AdminTestimonialController::class);
         Route::resource('cooperation', AdminCooperationController::class);
         Route::resource('berita', AdminBeritaController::class);
+        Route::resource('admin/dokumen-rkf', DokumenRkfController::class);
     });
 });

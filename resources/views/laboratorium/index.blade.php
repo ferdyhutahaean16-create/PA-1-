@@ -124,59 +124,19 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink)}
 .lab-photo:hover{transform:scale(1.03)}
 .lab-photo-ph{width:100%;aspect-ratio:4/3;background:var(--mist);border-radius:10px;border:1px dashed var(--mist2);display:flex;align-items:center;justify-content:center;color:var(--mist2)}
 
-.services-section{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.services-inner{max-width:1100px;margin:0 auto;padding:0 60px}
-.svc-header{padding:80px 0 0;display:grid;grid-template-columns:auto 1fr;align-items:start;gap:32px;margin-bottom:0;border-bottom:1px solid var(--border)}
-.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
-.svc-card{padding:60px 52px;position:relative;overflow:hidden;transition:background .3s}
-.svc-card:first-child{border-right:1px solid var(--border)}
-.svc-card:hover{background:var(--mist)}
-.svc-tag-line{display:flex;align-items:center;gap:12px;margin-bottom:32px}
-.svc-tag-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sage);letter-spacing:0.1em}
-.svc-tag-bar{flex:1;height:1px;background:var(--border)}
-.svc-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:28px}
-.svc-icon.a{background:#eaf3ef;border:1px solid #c8dfd5}
-.svc-icon.b{background:#f3eaf3;border:1px solid #dfc8df}
-.svc-h{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--ink);margin-bottom:12px;letter-spacing:-0.02em;line-height:1.1}
-.svc-p{font-size:.88rem;color:#6a8a78;line-height:1.7;margin-bottom:36px;max-width:340px}
-.svc-btn{display:inline-flex;align-items:center;gap:10px;background:var(--leaf);color:#fff;font-size:.83rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:14px 28px;border-radius:100px;text-decoration:none;transition:background .25s,transform .25s,box-shadow .25s}
-.svc-btn:hover{background:var(--leaf2);transform:translateY(-3px);box-shadow:0 16px 32px rgba(26,74,56,0.2)}
-.svc-btn svg{transition:transform .25s}
-.svc-btn:hover svg{transform:translateX(3px)}
-.svc-corner-deco{position:absolute;bottom:-40px;right:-40px;width:160px;height:160px;border-radius:50%;border:1px solid var(--border);opacity:0.5;pointer-events:none}
-.svc-corner-deco::before{content:'';position:absolute;inset:24px;border-radius:50%;border:1px solid var(--border)}
-
-.status-section{max-width:1100px;margin:0 auto;padding:80px 60px}
-.status-card{background:var(--ink);border-radius:24px;padding:60px 64px;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden}
-.status-card::before{content:'';position:absolute;top:-120px;right:-120px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(26,74,56,0.7) 0%,transparent 70%);pointer-events:none}
-.status-card::after{content:'';position:absolute;bottom:-80px;left:30%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(184,151,90,0.08) 0%,transparent 70%);pointer-events:none}
-.status-left{position:relative;z-index:1}
-.status-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;color:var(--sage-light);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.status-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--sage-light)}
-.status-h{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:#fff;letter-spacing:-0.02em;margin-bottom:10px}
-.status-p{font-size:.88rem;color:rgba(255,255,255,0.4);max-width:360px;line-height:1.65}
-.status-btn{position:relative;z-index:1;flex-shrink:0;display:inline-flex;align-items:center;gap:12px;background:#fff;color:var(--leaf);font-size:.85rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:16px 32px;border-radius:100px;text-decoration:none;transition:transform .25s,box-shadow .25s;white-space:nowrap}
-.status-btn:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(0,0,0,0.35)}
-
 .empty-lab{padding:80px 32px;text-align:center;border:1px dashed var(--border);border-radius:16px;color:var(--sage-light)}
 
 @media(max-width:900px){
-  .hero-body,.section,.status-section{padding-left:28px;padding-right:28px}
-  .services-inner{padding-left:28px;padding-right:28px}
-  .section-header,.svc-header{grid-template-columns:1fr}
+  .hero-body,.section{padding-left:28px;padding-right:28px}
+  .section-header{grid-template-columns:1fr}
   .section-num{display:none}
   .hero-h1{font-size:3rem}
   .lab-body-inner{grid-template-columns:1fr}
-  .services-grid{grid-template-columns:1fr}
-  .svc-card:first-child{border-right:none;border-bottom:1px solid var(--border)}
-  .status-card{flex-direction:column;text-align:center;padding:40px 32px}
-  .status-eyebrow{justify-content:center}
-  .status-p{max-width:100%}
   .hero-circle-ring{display:none}
 }
 </style>
 
-{{-- HERO --}}
+{{-- HERO SECTION --}}
 <div class="hero">
   <div class="hero-canvas">
     <div class="hero-lines"></div>
@@ -212,80 +172,125 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink)}
     <p class="hero-sub">Fasilitas laboratorium mutakhir untuk sivitas akademika Program Studi Bioteknologi — dari penelitian dasar hingga aplikasi terapan.</p>
   </div>
   <div class="scroll-cue"><div class="scroll-cue-line"></div></div>
+</div> {{-- SECTION 01: DAFTAR LABORATORIUM --}}
+<div class="section">
+    <div class="section-header">
+        <div class="section-num">01</div>
+        <div>
+            <div class="section-tag">Fasilitas Riset</div>
+            <h2 class="section-h2">Daftar Laboratorium</h2>
+        </div>
+    </div>
+
+    @if(isset($labs) && $labs->isEmpty())
+        <div class="empty-lab">
+            <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin:0 auto 16px;display:block;opacity:.4">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+            </svg>
+            <p style="font-weight:500;color:var(--sage);margin-bottom:4px">Belum ada data</p>
+            <p style="font-size:.85rem;opacity:.7">Admin belum menambahkan laboratorium.</p>
+        </div>
+    @elseif(isset($labs))
+        <div class="lab-list">
+            @foreach($labs as $i => $lab)
+            <div x-data="{ open: {{ $i === 0 ? 'true' : 'false' }} }" :data-active="open" class="lab-item">
+                <button @click="open = !open" class="lab-trigger">
+                    <div class="lab-idx">{{ str_pad($i+1,2,'0',STR_PAD_LEFT) }}</div>
+                    <div class="lab-meta">
+                        <div class="lab-name-text">{{ $lab->nama_lab }}</div>
+                        @if($lab->kepala_lab)
+                            <div class="lab-head-text">Kepala: {{ $lab->kepala_lab }}</div>
+                        @endif
+                    </div>
+                    <div class="lab-status-pill">
+                        <span class="lab-status-dot"></span>
+                        Aktif
+                    </div>
+                    <div class="lab-arrow">
+                        <svg width="14" height="14" fill="none" stroke="#7aab90" viewBox="0 0 24 24" stroke-width="2.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                </button>
+                <div x-show="open" x-collapse class="lab-body">
+                    <div class="lab-body-inner">
+                        <div>
+                            <p class="lab-desc">{{ $lab->deskripsi ?? 'Informasi deskripsi belum tersedia.' }}</p>
+                            <div class="lab-facts">
+                                <div class="lab-fact-row">
+                                    <div class="lab-fact-label">Kepala Lab</div>
+                                    <div class="lab-fact-val">{{ $lab->kepala_lab ?? '—' }}</div>
+                                </div>
+                                <div class="lab-fact-row" style="border-top:1px solid var(--border)">
+                                    <div class="lab-fact-label">Fasilitas</div>
+                                    <div class="lab-fact-val">{{ $lab->fasilitas ?? '—' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lab-photos">
+                            @foreach(['foto','foto_2','foto_3','foto_4'] as $f)
+                                @if($lab->$f)
+                                    <img src="{{ asset($lab->$f) }}" class="lab-photo" alt="Foto {{ $lab->nama_lab }}">
+                                @else
+                                    <div class="lab-photo-ph">
+                                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                        </svg>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    @endif
 </div>
 
-{{-- DAFTAR LABORATORIUM --}}
-<div class="section">
-  <div class="section-header">
-    <div class="section-num">01</div>
-    <div>
-      <div class="section-tag">Fasilitas Riset</div>
-      <h2 class="section-h2">Daftar Laboratorium</h2>
-    </div>
-  </div>
-
-  @if(isset($labs) && $labs->isEmpty())
-    <div class="empty-lab">
-      <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin:0 auto 16px;display:block;opacity:.4">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-      </svg>
-      <p style="font-weight:500;color:var(--sage);margin-bottom:4px">Belum ada data</p>
-      <p style="font-size:.85rem;opacity:.7">Admin belum menambahkan laboratorium.</p>
-    </div>
-  @elseif(isset($labs))
-    <div class="lab-list">
-      @foreach($labs as $i => $lab)
-      <div x-data="{ open: {{ $i === 0 ? 'true' : 'false' }} }" :data-active="open" class="lab-item">
-        <button @click="open = !open" class="lab-trigger">
-          <div class="lab-idx">{{ str_pad($i+1,2,'0',STR_PAD_LEFT) }}</div>
-          <div class="lab-meta">
-            <div class="lab-name-text">{{ $lab->nama_lab }}</div>
-            @if($lab->kepala_lab)
-              <div class="lab-head-text">Kepala: {{ $lab->kepala_lab }}</div>
-            @endif
-          </div>
-          <div class="lab-status-pill">
-            <span class="lab-status-dot"></span>
-            Aktif
-          </div>
-          <div class="lab-arrow">
-            <svg width="14" height="14" fill="none" stroke="#7aab90" viewBox="0 0 24 24" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </div>
-        </button>
-        <div x-show="open" x-collapse class="lab-body">
-          <div class="lab-body-inner">
-            <div>
-              <p class="lab-desc">{{ $lab->deskripsi ?? 'Informasi deskripsi belum tersedia.' }}</p>
-              <div class="lab-facts">
-                <div class="lab-fact-row">
-                  <div class="lab-fact-label">Kepala Lab</div>
-                  <div class="lab-fact-val">{{ $lab->kepala_lab ?? '—' }}</div>
-                </div>
-                <div class="lab-fact-row" style="border-top:1px solid var(--border)">
-                  <div class="lab-fact-label">Fasilitas</div>
-                  <div class="lab-fact-val">{{ $lab->fasilitas ?? '—' }}</div>
-                </div>
-              </div>
-            </div>
-            <div class="lab-photos">
-              @foreach(['foto','foto_2','foto_3','foto_4'] as $f)
-                @if($lab->$f)
-                  <img src="{{ asset($lab->$f) }}" class="lab-photo" alt="Foto {{ $lab->nama_lab }}">
-                @else
-                  <div class="lab-photo-ph">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                    </svg>
-                  </div>
-                @endif
-              @endforeach
-            </div>
-          </div>
+{{-- SECTION 02: UNDUHAN DOKUMEN RKF --}}
+<div class="section" style="border-t: 1px solid var(--border); padding-top: 50px;">
+    <div class="section-header" style="margin-bottom: 2rem;">
+        <div class="section-num" style="font-size: 3.5rem;">02</div>
+        <div>
+            <div class="section-tag">Unduhan Resmi</div>
+            <h2 class="section-h2" style="font-size: 2rem;">Dokumen RKF Laboratorium</h2>
         </div>
-      </div>
-      @endforeach
     </div>
-  @endif
+
+    <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-gray-100">
+        @if(isset($dokumen_rkfs) && $dokumen_rkfs->count() > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @foreach($dokumen_rkfs as $dokumen)
+                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 flex items-start gap-5 hover:shadow-md transition-shadow duration-300">
+                    
+                    <div class="bg-white p-4 rounded-xl shadow-sm text-[var(--leaf)] shrink-0 border border-gray-100">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+
+                    <div class="flex-1">
+                        <h4 class="font-bold text-gray-900 mb-1 text-base leading-tight">{{ $dokumen->judul }}</h4>
+                        @if($dokumen->deskripsi)
+                            <p class="text-xs text-gray-500 mb-4 line-clamp-2">{{ $dokumen->deskripsi }}</p>
+                        @endif
+                        
+                        <a href="{{ asset($dokumen->file_dokumen) }}" download class="inline-flex items-center gap-2 text-xs font-bold bg-[#1a4a38] text-white px-5 py-2.5 rounded-lg hover:bg-[#0d1f16] transition shadow-sm">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                            </svg>
+                            Unduh Dokumen
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        @else
+            <div class="text-center py-12 bg-gray-50/50 rounded-2xl border-2 border-dashed border-gray-200">
+                <p class="text-gray-500 italic font-medium">Belum ada dokumen RKF yang tersedia untuk saat ini.</p>
+            </div>
+        @endif
+    </div>
+</div>
 @endsection
