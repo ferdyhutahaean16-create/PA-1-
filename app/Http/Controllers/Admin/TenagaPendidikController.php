@@ -100,14 +100,9 @@ class TenagaPendidikController extends Controller
             'lulusan' => 'required',
             'jabatan' => 'required',
             'email' => 'required|email',
-            'no_telpon' => 'nullable',
+            'no_telpon' => '|string|max:20',
             'ruangan' => 'required',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            // Aturan array pengajaran dinamis
-            'mata_kuliah' => 'required|array',
-            'mata_kuliah.*' => 'required|string|max:255',
-            'semester' => 'required|array',
-            'tahun_akademik' => 'required|array',
         ]);
 
         $data = $request->all();
@@ -138,15 +133,6 @@ class TenagaPendidikController extends Controller
             $mataKuliah = $request->mata_kuliah;
             $semester = $request->semester;
             $tahunAkademik = $request->tahun_akademik;
-
-            foreach ($mataKuliah as $key => $val) {
-                Pengajaran::create([
-                    'tenaga_pendidik_id' => $tenaga_pendidik->id,
-                    'mata_kuliah'        => $val,
-                    'semester'           => $semester[$key],
-                    'tahun_akademik'     => $tahunAkademik[$key],
-                ]);
-            }
         });
 
         return redirect()->route('tenaga-pendidik.index')->with('success', 'Data Tenaga Pendidik & Pengajaran berhasil diperbarui!');

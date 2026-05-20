@@ -108,8 +108,6 @@
                                 <thead class="bg-gray-50">
                                     <tr>
                                         <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Mata Kuliah</th>
-                                        <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Semester</th>
-                                        <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Tahun Akademik</th>
                                         <th class="px-4 py-3 text-center text-xs font-bold text-gray-500 uppercase" style="width: 80px;">Aksi</th>
                                     </tr>
                                 </thead>
@@ -119,15 +117,6 @@
                                             <tr>
                                                 <td class="p-2">
                                                     <input type="text" name="mata_kuliah[]" value="{{ $ajar->mata_kuliah }}" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
-                                                </td>
-                                                <td class="p-2">
-                                                    <select name="semester[]" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                                                        <option value="Ganjil" {{ $ajar->semester == 'Ganjil' ? 'selected' : '' }}>Ganjil</option>
-                                                        <option value="Genap" {{ $ajar->semester == 'Genap' ? 'selected' : '' }}>Genap</option>
-                                                    </select>
-                                                </td>
-                                                <td class="p-2">
-                                                    <input type="text" name="tahun_akademik[]" value="{{ $ajar->tahun_akademik }}" placeholder="Contoh: 2025/2026" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
                                                 </td>
                                                 <td class="p-2 text-center">
                                                     <button type="button" class="btn-hapus-baris bg-red-100 hover:bg-red-200 text-red-600 p-2 rounded-lg transition">
@@ -140,15 +129,6 @@
                                         <tr>
                                             <td class="p-2">
                                                 <input type="text" name="mata_kuliah[]" required placeholder="Nama Mata Kuliah" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
-                                            </td>
-                                            <td class="p-2">
-                                                <select name="semester[]" required class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                                                    <option value="Ganjil">Ganjil</option>
-                                                    <option value="Genap">Genap</option>
-                                                </select>
-                                            </td>
-                                            <td class="p-2">
-                                                <input type="text" name="tahun_akademik[]" required placeholder="Contoh: 2025/2026" class="w-full px-3 py-2 border rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500">
                                             </td>
                                             <td class="p-2 text-center">
                                                 <button type="button" class="btn-hapus-baris bg-red-100 hover:bg-red-200 text-red-600 p-2 rounded-lg transition">

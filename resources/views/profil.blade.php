@@ -117,6 +117,30 @@ body {
     to { opacity: 1; }
 }
 .animate-fade-in { animation: fadeIn 0.8s ease forwards; }
+/* Mengaktifkan kembali fungsi penomoran otomatis hasil cetakan CKEditor */
+.prose-custom ol {
+    list-style-type: decimal !important;
+    padding-left: 1.5rem !important;
+    margin-bottom: 1.25rem !important;
+}
+
+.prose-custom li {
+    margin-bottom: 0.5rem !important;
+    line-height: 1.7;
+}
+
+.prose-custom ul {
+    list-style-type: disc !important;
+    padding-left: 1.5rem !important;
+    margin-bottom: 1.25rem !important;
+}
+
+.prose-custom li {
+    margin-bottom: 0.5rem !important;
+    line-height: 1.7;
+    display: list-item !important; /* Memastikan elemen merespons sebagai list */
+}
+
 </style>
 
 <!-- BACKGROUND DECOR -->
@@ -195,7 +219,7 @@ body {
                         <div class="relative pl-8 border-l-2 border-[var(--gold)]/30">
                             <h3 class="text-[var(--gold)] uppercase tracking-widest text-[10px] font-bold mb-4">Visi Masa Depan</h3>
                             <p class="font-serif text-2xl md:text-3xl italic leading-snug text-gray-800">
-                                "{{ $profil->visi }}"
+                                {!! $profil->visi !!}
                             </p>
                         </div>
                     </div>
@@ -203,7 +227,7 @@ body {
                     <div class="prose-custom">
                         <h3 class="text-[var(--gold)] uppercase tracking-widest text-[10px] font-bold mb-6">Misi Strategis</h3>
                         <div class="space-y-4 text-gray-700 text-lg">
-                            {!! nl2br(e($profil->misi)) !!}
+                            {!! $profil->misi !!}
                         </div>
                     </div>
                 </article>
@@ -212,7 +236,7 @@ body {
                 <article id="content-sejarah" class="tab-content glass rounded-[2.5rem] p-8 md:p-14 shadow-sm border-white/80">
                     <h2 class="font-serif text-4xl text-[var(--forest-dark)] mb-8 border-b border-gray-100 pb-6">Sejarah Singkat</h2>
                     <div class="prose-custom text-justify first-letter:text-5xl first-letter:font-serif first-letter:text-[var(--forest)] first-letter:mr-3 first-letter:float-left">
-                        {!! nl2br(e($profil->sejarah)) !!}
+                        {!! $profil->sejarah !!}
                     </div>
                 </article>
 
@@ -221,7 +245,7 @@ body {
                     <h2 class="font-serif text-4xl text-[var(--forest-dark)] mb-8 border-b border-gray-100 pb-6">Prospek Karir</h2>
                     <div class="grid grid-cols-1 md:gap-8 prose-custom">
                         <div class="bg-white/40 p-6 rounded-2xl border border-white/60">
-                            {!! nl2br(e($profil->prospek_karir)) !!}
+                            {!! $profil->prospek_karir !!}
                         </div>
                     </div>
                 </article>

@@ -133,7 +133,7 @@
                                         <a href="mailto:{{ $tenaga_pendidik->email }}" class="text-blue-600 font-semibold hover:underline break-words">{{ $tenaga_pendidik->email }}</a>
                                     </div>
                                     <div class="md:col-span-2">
-                                        <h4 class="text-[10px] font-bold tracking-[0.15em] mb-1 text-[var(--gold)]">RUANG KERJA</h4>
+                                        <h4 class="text-[10px] font-bold tracking-[0.15em] mb-1 text-[var(--gold)]">KANTOR</h4>
                                         <p class="text-gray-900 font-semibold">{{ $tenaga_pendidik->ruangan }}</p>
                                     </div>
                                 </div>
@@ -169,20 +169,12 @@
                                     <thead class="bg-gray-50">
                                         <tr>
                                             <th class="px-6 py-4 text-[11px] font-bold tracking-wider uppercase text-gray-500">Mata Kuliah</th>
-                                            <th class="px-6 py-4 text-[11px] font-bold tracking-wider uppercase text-gray-500">Semester</th>
-                                            <th class="px-6 py-4 text-[11px] font-bold tracking-wider uppercase text-gray-500">Tahun Akademik</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-gray-200 bg-white">
                                         @foreach($tenaga_pendidik->pengajarans as $ajar)
                                         <tr class="hover:bg-gray-50 transition">
                                             <td class="px-6 py-4 font-medium text-gray-900">{{ $ajar->mata_khulia ?? $ajar->mata_kuliah }}</td>
-                                            <td class="px-6 py-4">
-                                                <span class="px-3 py-1 rounded-full text-xs font-bold {{ $ajar->semester == 'Ganjil' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800' }}">
-                                                    {{ $ajar->semester }}
-                                                </span>
-                                            </td>
-                                            <td class="px-6 py-4 text-gray-600">{{ $ajar->tahun_akademik }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

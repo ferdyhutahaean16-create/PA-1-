@@ -6,36 +6,14 @@
 <div class="py-10 min-h-screen bg-gray-50/50">
     <div class="container mx-auto px-6">
         
-        <div class="flex gap-6 mb-8 border-b border-gray-200 overflow-x-auto">
-            <a href="{{ route('profil.index') }}" class="pb-4 px-2 text-sm font-bold border-b-2 {{ request()->routeIs('profil.index') ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-blue-500' }} transition-colors whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    Visi, Misi & Sejarah
-                </div>
-            </a>
-            
-            <a href="{{ route('struktur-organisasi.index') }}" class="pb-4 px-2 text-sm font-bold border-b-2 {{ request()->routeIs('struktur-organisasi.index') ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-blue-500' }} transition-colors whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    Bagan Struktur
-                </div>
-            </a>
-
-            <a href="{{ route('kurikulum.index') }}" class="pb-4 px-2 text-sm font-bold border-b-2 {{ request()->routeIs('kurikulum.index') ? 'border-blue-600 text-blue-600' : 'border-transparent text-gray-500 hover:text-blue-500' }} transition-colors whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                    Daftar Kurikulum
-                </div>
-            </a>
-        </div>
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-gray-800">Profil Institusi</h1>
-                <div class="h-1 w-20 bg-blue-600 mt-2 rounded"></div>
+                <h1 class="text-3xl font-bold text-gray-800">Profil Institusi (Visi, Misi & Sejarah)</h1>
+                <div class="h-1 w-20 bg-[#1a4a38] mt-2 rounded"></div>
             </div>
             
             @if($profils->isEmpty())
-            <a href="{{ route('profil.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-5 rounded-lg shadow-md transition flex items-center gap-2 text-sm">
+            <a href="{{ route('profil.create') }}" class="bg-[#1a4a38] hover:bg-emerald-900 text-white font-bold py-2.5 px-5 rounded-lg shadow-md transition flex items-center gap-2 text-sm">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Tambah Profil
             </a>
@@ -54,30 +32,30 @@
                     <thead class="bg-gray-800 text-white text-sm uppercase tracking-wider">
                         <tr>
                             <th class="p-4 font-semibold">Visi & Misi</th>
-                            <th class="p-4 font-semibold">Struktur</th>
-                            <th class="p-4 font-semibold text-center w-48">Aksi</th>
+                            <th class="p-4 font-semibold w-48 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 text-gray-700">
                         @forelse($profils as $item)
                         <tr class="hover:bg-gray-50 transition duration-150">
-                            <td class="p-4">
-                                <div class="text-sm font-bold text-blue-600">Visi:</div>
-                                <p class="text-xs line-clamp-2 mb-2">{{ $item->visi }}</p>
-                                <div class="text-sm font-bold text-green-600">Misi:</div>
-                                <p class="text-xs line-clamp-2">{{ $item->misi }}</p>
-                            </td>
-                            <td class="p-4">
-                                @if($item->struktur_organisasi)
-                                    <img src="{{ asset($item->struktur_organisasi) }}" class="w-20 h-auto rounded border shadow-sm">
-                                @else
-                                    <span class="text-xs text-gray-400 italic">Tidak ada foto</span>
-                                @endif
+                            <td class="p-4 space-y-3">
+                                <div>
+                                    <div class="text-sm font-bold text-emerald-700 uppercase tracking-wider mb-1">Visi:</div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">
+                                        {{ Str::limit(strip_tags($item->visi), 150, '...') }}
+                                    </p>
+                                </div>
+                                <div class="pt-2 border-t border-gray-100">
+                                    <div class="text-sm font-bold text-amber-600 uppercase tracking-wider mb-1">Misi:</div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">
+                                        {{ Str::limit(strip_tags($item->misi), 150, '...') }}
+                                    </p>
+                                </div>
                             </td>
                             <td class="p-4 text-center">
                                 <div class="flex justify-center gap-2">
                                     <a href="{{ route('profil.edit', $item->id) }}" class="bg-yellow-500 text-white px-4 py-1.5 rounded-md text-sm font-semibold hover:bg-yellow-600 transition shadow-sm">Edit</a>
-                                    <form action="{{ route('profil.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Hapus profil ini?')">
+                                    <form action="{{ route('profil.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data profil ini?')">
                                         @csrf @method('DELETE')
                                         <button type="submit" class="bg-red-500 text-white px-3 py-1.5 rounded-md text-sm font-semibold hover:bg-red-600 transition shadow-sm">Hapus</button>
                                     </form>
@@ -86,7 +64,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="3" class="p-8 text-center text-gray-500 italic">Belum ada data profil.</td>
+                            <td colspan="2" class="p-8 text-center text-gray-500 italic">Belum ada data profil.</td>
                         </tr>
                         @endforelse
                     </tbody>

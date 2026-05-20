@@ -36,6 +36,7 @@ use App\Http\Controllers\Admin\TenagaPendidikController;
 use App\Http\Controllers\Admin\CooperationController as AdminCooperationController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\DokumenRkfController;
+use App\Http\Controllers\Admin\PengajaranController;
 
 // ==========================================
 // RUTE LOGIN & LOGOUT
@@ -177,6 +178,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     // 2. KHUSUS SUPER ADMIN
     Route::middleware(['role:super_admin'])->group(function () {
         Route::resource('tenaga-pendidik', TenagaPendidikController::class);
+        Route::post('/admin/pengajaran', [PengajaranController::class, 'store'])->name('pengajaran.store');
         Route::resource('profil', ProfilController::class);
         Route::resource('struktur-organisasi', StrukturOrganisasiController::class);
         Route::resource('kurikulum', KurikulumController::class);

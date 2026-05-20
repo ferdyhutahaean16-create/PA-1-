@@ -105,7 +105,7 @@
                 <!-- Aku tambahkan mt-6, flex-grow, dan ubah teks ke font-medium (biar lebih tebal) dan posisinya di tengah -->
                 <div class="relative z-10 flex-grow mb-10 mt-6 flex flex-col justify-center">
                     <p class="font-serif text-2xl font-medium leading-relaxed text-[var(--forest-dark)] text-center">
-                        "{{ $testimoni->testimony }}"
+                        {!! $testimoni->testimony !!}
                     </p>
                 </div>
 
@@ -125,18 +125,18 @@
                     </div>
 
                     <div>
-                        <h4 class="text-[var(--forest-dark)] font-bold text-lg leading-tight mb-1">{{ $testimoni->name }}</h4>
+                        <h4 class="text-[var(--forest-dark)] font-bold text-lg leading-tight mb-1">{!! $testimoni->name !!}</h4>
                         
                         <!-- Dynamic Status Badge -->
                         @if($testimoni->graduation_year)
-                            <span class="status-badge bg-amber-50 text-[var(--gold)] border border-amber-100">Alumni {{ $testimoni->graduation_year }}</span>
+                            <span class="status-badge bg-amber-50 text-[var(--gold)] border border-amber-100">Alumni {!! $testimoni->graduation_year !!}</span>
                         @else
                             <span class="status-badge bg-emerald-50 text-[var(--forest)] border border-emerald-100">Mahasiswa Aktif</span>
                         @endif
 
                         @if($testimoni->workplace)
                             <p class="text-[11px] text-gray-500 font-medium mt-2 leading-snug">
-                                <span class="text-[var(--forest)] font-bold">{{ $testimoni->position ?? 'Contributor' }}</span> @ {{ $testimoni->workplace }}
+                                <span class="text-[var(--forest)] font-bold">{!! $testimoni->position ?? 'Contributor' !!}</span> @ {!! $testimoni->workplace !!}
                             </p>
                         @endif
                     </div>
@@ -157,7 +157,7 @@
         <!-- STYLED PAGINATION -->
         <div class="mt-20 flex justify-center pagination-wrapper">
             <div class="bg-white px-6 py-2 rounded-full shadow-sm border border-gray-200">
-                {{ $testimonials->links() }}
+                {!! $testimonials->links() !!}
             </div>
         </div>
 

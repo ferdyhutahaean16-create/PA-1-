@@ -25,10 +25,9 @@
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Level Bagan <span class="text-red-500">*</span></label>
                         <select name="level" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
-                            <option value="1">Level 1 (Pimpinan Puncak - Rektor)</option>
-                            <option value="2">Level 2 (Fakultas - Dekan/Senat)</option>
-                            <option value="3" selected>Level 3 (Prodi - Kaprodi/Kalab)</option>
-                            <option value="4">Level 4 (Staf/Koordinator TA)</option>
+                            <option value="1">Level 1 (Fakultas - Dekan/Senat)</option>
+                            <option value="2" selected>Level 2 (Prodi - Kaprodi/Kalab)</option>
+                            <option value="3">Level 3 (Staf/Koordinator TA)</option>
                         </select>
                         <p class="text-xs text-gray-400 mt-1">Level menentukan posisi urutan dari atas ke bawah.</p>
                     </div>

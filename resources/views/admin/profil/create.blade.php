@@ -7,7 +7,7 @@
     <div class="container mx-auto px-6 max-w-5xl">
         
         <div class="mb-8">
-            <a href="{{ route('profil.index') }}" class="text-blue-600 hover:underline flex items-center gap-2 mb-4">
+            <a href="{{ route('profil.index') }}" class="text-emerald-700 hover:underline flex items-center gap-2 mb-4 font-semibold">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali ke Daftar Profil
             </a>
@@ -15,8 +15,19 @@
             <p class="text-gray-500 mt-2">Silakan isi teks informasi dan unggah bagan struktur di tab yang berbeda.</p>
         </div>
 
+        @if ($errors->any())
+            <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-xl shadow-sm">
+                <strong class="font-bold">Gagal Menyimpan!</strong> Silakan perbaiki kesalahan berikut:
+                <ul class="list-disc ml-5 mt-2 text-sm">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="flex border-b border-gray-200 mb-6">
-            <button onclick="switchTab('teks')" id="tab-teks" type="button" class="py-3 px-6 text-sm font-bold border-b-2 border-blue-600 text-blue-600 focus:outline-none transition-colors">
+            <button onclick="switchTab('teks')" id="tab-teks" type="button" class="py-3 px-6 text-sm font-bold border-b-2 border-[#1a4a38] text-[#1a4a38] focus:outline-none transition-colors">
                 1. Informasi Program Studi
             </button>
             <button onclick="switchTab('struktur')" id="tab-struktur" type="button" class="py-3 px-6 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-gray-700 focus:outline-none transition-colors">
@@ -30,54 +41,39 @@
                 @csrf
                 
                 <div id="konten-teks" class="block space-y-6">
-                    <div class="bg-blue-50 p-4 rounded-lg mb-4 border border-blue-100">
-                        <p class="text-sm text-blue-800 font-semibold">Bagian ini untuk mengisi teks Visi, Misi, Sejarah, dan Prospek Karir.</p>
+                    <div class="bg-emerald-50 p-4 rounded-xl mb-4 border border-emerald-100">
+                        <p class="text-sm text-emerald-800 font-semibold">Bagian ini untuk mengisi teks Visi, Misi, Sejarah, dan Prospek Karir.</p>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Sejarah Singkat <span class="text-red-500">*</span></label>
-                        <textarea name="sejarah" rows="5" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required></textarea>
+                        <textarea name="sejarah" rows="5" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1a4a38]">{{ old('sejarah') }}</textarea>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Visi <span class="text-red-500">*</span></label>
-                            <textarea name="visi" rows="4" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required></textarea>
+                            <textarea name="visi" rows="4" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1a4a38]">{{ old('visi') }}</textarea>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Misi <span class="text-red-500">*</span></label>
-                            <textarea name="misi" rows="4" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required></textarea>
+                            <textarea name="misi" rows="4" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1a4a38]">{{ old('misi') }}</textarea>
                         </div>
                     </div>
 
-                    <div class="hidden"> <label class="block text-sm font-bold text-gray-700 mb-2">Tujuan</label>
-                        <textarea name="tujuan" rows="2" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg">-</textarea>
+                    <div class="hidden"> 
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Tujuan</label>
+                        <textarea name="tujuan" rows="2" class="w-full p-3 border border-gray-300 rounded-lg">-</textarea>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Prospek Karir <span class="text-red-500">*</span></label>
-                        <textarea name="prospek_karir" rows="4" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required></textarea>
-                    </div>
-                </div>
-
-                <div id="konten-struktur" class="hidden space-y-6">
-                    <div class="bg-green-50 p-4 rounded-lg mb-4 border border-green-100">
-                        <p class="text-sm text-green-800 font-semibold">Bagian ini khusus mengunggah gambar bagan struktur organisasi.</p>
-                    </div>
-
-                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50">
-                        <svg class="w-16 h-16 mx-auto text-blue-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                        
-                        <div class="w-full max-w-md mx-auto">
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Pilih File Gambar Bagan</label>
-                            <input type="file" name="struktur_organisasi" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200 cursor-pointer border border-gray-300 rounded-md bg-white">
-                            <p class="text-xs text-gray-400 mt-2">Format: JPG, PNG, JPEG. Maksimal 2MB.</p>
-                        </div>
+                        <textarea name="prospek_karir" rows="4" class="ckeditor-field w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1a4a38]">{{ old('prospek_karir') }}</textarea>
                     </div>
                 </div>
 
                 <div class="mt-10 pt-6 border-t border-gray-100 flex justify-end">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition transform hover:-translate-y-0.5">
+                    <button type="submit" class="bg-[#1a4a38] hover:bg-emerald-900 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:-translate-y-0.5">
                         Simpan Data Profil
                     </button>
                 </div>
@@ -89,20 +85,20 @@
 
 <script>
     function switchTab(tab) {
-        // Sembunyikan semua konten
+        // 1. Sembunyikan semua konten tab
         document.getElementById('konten-teks').classList.add('hidden');
         document.getElementById('konten-struktur').classList.add('hidden');
         
-        // Reset warna tab
-        document.getElementById('tab-teks').classList.remove('border-blue-600', 'text-blue-600');
+        // 2. Reset warna garis bawah indikator tombol tab
+        document.getElementById('tab-teks').classList.remove('border-[#1a4a38]', 'text-[#1a4a38]');
         document.getElementById('tab-teks').classList.add('border-transparent', 'text-gray-500');
         
-        document.getElementById('tab-struktur').classList.remove('border-blue-600', 'text-blue-600');
+        document.getElementById('tab-struktur').classList.remove('border-[#1a4a38]', 'text-[#1a4a38]');
         document.getElementById('tab-struktur').classList.add('border-transparent', 'text-gray-500');
 
-        // Tampilkan yang aktif
+        // 3. Aktifkan tab yang dipilih pengguna
         document.getElementById('konten-' + tab).classList.remove('hidden');
-        document.getElementById('tab-' + tab).classList.add('border-blue-600', 'text-blue-600');
+        document.getElementById('tab-' + tab).classList.add('border-[#1a4a38]', 'text-[#1a4a38]');
         document.getElementById('tab-' + tab).classList.remove('border-transparent', 'text-gray-500');
     }
 </script>
@@ -110,10 +106,8 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Cari semua elemen yang punya class 'ckeditor-field'
         let editors = document.querySelectorAll('.ckeditor-field');
         
-        // Loop dan ubah satu per satu menjadi editor
         editors.forEach(function(editorElement) {
             ClassicEditor
                 .create(editorElement, {
@@ -127,11 +121,9 @@
 </script>
 
 <style>
-    /* Mengatur tinggi minimal editor agar lebih nyaman digunakan mengetik */
     .ck-editor__editable_inline {
         min-height: 250px;
     }
-    /* Memperbaiki tampilan border agar menyatu dengan desain Tailwind Anda */
     .ck-editor__main .ck-content {
         border-radius: 0 0 0.5rem 0.5rem !important;
         border-color: #d1d5db !important;
@@ -141,6 +133,16 @@
         background-color: #f9fafb !important;
         border-color: #d1d5db !important;
     }
+    /* Mengaktifkan kembali fungsi penomoran otomatis hasil cetakan CKEditor */
+    .prose-custom ol {
+        list-style-type: decimal !important;
+        padding-left: 1.5rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+    
+    .prose-custom li {
+        margin-bottom: 0.5rem !important;
+        line-height: 1.7;
+    }
 </style>
-
 @endsection
