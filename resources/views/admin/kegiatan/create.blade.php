@@ -29,31 +29,38 @@
             <form action="{{ route('kegiatan.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 
-                <div>
+                <div class="mb-6">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Kategori Kegiatan <span class="text-red-500">*</span></label>
-                    <select name="kategori" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
-                        <option value="">-- Pilih Kategori --</option>
-                        <option value="Pengabdian Dosen">Pengabdian Masyarakat (PKM) Dosen</option>
-                        <option value="PkM Mahasiswa">PkM Mahasiswa</option>
-                        <option value="Himpunan">Himpunan Mahasiswa (HIMABIO)</option>
-                        <option value="Kaderisasi">Kaderisasi</option>
-                        <option value="Penelitian">Penelitian (Riset)</option>
+                    <select name="kategori" id="kategori" onchange="aturPelaksana()" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-600 outline-none bg-white" required>
+                        <option value="Pengabdian Masyarakat (PKM) Dosen">Pengabdian Masyarakat (PKM) Dosen</option>
+                        <option value="Kegiatan Mahasiswa">Kegiatan Mahasiswa</option>
+                        <option value="Lainnya">Lainnya</option>
                     </select>
                 </div>
 
-                <div>
+                <div class="mb-6">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Judul/Nama Kegiatan <span class="text-red-500">*</span></label>
-                    <input type="text" name="judul" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" placeholder="Contoh: Sosialisasi Pupuk Organik di Desa X" required>
+                    <input type="text" name="judul" placeholder="Contoh: Sosialisasi Pupuk Organik di Desa X" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-600 outline-none" required>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Pelaksana (Ketua Tim / Organisasi) <span class="text-red-500">*</span></label>
-                        <input type="text" name="pelaksana" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" placeholder="Contoh: Bpk. Budi Santoso / HIMA Biotek" required>
+                        
+                        <select name="tenaga_pendidik_id" id="pelaksana_dosen" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-600 outline-none bg-white">
+                            <option value="">-- Pilih Dosen Pelaksana --</option>
+                            @foreach($dosens as $dosen)
+                                <option value="{{ $dosen->id }}">{{ $dosen->nama }}</option>
+                            @endforeach
+                        </select>
+                    
+                        <input type="text" name="pelaksana_nama" id="pelaksana_bebas" placeholder="Contoh: HIMA Biotek" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-600 outline-none hidden" disabled>
                     </div>
+
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Waktu Pelaksanaan <span class="text-red-500">*</span></label>
-                        <input type="text" name="waktu_pelaksanaan" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" placeholder="Contoh: 12 Agustus 2024" required>
+                        <input type="date" name="waktu_pelaksanaan" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-emerald-600 outline-none bg-white" required>
                     </div>
                 </div>
 
@@ -101,6 +108,34 @@
                     console.error(error);
                 });
         });
+    });
+
+    function aturPelaksana() {
+        let kategori = document.getElementById('kategori').value;
+        let selectDosen = document.getElementById('pelaksana_dosen');
+        let inputBebas = document.getElementById('pelaksana_bebas');
+
+        if (kategori === 'Pengabdian Masyarakat (PKM) Dosen') {
+            // Jika PKM Dosen: Munculkan dropdown, aktifkan pengiriman datanya
+            selectDosen.classList.remove('hidden');
+            selectDosen.disabled = false;
+            
+            // Sembunyikan input bebas dan matikan (disabled) agar tidak dikirim ganda
+            inputBebas.classList.add('hidden');
+            inputBebas.disabled = true;
+        } else {
+            // Jika Kegiatan Mahasiswa / Lainnya: Lakukan sebaliknya
+            selectDosen.classList.add('hidden');
+            selectDosen.disabled = true;
+
+            inputBebas.classList.remove('hidden');
+            inputBebas.disabled = false;
+        }
+    }
+
+    // Panggil fungsi ini sekali saat halaman pertama kali dimuat
+    document.addEventListener("DOMContentLoaded", function() {
+        aturPelaksana();
     });
 </script>
 

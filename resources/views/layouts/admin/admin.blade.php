@@ -68,7 +68,7 @@
                         Data Prestasi
                     </a>
                     <a href="{{ route('publikasi.index') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-colors {{ request()->is('admin/publikasi*') ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-800 hover:text-white' }}">
-                        Penelitian (Riset) Dosen
+                        Penelitian (Riset)
                     </a>
                 </div>
 

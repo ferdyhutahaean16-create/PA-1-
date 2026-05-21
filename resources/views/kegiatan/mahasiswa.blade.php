@@ -135,7 +135,7 @@
                                     <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{{ $item->pelaksana }}</span>
                                 </div>
                             </div>
-                            <p class="text-gray-600 leading-relaxed text-sm line-clamp-3 italic">"{{ $item->deskripsi }}"</p>
+                            <p class="text-gray-600 leading-relaxed text-sm line-clamp-3 italic">{!! $item->deskripsi !!}</p>
                         </div>
                     </div>
                     @endforeach

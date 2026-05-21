@@ -118,7 +118,7 @@
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-[#064e3b] min-w-[220px] top-[calc(100%-4px)] left-0 z-50 rounded-b-md overflow-hidden">
                     <a href="/prestasi/dosen" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">Prestasi Dosen</a>
                     <a href="{{ url('/prestasi/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">PRESTASI MAHASISWA</a>
-                    <a href="{{ url('/kegiatan/penelitian') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] text-sm font-bold transition">Penelitian (Riset)</a>
+                    <a href="{{ url('/prestasi/penelitian') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] text-sm font-bold transition">Penelitian (Riset)</a>
                 </div>
             </div>
 

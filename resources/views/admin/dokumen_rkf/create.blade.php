@@ -20,7 +20,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('dokumen-rkf.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <form action="{{ route('dokumen-rkf.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
                 <div>
@@ -28,14 +28,19 @@
                     <input type="text" name="judul" value="{{ old('judul') }}" placeholder="Contoh: RKF Laboratorium Mikrobiologi 2026" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" required>
                 </div>
 
-                <div>
-                    <label class="block text-sm font-bold mb-2 text-gray-800">File Dokumen (PDF, DOCX, XLSX) *</label>
-                    <div class="w-full border-2 border-dashed border-gray-300 p-6 rounded-lg bg-gray-50 hover:bg-blue-50 transition cursor-pointer relative">
-                        <input type="file" name="file_dokumen" accept=".pdf,.doc,.docx,.xls,.xlsx" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" required>
-                        <div class="text-center pointer-events-none">
-                            <svg class="w-10 h-10 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                            <p class="text-sm text-gray-600 font-bold">Klik atau seret file ke sini untuk mengunggah</p>
-                            <p class="text-xs text-gray-400 mt-1">Maksimal ukuran file: 5 MB</p>
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">File Dokumen (PDF, DOCX, XLSX) <span class="text-red-500">*</span></label>
+
+                    <div id="drop-zone" class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 bg-gray-50 transition-all relative group">
+
+                        <input type="file" name="file" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" accept=".pdf,.doc,.docx,.xls,.xlsx" required>
+
+                        <div class="space-y-2 pointer-events-none">
+                            <svg class="mx-auto h-12 w-12 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="text-sm text-gray-600" id="file-name-display">
+                                <span class="text-blue-600 font-semibold">Klik atau seret file ke sini</span> untuk mengunggah
+                            </p>
+                            <p class="text-xs text-gray-400">Maksimal ukuran file: 5 MB</p>
                         </div>
                     </div>
                 </div>
@@ -54,4 +59,59 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const fileNameDisplay = document.getElementById('file-name-display');
+
+    // 1. Cegah browser membuka tab baru saat file diseret
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // 2. Ubah warna kotak saat file berada tepat di atasnya
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.add('border-blue-500', 'bg-blue-100');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.remove('border-blue-500', 'bg-blue-100');
+        }, false);
+    });
+
+    // 3. Tangkap file saat DILEPASKAN (Drop)
+    dropZone.addEventListener('drop', function(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+
+        if (files.length > 0) {
+            fileInput.files = files; // Suntikkan file ke dalam form HTML
+            updateFileName(files[0].name); // Ubah teks di layar
+        }
+    });
+
+    // 4. Tangkap file jika user memilih lewat KLIK biasa
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            updateFileName(this.files[0].name);
+        }
+    });
+
+    // 5. Fungsi untuk mengubah tampilan teks nama file
+    function updateFileName(name) {
+        fileNameDisplay.innerHTML = `<span class="text-green-600 font-bold">✓ File terpilih: </span> <span class="text-gray-800">${name}</span>`;
+        dropZone.classList.add('border-green-500', 'bg-green-50');
+    }
+});
+</script>
 @endsection

@@ -71,11 +71,11 @@
 
 <!-- HEADER / HERO SECTION -->
 <div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 bg-pattern opacity-20"></div>
+    <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
     <div class="relative z-10 py-28 text-center px-6">
         <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Community Engagement</span>
         <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight mb-6">
-            Pengabdian Masyarakat
+            Kegiatan Dosen
         </h1>
         <p class="text-green-100/70 max-w-2xl mx-auto font-sans font-light leading-relaxed text-lg">
             Mewujudkan sains yang bermanfaat melalui penerapan inovasi bioteknologi untuk kesejahteraan dan kemajuan masyarakat.
@@ -87,7 +87,6 @@
 <div class="bg-[var(--soft-bg)] py-20 min-h-screen font-sans">
     <div class="container mx-auto px-6 max-w-7xl">
         
-        <!-- SECTION TITLE -->
         <div class="mb-16 flex items-end justify-between border-b border-gray-200 pb-8">
             <div class="fade-in">
                 <h2 class="font-serif text-4xl text-[var(--forest-dark)]">Daftar Inisiatif & Kegiatan</h2>
@@ -101,17 +100,16 @@
         @if($kegiatan->isEmpty())
             <div class="bg-white rounded-[3rem] p-24 text-center shadow-sm border border-gray-100 fade-in">
                 <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-10 h-10 text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
                 <h3 class="font-serif text-3xl text-gray-400">Arsip sedang disusun</h3>
-                <p class="text-gray-400 mt-2">Data kegiatan pengabdian akan segera ditampilkan kembali.</p>
+                <p class="text-gray-400 mt-2">Data kegiatan pengabdian masyarakat akan segera ditampilkan kembali.</p>
             </div>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 @foreach($kegiatan as $item)
                 <div class="impact-card group fade-in" style="animation-delay: {{ $loop->index * 0.1 }}s">
                     
-                    <!-- Documentation Image -->
                     <div class="relative h-64 overflow-hidden rounded-t-[2.5rem] bg-gray-200 img-container">
                         @if($item->foto)
                             <img src="{{ asset($item->foto) }}" alt="{{ $item->judul }}" 
@@ -119,21 +117,19 @@
                         @else
                             <div class="w-full h-full flex flex-col items-center justify-center bg-[var(--forest-dark)] text-green-100/30">
                                 <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                <span class="text-[10px] uppercase tracking-widest">Documentation Pending</span>
+                                <span class="text-[10px] uppercase tracking-widest font-bold">Documentation Pending</span>
                             </div>
                         @endif
                         
-                        <!-- Floating Date Badge -->
-                        <div class="absolute bottom-4 left-4 date-badge px-4 py-2 rounded-2xl shadow-lg">
-                            <span class="text-[10px] text-[var(--forest)] font-bold uppercase tracking-widest">
-                                {{ $item->waktu_pelaksanaan }}
+                        <div class="absolute bottom-4 left-4 date-badge px-4 py-2 rounded-2xl shadow-lg z-10">
+                            <span class="text-[11px] text-[var(--forest)] font-bold uppercase tracking-wider">
+                                {{ \Carbon\Carbon::parse($item->waktu_pelaksanaan)->translatedFormat('d F Y') }}
                             </span>
                         </div>
                     </div>
 
-                    <!-- Card Content -->
-                    <div class="p-8 md:p-10 flex flex-col flex-1">
-                        <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-6 leading-tight group-hover:text-[var(--gold)] transition-colors duration-300">
+                    <div class="p-8 md:p-10 flex flex-col flex-1 bg-white rounded-b-[2.5rem]">
+                        <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-6 leading-tight group-hover:text-[var(--gold)] transition-colors duration-300 min-h-[56px] line-clamp-2">
                             {{ $item->judul }}
                         </h3>
                         
@@ -144,7 +140,7 @@
                                 </div>
                                 <div>
                                     <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Ketua Pelaksana</p>
-                                    <p class="text-sm font-semibold text-gray-700">{{ $item->pelaksana }}</p>
+                                    <p class="text-sm font-bold text-gray-800">{{ $item->pelaksana }}</p>
                                 </div>
                             </div>
 
@@ -163,7 +159,7 @@
 
                         <div class="pt-6 border-t border-gray-100 mt-auto">
                             <p class="text-gray-500 text-sm leading-relaxed line-clamp-3 italic">
-                                "{{ $item->deskripsi ?? 'Kegiatan ini merupakan bagian dari komitmen Program Studi dalam hilirisasi riset bioteknologi kepada masyarakat.' }}"
+                                {!! $item->deskripsi ?? 'Kegiatan ini merupakan bagian dari komitmen Program Studi dalam hilirisasi riset bioteknologi kepada masyarakat.' !!}
                             </p>
                         </div>
                     </div>
@@ -171,41 +167,6 @@
                 @endforeach
             </div>
         @endif
-
-        <!-- FOOTER DECORATION -->
-       <!-- FOOTER DECORATION REPLACED -->
-        <div class="mt-32 text-center fade-in">
-            <!-- Garis Dekoratif -->
-            <div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent w-full max-w-lg mb-12"></div>
-            
-            <h4 class="font-serif text-3xl md:text-4xl text-[var(--forest-dark)] mb-6">Dedikasi Untuk Negeri</h4>
-            
-            <div class="max-w-2xl mx-auto mb-12">
-                <p class="text-gray-500 font-serif text-xl italic leading-relaxed">
-                    "Sains bukan sekadar deretan angka di dalam laboratorium, melainkan jawaban nyata atas tantangan yang dihadapi oleh masyarakat."
-                </p>
-            </div>
-
-            <!-- Navigation Links (Pengganti Tombol Admin) -->
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-                <a href="{{ url('/profil') }}" class="group flex items-center gap-3 px-10 py-4 bg-white border border-gray-200 text-[var(--forest)] rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-all duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-                    Kembali ke Profil
-                </a>
-                
-                <a href="{{ url('/kurikulum') }}" class="group flex items-center gap-3 px-10 py-4 bg-[var(--forest)] text-[var(--gold)] rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-[var(--forest-dark)] transition-all shadow-xl hover:-translate-y-1 duration-300">
-                    Eksplor Kurikulum
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </a>
-            </div>
-
-            <!-- Little Ornament -->
-            <div class="mt-20 opacity-20 flex justify-center gap-4">
-                <div class="w-1.5 h-1.5 rounded-full bg-[var(--gold)]"></div>
-                <div class="w-1.5 h-1.5 rounded-full bg-[var(--gold)]"></div>
-                <div class="w-1.5 h-1.5 rounded-full bg-[var(--gold)]"></div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection

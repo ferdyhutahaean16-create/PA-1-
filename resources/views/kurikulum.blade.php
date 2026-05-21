@@ -176,16 +176,6 @@ body {
                 
             </div>
         @endif
-
-        <!-- CONTACT/DOWNLOAD SECTION -->
-        <div class="mt-20 text-center fade-up">
-            <div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent w-full max-w-lg mb-8"></div>
-            <p class="text-gray-500 text-sm italic mb-6">Memerlukan salinan kurikulum dalam format PDF?</p>
-            <a href="#" class="inline-flex items-center gap-3 px-8 py-4 bg-[var(--forest)] text-white rounded-full hover:bg-[var(--forest-dark)] transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                <span class="text-xs font-bold uppercase tracking-widest">Unduh Katalog Kurikulum</span>
-            </a>
-        </div>
     </div>
 </div>
 @endsection

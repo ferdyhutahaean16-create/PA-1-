@@ -101,7 +101,7 @@
                 <div class="absolute hidden group-hover:block dropdown-card min-w-[240px] top-full left-0 z-50 overflow-hidden">
                     <a href="/prestasi/dosen" class="block px-8 py-4 hover:bg-gray-50 text-[var(--forest-dark)] border-b border-gray-100 transition">Prestasi Dosen</a>
                     <a href="/prestasi/mahasiswa" class="block px-8 py-4 hover:bg-gray-50 text-[var(--forest-dark)] transition">Prestasi Mahasiswa</a>
-                    <a href="/kegiatan/penelitian" class="block px-8 py-4 hover:bg-gray-50 text-[var(--forest-dark)] transition">Penelitian (Riset)</a>
+                    <a href="/prestasi/penelitian" class="block px-8 py-4 hover:bg-gray-50 text-[var(--forest-dark)] transition">Penelitian (Riset)</a>
                 </div>
             </div>
 

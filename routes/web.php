@@ -96,38 +96,61 @@ Route::get('/kisah-alumni', [TestimonialController::class, 'index'])->name('publ
 
 // Prestasi
 Route::prefix('prestasi')->group(function () {
+    
+    // 1. Rute Prestasi Dosen
     Route::get('/dosen', function () {
         $prestasi = Prestasi::orderBy('tanggal_perolehan', 'desc')->get();
         $publikasi = Publikasi::where('kategori', 'Dosen')->orderBy('created_at', 'desc')->get();
         return view('prestasi_dosen', compact('prestasi', 'publikasi'));
     })->name('prestasi.dosen');
 
+    // 2. Rute Prestasi Mahasiswa
     Route::get('/mahasiswa', function () {
         $prestasi = Prestasi::orderBy('tanggal_perolehan', 'desc')->get();
         $publikasi = Publikasi::where('kategori', 'Mahasiswa')->orderBy('created_at', 'desc')->get();
         return view('prestasi_mahasiswa', compact('prestasi', 'publikasi'));
     })->name('prestasi.mahasiswa');
+
+    // 3. Rute BARU: Penelitian
+    Route::get('/penelitian', function () {
+        // Memanggil dari Model Publikasi yang sudah ada
+        $penelitian = \App\Models\Publikasi::where('kategori', 'Penelitian')->orderBy('created_at', 'desc')->get();
+
+        return view('prestasi_penelitian', compact('penelitian'));
+    })->name('prestasi.penelitian');
+    
 });
 
 // Kegiatan
-Route::prefix('kegiatan')->group(function () {
-    Route::get('/dosen', function () {
-        $kegiatan = Kegiatan::where('kategori', 'Pengabdian Dosen')->orderBy('created_at', 'desc')->get();
-        return view('kegiatan.dosen', compact('kegiatan'));
-    })->name('kegiatan.dosen');
+Route::get('/kegiatan/dosen', function () {
+    // Tarik data yang kategorinya KHUSUS 'Pengabdian Masyarakat (PKM) Dosen'
+    $kegiatan = Kegiatan::where('kategori', 'Pengabdian Masyarakat (PKM) Dosen')
+                        ->orderBy('waktu_pelaksanaan', 'desc')
+                        ->get();
+                        
+    return view('kegiatan.dosen', compact('kegiatan'));
+})->name('publik.kegiatan.dosen');
 
-    Route::get('/mahasiswa', function () {
-        $pkm        = Kegiatan::where('kategori', 'PkM Mahasiswa')->orderBy('created_at', 'desc')->get();
-        $himpunan   = Kegiatan::where('kategori', 'Himpunan')->orderBy('created_at', 'desc')->get();
-        $kaderisasi = Kegiatan::where('kategori', 'Kaderisasi')->orderBy('created_at', 'desc')->get();
-        return view('kegiatan.mahasiswa', compact('pkm', 'himpunan', 'kaderisasi'));
-    })->name('kegiatan.mahasiswa');
 
-    Route::get('/penelitian', function () {
-        $penelitian = Kegiatan::where('kategori', 'Penelitian')->orderBy('created_at', 'desc')->get();
-        return view('kegiatan.penelitian', compact('penelitian'));
-    })->name('kegiatan.penelitian');
-});
+// 2. Rute untuk Kegiatan Mahasiswa
+Route::get('/kegiatan/mahasiswa', function () {
+    
+    // A. Tarik data untuk seksi HIMABIO (Kategori: Kegiatan Mahasiswa)
+    $himpunan = Kegiatan::where('kategori', 'Kegiatan Mahasiswa')
+                        ->orderBy('waktu_pelaksanaan', 'desc')
+                        ->get();
+                        
+    // B. Tarik data untuk seksi Pengabdian Masyarakat Mahasiswa
+    // (Meskipun kategori ini belum ada di form tambah admin Anda, kita siapkan variabelnya
+    //  agar halamannya tidak eror dan bisa menampilkan teks "Data pengabdian belum tersedia")
+    $pkm = Kegiatan::where('kategori', 'Pengabdian Masyarakat (PKM) Mahasiswa')
+                   ->orderBy('waktu_pelaksanaan', 'desc')
+                   ->get();
+                        
+    // C. Kirim KEDUA variabel tersebut ke view secara bersamaan
+    return view('kegiatan.mahasiswa', compact('himpunan', 'pkm'));
+    
+})->name('publik.kegiatan.mahasiswa');
 
 // Fasilitas & Lab
 Route::get('/fasilitas', function () {
@@ -138,16 +161,15 @@ Route::get('/fasilitas', function () {
 Route::get('/fasilitas/ruang-kelas', [RuangKelasController::class, 'index'])->name('fasilitas.ruang-kelas');
 
 // rute alat dan bahan
-Route::prefix('laboratorium')->group(function () {
+Route::get('/laboratorium', function () {
+    // 1. Ambil data laboratorium
+    $labs = \App\Models\Laboratorium::all();
     
-    // 1. TAMBAHKAN BARIS INI: Rute untuk halaman utama daftar fasilitas lab
-    Route::get('/', function () {
-        return view('laboratorium.index'); // Pastikan nama file view-nya sesuai
-
-    $dokumen_rkfs = DokumenRkf::orderBy('created_at', 'desc')->get();
+    // 2. Ambil data dokumen RKF
+    $dokumen_rkfs = \App\Models\DokumenRkf::latest()->get();
     
-    return view('laboratorium', compact('dokumen_rkfs'));
-    });
+    // 3. Kirim ke view
+    return view('laboratorium.index', compact('labs', 'dokumen_rkfs'));
     
     // 2. Rute-rute yang sudah Anda buat sebelumnya tetap di bawahnya
     Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam']);

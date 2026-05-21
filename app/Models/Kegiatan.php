@@ -16,7 +16,8 @@ class Kegiatan extends Model
         'waktu_pelaksanaan',
         'tempat',
         'deskripsi',
-        'foto'
+        'foto',
+        'tenaga_pendidik_id'
     ];
 
         // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.

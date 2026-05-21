@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class DokumenRkf extends Model
 {
-    protected $fillable = ['judul', 'deskripsi', 'file_dokumen'];
+    protected $fillable = [
+    'judul',
+    'deskripsi',
+    'file_dokumen',
+    ];
 }

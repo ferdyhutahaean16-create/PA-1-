@@ -11,8 +11,14 @@ class LaboratoriumController extends Controller
 {
     public function index()
     {
-        $labs = Laboratorium::orderBy('nama_lab', 'asc')->get();
-        return view('admin.laboratorium.index', compact('labs'));
+        // 1. Ambil data laboratorium (variabel $labs sesuai dengan yang ada di blade)
+        $labs = \App\Models\Laboratorium::all(); 
+    
+        // 2. Ambil data dokumen RKF (Pastikan variabelnya pakai 's' yaitu $dokumen_rkfs)
+        $dokumen_rkfs = \App\Models\DokumenRkf::latest()->get(); 
+    
+        // 3. Kirim kedua data tersebut ke halaman user
+        return view('laboratorium.index', compact('labs', 'dokumen_rkfs'));
     }
 
     public function create()

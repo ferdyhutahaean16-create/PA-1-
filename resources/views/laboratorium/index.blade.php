@@ -254,7 +254,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink)}
         <div class="section-num" style="font-size: 3.5rem;">02</div>
         <div>
             <div class="section-tag">Unduhan Resmi</div>
-            <h2 class="section-h2" style="font-size: 2rem;">Dokumen RKF Laboratorium</h2>
+            <h2 class="section-h2" style="font-size: 2rem;">Dokumen RKF</h2>
         </div>
     </div>
 
