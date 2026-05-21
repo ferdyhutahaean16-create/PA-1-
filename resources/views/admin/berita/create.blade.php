@@ -40,7 +40,7 @@
 
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Isi Berita <span class="text-red-500">*</span></label>
-                        <textarea name="konten" rows="10" placeholder="Tuliskan isi berita secara lengkap di sini..." class="ckeditor-field w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required></textarea>
+                        <textarea name="konten" rows="10" placeholder="Tuliskan isi berita secara lengkap di sini..." class="ckeditor-field w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]"></textarea>
                     </div>
                 </div>
 

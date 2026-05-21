@@ -25,21 +25,21 @@ class BeritaController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'konten' => 'required',
+            'konten' => 'required|string',
             'tanggal' => 'required|date',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-
+    
         $data = $request->except(['_token']);
-        $data['views'] = rand(10, 100); // Memberi angka view acak untuk awal mula
-
+        $data['views'] = rand(10, 100);
+    
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $nama_file = time() . '_berita_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/berita'), $nama_file);
             $data['foto'] = 'uploads/berita/' . $nama_file;
         }
-
+    
         Berita::create($data);
         return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan!');
     }

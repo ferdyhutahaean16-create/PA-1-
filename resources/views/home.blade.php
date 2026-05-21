@@ -704,27 +704,29 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
 
 
 {{-- ══════════════════════════════════════
-     TESTIMONI — Premium Redesign v2
+    TESTIMONI — Light Theme Redesign
 ══════════════════════════════════════ --}}
-<section class="py-28 relative overflow-hidden"
-         style="background: linear-gradient(160deg, #0b1520 0%, #0d1e12 60%, #0f1a0b 100%);">
+<section class="py-28 relative overflow-hidden bg-[#faf8f4]"> {{-- Menggunakan warna background cream lembut --}}
 
-    <div class="absolute inset-0 opacity-[.022] pointer-events-none"
-         style="background-image: linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+    {{-- Latar belakang motif jaring halus (Grid pattern) --}}
+    <div class="absolute inset-0 opacity-[.03] pointer-events-none"
+         style="background-image: linear-gradient(#1a4a38 1px, transparent 1px),
+                linear-gradient(90deg, #1a4a38 1px, transparent 1px);
                 background-size: 56px 56px;"></div>
+                
+    {{-- Glow effect di pojok-pojok (Sekarang menggunakan warna hijau/gold pastel) --}}
     <div class="absolute -top-20 -right-16 w-80 h-80 pointer-events-none"
-         style="background: radial-gradient(circle, rgba(26,74,56,.3) 0%, transparent 70%);"></div>
+         style="background: radial-gradient(circle, rgba(26,74,56,.05) 0%, transparent 70%);"></div>
     <div class="absolute -bottom-16 -left-10 w-64 h-64 pointer-events-none"
-         style="background: radial-gradient(circle, rgba(184,150,62,.12) 0%, transparent 70%);"></div>
+         style="background: radial-gradient(circle, rgba(184,150,62,.06) 0%, transparent 70%);"></div>
 
     <div class="container mx-auto max-w-6xl px-6 relative z-10">
 
         {{-- Header --}}
         <div class="text-center mb-14 fs">
-            <p class="text-[10px] tracking-[.35em] uppercase text-[var(--gold)] font-semibold mb-3">Kisah Sukses</p>
-            <h2 class="serif text-4xl md:text-5xl font-light text-white mb-3">
-                Suara <em class="text-green-300/90 not-italic">Alumni</em>
+            <p class="text-[10px] tracking-[.35em] uppercase text-[var(--gold2)] font-bold mb-3">Kisah Sukses</p>
+            <h2 class="serif text-4xl md:text-5xl font-semibold text-gray-900 mb-3">
+                Suara <em class="text-[#1a4a38] not-italic">Alumni</em>
             </h2>
             <p class="text-gray-500 max-w-xs mx-auto text-sm leading-relaxed">
                 Mendengar langsung perjalanan karir para lulusan Bioteknologi IT Del.
@@ -733,45 +735,44 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
 
         {{-- Slider --}}
         <div class="overflow-hidden mx-auto" id="testiWrap" style="max-width: 960px;">
-            <div class="flex gap-5 transition-transform duration-500" id="testiTrack" style="will-change:transform;">
+            <div class="flex gap-5 transition-transform duration-500 pb-6" id="testiTrack" style="will-change:transform;">
 
                 @forelse($testimonials as $index => $t)
                 <div class="testi-slide flex-shrink-0 rounded-3xl p-7 flex flex-col items-center text-center relative
-                            transition-all duration-300 group
-                            border border-white/[.07] hover:border-green-300/25 hover:-translate-y-2"
-                     style="background: rgba(255,255,255,0.04); width: 300px;">
+                            transition-all duration-300 group bg-white shadow-sm
+                            border border-gray-100 hover:border-[#7aab90]/50 hover:shadow-xl hover:-translate-y-2"
+                     style="width: 300px;">
 
-                    {{-- Top glow line --}}
-                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/5 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                         style="background: linear-gradient(90deg, transparent, rgba(134,239,172,0.45), transparent);"></div>
+                    {{-- Top glow line (Diubah menjadi hijau kampus IT Del) --}}
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/5 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-full"
+                         style="background: linear-gradient(90deg, transparent, #1a4a38, transparent);"></div>
 
                     {{-- Avatar --}}
                     <div class="relative mb-4">
-                        <div class="w-20 h-20 rounded-full p-[3px]"
-                             style="background: linear-gradient(135deg, rgba(184,150,62,.6), rgba(134,239,172,.4));">
-                            <div class="w-full h-full rounded-full overflow-hidden bg-[#1a2e1e] border-2 border-[#0d1e12] flex items-center justify-center">
+                        <div class="w-20 h-20 rounded-full p-[3px] shadow-sm bg-gradient-to-br from-[#1a4a38]/20 to-[#b8975a]/20">
+                            <div class="w-full h-full rounded-full overflow-hidden bg-gray-50 border-2 border-white flex items-center justify-center">
                                 @if($t->photo)
                                     <img src="{{ asset($t->photo) }}" alt="{{ $t->name }}" class="w-full h-full object-cover">
                                 @else
-                                    <span class="serif text-2xl font-light text-green-300">
+                                    <span class="serif text-2xl font-bold text-[#1a4a38]">
                                         {{ strtoupper(substr($t->name, 0, 1)) }}{{ strtoupper(substr(strrchr($t->name.' ', ' '), 1, 1)) }}
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center
-                                    bg-[#1a4a38] border-2 border-[#0d1e12]">
-                            <svg class="w-2.5 h-2.5 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                        <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full flex items-center justify-center
+                                    bg-[#1a4a38] border-2 border-white shadow-sm">
+                            <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
                     </div>
 
-                    {{-- Info --}}
-                    <p class="text-[12px] font-semibold text-gray-100 tracking-[.08em] uppercase mb-1 leading-tight">{{ $t->name }}</p>
-                    <p class="text-[10px] text-green-400 font-semibold tracking-[.12em] uppercase mb-1">Alumni {{ $t->graduation_year }}</p>
+                    {{-- Info (Teks diubah menjadi gelap agar kontras) --}}
+                    <p class="text-[12px] font-bold text-gray-900 tracking-[.08em] uppercase mb-1 leading-tight">{{ $t->name }}</p>
+                    
                     @if($t->position || $t->workplace)
-                    <p class="text-[11px] text-gray-600 mb-4 leading-snug">
+                    <p class="text-[11px] text-gray-500 mb-4 leading-snug font-medium">
                         {{ $t->position }}{{ $t->position && $t->workplace ? ' · ' : '' }}{{ $t->workplace }}
                     </p>
                     @else
@@ -779,27 +780,29 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                     @endif
 
                     {{-- Divider --}}
-                    <div class="w-8 h-px mb-4" style="background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);"></div>
+                    <div class="w-12 h-px mb-4 bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
 
                     {{-- Quote --}}
-                    <div class="serif leading-none mb-2" style="font-size:48px; color: rgba(134,239,172,0.12); height:24px;">"</div>
-                    <p class="serif italic text-[14px] text-gray-400 leading-[1.8] flex-1">
-                        "{{ Str::limit($t->testimony, 150) }}"
+                    <div class="serif leading-none mb-2 font-bold" style="font-size:48px; color: rgba(26, 74, 56, 0.15); height:24px;">"</div>
+                    <p class="serif italic text-[15px] text-gray-700 font-medium leading-[1.7] flex-1">
+                        {!! Str::limit($t->testimony, 150) !!}
                     </p>
 
-                    {{-- Stars --}}
-                    <div class="flex gap-1 justify-center mt-4">
-                        @for($i = 0; $i < 5; $i++)
-                        <svg class="w-2.5 h-2.5 text-[var(--gold)]" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                        </svg>
-                        @endfor
+                    {{-- Stars & Tahun (Angkatan) --}}
+                    <div class="mt-5 w-full flex flex-col items-center border-t border-gray-50 pt-4">
+                        <div class="flex gap-1 justify-center mb-2">
+                            @for($i = 0; $i < 5; $i++)
+                            <svg class="w-3 h-3 text-[var(--gold)]" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                            @endfor
+                        </div>
+                        <p class="text-[10px] text-[#4a7c62] font-bold tracking-[.15em] uppercase">Angkatan {{ $t->graduation_year }}</p>
                     </div>
-                    <p class="text-[9px] text-gray-700 tracking-[.15em] uppercase font-semibold mt-2">Angkatan {{ $t->graduation_year }}</p>
                 </div>
                 @empty
-                <div class="text-center py-10 w-full rounded-2xl border border-dashed border-gray-800/60">
-                    <p class="text-gray-600 text-sm italic">Belum ada cerita alumni.</p>
+                <div class="text-center py-12 w-full rounded-2xl border-2 border-dashed border-gray-200 bg-white">
+                    <p class="text-gray-500 text-sm italic font-medium">Belum ada cerita alumni.</p>
                 </div>
                 @endforelse
 
@@ -807,28 +810,29 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
         </div>
 
         {{-- Navigation --}}
-        <div class="flex items-center justify-center gap-3 mt-10 fs">
+        <div class="flex items-center justify-center gap-3 mt-6 fs">
             <button id="testiPrev"
                     class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300
-                           border border-white/10 bg-white/[.04] text-gray-500
-                           hover:border-green-300/40 hover:text-green-300 hover:bg-green-300/[.06]">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                           border border-gray-200 bg-white text-gray-600 shadow-sm
+                           hover:border-[#1a4a38] hover:text-[#1a4a38] hover:bg-[#1a4a38]/5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <path d="M15 18l-6-6 6-6"/>
                 </svg>
             </button>
             <div id="testiDots" class="flex gap-2 items-center"></div>
             <button id="testiNext"
                     class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300
-                           border border-white/10 bg-white/[.04] text-gray-500
-                           hover:border-green-300/40 hover:text-green-300 hover:bg-green-300/[.06]">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                           border border-gray-200 bg-white text-gray-600 shadow-sm
+                           hover:border-[#1a4a38] hover:text-[#1a4a38] hover:bg-[#1a4a38]/5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                     <path d="M9 6l6 6-6 6"/>
                 </svg>
             </button>
         </div>
 
+        {{-- Button --}}
         <div class="mt-10 text-center fs">
-            <a href="{{ route('publik.testimoni') }}" class="btn-white">
+            <a href="{{ route('publik.testimoni') }}" class="inline-flex items-center gap-2 bg-white text-[#1a4a38] font-bold px-6 py-3 rounded-full border border-gray-200 shadow-sm hover:shadow-md hover:border-[#1a4a38] transition-all duration-300">
                 <span>Lihat Semua Testimoni</span>
                 <span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>

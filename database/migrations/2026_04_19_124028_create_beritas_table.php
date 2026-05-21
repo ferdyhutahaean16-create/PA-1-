@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('beritas', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->text('konten');
+            
+            // UBBAH BARIS INI: Dari text() menjadi longText()
+            $table->longText('konten'); 
+            
             $table->string('foto')->nullable();
             $table->date('tanggal');
-            $table->integer('views')->default(0); // Untuk menyimpan jumlah tayangan
+            $table->integer('views')->default(0); 
             $table->timestamps();
         });
     }

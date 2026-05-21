@@ -37,6 +37,8 @@ use App\Http\Controllers\Admin\CooperationController as AdminCooperationControll
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\DokumenRkfController;
 use App\Http\Controllers\Admin\PengajaranController;
+use App\Http\Controllers\LaboratoriumController as PublikLabController;
+use App\Http\Controllers\Admin\LaboratoriumController as AdminLabController;
 
 // ==========================================
 // RUTE LOGIN & LOGOUT
@@ -56,6 +58,8 @@ Route::get('/', function () {
     return view('home', compact('beritas', 'mitras', 'testimonials'));
     $profil = \App\Models\Profil::first(); 
     return view('welcome', compact('profil'));
+    // Rute untuk halaman publik detail berita
+    Route::get('/berita/baca/{id}', [BeritaController::class, 'bacaBerita'])->name('publik.berita.baca');
 })->name('home');
 
 // Profil & Struktur
@@ -93,6 +97,8 @@ Route::get('/berita-lengkap', [BeritaController::class, 'index'])->name('berita.
 Route::get('/berita', function () { return redirect('/berita-lengkap'); });
 Route::get('/mitra', [CooperationController::class, 'index'])->name('mitra.index');
 Route::get('/kisah-alumni', [TestimonialController::class, 'index'])->name('publik.testimoni');
+// Rute untuk halaman publik detail berita
+Route::get('/berita/baca/{id}', [BeritaController::class, 'bacaBerita'])->name('publik.berita.baca');
 
 // Prestasi
 Route::prefix('prestasi')->group(function () {
@@ -160,23 +166,17 @@ Route::get('/fasilitas', function () {
 
 Route::get('/fasilitas/ruang-kelas', [RuangKelasController::class, 'index'])->name('fasilitas.ruang-kelas');
 
-// rute alat dan bahan
 Route::get('/laboratorium', function () {
-    // 1. Ambil data laboratorium
     $labs = \App\Models\Laboratorium::all();
-    
-    // 2. Ambil data dokumen RKF
     $dokumen_rkfs = \App\Models\DokumenRkf::latest()->get();
-    
-    // 3. Kirim ke view
     return view('laboratorium.index', compact('labs', 'dokumen_rkfs'));
-    
-    // 2. Rute-rute yang sudah Anda buat sebelumnya tetap di bawahnya
-    Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam']);
-    Route::post('/store', [PeminjamanLabController::class, 'store'])->name('laboratorium.store');
-    Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');
-    Route::get('/laboratorium/peminjaman/cetak/{id}', [App\Http\Controllers\PeminjamanLabController::class, 'cetakBon'])->name('lab.peminjaman.cetak');
-});
+})->name('laboratorium.index');
+
+Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam'])->name('laboratorium.pinjam');
+Route::post('/store', [PeminjamanLabController::class, 'store'])->name('laboratorium.store');
+Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');
+Route::get('/laboratorium/peminjaman/cetak/{id}', [PeminjamanLabController::class, 'cetakBon'])->name('lab.peminjaman.cetak');
+
 
 // ==========================================
 // ADMIN PANEL (RBAC - Role Based Access Control)
@@ -195,7 +195,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/peminjaman', [PeminjamanLabController::class, 'indexAdmin'])->name('admin.peminjaman.index');
     Route::post('/peminjaman/{id}/update', [PeminjamanLabController::class, 'updateStatus'])->name('admin.peminjaman.update');
     Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('admin.peminjaman.cetak');
-    Route::resource('laboratorium', AdminLaboratoriumController::class);
+    // 3. RUTE ADMIN PANEL (Pastikan terpisah dan memiliki prefix 'admin')
+    Route::prefix('admin')->name('admin.')->group(function () {
+    
+    // Menggunakan Class yang sudah di-import di atas (Sangat Aman)
+    Route::resource('laboratorium', AdminLabController::class);
+    
+});
 
     // 2. KHUSUS SUPER ADMIN
     Route::middleware(['role:super_admin'])->group(function () {

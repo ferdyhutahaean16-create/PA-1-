@@ -106,10 +106,9 @@
                         {{ Str::limit(strip_tags($berita->konten), 130) }}
                     </p>
 
-                    <button @click="openModal = true" class="text-[var(--forest)] text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-2 group/btn hover:text-[var(--gold)] transition-all">
-                        Selengkapnya 
-                        <span class="transform group-hover/btn:translate-x-2 transition-transform">→</span>
-                    </button>
+                    <a href="{{ route('publik.berita.baca', $berita->id) }}" class="text-[#1a4a38] font-bold text-xs tracking-wider hover:underline">
+                        SELENGKAPNYA ➝
+                    </a>
                 </div>
 
                 <!-- ENHANCED MODAL -->
