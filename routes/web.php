@@ -177,6 +177,20 @@ Route::get('/dokumen-rkf', function () {
     return view('dokumen_rkf.index', compact('dokumen_rkfs'));
 })->name('publik.dokumen_rkf.index');
 
+Route::get('/dokumen-rkf/unduh/{id}', function ($id) {
+    $dokumen = \App\Models\DokumenRkf::findOrFail($id);
+    $path = public_path($dokumen->file_dokumen);
+
+    // Cek apakah file fisik benar-benar ada di dalam folder
+    if (file_exists($path)) {
+        // Jika ada, paksa browser untuk mendownload file aslinya
+        return response()->download($path);
+    } else {
+        // Jika file hilang dari folder, hentikan dan beri peringatan
+        return abort(404, 'Maaf, file fisik tidak ditemukan di server.');
+    }
+})->name('publik.dokumen_rkf.unduh');
+
 Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam'])->name('laboratorium.pinjam');
 Route::post('/store', [PeminjamanLabController::class, 'store'])->name('laboratorium.store');
 Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');

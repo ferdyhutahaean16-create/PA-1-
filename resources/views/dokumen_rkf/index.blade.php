@@ -44,9 +44,9 @@
                     </p>
                     
                     {{-- PENGECEKAN FILE KETAT --}}
-                    @if(!empty($doc->file))
+                    @if(!empty($doc->file_dokumen))
                         {{-- Jika file ADA di database, tombol hijau muncul --}}
-                        <a href="{{ asset($doc->file) }}" download target="_blank" class="inline-flex items-center gap-2 bg-[#1a4a38] text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-[#0f2e22] transition-all duration-300 shadow-md hover:shadow-lg w-full sm:w-auto justify-center">
+                        <a href="{{ route('publik.dokumen_rkf.unduh', $doc->id) }}" class="inline-flex items-center gap-2 bg-[#1a4a38] text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-[#0f2e22] transition-all duration-300 shadow-md hover:shadow-lg w-full sm:w-auto justify-center">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                             UNDUH DOKUMEN
                         </a>
