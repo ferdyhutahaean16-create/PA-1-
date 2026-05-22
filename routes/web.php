@@ -172,6 +172,11 @@ Route::get('/laboratorium', function () {
     return view('laboratorium.index', compact('labs', 'dokumen_rkfs'));
 })->name('laboratorium.index');
 
+Route::get('/dokumen-rkf', function () {
+    $dokumen_rkfs = \App\Models\DokumenRkf::latest()->get();
+    return view('dokumen_rkf.index', compact('dokumen_rkfs'));
+})->name('publik.dokumen_rkf.index');
+
 Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam'])->name('laboratorium.pinjam');
 Route::post('/store', [PeminjamanLabController::class, 'store'])->name('laboratorium.store');
 Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');

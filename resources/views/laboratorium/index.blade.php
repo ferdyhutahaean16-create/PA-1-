@@ -247,50 +247,5 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink)}
         </div>
     @endif
 </div>
-
-{{-- SECTION 02: UNDUHAN DOKUMEN RKF --}}
-<div class="section" style="border-t: 1px solid var(--border); padding-top: 50px;">
-    <div class="section-header" style="margin-bottom: 2rem;">
-        <div class="section-num" style="font-size: 3.5rem;">02</div>
-        <div>
-            <div class="section-tag">Unduhan Resmi</div>
-            <h2 class="section-h2" style="font-size: 2rem;">Dokumen RKF</h2>
-        </div>
-    </div>
-
-    <div class="bg-white p-8 md:p-10 rounded-[2rem] shadow-sm border border-gray-100">
-        @if(isset($dokumen_rkfs) && $dokumen_rkfs->count() > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                @foreach($dokumen_rkfs as $dokumen)
-                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 flex items-start gap-5 hover:shadow-md transition-shadow duration-300">
-                    
-                    <div class="bg-white p-4 rounded-xl shadow-sm text-[var(--leaf)] shrink-0 border border-gray-100">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
-
-                    <div class="flex-1">
-                        <h4 class="font-bold text-gray-900 mb-1 text-base leading-tight">{{ $dokumen->judul }}</h4>
-                        @if($dokumen->deskripsi)
-                            <p class="text-xs text-gray-500 mb-4 line-clamp-2">{{ $dokumen->deskripsi }}</p>
-                        @endif
-                        
-                        <a href="{{ asset($dokumen->file_dokumen) }}" download class="inline-flex items-center gap-2 text-xs font-bold bg-[#1a4a38] text-white px-5 py-2.5 rounded-lg hover:bg-[#0d1f16] transition shadow-sm">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                            </svg>
-                            Unduh Dokumen
-                        </a>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        @else
-            <div class="text-center py-12 bg-gray-50/50 rounded-2xl border-2 border-dashed border-gray-200">
-                <p class="text-gray-500 italic font-medium">Belum ada dokumen RKF yang tersedia untuk saat ini.</p>
-            </div>
-        @endif
-    </div>
 </div>
 @endsection
