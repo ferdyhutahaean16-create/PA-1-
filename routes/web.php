@@ -237,5 +237,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::resource('cooperation', AdminCooperationController::class);
         Route::resource('berita', AdminBeritaController::class);
         Route::resource('admin/dokumen-rkf', DokumenRkfController::class);
+        Route::resource('penelitian', \App\Http\Controllers\Admin\PenelitianController::class)->names('admin.penelitian');
     });
 });
