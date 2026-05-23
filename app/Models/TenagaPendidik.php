@@ -40,6 +40,11 @@ class TenagaPendidik extends Model
         return $this->hasMany(Pengabdian::class);
     }
 
+    public function penelitians()
+    {
+        return $this->hasMany(Penelitian::class, 'tenaga_pendidik_id')->orderBy('tahun', 'desc');
+    }
+
     // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.
     public function creator()
     {
