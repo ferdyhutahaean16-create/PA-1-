@@ -17,7 +17,6 @@ return new class extends Migration
         $table->string('nama')->nullable(); // Nama orangnya
         $table->string('foto')->nullable(); // Foto orangnya
         
-        // Urutan/Level sangat penting agar kita tahu siapa yang di atas (Rektor) dan di bawah (Kaprodi)
         // Level 1 = Pucuk Pimpinan, Level 2 = Fakultas, Level 3 = Prodi/Lab
         $table->integer('level')->default(3); 
         $table->timestamps();

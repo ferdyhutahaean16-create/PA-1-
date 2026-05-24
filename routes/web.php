@@ -124,6 +124,8 @@ Route::prefix('prestasi')->group(function () {
 
         return view('prestasi_penelitian', compact('penelitian'));
     })->name('prestasi.penelitian');
+
+    Route::get('/prestasi/penelitian', [NamaControllerTertentu::class, 'penelitian']);
     
 });
 

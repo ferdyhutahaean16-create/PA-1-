@@ -18,10 +18,9 @@ class PublikasiController extends Controller
 
     public function create()
     {
-        // 1. Ambil semua data tenaga pendidik/dosen dari database
+        // semua data tenaga pendidik/dosen dari database
         $tenaga_pendidiks = TenagaPendidik::orderBy('nama', 'asc')->get();
         
-        // 2. Kirim variabel $tenaga_pendidiks ke dalam view menggunakan compact
         return view('admin.publikasi.create', compact('tenaga_pendidiks'));
     }
 
