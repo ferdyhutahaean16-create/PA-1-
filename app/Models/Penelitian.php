@@ -27,3 +27,5 @@ class Penelitian extends Model
         return $this->belongsTo(TenagaPendidik::class, 'tenaga_pendidik_id');
     }
 }
+
+
