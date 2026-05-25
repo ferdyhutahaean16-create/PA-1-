@@ -10,6 +10,7 @@ class Prestasi extends Model
     use HasFactory;
 
     protected $fillable = [
+        'tenaga_pendidik_id',
         'kategori',
         'nama_peraih',
         'penyelenggara',
@@ -20,6 +21,11 @@ class Prestasi extends Model
         'foto'
     ];
 
+
+    public function dosen()
+    {
+        return $this->belongsTo(TenagaPendidik::class, 'tenaga_pendidik_id');
+    }
     // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.
     public function creator()
     {

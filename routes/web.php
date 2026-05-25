@@ -119,12 +119,13 @@ Route::prefix('prestasi')->group(function () {
 
     // 3. Rute BARU: Penelitian
     Route::get('/penelitian', function () {
-        // Memanggil dari Model Publikasi yang sudah ada
-        $penelitian = \App\Models\Publikasi::where('kategori', 'Penelitian')->orderBy('created_at', 'desc')->get();
+        // 1. Ambil data dari database
+        $penelitians = \App\Models\Penelitian::orderBy('tahun', 'desc')->get();
+        
+        // 2. Kirim ke halaman view
+        return view('prestasi_penelitian', compact('penelitians'));
+    })->name('publik.penelitian');
 
-        return view('prestasi_penelitian', compact('penelitian'));
-    })->name('prestasi.penelitian');
-    
 });
 
 // Kegiatan

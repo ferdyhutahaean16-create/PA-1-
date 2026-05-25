@@ -85,7 +85,7 @@
                     </button>
                     <button onclick="switchTab('riset-{{ $tenaga_pendidik->id }}', this)" class="tab-btn text-gray-500 px-5 py-4 text-xs md:text-sm font-bold tracking-wider flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                        RISET
+                        PUBLIKASI
                     </button>
                     <button onclick="switchTab('pengabdian-{{ $tenaga_pendidik->id }}', this)" class="tab-btn text-gray-500 px-5 py-4 text-xs md:text-sm font-bold tracking-wider flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
@@ -94,7 +94,7 @@
 
                     <button onclick="switchTab('publikasi-{{ $tenaga_pendidik->id }}', this)" class="tab-btn text-gray-500 px-5 py-4 text-xs md:text-sm font-bold tracking-wider flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
-                        PUBLIKASI
+                        PENELITIAN
                     </button>
 
                     <button onclick="switchTab('prestasi-{{ $tenaga_pendidik->id }}', this)" class="tab-btn text-gray-500 px-5 py-4 text-xs md:text-sm font-bold tracking-wider flex items-center gap-2">
@@ -270,16 +270,155 @@
                             <h3 class="font-serif text-3xl text-[var(--forest-dark)] mb-2">Pengabdian Masyarakat</h3>
                         </div>
                         <div class="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
-                            <p class="text-gray-500 italic">Modul Pengabdian sedang dalam pengembangan.</p>
+                            <div class="flex flex-col gap-4 pt-2">
+    
+                                @forelse($tenaga_pendidik->kegiatans as $pkm)
+                                    <div class="bg-white border border-gray-100 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col text-left group">
+
+                                        {{-- Kategori & Tanggal --}}
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <span class="bg-[#1a4a38]/10 text-[#1a4a38] text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">
+                                                Pengabdian Masyarakat
+                                            </span>
+                                            <span class="text-gray-300 text-xs">•</span>
+                                            <span class="text-gray-500 text-xs font-bold">{{ \Carbon\Carbon::parse($pkm->created_at)->translatedFormat('d F Y') }}</span>
+                                        </div>
+
+                                        {{-- Judul Kegiatan --}}
+                                        <h4 class="text-lg md:text-xl font-bold text-gray-800 mb-3 leading-snug group-hover:text-[#1a4a38] transition-colors">
+                                            {{ $pkm->nama_kegiatan ?? $pkm->judul ?? 'Judul Kegiatan PkM' }}
+                                        </h4>
+
+                                        {{-- Deskripsi --}}
+                                        @if($pkm->deskripsi)
+                                            <p class="text-sm text-gray-600 leading-relaxed">
+                                                {!! $pkm->deskripsi !!}
+                                            </p>
+                                        @endif
+
+                                    </div>
+
+                                @empty
+                                    {{-- Tampilan JIKA DATA KOSONG (Baru pakai garis putus-putus) --}}
+                                    <div class="text-center py-12 px-4 border-2 border-dashed border-gray-200 rounded-3xl bg-gray-50 mt-2">
+                                        <svg class="w-12 h-12 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                        <p class="text-gray-500 italic text-sm">Belum ada data Pengabdian kepada Masyarakat (PkM) untuk tenaga pendidik ini.</p>
+                                    </div>
+                                @endforelse
+                                
+                            </div>
                         </div>
                     </div>
 
                     <div id="publikasi-{{ $tenaga_pendidik->id }}" class="tab-content hidden ...">
-                        Isi daftar publikasi dosen di sini...
+                        <div class="flex flex-col gap-4 pt-2">
+                            @forelse($tenaga_pendidik->penelitians as $riset)
+                                <div class="bg-gray-50/50 border border-gray-100 rounded-xl p-4 hover:shadow-sm transition-all">
+
+                                    {{-- Kategori & Tahun --}}
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <span class="bg-[#1a4a38]/10 text-[#1a4a38] text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">
+                                            {{ $riset->kategori }}
+                                        </span>
+                                        <span class="text-gray-300 text-xs">•</span>
+                                        <span class="text-gray-500 text-xs font-bold">{{ $riset->tahun }}</span>
+                                    </div>
+
+                                    {{-- Judul & Penulis --}}
+                                    <h4 class="text-md font-bold text-gray-800 mb-1 leading-snug">{{ $riset->judul }}</h4>
+                                    <p class="text-xs text-gray-500 mb-3 uppercase tracking-wide">
+                                        Penulis: <span class="font-bold text-gray-700">{{ $riset->penulis }}</span>
+                                    </p>
+
+                                    {{-- Deskripsi Singkat --}}
+                                    @if($riset->deskripsi)
+                                        <p class="text-sm text-gray-600 line-clamp-2 mb-4 leading-relaxed">
+                                            {{ $riset->deskripsi }}
+                                        </p>
+                                    @endif
+
+                                    {{-- Tombol Aksi --}}
+                                    <div class="flex flex-wrap gap-2 mt-auto">
+                                        @if($riset->file_pdf)
+                                            <a href="{{ asset($riset->file_pdf) }}" target="_blank" class="inline-flex items-center gap-1.5 bg-[#1a4a38] text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-[#0f2e22] transition-colors shadow-sm">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                                PDF
+                                            </a>
+                                        @endif
+
+                                        @if($riset->link_jurnal)
+                                            <a href="{{ $riset->link_jurnal }}" target="_blank" class="inline-flex items-center gap-1.5 border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-50 transition-colors">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                                Sumber Jurnal
+                                            </a>
+                                        @endif
+                                    </div>
+
+                                </div>
+                            @empty
+                                {{-- Tampilan jika dosen belum memiliki data penelitian --}}
+                                <div class="text-center py-8">
+                                    <p class="text-sm text-gray-400 italic">Belum ada publikasi atau penelitian untuk dosen ini.</p>
+                                </div>
+                            @endforelse
+                        </div>
                     </div>
 
                     <div id="prestasi-{{ $tenaga_pendidik->id }}" class="tab-content hidden ...">
-                        Isi daftar prestasi dosen di sini...
+                        <div class="mt-6">
+                            <div class="flex flex-col gap-5">
+
+                                {{-- Loop data prestasi milik dosen tersebut --}}
+                                @forelse($tenaga_pendidik->prestasis as $prestasi)
+                                    <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row gap-6 items-start group text-left">
+
+                                        {{-- Foto / Bukti Prestasi (Jika Ada) --}}
+                                        @if($prestasi->foto)
+                                            <div class="w-full sm:w-1/4 flex-shrink-0">
+                                                <img src="{{ asset($prestasi->foto) }}" alt="Foto Prestasi" class="w-full h-32 object-cover rounded-xl border border-gray-100 shadow-sm">
+                                            </div>
+                                        @endif
+
+                                        {{-- Detail Prestasi --}}
+                                        <div class="flex-1">
+                                            {{-- Badge Tingkat & Tahun --}}
+                                            <div class="flex items-center gap-3 mb-3">
+                                                <span class="bg-yellow-50 text-yellow-700 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider border border-yellow-100">
+                                                    Tingkat {{ $prestasi->tingkat ?? 'Nasional' }}
+                                                </span>
+                                                <span class="text-gray-300 text-xs">•</span>
+                                                <span class="text-gray-500 text-xs font-bold">{{ \Carbon\Carbon::parse($prestasi->tanggal_perolehan)->format('Y') }}</span>
+                                            </div>
+
+                                            {{-- Nama/Judul Prestasi --}}
+                                            <h4 class="text-lg font-bold text-gray-800 mb-2 leading-snug group-hover:text-yellow-600 transition-colors">
+                                                {{ $prestasi->nama_prestasi ?? $prestasi->judul_prestasi }}
+                                            </h4>
+
+                                            {{-- Penyelenggara --}}
+                                            <p class="text-xs text-gray-500 mb-3 font-semibold uppercase tracking-wide">
+                                                Penyelenggara: <span class="text-gray-700">{{ $prestasi->penyelenggara ?? '-' }}</span>
+                                            </p>
+
+                                            {{-- Deskripsi --}}
+                                            @if($prestasi->deskripsi)
+                                                <p class="text-sm text-gray-600 leading-relaxed line-clamp-2">
+                                                    {{ $prestasi->deskripsi }}
+                                                </p>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                @empty
+                                    {{-- Tampilan JIKA DATA PRESTASI KOSONG --}}
+                                    <div class="text-center py-12 px-4 border-2 border-dashed border-gray-200 rounded-3xl bg-gray-50 w-full mt-2">
+                                        <svg class="w-12 h-12 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                                        <p class="text-gray-500 italic text-sm">Belum ada data penghargaan atau prestasi untuk tenaga pendidik ini.</p>
+                                    </div>
+                                @endforelse
+
+                            </div>
+                        </div>
                     </div>
 
                 </div>

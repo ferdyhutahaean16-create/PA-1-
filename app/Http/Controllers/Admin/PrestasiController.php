@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Prestasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Models\Penelitian;
 
 class PrestasiController extends Controller
 {
@@ -106,5 +107,14 @@ class PrestasiController extends Controller
 
         $prestasi->delete();
         return redirect()->route('prestasi.index')->with('success', 'Data prestasi berhasil dihapus!');
+    }
+
+    public function penelitian()
+    {
+        // 1. Ambil data riset dari database
+        $penelitians = \App\Models\Penelitian::orderBy('tahun', 'desc')->get();
+        
+        // 2. Kirim ke view halaman publik (sesuaikan dengan nama file blade kamu)
+        return view('prestasi.penelitian', compact('penelitians')); 
     }
 }
