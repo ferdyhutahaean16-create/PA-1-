@@ -7,6 +7,67 @@
     <div class="container mx-auto px-4 max-w-3xl">
         
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 md:p-12">
+            @if(session('pinjam_user'))
+                @php
+                    $pu = session('pinjam_user');
+                    $name = null;
+
+                    // helper to pick first non-empty key
+                    $pick = function($arr, $keys) {
+                        foreach ($keys as $k) {
+                            if (is_array($arr) && array_key_exists($k, $arr) && !empty($arr[$k])) return $arr[$k];
+                        }
+                        return null;
+                    };
+
+                    if ($pu) {
+                        // If it's an object, convert to array of public properties
+                        if (is_object($pu)) {
+                            $puArr = get_object_vars($pu);
+                        } elseif (is_string($pu)) {
+                            // try decode JSON
+                            $decoded = json_decode($pu, true);
+                            if (is_array($decoded)) {
+                                $puArr = $decoded;
+                            } else {
+                                $puArr = ['username' => $pu];
+                            }
+                        } elseif (is_array($pu)) {
+                            $puArr = $pu;
+                        } else {
+                            $puArr = ['username' => (string)$pu];
+                        }
+
+                        // common candidate keys
+                        $candidates = ['name','nama','displayName','full_name','fullName','user_display','userDisplay','username'];
+
+                        // 1) direct keys
+                        $name = $pick($puArr, $candidates);
+
+                        // 2) check nested data array like ['data'=>[0=>['nama'=>...]]]
+                        if (!$name && !empty($puArr['data']) && is_array($puArr['data'])) {
+                            $first = $puArr['data'][0] ?? null;
+                            if (is_array($first)) {
+                                $name = $pick($first, ['nama','name','displayName']);
+                            }
+                        }
+
+                        // 3) sometimes payload includes 'user' key
+                        if (!$name && !empty($puArr['user']) && is_array($puArr['user'])) {
+                            $name = $pick($puArr['user'], $candidates);
+                        }
+                    }
+                @endphp
+                <div class="flex justify-end mb-4">
+                        <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full flex items-center gap-3">
+                        <span class="text-sm">Hi, <strong>{{ $name ?? (session('pinjam_user.username') ?? 'Pengguna') }}</strong></span>
+                        <form action="{{ route('pinjam.logout') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="text-sm bg-white text-green-800 px-2 py-0.5 rounded-md border border-green-200 hover:bg-gray-50">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            @endif
             <h2 class="text-3xl font-bold text-[#1a4a38] mb-2 text-center">Formulir Layanan Lab</h2>
             <p class="text-gray-500 text-center mb-8">Pilih jenis layanan dan lengkapi data permohonan Anda.</p>
 
@@ -37,7 +98,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Nama Peminjam</label>
-                        <input type="text" name="nama_peminjam" required class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1a4a38] outline-none">
+                        <input type="text" name="nama_peminjam" required value="{{ old('nama_peminjam', $name ?? '') }}" class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#1a4a38] outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">NIM</label>
