@@ -118,7 +118,7 @@
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-[#064e3b] min-w-[220px] top-[calc(100%-4px)] left-0 z-50 rounded-b-md overflow-hidden">
                     <a href="/prestasi/dosen" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">Prestasi Dosen</a>
                     <a href="{{ url('/prestasi/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">PRESTASI MAHASISWA</a>
-                    <a href="{{ url('/prestasi/penelitian') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] text-sm font-bold transition">Penelitian (Riset)</a>
+                    <a href="{{ route('publik.penelitian') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] text-sm font-bold transition">Penelitian (Riset)</a>
                 </div>
             </div>
 
@@ -158,7 +158,7 @@
             </div>
 
             <a href="{{ route('publik.dokumen_rkf.index') }}" class="py-5 relative whitespace-nowrap {{ request()->is('dokumen-rkf*') ? 'nav-active' : 'nav-item' }}">
-                DOKUMEN RKF
+                Arsip Dokumen
             </a>
         </div>
 
@@ -188,14 +188,14 @@
                     </div>
                 </div>
 
-                <a href="/tenaga" class="px-6 py-4 border-b border-gray-100 hover:bg-green-50 text-[#064e3b]">TENAGA PENGAJAR</a>
+                <a href="/tenaga" class="px-6 py-4 border-b border-gray-100 hover:bg-green-50 text-[#064e3b]">TENAGA PENDIDIK</a>
                 
                 <div class="px-6 py-4 border-b border-gray-100">
                     <span class="text-[#064e3b] block mb-2 uppercase">Prestasi</span>
                     <div class="flex flex-col gap-3 pl-4 text-xs font-normal text-gray-600">
                         <a href="/prestasi/dosen" class="hover:text-[#064e3b] transition-colors">Prestasi Dosen</a>
                         <a href="{{ url('/prestasi/mahasiswa') }}" class="hover:text-[#064e3b] transition-colors">Prestasi Mahasiswa</a>
-                        <a href="{{ url('/kegiatan/penelitian') }}" class="hover:text-[#064e3b] transition-colors">Penelitian (Riset)</a>
+                        <a href="{{ url('/prestasi/penelitian') }}" class="hover:text-[#064e3b] transition-colors">Penelitian (Riset)</a>
                     </div>
                 </div>
 
@@ -227,7 +227,7 @@
                 <div class="px-6 py-4 border-b border-gray-100">
                     <span class="text-[#064e3b] block mb-2 uppercase">Dokumen</span>
                     <div class="flex flex-col gap-3 pl-4 text-xs font-normal text-gray-600">
-                        <a href="{{ route('publik.dokumen_rkf.index') }}" class="hover:text-[#064e3b] transition-colors">Dokumen RKF</a>
+                        <a href="{{ route('publik.dokumen_rkf.index') }}" class="hover:text-[#064e3b] transition-colors">Arsip Dokumen</a>
                     </div>
                 </div>
 

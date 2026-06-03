@@ -988,7 +988,7 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                         </div>
 
                         <p class="text-sm text-gray-500 leading-relaxed mb-5 text-left">
-                            {{ $mitra->description ?? 'Menjalin kolaborasi strategis dalam pengembangan pendidikan, penelitian, dan pengabdian masyarakat.' }}
+                            {!! $mitra->description ?? 'Menjalin kolaborasi strategis dalam pengembangan pendidikan, penelitian, dan pengabdian masyarakat.' !!}
                         </p>
 
                         <div class="flex items-center justify-between bg-[var(--cream)] rounded-xl p-4 border border-[var(--mist)]">

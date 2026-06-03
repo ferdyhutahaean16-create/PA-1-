@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Dokumen RKF')
+@section('title', 'Arsip Dokumen')
 
 @section('content')
 <div class="container mx-auto px-6 pt-32 pb-24 max-w-6xl min-h-screen">
@@ -12,7 +12,7 @@
             <div class="w-16 h-px bg-[#1a4a38]/30"></div>
             <span class="text-[#1a4a38] text-xs font-bold tracking-[0.2em] uppercase">Unduhan Resmi</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-4">Dokumen RKF</h1>
+        <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-4">Arsip Dokumen</h1>
         <p class="text-gray-500 max-w-2xl text-sm leading-relaxed">
             Akses dan unduh berbagai dokumen resmi, peraturan, dan panduan praktikum terkait fasilitas Laboratorium Program Studi Bioteknologi IT Del.
         </p>
@@ -46,9 +46,9 @@
                     {{-- PENGECEKAN FILE KETAT --}}
                     @if(!empty($doc->file_dokumen))
                         {{-- Jika file ADA di database, tombol hijau muncul --}}
-                        <a href="{{ route('publik.dokumen_rkf.unduh', $doc->id) }}" class="inline-flex items-center gap-2 bg-[#1a4a38] text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-[#0f2e22] transition-all duration-300 shadow-md hover:shadow-lg w-full sm:w-auto justify-center">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            UNDUH DOKUMEN
+                        <a href="{{ route('dokumen-rkf.lihat', $doc->id) }}" target="_blank" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                            <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            Lihat Dokumen
                         </a>
                     @else
                         {{-- Jika file KOSONG di database, tombol jadi abu-abu --}}

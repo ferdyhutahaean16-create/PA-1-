@@ -197,15 +197,6 @@ body {
                         <div class="dot-indicator"></div>
                     </button>
                 </nav>
-
-                <!-- Help Card -->
-                <div class="mt-8 p-5 bg-gradient-to-br from-[var(--forest)] to-[var(--forest-dark)] rounded-[1.5rem] text-white relative overflow-hidden group">
-                    <div class="relative z-10">
-                        <p class="text-[10px] text-[var(--gold)] font-bold uppercase mb-1">Butuh Bantuan?</p>
-                        <p class="text-[11px] opacity-80 leading-relaxed">Hubungi admin prodi untuk informasi akademik lebih lanjut.</p>
-                    </div>
-                    <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700"></div>
-                </div>
             </div>
         </div>
 

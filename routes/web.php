@@ -181,19 +181,21 @@ Route::get('/dokumen-rkf', function () {
     return view('dokumen_rkf.index', compact('dokumen_rkfs'));
 })->name('publik.dokumen_rkf.index');
 
-Route::get('/dokumen-rkf/unduh/{id}', function ($id) {
+Route::get('/dokumen-rkf/lihat/{id}', function ($id) {
     $dokumen = \App\Models\DokumenRkf::findOrFail($id);
     $path = public_path($dokumen->file_dokumen);
 
-    // Cek apakah file fisik benar-benar ada di dalam folder
-    if (file_exists($path)) {
-        // Jika ada, paksa browser untuk mendownload file aslinya
-        return response()->download($path);
-    } else {
-        // Jika file hilang dari folder, hentikan dan beri peringatan
-        return abort(404, 'Maaf, file fisik tidak ditemukan di server.');
+    // Cek apakah file fisik ada di server
+    if (!file_exists($path)) {
+        abort(404, 'File dokumen tidak ditemukan.');
     }
-})->name('publik.dokumen_rkf.unduh');
+
+    // Gunakan response()->file() untuk melihat, bukan ->download()
+    return response()->file($path, [
+        'Content-Type' => 'application/pdf', // Pastikan browser tahu ini PDF
+        'Content-Disposition' => 'inline; filename="' . basename($path) . '"'
+    ]);
+})->name('dokumen-rkf.lihat');
 
 // Routes  peminjaman
 Route::get('/pinjam/login', [PinjamAuthController::class, 'showLogin'])->name('pinjam.login');

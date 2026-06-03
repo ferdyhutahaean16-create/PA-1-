@@ -44,7 +44,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Pelaksana <span class="text-red-500">*</span></label>
-                        <input type="text" name="pelaksana" value="{{ $kegiatan->pelaksana }}" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                        <input type="text" name="pelaksana" value="{{ old('pelaksana', $kegiatan->pelaksana ?? '') }}" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Waktu Pelaksanaan <span class="text-red-500">*</span></label>

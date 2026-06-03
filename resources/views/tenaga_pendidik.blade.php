@@ -150,18 +150,38 @@
 
                                 <hr class="border-gray-200 mb-8">
 
-                                <div>
-                                    <h4 class="text-[10px] font-bold tracking-[0.15em] mb-4 text-[var(--gold)]">LATAR BELAKANG PENDIDIKAN</h4>
-                                    <ul class="space-y-3">
-                                        @foreach(explode(',', $tenaga_pendidik->lulusan) as $pendidikan)
-                                            @if(trim($pendidikan) != '')
-                                            <li class="flex items-start gap-3">
-                                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--forest)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                                                <span class="text-gray-600 leading-snug">{{ trim($pendidikan) }}</span>
-                                            </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
+                                {{-- KOTAK PEMBUNGKUS GRID (MULAI) --}}
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-4">
+
+                                    <div>
+                                        <h4 class="text-[10px] font-bold tracking-[0.15em] mb-4 text-[var(--gold)]">LATAR BELAKANG PENDIDIKAN</h4>
+                                        <ul class="space-y-3">
+                                            @foreach(explode(',', $tenaga_pendidik->lulusan) as $pendidikan)
+                                                @if(trim($pendidikan) != '')
+                                                <li class="flex items-start gap-3">
+                                                    <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--forest)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                                                    <span class="text-gray-600 leading-snug">{{ trim($pendidikan) }}</span>
+                                                </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    </div>
+
+                                    {{-- BAGIAN KANAN: Bidang Minat Penelitian & Scholar --}}
+                                    <div>
+                                        <h4 class="text-[10px] font-bold tracking-[0.15em] mb-4 text-[var(--gold)]">BIDANG MINAT PENELITIAN</h4>
+
+                                        @if($tenaga_pendidik->link_scholar)
+                                            <a href="{{ $tenaga_pendidik->link_scholar }}" target="_blank" class="inline-flex items-center gap-3 px-5 py-3 bg-white border-2 border-gray-100 rounded-xl text-sm font-bold text-gray-700 hover:bg-[#1a4a38] hover:border-[#1a4a38] hover:text-white transition-all duration-300 shadow-sm group">
+                                                <svg class="w-5 h-5 text-[#1a4a38] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                                Profil Google Scholar
+                                            </a>
+                                        @else
+                                            <p class="text-sm text-gray-400 italic bg-gray-50 p-3 rounded-lg inline-block border border-gray-100">
+                                                Profil Scholar belum ditambahkan.
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>

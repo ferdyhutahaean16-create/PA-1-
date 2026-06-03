@@ -113,6 +113,7 @@ class KegiatanController extends Controller
         $request->validate([
             'kategori' => 'required|string|max:100',
             'judul' => 'required|string|max:255',
+            'pelaksana' => 'required',
             'waktu_pelaksanaan' => 'required|date', // Diganti menjadi date agar sesuai kalender
             'tempat' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
@@ -130,7 +131,7 @@ class KegiatanController extends Controller
                 $data['tenaga_pendidik_id'] = $dosen->id;
             }
         } else {
-            $data['pelaksana'] = $request->pelaksana_nama;
+            $data['pelaksana'] = $request->pelaksana;
             $data['tenaga_pendidik_id'] = null;
         }
 

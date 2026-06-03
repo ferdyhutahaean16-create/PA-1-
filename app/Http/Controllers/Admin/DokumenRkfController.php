@@ -56,13 +56,30 @@ class DokumenRkfController extends Controller
 
     // Fungsi Update dan Edit (Jika Anda menambahkannya nanti, pastikan variabelnya juga pakai 'file')
 
+    public function show($id)
+    {
+        $dokumen = DokumenRkf::findOrFail($id);
+        $path = public_path($dokumen->file_dokumen);
+
+        // Cek apakah file fisik benar-benar ada di folder
+        if (!File::exists($path)) {
+            abort(404, 'Maaf, fisik dokumen tidak ditemukan di server.');
+        }
+
+        // 'inline' adalah perintah wajib agar browser membukanya untuk dibaca, bukan diunduh
+        return response()->file($path, [
+            'Content-Disposition' => 'inline; filename="' . basename($path) . '"'
+        ]);
+    }
+
+    // FUNGSI DESTROY YANG DISEMPURNAKAN
     public function destroy($id)
     {
         $dokumen = DokumenRkf::findOrFail($id);
 
-        // hapus fisik file
-        if ($dokumen->file && File::exists(public_path($dokumen->file_dokumen))) {
-            File::delete(public_path($dokumen->file));
+        // PERBAIKAN: Menggunakan 'file_dokumen' sesuai nama di database Anda, bukan 'file'
+        if ($dokumen->file_dokumen && File::exists(public_path($dokumen->file_dokumen))) {
+            File::delete(public_path($dokumen->file_dokumen));
         }
 
         $dokumen->delete();

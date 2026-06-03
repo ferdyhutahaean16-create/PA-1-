@@ -12,7 +12,6 @@
                 Kembali ke Daftar Profil
             </a>
             <h1 class="text-3xl font-bold text-gray-800">Tambah Data Profil Program Studi</h1>
-            <p class="text-gray-500 mt-2">Silakan isi teks informasi dan unggah bagan struktur di tab yang berbeda.</p>
         </div>
 
         @if ($errors->any())
@@ -25,15 +24,6 @@
                 </ul>
             </div>
         @endif
-
-        <div class="flex border-b border-gray-200 mb-6">
-            <button onclick="switchTab('teks')" id="tab-teks" type="button" class="py-3 px-6 text-sm font-bold border-b-2 border-[#1a4a38] text-[#1a4a38] focus:outline-none transition-colors">
-                1. Informasi Program Studi
-            </button>
-            <button onclick="switchTab('struktur')" id="tab-struktur" type="button" class="py-3 px-6 text-sm font-bold border-b-2 border-transparent text-gray-500 hover:text-gray-700 focus:outline-none transition-colors">
-                2. Bagan Struktur Organisasi
-            </button>
-        </div>
 
         <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
             
