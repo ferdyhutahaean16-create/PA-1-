@@ -53,7 +53,6 @@
 }
 </style>
 
-<!-- HEADER SECTION -->
 <div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
     <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
     <div class="relative z-10 py-24 text-center px-6">
@@ -66,7 +65,6 @@
 <div class="bg-[var(--soft-bg)] py-16 min-h-screen font-sans">
     <div class="container mx-auto px-6 max-w-6xl">
         
-        <!-- TAB NAVIGATION -->
         <div class="flex flex-wrap justify-center gap-4 mb-20">
             <button onclick="switchTab('tab-prestasi', this)" class="tab-btn active-tab px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest border border-gray-200">
                 Prestasi & Lomba
@@ -79,7 +77,6 @@
             </button>
         </div>
 
-        <!-- TAB: PRESTASI -->
         <div id="tab-prestasi" class="tab-content active">
             <div class="mb-12 flex items-center gap-4">
                 <div class="h-[1px] flex-1 bg-gray-200"></div>
@@ -93,20 +90,48 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($prestasi as $item)
                     <div class="glass-card p-8 hover-gold transition-all duration-300 flex flex-col">
+                        
+                        {{-- Tingkat & Tahun --}}
                         <div class="flex justify-between items-start mb-6">
                             <span class="bg-[var(--forest)] text-[var(--gold)] text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
-                                {{ $item->tingkat ?? 'National' }}
+                                {{ $item->tingkat ?? 'Nasional' }}
                             </span>
-                            <span class="font-serif text-xl text-[var(--gold)]">{{ $item->tahun }}</span>
+                            <span class="font-serif text-xl text-[var(--gold)]">
+                                {{ $item->tahun ?? \Carbon\Carbon::parse($item->tanggal_perolehan)->format('Y') }}
+                            </span>
                         </div>
                         
-                        <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-4 leading-snug">{{ $item->judul_prestasi }}</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-8 flex-1 italic">"{{ $item->deskripsi }}"</p>
+                        {{-- Judul Prestasi --}}
+                        <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-3 leading-snug">
+                            {{ $item->nama_prestasi ?? $item->judul_prestasi }}
+                        </h3>
+
+                        {{-- Penyelenggara --}}
+                        @if($item->penyelenggara)
+                            <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-4">
+                                Penyelenggara: <span class="text-[var(--forest)]">{{ $item->penyelenggara }}</span>
+                            </p>
+                        @endif
+
+                        {{-- Deskripsi (Hanya muncul jika ada) --}}
+                        @if($item->deskripsi)
+                            <p class="text-gray-600 text-sm leading-relaxed mb-8 flex-1 italic">
+                                "{{ $item->deskripsi }}"
+                            </p>
+                        @else
+                            <div class="mb-8 flex-1"></div>
+                        @endif
                         
+                        {{-- Footer Kartu --}}
                         <div class="flex items-center gap-4 pt-6 border-t border-gray-100 mt-auto">
                             <div class="relative">
-                                @if($item->foto)
-                                    <img src="{{ asset($item->foto) }}" class="w-12 h-12 rounded-full object-cover border-2 border-[var(--gold)] shadow-sm">
+                                {{-- Penanganan dua nama kolom foto (foto / bukti_sertifikat) --}}
+                                @php
+                                    $gambarSertifikat = $item->foto ?? $item->bukti_sertifikat;
+                                @endphp
+
+                                @if($gambarSertifikat)
+                                    <img src="{{ asset($gambarSertifikat) }}" class="w-12 h-12 rounded-full object-cover border-2 border-[var(--gold)] shadow-sm">
                                 @else
                                     <div class="w-12 h-12 rounded-full bg-[var(--forest)] flex items-center justify-center text-[var(--gold)] font-bold text-xs">
                                         {{ substr($item->nama_peraih, 0, 1) }}
@@ -124,7 +149,6 @@
             @endif
         </div>
 
-        <!-- TAB: PUBLIKASI -->
         <div id="tab-publikasi" class="tab-content">
             <div class="mb-12 flex items-center gap-4">
                 <div class="h-[1px] flex-1 bg-gray-200"></div>
@@ -177,7 +201,6 @@
             @endif
         </div>
 
-        <!-- TAB: TUGAS AKHIR -->
         <div id="tab-tugas" class="tab-content">
             <div class="glass-card p-24 text-center border-dashed border-2 border-gray-200">
                 <div class="w-20 h-20 bg-white rounded-full shadow-sm flex items-center justify-center mx-auto mb-6">

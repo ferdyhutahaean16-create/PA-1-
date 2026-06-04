@@ -135,6 +135,21 @@ class TenagaPendidikController extends Controller
             $mataKuliah = $request->mata_kuliah;
             $semester = $request->semester;
             $tahunAkademik = $request->tahun_akademik;
+
+            // Looping untuk menyimpan array ke database
+            if (!empty($mataKuliah)) {
+                foreach ($mataKuliah as $key => $matkul) {
+                    // Pastikan input mata kuliah tidak kosong sebelum disimpan
+                    if (!empty($matkul)) { 
+                        \App\Models\Pengajaran::create([
+                            'tenaga_pendidik_id' => $tenaga_pendidik->id,
+                            'mata_kuliah'        => $matkul,
+                            'semester'           => $semester[$key] ?? '-',
+                            'tahun_akademik'     => $tahunAkademik[$key] ?? '-',
+                        ]);
+                    }
+                }
+            }
         });
 
         return redirect()->route('tenaga-pendidik.index')->with('success', 'Data Tenaga Pendidik & Pengajaran berhasil diperbarui!');

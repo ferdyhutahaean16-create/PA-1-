@@ -104,7 +104,7 @@
                     <div class="status-card p-8 rounded-[2.5rem] flex flex-col md:flex-row items-center gap-8">
                         <!-- Waktu & Kategori -->
                         <div class="text-center md:text-left min-w-[150px]">
-                            <p class="text-[10px] font-black text-itdel-gold uppercase tracking-[0.2em] mb-1">{{ $p->jenis_form }}</p>
+                            <p class="text-[10px] font-black text-itdel-gold uppercase tracking-[0.2em] mb-1">{{ $p->kategori_peminjaman ?? $p->jenis_form }}</p>
                             <p class="text-sm font-bold text-itdel-green">{{ $p->created_at->format('d M Y') }}</p>
                             <p class="text-[10px] text-slate-400 font-mono">{{ $p->created_at->format('H:i') }} WIB</p>
                         </div>
@@ -114,16 +114,20 @@
                             <h3 class="text-lg font-bold text-slate-800 leading-tight mb-2">{{ $p->judul_penelitian }}</h3>
                             <div class="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
                                 <svg class="w-3 h-3 text-itdel-green" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3z"></path></svg>
-                                {{ $p->laboratorium }}
+                                {{ $p->ruang_lab ?? $p->laboratorium }}
                             </div>
                         </div>
 
                         <!-- Status Badge -->
                         <div class="min-w-[180px] flex flex-col items-center">
                             @php
-                                $statusStyle = 'bg-slate-100 text-slate-400';
-                                if($p->status == 'Disetujui') $statusStyle = 'bg-green-50 text-green-700 border border-green-100';
-                                if($p->status == 'Ditolak') $statusStyle = 'bg-red-50 text-red-700 border border-red-100';
+                                // Warna Default untuk "Selesai" (Abu-abu elegan)
+                                $statusStyle = 'bg-slate-50 text-slate-500 border border-slate-200'; 
+                                
+                                // Deteksi setiap fase secara spesifik
+                                if($p->status == 'Pending') $statusStyle = 'bg-yellow-50 text-yellow-700 border border-yellow-200';
+                                if($p->status == 'Disetujui') $statusStyle = 'bg-green-50 text-green-700 border border-green-200';
+                                if($p->status == 'Ditolak') $statusStyle = 'bg-red-50 text-red-700 border border-red-200';
                             @endphp
                             <div class="px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest {{ $statusStyle }} mb-2">
                                 {{ $p->status }}

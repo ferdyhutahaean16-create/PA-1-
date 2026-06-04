@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DetailBahan extends Model
 {
     use HasFactory;
-    protected $fillable = ['peminjaman_lab_id', 'nama_bahan', 'jumlah', 'harga'];
+    protected $fillable = [
+        'peminjaman_lab_id', 
+        'inventaris_lab_id', 
+        'nama_bahan', 
+        'jumlah'
+    ];
 
     // Relasi balik ke induk peminjaman (Kode ini sama untuk kedua file)
     public function peminjaman()

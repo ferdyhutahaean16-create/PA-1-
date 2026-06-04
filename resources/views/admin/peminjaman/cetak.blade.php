@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bon Peminjaman - {{ $peminjaman->nama_peminjam }}</title>
+    <title>Bon Peminjaman - {{ $peminjaman->nama_peminjam ?? 'Dokumen' }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Pengaturan khusus untuk mode Cetak (Print) */
@@ -43,12 +43,17 @@
             BON PEMINJAMAN ALAT DAN PENGAMBILAN BAHAN
         </h2>
 
+        {{-- KECERDASAN SISTEM: Deteksi otomatis laci lama atau laci baru --}}
+        @php
+            $jenis = $peminjaman->kategori_peminjaman ?? $peminjaman->jenis_form ?? '-';
+        @endphp
+
         <table class="w-full mb-6 text-sm">
-            <tr><td class="w-48 py-1">1. Judul Penelitian</td><td class="w-4">:</td><td class="border-b border-dotted border-black">{{ $peminjaman->judul_penelitian }}</td></tr>
-            <tr><td class="py-1">2. Laboratorium yang digunakan</td><td>:</td><td class="border-b border-dotted border-black">{{ $peminjaman->laboratorium }}</td></tr>
-            <tr><td class="py-1">3. Nama Peminjam / Pengguna</td><td>:</td><td class="border-b border-dotted border-black">{{ $peminjaman->nama_peminjam }} / NIM. {{ $peminjaman->nim }}</td></tr>
-            <tr><td class="py-1">4. Prodi / Instansi</td><td>:</td><td class="border-b border-dotted border-black">{{ $peminjaman->prodi }}</td></tr>
-            <tr><td class="py-1">5. Daftar Barang yang Dipakai</td><td>:</td><td>({{ $peminjaman->jenis_form }})</td></tr>
+            <tr><td class="w-48 py-1">1. Judul Penelitian</td><td class="w-4">:</td><td class="border-b border-dotted border-black">{{ $peminjaman->judul_penelitian ?? '-' }}</td></tr>
+            <tr><td class="py-1">2. Laboratorium yang digunakan</td><td>:</td><td class="border-b border-dotted border-black">{{ $peminjaman->ruang_lab ?? $peminjaman->laboratorium ?? '-' }}</td></tr>
+            <tr><td class="py-1">3. Nama Peminjam / Pengguna</td><td>:</td><td class="border-b border-dotted border-black">{{ $peminjaman->nama_peminjam ?? '-' }} / NIM. {{ $peminjaman->nim ?? '-' }}</td></tr>
+            <tr><td class="py-1">4. Prodi / Instansi</td><td>:</td><td class="border-b border-dotted border-black">{{ $peminjaman->program_studi ?? $peminjaman->prodi ?? '-' }}</td></tr>
+            <tr><td class="py-1">5. Daftar Barang yang Dipakai</td><td>:</td><td class="font-bold">({{ $jenis }})</td></tr>
         </table>
 
         <table class="w-full border-collapse border border-black mb-10 text-sm">
@@ -57,7 +62,8 @@
                     <th class="border border-black p-2 w-10">No.</th>
                     <th class="border border-black p-2">Nama Barang</th>
                     <th class="border border-black p-2 w-20">Jumlah</th>
-                    @if($peminjaman->jenis_form == 'Alat')
+                    {{-- Judul kolom menyesuaikan dengan Alat atau Bahan --}}
+                    @if($jenis == 'Alat' || $jenis == 'Instrumen')
                         <th class="border border-black p-2 w-32">Ukuran</th>
                         <th class="border border-black p-2 w-40">Ket. Sebelum</th>
                     @else
@@ -66,10 +72,13 @@
                 </tr>
             </thead>
             <tbody>
-                @if($peminjaman->jenis_form == 'Alat')
-                    @foreach($peminjaman->detailAlat as $index => $item)
+                @php $no = 1; @endphp
+
+                @if($jenis == 'Alat' || $jenis == 'Instrumen')
+                    {{-- Looping Data Alat --}}
+                    @foreach($peminjaman->detailAlat as $item)
                     <tr>
-                        <td class="border border-black p-2 text-center">{{ $index + 1 }}</td>
+                        <td class="border border-black p-2 text-center">{{ $no++ }}</td>
                         <td class="border border-black p-2">{{ $item->nama_alat }}</td>
                         <td class="border border-black p-2 text-center">{{ $item->jumlah }}</td>
                         <td class="border border-black p-2 text-center">{{ $item->ukuran ?? '-' }}</td>
@@ -77,9 +86,10 @@
                     </tr>
                     @endforeach
                 @else
-                    @foreach($peminjaman->detailBahan as $index => $item)
+                    {{-- Looping Data Bahan --}}
+                    @foreach($peminjaman->detailBahan as $item)
                     <tr>
-                        <td class="border border-black p-2 text-center">{{ $index + 1 }}</td>
+                        <td class="border border-black p-2 text-center">{{ $no++ }}</td>
                         <td class="border border-black p-2">{{ $item->nama_bahan }}</td>
                         <td class="border border-black p-2 text-center">{{ $item->jumlah }}</td>
                         <td class="border border-black p-2 text-center">{{ $item->harga ?? '-' }}</td>
@@ -87,12 +97,13 @@
                     @endforeach
                 @endif
                 
-                @for($i = 0; $i < 5; $i++)
+                {{-- Looping baris kosong (Agar estetik, minimal 5 baris selalu muncul) --}}
+                @for($i = $no; $i <= 5; $i++)
                 <tr>
+                    <td class="border border-black p-4 text-center">{{ $i }}</td>
                     <td class="border border-black p-4"></td>
                     <td class="border border-black p-4"></td>
-                    <td class="border border-black p-4"></td>
-                    @if($peminjaman->jenis_form == 'Alat')
+                    @if($jenis == 'Alat' || $jenis == 'Instrumen')
                         <td class="border border-black p-4"></td>
                         <td class="border border-black p-4"></td>
                     @else
@@ -106,7 +117,7 @@
         <div class="flex justify-between mt-12 text-sm">
             <div class="text-center">
                 <p class="mb-20">Peminjam,</p>
-                <p>( ..................................................... )</p>
+                <p class="font-bold underline">{{ $peminjaman->nama_peminjam ?? '.....................................' }}</p>
                 <p class="mt-8 mb-20">Ketua Peneliti,</p>
                 <p>( ..................................................... )</p>
             </div>

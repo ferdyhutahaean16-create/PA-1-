@@ -37,22 +37,28 @@
                                 <div class="font-bold">{{ $p->nama_peminjam }}</div>
                                 <div class="text-xs text-gray-400">{{ $p->nim }} - {{ $p->prodi }}</div>
                             </td>
+                            <!-- 1. Kolom Jenis (Mendukung laci lama dan baru) -->
                             <td class="p-4">
-                                <span class="px-2 py-1 rounded text-xs font-bold {{ $p->jenis_form == 'Alat' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' }}">
-                                    {{ $p->jenis_form }}
+                                @php
+                                    $jenis = $p->kategori_peminjaman ?? $p->jenis_form;
+                                @endphp
+                                <span class="px-2 py-1 rounded text-xs font-bold {{ $jenis == 'Bahan' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }}">
+                                    {{ $jenis }}
                                 </span>
                             </td>
+
+                            <!-- 2. Kolom Detail Barang (Logika Cerdas Anti-Gagal) -->
                             <td class="p-4">
                                 <ul class="text-xs list-disc ml-4">
-                                    @if($p->jenis_form == 'Alat')
-                                        @foreach($p->detailAlat as $alat)
-                                            <li>{{ $alat->nama_alat }} ({{ $alat->jumlah }})</li>
-                                        @endforeach
-                                    @else
-                                        @foreach($p->detailBahan as $bahan)
-                                            <li>{{ $bahan->nama_bahan }} ({{ $bahan->jumlah }})</li>
-                                        @endforeach
-                                    @endif
+                                    {{-- Tampilkan isi keranjang Alat (jika ada) --}}
+                                    @foreach($p->detailAlat as $alat)
+                                        <li>{{ $alat->nama_alat }} ({{ $alat->jumlah }})</li>
+                                    @endforeach
+
+                                    {{-- Tampilkan isi keranjang Bahan (jika ada) --}}
+                                    @foreach($p->detailBahan as $bahan)
+                                        <li>{{ $bahan->nama_bahan }} ({{ $bahan->jumlah }})</li>
+                                    @endforeach
                                 </ul>
                             </td>
                             <td class="p-4">
@@ -67,34 +73,58 @@
                             </td>
                             <td class="p-4 text-center">
                                 @if($p->status == 'Pending')
-                                <div class="flex justify-center gap-2">
-                                    <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="status" value="Disetujui">
-                                        <button class="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5 rounded transition">Approve</button>
-                                    </form>
+                                    <!-- FASE 1: Form Persetujuan Admin -->
+                                    <div class="flex flex-col gap-2">
+                                        <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="status" value="Disetujui">
+                                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white text-[11px] px-3 py-1.5 rounded-full shadow transition w-full font-bold">
+                                                Setujui Form
+                                            </button>
+                                        </form>
 
-                                    <button onclick="toggleRejectForm({{ $p->id }})" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1.5 rounded transition">Reject</button>
-                                </div>
-                                
-                                <div id="form-reject-{{ $p->id }}" class="hidden mt-2">
-                                    <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="status" value="Ditolak">
-                                        <input type="text" name="catatan_admin" placeholder="Alasan ditolak..." class="text-xs border-gray-300 rounded mb-1 w-full" required>
-                                        <button class="bg-gray-800 text-white text-[10px] w-full py-1 rounded">Kirim Penolakan</button>
-                                    </form>
-                                </div>
+                                        <button onclick="toggleRejectForm({{ $p->id }})" class="bg-red-600 hover:bg-red-700 text-white text-[11px] px-3 py-1.5 rounded-full shadow transition w-full font-bold">
+                                            Tolak Form
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Form Alasan Penolakan (Hidden by default) -->
+                                    <div id="form-reject-{{ $p->id }}" class="hidden mt-2">
+                                        <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="status" value="Ditolak">
+                                            <textarea name="catatan_admin" placeholder="Alasan ditolak..." class="text-[10px] border border-gray-300 rounded p-1 mb-1 w-full h-12 outline-none focus:border-red-500" required></textarea>
+                                            <button type="submit" class="bg-gray-800 hover:bg-gray-900 text-white text-[10px] w-full py-1.5 rounded font-bold shadow transition">Kirim Penolakan</button>
+                                        </form>
+                                    </div>
 
                                 @elseif($p->status == 'Disetujui')
-                                    <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-full font-bold shadow transition inline-flex items-center justify-center gap-1">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z"></path></svg>
-                                        Cetak PDF
+                                    <!-- FASE 2: Form Cetak & Form Pengembalian (Selesai) -->
+                                    <div class="flex flex-col gap-2">
+                                        <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z"></path></svg>
+                                            Cetak Form PDF
+                                        </a>
+                                        
+                                        <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST" class="w-full">
+                                            @csrf
+                                            <input type="hidden" name="status" value="Selesai">
+                                            <button type="submit" onclick="return confirm('Apakah mahasiswa sudah mengembalikan semua barang? Stok akan dipulihkan otomatis.')" class="bg-gray-600 hover:bg-gray-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition w-full">
+                                                Tandai Selesai
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                @elseif($p->status == 'Selesai')
+                                    <!-- FASE 3: Arsip Form PDF (Untuk yang sudah selesai) -->
+                                    <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                        Arsip Form PDF
                                     </a>
-                                @elseif($p->status == 'Ditolak')
-                                    <span class="text-xs text-red-500 font-bold italic">Ditolak</span>
+
                                 @else
-                                    <span class="text-xs text-gray-400 italic">Selesai</span>
+                                    <!-- FASE 4: Jika Ditolak -->
+                                    <span class="text-[11px] text-red-500 font-bold italic tracking-wider">DITOLAK</span>
                                 @endif
                             </td>
                         </tr>

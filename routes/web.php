@@ -15,6 +15,7 @@ use App\Models\Kegiatan;
 use App\Models\RuangKelas;
 use App\Models\Laboratorium;
 use App\Models\DokumenRkf;
+use App\Models\InventarisLab;
 
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\CooperationController;
@@ -86,7 +87,14 @@ Route::get('/kurikulum', function () {
 
 // Tenaga Pendidik
 Route::get('/tenaga-pendidik', function () {
-    $tenaga_pendidiks = TenagaPendidik::with(['pengajarans', 'publikasis'])->get();
+    // Memanggil SEMUA relasi agar tidak ada tab yang kosong di halaman publik
+    $tenaga_pendidiks = \App\Models\TenagaPendidik::with([
+        'pengajarans', 
+        'publikasis', 
+        'prestasis', 
+        'penelitians', 
+        'kegiatans'
+    ])->get();
 
     return view('tenaga_pendidik', compact('tenaga_pendidiks'));
 })->name('dosen.publik');
@@ -110,15 +118,19 @@ Route::prefix('prestasi')->group(function () {
 
     // 1. Rute Prestasi Dosen
     Route::get('/dosen', function () {
-        $prestasi = Prestasi::orderBy('tanggal_perolehan', 'desc')->get();
+        // PERBAIKAN: Menambahkan saringan kategori 'Dosen'
+        $prestasi = Prestasi::where('kategori', 'Dosen')->orderBy('tanggal_perolehan', 'desc')->get();
         $publikasi = Publikasi::where('kategori', 'Dosen')->orderBy('created_at', 'desc')->get();
+        
         return view('prestasi_dosen', compact('prestasi', 'publikasi'));
     })->name('prestasi.dosen');
 
     // 2. Rute Prestasi Mahasiswa
     Route::get('/mahasiswa', function () {
-        $prestasi = Prestasi::orderBy('tanggal_perolehan', 'desc')->get();
+        // PERBAIKAN: Menambahkan saringan kategori 'Mahasiswa'
+        $prestasi = Prestasi::where('kategori', 'Mahasiswa')->orderBy('tanggal_perolehan', 'desc')->get();
         $publikasi = Publikasi::where('kategori', 'Mahasiswa')->orderBy('created_at', 'desc')->get();
+        
         return view('prestasi_mahasiswa', compact('prestasi', 'publikasi'));
     })->name('prestasi.mahasiswa');
 
@@ -209,6 +221,20 @@ Route::get('/pinjam', [PeminjamanLabController::class, 'formPinjam'])
 Route::post('/store', [PeminjamanLabController::class, 'store'])->name('laboratorium.store');
 Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');
 Route::get('/laboratorium/peminjaman/cetak/{id}', [PeminjamanLabController::class, 'cetakBon'])->name('lab.peminjaman.cetak');
+
+// Rute untuk Katalog Inventaris Lab Publik
+Route::get('/fasilitas/laboratorium/katalog', function () {
+    // Menarik semua data inventaris, diurutkan sesuai abjad
+    $inventaris = \App\Models\InventarisLab::orderBy('nama_barang', 'asc')->get();
+    
+    // Memisahkan data berdasarkan kategorinya masing-masing
+    $alat = $inventaris->where('kategori', 'Alat');
+    $bahan = $inventaris->where('kategori', 'Bahan');
+    $instrumen = $inventaris->whereIn('kategori', ['Instrumen', 'Instrumen Aset Lab']);
+
+    // Mengirim data ke halaman view
+    return view('laboratorium.katalog', compact('alat', 'bahan', 'instrumen'));
+})->name('lab.katalog');
 
 // DEBUG ROUTE: Tampilkan apa yang tersimpan di session('pinjam_user') setelah login
 Route::get('/debug/pinjam-user', function () {
@@ -302,5 +328,17 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::resource('berita', AdminBeritaController::class);
         Route::resource('admin/dokumen-rkf', DokumenRkfController::class);
         Route::resource('penelitian', \App\Http\Controllers\Admin\PenelitianController::class)->names('admin.penelitian');
+        Route::resource('inventaris-lab', \App\Http\Controllers\Admin\InventarisLabController::class);
+        // Route untuk Kelola Mata Kuliah Dosen
+        Route::post('/pengajaran', [\App\Http\Controllers\Admin\PengajaranController::class, 'store'])->name('pengajaran.store');
+        Route::delete('/pengajaran/{id}', [\App\Http\Controllers\Admin\PengajaranController::class, 'destroy'])->name('pengajaran.destroy');
+        // Rute untuk mengeksekusi pengembalian barang & pemulihan stok
+        Route::post('/admin/peminjaman/{id}/kembali', [\App\Http\Controllers\Admin\AdminPeminjamanController::class, 'validasiKembali'])
+            ->name('admin.peminjaman.kembali');
+        Route::post('/admin/peminjaman/{id}/status', [\App\Http\Controllers\PeminjamanLabController::class, 'updateStatus'])->name('admin.peminjaman.update');
+        Route::get('/admin/inventaris/{id}/edit', [\App\Http\Controllers\InventarisLabController::class, 'edit'])->name('admin.inventaris.edit');
+        Route::put('/admin/inventaris/{id}', [\App\Http\Controllers\InventarisLabController::class, 'update'])->name('admin.inventaris.update');
+        Route::get('/admin/fasilitas', [\App\Http\Controllers\Admin\FasilitasAdminController::class, 'index'])->name('admin.fasilitas.index');
+        Route::get('/admin/fasilitas/create', [\App\Http\Controllers\Admin\FasilitasAdminController::class, 'create'])->name('admin.fasilitas.create');
     });
 });

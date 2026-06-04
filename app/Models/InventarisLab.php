@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class InventarisLab extends Model
 {
-    //
+    use HasFactory;
 
-        // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-    
-    public function updater()
-    {
-        return $this->belongsTo(User::class, 'updated_by');
-    }
+    protected $fillable = [
+    'kategori', 'nama_barang', 'spesifikasi', 'jumlah', 'satuan',
+    // Kolom Baru
+    'rumus_kimia', 'letak_lemari', 'letak_lab', 'berat_kotor', 'berat_bersih', 
+    'tanggal_kadaluarsa', 'keterangan', 'tahun', 'penyimpanan', 'kd_barang', 'harga'
+];
 }

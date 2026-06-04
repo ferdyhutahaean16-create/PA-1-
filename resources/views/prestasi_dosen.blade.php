@@ -101,19 +101,49 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     @foreach($prestasi as $item)
                     <div class="glass-card p-8 award-card flex flex-col">
+                        
+                        {{-- Tingkat & Tahun --}}
                         <div class="flex justify-between items-start mb-6">
                             <span class="bg-[var(--forest)] text-[var(--gold)] text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
-                                {{ $item->tingkat ?? 'Excellence' }}
+                                {{ $item->tingkat ?? 'Nasional' }}
                             </span>
-                            <span class="font-serif text-2xl text-[var(--gold)]/40 font-bold tracking-tighter">{{ $item->tahun }}</span>
+                            <span class="font-serif text-2xl text-[var(--gold)]/40 font-bold tracking-tighter">
+                                {{ $item->tahun ?? \Carbon\Carbon::parse($item->tanggal_perolehan)->format('Y') }}
+                            </span>
                         </div>
                         
-                        <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-4 leading-snug">{{ $item->judul_prestasi }}</h3>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-8 flex-1">"{{ $item->deskripsi }}"</p>
+                        {{-- Judul Prestasi --}}
+                        <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-3 leading-snug">
+                            {{ $item->nama_prestasi ?? $item->judul_prestasi }}
+                        </h3>
+
+                        {{-- Penyelenggara --}}
+                        @if($item->penyelenggara)
+                            <p class="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-4">
+                                Penyelenggara: <span class="text-[var(--forest)]">{{ $item->penyelenggara }}</span>
+                            </p>
+                        @endif
+
+                        {{-- Deskripsi (Hanya muncul jika ada isinya) --}}
+                        @if($item->deskripsi)
+                            <p class="text-gray-600 text-sm leading-relaxed mb-8 flex-1 italic">
+                                "{{ $item->deskripsi }}"
+                            </p>
+                        @else
+                            {{-- Ruang kosong agar posisi footer tetap sejajar ke bawah --}}
+                            <div class="mb-8 flex-1"></div>
+                        @endif
                         
+                        {{-- Footer Kartu (Foto & Nama) --}}
                         <div class="flex items-center gap-4 pt-6 border-t border-gray-100 mt-auto">
-                            @if($item->foto)
-                                <img src="{{ asset($item->foto) }}" class="w-12 h-12 rounded-xl object-cover border-2 border-white shadow-sm">
+                            
+                            {{-- Menangani dua kemungkinan nama kolom foto (foto atau bukti_sertifikat) --}}
+                            @php
+                                $gambarSertifikat = $item->foto ?? $item->bukti_sertifikat;
+                            @endphp
+
+                            @if($gambarSertifikat)
+                                <img src="{{ asset($gambarSertifikat) }}" class="w-12 h-12 rounded-xl object-cover border-2 border-white shadow-sm">
                             @else
                                 <div class="w-12 h-12 rounded-xl bg-[var(--forest-dark)] flex items-center justify-center text-[var(--gold)] font-bold text-xs">
                                     {{ substr($item->nama_peraih, 0, 1) }}
