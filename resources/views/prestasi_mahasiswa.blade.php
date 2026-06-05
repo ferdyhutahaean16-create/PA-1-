@@ -69,12 +69,6 @@
             <button onclick="switchTab('tab-prestasi', this)" class="tab-btn active-tab px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest border border-gray-200">
                 Prestasi & Lomba
             </button>
-            <button onclick="switchTab('tab-publikasi', this)" class="tab-btn bg-white text-gray-500 px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest border border-gray-200">
-                Publikasi Ilmiah
-            </button>
-            <button onclick="switchTab('tab-tugas', this)" class="tab-btn bg-white text-gray-500 px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest border border-gray-200">
-                Hasil Tugas Akhir
-            </button>
         </div>
 
         <div id="tab-prestasi" class="tab-content active">

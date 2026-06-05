@@ -338,7 +338,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::post('/admin/peminjaman/{id}/status', [\App\Http\Controllers\PeminjamanLabController::class, 'updateStatus'])->name('admin.peminjaman.update');
         Route::get('/admin/inventaris/{id}/edit', [\App\Http\Controllers\InventarisLabController::class, 'edit'])->name('admin.inventaris.edit');
         Route::put('/admin/inventaris/{id}', [\App\Http\Controllers\InventarisLabController::class, 'update'])->name('admin.inventaris.update');
-        Route::get('/admin/fasilitas', [\App\Http\Controllers\Admin\FasilitasAdminController::class, 'index'])->name('admin.fasilitas.index');
-        Route::get('/admin/fasilitas/create', [\App\Http\Controllers\Admin\FasilitasAdminController::class, 'create'])->name('admin.fasilitas.create');
+        // Pastikan ini berada di dalam grup Route::prefix('admin') Anda
+        Route::get('/fasilitas', [\App\Http\Controllers\Admin\FasilitasController::class, 'index'])->name('admin.fasilitas.index');
+        Route::get('/fasilitas/create', [\App\Http\Controllers\Admin\FasilitasController::class, 'create'])->name('admin.fasilitas.create');
+        Route::post('/fasilitas', [\App\Http\Controllers\Admin\FasilitasController::class, 'store'])->name('admin.fasilitas.store');
+        Route::get('/fasilitas/{id}/edit', [\App\Http\Controllers\Admin\FasilitasController::class, 'edit'])->name('admin.fasilitas.edit');
+        Route::put('/fasilitas/{id}', [\App\Http\Controllers\Admin\FasilitasController::class, 'update'])->name('admin.fasilitas.update');
+        Route::delete('/fasilitas/{id}', [\App\Http\Controllers\Admin\FasilitasController::class, 'destroy'])->name('admin.fasilitas.destroy');
     });
 });

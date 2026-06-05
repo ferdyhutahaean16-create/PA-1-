@@ -106,65 +106,63 @@
                 <p class="text-gray-400 mt-2">Data kegiatan pengabdian masyarakat akan segera ditampilkan kembali.</p>
             </div>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                @foreach($kegiatan as $item)
-                <div class="impact-card group fade-in" style="animation-delay: {{ $loop->index * 0.1 }}s">
-                    
-                    <div class="relative h-64 overflow-hidden rounded-t-[2.5rem] bg-gray-200 img-container">
+            <div class="grid grid-cols-1 gap-8 mb-12"> @foreach($kegiatan as $item)
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row hover:shadow-lg transition-all duration-300 group">
+            
+                    <div class="relative w-full md:w-1/3 lg:w-2/5 h-64 md:h-auto flex-shrink-0 overflow-hidden">
                         @if($item->foto)
-                            <img src="{{ asset($item->foto) }}" alt="{{ $item->judul }}" 
-                                 class="w-full h-full object-cover img-zoom">
+                            <img src="{{ asset($item->foto) }}" alt="{{ $item->judul }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                         @else
-                            <div class="w-full h-full flex flex-col items-center justify-center bg-[var(--forest-dark)] text-green-100/30">
-                                <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                <span class="text-[10px] uppercase tracking-widest font-bold">Documentation Pending</span>
+                            <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                                <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
                         @endif
-                        
-                        <div class="absolute bottom-4 left-4 date-badge px-4 py-2 rounded-2xl shadow-lg z-10">
-                            <span class="text-[11px] text-[var(--forest)] font-bold uppercase tracking-wider">
+            
+                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur px-4 py-2 rounded-xl shadow-sm border border-white/20">
+                            <span class="text-sm font-bold text-[#1a4a38]">
                                 {{ \Carbon\Carbon::parse($item->waktu_pelaksanaan)->translatedFormat('d F Y') }}
                             </span>
                         </div>
                     </div>
-
-                    <div class="p-8 md:p-10 flex flex-col flex-1 bg-white rounded-b-[2.5rem]">
-                        <h3 class="font-serif text-2xl text-[var(--forest-dark)] mb-6 leading-tight group-hover:text-[var(--gold)] transition-colors duration-300 min-h-[56px] line-clamp-2">
+            
+                    <div class="p-6 md:p-8 lg:p-10 flex-1 flex flex-col justify-center">
+                        
+                        <h3 class="text-2xl font-bold text-[#1a4a38] mb-6 leading-tight group-hover:text-yellow-600 transition-colors">
                             {{ $item->judul }}
                         </h3>
-                        
-                        <div class="space-y-4 mb-8">
-                            <div class="flex items-center gap-4">
-                                <div class="w-8 h-8 rounded-full bg-[var(--soft-bg)] flex items-center justify-center text-[var(--gold)]">
+            
+                        <div class="flex flex-col sm:flex-row gap-6 mb-6 pb-6 border-b border-gray-100">
+                            
+                            <div class="flex items-start gap-3">
+                                <div class="bg-yellow-50 text-yellow-600 p-2 rounded-lg mt-0.5">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                 </div>
                                 <div>
-                                    <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Ketua Pelaksana</p>
-                                    <p class="text-sm font-bold text-gray-800">{{ $item->pelaksana }}</p>
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-1">Ketua Pelaksana</p>
+                                    <p class="text-sm font-semibold text-gray-800">{{ $item->pelaksana }}</p>
                                 </div>
                             </div>
-
-                            @if($item->tempat)
-                            <div class="flex items-center gap-4">
-                                <div class="w-8 h-8 rounded-full bg-[var(--soft-bg)] flex items-center justify-center text-[var(--gold)]">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+            
+                            <div class="flex items-start gap-3">
+                                <div class="bg-blue-50 text-blue-600 p-2 rounded-lg mt-0.5">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 </div>
                                 <div>
-                                    <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold">Lokasi Kegiatan</p>
-                                    <p class="text-sm font-semibold text-gray-700">{{ $item->tempat }}</p>
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 tracking-wider mb-1">Lokasi Kegiatan</p>
+                                    <p class="text-sm font-semibold text-gray-800">{{ $item->tempat ?? 'Tidak disebutkan' }}</p>
                                 </div>
                             </div>
-                            @endif
+            
                         </div>
-
-                        <div class="pt-6 border-t border-gray-100 mt-auto">
-                            <p class="text-gray-500 text-sm leading-relaxed line-clamp-3 italic">
-                                {!! $item->deskripsi ?? 'Kegiatan ini merupakan bagian dari komitmen Program Studi dalam hilirisasi riset bioteknologi kepada masyarakat.' !!}
-                            </p>
+            
+                        <div class="text-gray-600 text-sm leading-relaxed line-clamp-3 md:line-clamp-4">
+                            {!! $item->deskripsi !!}
                         </div>
+                        
                     </div>
                 </div>
                 @endforeach
+            
             </div>
         @endif
     </div>

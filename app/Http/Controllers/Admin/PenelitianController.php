@@ -54,9 +54,14 @@ class PenelitianController extends Controller
 
     public function edit($id)
     {
-        $penelitian = Penelitian::findOrFail($id);
-        $dosens = TenagaPendidik::orderBy('nama', 'asc')->get();
-        return view('admin.penelitian.edit', compact('penelitian', 'dosens'));
+        // 1. Mengambil 1 data spesifik yang akan dimasukkan ke dalam Form Edit
+        $penelitian = \App\Models\Penelitian::findOrFail($id);
+
+        // 2. Mengambil SEMUA data rombongan untuk menggambar Tabel di halaman yang sama
+        $penelitians = \App\Models\Penelitian::orderBy('tahun', 'desc')->get();
+
+        // 3. Mengirim KEDUA paket data tersebut ke halaman tampilan secara bersamaan
+        return view('admin.penelitian.edit', compact('penelitian', 'penelitians'));
     }
 
     public function update(Request $request, $id)

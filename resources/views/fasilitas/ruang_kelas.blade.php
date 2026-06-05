@@ -104,7 +104,7 @@
                                     <div>
                                         <h3 class="font-serif text-2xl text-[var(--forest)] mb-4">Deskripsi Ruang</h3>
                                         <p class="text-gray-600 leading-relaxed text-justify italic">
-                                            "{{ $kelas->deskripsi ?? 'Ruang kelas ini dirancang sebagai pusat kolaborasi akademik dengan pencahayaan alami dan fasilitas multimedia mutakhir.' }}"
+                                            {!! $kelas->deskripsi ?? 'Ruang kelas ini dirancang sebagai pusat kolaborasi akademik dengan pencahayaan alami dan fasilitas multimedia mutakhir.' !!}
                                         </p>
                                     </div>
 

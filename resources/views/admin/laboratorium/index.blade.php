@@ -10,7 +10,7 @@
                 <h1 class="text-3xl font-bold text-gray-800">Data Laboratorium</h1>
                 <p class="text-gray-500">Kelola informasi fasilitas dan deskripsi masing-masing lab.</p>
             </div>
-            <a href="{{ route('laboratorium.create') }}" class="bg-[#1a4a38] text-white px-6 py-2.5 rounded-lg font-bold shadow hover:bg-green-800 transition flex items-center gap-2">
+            <a href="{{ route('admin.fasilitas.create') }}" class="bg-[#1a4a38] text-white px-6 py-2.5 rounded-lg font-bold shadow hover:bg-green-800 transition flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Tambah Lab Baru
             </a>
@@ -42,8 +42,8 @@
                             <td class="p-4 text-sm text-gray-600">{{ $lab->kepala_lab ?? '-' }}</td>
                             <td class="p-4 text-sm text-gray-600">{{ \Illuminate\Support\Str::limit($lab->fasilitas, 50) }}</td>
                             <td class="p-4 text-center flex justify-center gap-2">
-                                <a href="{{ route('laboratorium.edit', $lab->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded text-xs transition">Edit</a>
-                                <form action="{{ route('laboratorium.destroy', $lab->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus lab ini?');">
+                                <a href="{{ route('admin.fasilitas.edit', $lab->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded text-xs transition">Edit</a>
+                                <form action="{{ route('admin.fasilitas.destroy', $lab->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus lab ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded text-xs transition">Hapus</button>

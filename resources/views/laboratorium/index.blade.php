@@ -215,7 +215,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink)}
                 <div x-show="open" x-collapse class="lab-body">
                     <div class="lab-body-inner">
                         <div>
-                            <p class="lab-desc">{{ $lab->deskripsi ?? 'Informasi deskripsi belum tersedia.' }}</p>
+                            <p class="lab-desc">{!! $lab->deskripsi ?? 'Informasi deskripsi belum tersedia.' !!}</p>
                             <div class="lab-facts">
                                 <div class="lab-fact-row">
                                     <div class="lab-fact-label">Kepala Lab</div>

@@ -91,9 +91,6 @@
                 <button onclick="switchTab('tab-himpunan', this)" class="tab-btn active-tab px-8 md:px-12 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest">
                     Himpunan (HIMABIO)
                 </button>
-                <button onclick="switchTab('tab-pkm', this)" class="tab-btn bg-white/80 text-gray-400 px-8 md:px-12 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:text-[var(--forest)]">
-                    Pengabdian Mahasiswa
-                </button>
             </div>
         </div>
 
@@ -187,23 +184,6 @@
                     @endforeach
                 </div>
             @endif
-        </div>
-
-        <!-- FOOTER DECORATION -->
-        <div class="mt-32 text-center animate-fade">
-            <div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent w-full max-w-lg mb-12"></div>
-            <h4 class="font-serif text-3xl text-[var(--forest-dark)] mb-6">Menjadi Bagian dari Perubahan</h4>
-            <div class="max-w-2xl mx-auto mb-12">
-                <p class="text-gray-500 font-serif text-xl italic leading-relaxed">
-                    "Mahasiswa Bioteknologi bukan hanya ilmuwan di masa depan, tetapi juga agen penggerak di masa sekarang."
-                </p>
-            </div>
-            <div class="flex justify-center gap-4">
-                <a href="{{ url('/mahasiswa-berprestasi') }}" class="group flex items-center gap-3 px-10 py-4 bg-[var(--forest)] text-[var(--gold)] rounded-full font-bold text-[10px] uppercase tracking-widest shadow-xl hover:-translate-y-1 transition-all">
-                    Lihat Prestasi Kami
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </a>
-            </div>
         </div>
     </div>
 </div>
