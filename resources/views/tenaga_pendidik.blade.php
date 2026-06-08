@@ -58,12 +58,26 @@
 }
 </style>
 
-<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
-    <div class="relative z-10 py-24 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Academic Excellence</span>
-        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">Tenaga Pendidik</h1>
-        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
+<div class="relative bg-[#0d2a1f] py-12 md:py-16 overflow-hidden"> 
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=2070&auto=format&fit=crop" 
+             alt="Faculty Background" 
+             class="w-full h-full object-cover opacity-15 mix-blend-overlay">
+    </div>
+
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0d2a1f]/70 via-transparent to-[#0d2a1f]/70 z-0"></div>
+
+    <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
+        <p class="text-yellow-500 text-[10px] md:text-xs font-bold tracking-[0.35em] uppercase mb-3">
+            Academic Excellence
+        </p>
+        
+        <h1 class="text-3xl md:text-4xl font-serif text-white mb-4">
+            Tenaga Pendidik
+        </h1>
+        
+        <div class="w-20 h-px bg-yellow-500/30"></div>
     </div>
 </div>
 

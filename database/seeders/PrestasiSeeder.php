@@ -16,7 +16,7 @@ class PrestasiSeeder extends Seeder
         $data = [
             [
                 'nama_prestasi'    => 'Juara 1 Karya Tulis Ilmiah Nasional',
-                'nama_mahasiswa'   => 'Andi Firmansyah',
+                'nama_peraih'   => 'Andi Firmansyah',
                 'penyelenggara'    => 'Kemendikbud',
                 'tingkat'          => 'Nasional',
                 'tanggal_perolehan'=> '2026-05-20',
@@ -24,7 +24,7 @@ class PrestasiSeeder extends Seeder
             ],
             [
                 'nama_prestasi'    => 'Juara 2 Olimpiade Sains Regional',
-                'nama_mahasiswa'   => 'Siti Rahayu',
+                'nama_peraih'   => 'Siti Rahayu',
                 'penyelenggara'    => 'Universitas Gadjah Mada',
                 'tingkat'          => 'Regional',
                 'tanggal_perolehan'=> '2026-04-10',
@@ -32,7 +32,7 @@ class PrestasiSeeder extends Seeder
             ],
             [
                 'nama_prestasi'    => 'Best Poster International Biotechnology Conference',
-                'nama_mahasiswa'   => 'Budi Santoso',
+                'nama_peraih'   => 'Budi Santoso',
                 'penyelenggara'    => 'IUBS',
                 'tingkat'          => 'Internasional',
                 'tanggal_perolehan'=> '2026-03-15',

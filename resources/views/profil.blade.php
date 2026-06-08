@@ -150,14 +150,25 @@ body {
 </div>
 
 <!-- HEADER SECTION -->
-<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
-    <div class="relative z-10 py-28 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4 animate-fade-in">Academic Information</span>
-        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">
+<div class="relative bg-[#0d2a1f] py-12 md:py-16 overflow-hidden"> 
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" 
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-30 mix-blend-overlay">
+    </div>
+
+    <div class="absolute inset-0 bg-gradient-to-r from-[#1a4a38]/80 to-transparent z-0"></div>
+
+    <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
+        <p class="text-yellow-500 text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-3">
+            Academic Information
+        </p>
+        
+        <h1 class="text-3xl md:text-4xl font-serif text-white mb-4">
             Profil Program Studi
         </h1>
-        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
+        
+        <div class="w-12 h-px bg-yellow-500/50"></div>
     </div>
 </div>
 
