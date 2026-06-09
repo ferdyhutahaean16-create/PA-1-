@@ -80,17 +80,32 @@
 <div class="bg-[var(--soft-bg)] min-h-screen font-sans" x-data="{ filter: 'Semua' }">
     
     <!-- PREMIUM HERO SECTION -->
-    <div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
-        <div class="relative z-10 py-28 text-center px-6">
-            <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Strategic Alliances</span>
-            <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">Mitra Kerja Sama</h1>
-            <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 mb-8 opacity-60"></div>
-            <p class="text-green-100/70 text-lg max-w-2xl mx-auto font-light leading-relaxed">
-                Membangun ekosistem inovasi melalui kolaborasi strategis dengan institusi global untuk memajukan pendidikan dan riset bioteknologi.
-            </p>
-        </div>
+<div class="relative w-full bg-[#0d2a1f] py-10 overflow-hidden border-b border-[#1a4a38]">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" 
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-20">
     </div>
+
+    <div class="relative z-10 text-center px-6 container mx-auto">
+        
+        <span class="inline-block text-yellow-500 tracking-[0.4em] uppercase text-[9px] md:text-[10px] font-bold mb-3">
+            Strategic Alliances
+        </span>
+        
+        <h1 class="font-serif text-3xl md:text-4xl text-white font-bold tracking-tight mb-3">
+            Mitra Kerja Sama
+        </h1>
+        
+        <p class="text-green-100/80 max-w-2xl mx-auto font-sans font-light leading-relaxed text-sm md:text-base mb-5">
+            Membangun ekosistem inovasi melalui kolaborasi strategis dengan institusi global untuk memajukan pendidikan dan riset bioteknologi.
+        </p>
+        
+        <div class="w-16 h-[1px] bg-yellow-500/50 mx-auto"></div>
+        
+    </div>
+</div>
 
     <!-- STICKY FILTER BAR -->
     <div class="sticky top-0 z-40 glass-nav shadow-sm">

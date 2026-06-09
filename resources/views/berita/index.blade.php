@@ -62,12 +62,26 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <!-- HEADER SECTION -->
-<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/microbes.png');"></div>
-    <div class="relative z-10 py-24 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Latest Updates</span>
-        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">Arsip Berita & Informasi</h1>
-        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
+<div class="relative w-full bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100"> 
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=1974&auto=format&fit=crop" 
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-[0.08] mix-blend-multiply">
+    </div>
+
+    <div class="relative z-10 text-center px-6 container mx-auto">
+        
+        <span class="inline-block text-yellow-600 tracking-[0.4em] uppercase text-[9px] md:text-[10px] font-bold mb-3 animate-fade">
+            Latest Updates
+        </span>
+        
+        <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-3">
+            Arsip Berita & Informasi
+        </h1>
+        
+        <div class="w-16 h-[1px] bg-yellow-600/40 mx-auto mt-4"></div>
+        
     </div>
 </div>
 

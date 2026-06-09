@@ -150,7 +150,7 @@ body {
 </div>
 
 <!-- HEADER SECTION -->
-<div class="relative bg-[#0d2a1f] py-12 md:py-16 overflow-hidden"> 
+<div class="relative w-full bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100"> 
     <div class="absolute inset-0 z-0">
         <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" 
              alt="Chemistry Background" 

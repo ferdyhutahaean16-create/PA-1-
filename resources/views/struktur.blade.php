@@ -39,7 +39,7 @@
 }
 </style>
 
-<div class="py-24 bg-[var(--soft-bg)] min-h-screen font-sans relative overflow-hidden">
+<div class="relative w-full bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100">
     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--forest-light)] opacity-5 rounded-full blur-[100px] pointer-events-none"></div>
     <div class="absolute bottom-10 left-10 w-[400px] h-[400px] bg-[var(--gold)] opacity-10 rounded-full blur-[100px] pointer-events-none"></div>
 

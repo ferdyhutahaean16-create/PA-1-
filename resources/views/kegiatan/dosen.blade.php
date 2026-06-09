@@ -70,17 +70,28 @@
 </style>
 
 <!-- HEADER / HERO SECTION -->
-<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
-    <div class="relative z-10 py-28 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Community Engagement</span>
-        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight mb-6">
+<div class="relative w-full bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" 
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-10 mix-blend-multiply">
+    </div>
+
+    <div class="relative z-10 text-center px-6 container mx-auto">
+        <span class="inline-block text-yellow-600 tracking-[0.4em] uppercase text-[9px] md:text-[10px] font-bold mb-3">
+            Community Engagement
+        </span>
+        
+        <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-3">
             Kegiatan Dosen
         </h1>
-        <p class="text-green-100/70 max-w-2xl mx-auto font-sans font-light leading-relaxed text-lg">
+        
+        <p class="text-gray-600 max-w-2xl mx-auto font-sans font-light leading-relaxed text-sm md:text-base">
             Mewujudkan sains yang bermanfaat melalui penerapan inovasi bioteknologi untuk kesejahteraan dan kemajuan masyarakat.
         </p>
-        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-10 opacity-60"></div>
+        
+        <div class="w-16 h-[1px] bg-yellow-600/40 mx-auto mt-6"></div>
     </div>
 </div>
 
