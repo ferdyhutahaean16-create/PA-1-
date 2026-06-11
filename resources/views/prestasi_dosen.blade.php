@@ -66,15 +66,14 @@
 </style>
 
 <!-- HEADER SECTION -->
-<div class="relative bg-[#0d2a1f] py-12 md:py-16 overflow-hidden"> 
-    
+<div class="relative w-[100vw] left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100"> 
     <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" 
-             alt="Chemistry Research Background" 
-             class="w-full h-full object-cover opacity-20">
+        <img src="{{ asset('Adminlte/dist/img/BGH.jpg') }}"
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-30 mix-blend-overlay">
     </div>
 
-    <div class="absolute inset-0 bg-[#0d2a1f]/70 z-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#1a4a38]/80 to-transparent z-0"></div>
 
     <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
         <p class="text-yellow-500 text-[10px] md:text-xs font-bold tracking-[0.35em] uppercase mb-3">

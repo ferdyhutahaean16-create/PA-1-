@@ -36,7 +36,7 @@
                         <input type="text" name="name" value="{{ old('name') }}" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required>
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Angkatan (Tahun Lulus) <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Angkatan <span class="text-red-500"></span></label>
                         <input type="number" name="graduation_year" value="{{ old('graduation_year') }}" placeholder="Contoh: 2022" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required>
                     </div>
                     <div>

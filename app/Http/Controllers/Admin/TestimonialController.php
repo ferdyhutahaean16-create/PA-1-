@@ -24,7 +24,7 @@ class TestimonialController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'graduation_year' => 'required|string|max:4',
+            'graduation_year' => 'nullable|string|max:10',
             'workplace' => 'nullable|string|max:255',
             'position' => 'nullable|string|max:255',
             'testimony' => 'required|string',

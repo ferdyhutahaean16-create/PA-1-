@@ -150,9 +150,9 @@ body {
 </div>
 
 <!-- HEADER SECTION -->
-<div class="relative w-full bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100"> 
+<div class="relative w-[100vw] left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100"> 
     <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" 
+        <img src="{{ asset('Adminlte/dist/img/BGH.JPEG') }}"
              alt="Chemistry Background" 
              class="w-full h-full object-cover opacity-30 mix-blend-overlay">
     </div>
@@ -173,8 +173,8 @@ body {
 </div>
 
 <!-- MAIN CONTAINER -->
-<div class="container mx-auto px-6 py-12 max-w-6xl -mt-12 relative z-10">
-    <div class="flex flex-col lg:flex-row gap-8">
+<div class="w-full px-6 md:px-12 py-12 -mt-12 relative z-10">
+    <div class="flex flex-col lg:flex-row gap-12">
 
         <!-- SIDEBAR NAVIGATION -->
         <div class="lg:w-3/12">

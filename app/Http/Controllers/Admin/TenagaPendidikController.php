@@ -31,13 +31,13 @@ class TenagaPendidikController extends Controller
         // Validasi Data Dosen dan Array Pengajaran sekaligus
         $request->validate([
             'nama' => 'required|string|max:255',
-            'nidn' => 'required|string|unique:tenaga_pendidiks,nidn',
+            'nidn' => 'nullable|unique:tenaga_pendidiks,nidn',
             'lulusan' => 'required',
             'link_scholar' => 'nullable|url',
             'jabatan' => 'required',
             'email' => 'required|email',
             'ruangan' => 'required',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
             // Validasi array input pengajaran dinamis
             'mata_kuliah' => 'required|array',
             'mata_kuliah.*' => 'required|string|max:255',

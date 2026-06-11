@@ -142,7 +142,7 @@
                         
                         <!-- Dynamic Status Badge -->
                         @if($testimoni->graduation_year)
-                            <span class="status-badge bg-amber-50 text-[var(--gold)] border border-amber-100">Alumni {!! $testimoni->graduation_year !!}</span>
+                            <span class="status-badge bg-amber-50 text-[var(--gold)] border border-amber-100">Angkatan {!! $testimoni->graduation_year !!}</span>
                         @else
                             <span class="status-badge bg-emerald-50 text-[var(--forest)] border border-emerald-100">Mahasiswa Aktif</span>
                         @endif

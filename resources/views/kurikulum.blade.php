@@ -86,22 +86,21 @@ body {
 </style>
 
 <!-- HEADER SECTION -->
-<div class="relative w-full bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100"> 
-    
+<div class="relative w-[100vw] left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100"> 
     <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?q=80&w=1974&auto=format&fit=crop" 
-             alt="Biotechnology Background" 
-             class="w-full h-full object-cover opacity-10 mix-blend-overlay">
+        <img src="{{ asset('Adminlte/dist/img/BGH.JPEG') }}"
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-30 mix-blend-overlay">
     </div>
 
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0d2a1f]/50 to-transparent z-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#1a4a38]/80 to-transparent z-0"></div>
 
     <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
         <p class="text-yellow-500 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-3">
             Educational Path
         </p>
         
-        <h1 class="text-3xl md:text-4xl font-serif text-white mb-4">
+        <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-3">
             Kurikulum Akademik
         </h1>
         

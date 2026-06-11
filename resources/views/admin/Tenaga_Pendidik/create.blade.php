@@ -30,7 +30,7 @@
                     
                     <div>
                         <label for="nidn" class="block text-sm font-semibold text-gray-600 mb-2">NIDN / NIK</label>
-                        <input type="text" name="nidn" id="nidn" placeholder="Contoh: 0012345678" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-biotech-secondary/50 focus:border-biotech-secondary transition" required>
+                        <input type="text" name="nidn" id="nidn" placeholder="Contoh: 0012345678" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-biotech-secondary/50 focus:border-biotech-secondary transition">
                     </div>
                     
                     <div>

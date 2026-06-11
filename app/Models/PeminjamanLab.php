@@ -11,6 +11,7 @@ class PeminjamanLab extends Model
 
     protected $fillable = [
     'tipe_layanan',
+    'inventaris_lab_id',
     'kategori_peminjaman', 
     'nama_peminjam', 
     'nim', 

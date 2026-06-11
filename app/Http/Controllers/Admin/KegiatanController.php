@@ -51,7 +51,6 @@ class KegiatanController extends Controller
 
         $data = $request->all();
 
-        // 🚨 PERBAIKAN LOGIKA: Cerdas mendeteksi kata "Pengabdian" tanpa peduli huruf besar/kecil
         if (Str::contains(strtolower($request->kategori), 'pengabdian') || Str::contains(strtolower($request->kategori), 'dosen')) {
             $dosen = TenagaPendidik::where('id', $request->tenaga_pendidik_id)->first();
             
@@ -62,7 +61,7 @@ class KegiatanController extends Controller
                 return redirect()->back()->withErrors(['tenaga_pendidik_id' => 'Silakan pilih Dosen Pelaksana terlebih dahulu.'])->withInput();
             }
         } else {
-            $data['pelaksana'] = $request->pelaksana_nama ?? $request->pelaksana;
+            $data['pelaksana'] = $request->pelaksana_nama ?? $request->pelaksana ?? '-';
             $data['tenaga_pendidik_id'] = null;
         }
 
