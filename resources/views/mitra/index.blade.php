@@ -156,9 +156,9 @@
                         {{ $mitra->partner_name }}
                     </h3>
                     
-                    <p class="text-gray-500 text-sm leading-relaxed mb-8 flex-1 italic">
-                        "{{ $item->description ?? 'Berkolaborasi dalam penguatan kurikulum berbasis industri dan riset terapan untuk solusi masa depan.' }}"
-                    </p>
+                    <div class="text-gray-500 text-sm leading-relaxed mb-8 flex-1 italic">
+                        {!! $mitra->description ?? 'Berkolaborasi dalam penguatan kurikulum berbasis industri dan riset terapan untuk solusi masa depan.' !!}
+                    </div>
 
                     <div class="pt-6 border-t border-gray-50 mt-auto">
                         <div class="flex items-center justify-center gap-2">
