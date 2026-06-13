@@ -32,12 +32,24 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach($peminjamans as $p)
                         <tr class="hover:bg-gray-50">
-                            <td class="p-4 text-sm">{{ $p->created_at->format('d/m/Y') }}</td>
+                            <td class="p-4 align-top">
+                                <div class="text-[11px] text-gray-400 mb-2">Form: <span class="font-bold text-gray-800">{{ $p->created_at->format('d/m/Y') }}</span></div>
+                                
+                                @if($p->rencana_pinjam && $p->rencana_kembali)
+                                <div class="flex flex-col gap-1">
+                                    <span class="bg-blue-50 text-blue-700 text-[9px] font-bold px-2 py-1 rounded whitespace-nowrap border border-blue-100 flex justify-between">
+                                        <span>Pinjam:</span> <span>{{ \Carbon\Carbon::parse($p->rencana_pinjam)->format('d/m/y') }}</span>
+                                    </span>
+                                    <span class="bg-orange-50 text-orange-700 text-[9px] font-bold px-2 py-1 rounded whitespace-nowrap border border-orange-100 flex justify-between">
+                                        <span>Kembali:</span> <span>{{ \Carbon\Carbon::parse($p->rencana_kembali)->format('d/m/y') }}</span>
+                                    </span>
+                                </div>
+                                @endif
+                            </td>
                             <td class="p-4">
                                 <div class="font-bold">{{ $p->nama_peminjam }}</div>
                                 <div class="text-xs text-gray-400">{{ $p->nim }} - {{ $p->prodi }}</div>
                             </td>
-                            <!-- 1. Kolom Jenis (Mendukung laci lama dan baru) -->
                             <td class="p-4">
                                 @php
                                     $jenis = $p->kategori_peminjaman ?? $p->jenis_form;
@@ -47,33 +59,45 @@
                                 </span>
                             </td>
 
-                            <!-- 2. Kolom Detail Barang (Logika Cerdas Anti-Gagal) -->
                             <td class="p-4">
                                 <ul class="text-xs list-disc ml-4">
-                                    {{-- Tampilkan isi keranjang Alat (jika ada) --}}
                                     @foreach($p->detailAlat as $alat)
                                         <li>{{ $alat->nama_alat }} ({{ $alat->jumlah }})</li>
                                     @endforeach
 
-                                    {{-- Tampilkan isi keranjang Bahan (jika ada) --}}
                                     @foreach($p->detailBahan as $bahan)
                                         <li>{{ $bahan->nama_bahan }} ({{ $bahan->jumlah }})</li>
                                     @endforeach
                                 </ul>
                             </td>
+                            
                             <td class="p-4">
                                 @php
-                                    $color = 'bg-yellow-100 text-yellow-700';
-                                    if($p->status == 'Disetujui') $color = 'bg-green-100 text-green-700';
+                                    $color = 'bg-yellow-100 text-yellow-700'; // Default: Pending
+                                    $pulse = '';
+                                    $text = $p->status;
+
+                                    if($p->status == 'Disetujui') {
+                                        // Cek apakah ada kode rahasia pengembalian
+                                        if (str_contains((string)$p->catatan_admin, '[MENUNGGU_VALIDASI_KEMBALI]')) {
+                                            $color = 'bg-orange-100 text-orange-800 border border-orange-300';
+                                            $pulse = 'animate-pulse';
+                                            $text = 'Perlu Cek'; 
+                                        } else {
+                                            $color = 'bg-green-100 text-green-700';
+                                        }
+                                    }
+                                    
                                     if($p->status == 'Ditolak') $color = 'bg-red-100 text-red-700';
+                                    if($p->status == 'Selesai') $color = 'bg-indigo-100 text-indigo-700';
                                 @endphp
-                                <span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase {{ $color }}">
-                                    {{ $p->status }}
+                                <span class="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $color }} {{ $pulse }} whitespace-nowrap">
+                                    {{ $text }}
                                 </span>
                             </td>
+
                             <td class="p-4 text-center">
                                 @if($p->status == 'Pending')
-                                    <!-- FASE 1: Form Persetujuan Admin -->
                                     <div class="flex flex-col gap-2">
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
                                             @csrf
@@ -82,13 +106,11 @@
                                                 Setujui Form
                                             </button>
                                         </form>
-
                                         <button onclick="toggleRejectForm({{ $p->id }})" class="bg-red-600 hover:bg-red-700 text-white text-[11px] px-3 py-1.5 rounded-full shadow transition w-full font-bold">
                                             Tolak Form
                                         </button>
                                     </div>
                                     
-                                    <!-- Form Alasan Penolakan (Hidden by default) -->
                                     <div id="form-reject-{{ $p->id }}" class="hidden mt-2">
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
                                             @csrf
@@ -97,35 +119,39 @@
                                             <button type="submit" class="bg-gray-800 hover:bg-gray-900 text-white text-[10px] w-full py-1.5 rounded font-bold shadow transition">Kirim Penolakan</button>
                                         </form>
                                     </div>
-
-                                @elseif($p->status == 'Disetujui')
-                                    <!-- FASE 2: Form Cetak & Form Pengembalian (Selesai) -->
+                            
+                                @elseif($p->status == 'Disetujui' && !str_contains((string)$p->catatan_admin, '[MENUNGGU_VALIDASI_KEMBALI]'))
                                     <div class="flex flex-col gap-2">
                                         <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
-                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z"></path></svg>
                                             Cetak Form PDF
                                         </a>
-                                        
+                                        <p class="text-[9px] text-gray-500 italic mt-1">Menunggu Mahasiswa Mengembalikan</p>
+                                    </div>
+                            
+                                @elseif($p->status == 'Disetujui' && str_contains((string)$p->catatan_admin, '[MENUNGGU_VALIDASI_KEMBALI]'))
+                                    <div class="flex flex-col gap-2">
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST" class="w-full">
                                             @csrf
                                             <input type="hidden" name="status" value="Selesai">
-                                            <button type="submit" onclick="return confirm('Apakah mahasiswa sudah mengembalikan semua barang? Stok akan dipulihkan otomatis.')" class="bg-gray-600 hover:bg-gray-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition w-full">
-                                                Tandai Selesai
+                                            
+                                            <button type="submit" onclick="return confirm('Apakah fisik barang sudah dikembalikan ke Lab dengan kondisi baik?')" 
+                                                    class="bg-orange-500 hover:bg-orange-600 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition w-full border-2 border-orange-300">
+                                                Terima Pengembalian
                                             </button>
                                         </form>
                                     </div>
-
+                            
                                 @elseif($p->status == 'Selesai')
-                                    <!-- FASE 3: Arsip Form PDF (Untuk yang sudah selesai) -->
-                                    <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                        Arsip Form PDF
+                                    <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z"></path></svg>
+                                        Cetak PDF
                                     </a>
-
+                            
                                 @else
-                                    <!-- FASE 4: Jika Ditolak -->
                                     <span class="text-[11px] text-red-500 font-bold italic tracking-wider">DITOLAK</span>
                                 @endif
+                            </td>
+                            
                             </td>
                         </tr>
                         @endforeach

@@ -91,7 +91,7 @@
     <div class="relative z-10 text-center px-6 container mx-auto">
         
         <span class="inline-block text-yellow-500 tracking-[0.4em] uppercase text-[9px] md:text-[10px] font-bold mb-3">
-            Strategic Alliances
+            
         </span>
         
         <h1 class="font-serif text-3xl md:text-4xl text-white font-bold tracking-tight mb-3">

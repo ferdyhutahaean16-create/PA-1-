@@ -24,6 +24,7 @@ use App\Http\Controllers\RuangKelasController;
 use App\Http\Controllers\PeminjamanLabController;
 use App\Http\Controllers\PinjamAuthController;
 
+
 // Controller Admin
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\ProfilController;
@@ -53,16 +54,54 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // HALAMAN PUBLIK (Akses Pengunjung)
 // ==========================================
 
+// ==========================================
+// RUTE HALAMAN BERANDA (HOME)
+// ==========================================
 Route::get('/', function () {
-    $beritas = Berita::orderBy('tanggal', 'desc')->take(3)->get();
-    $mitras = Cooperation::orderBy('start_date', 'desc')->take(6)->get();
-    $testimonials = Testimonial::orderBy('created_at', 'desc')->take(3)->get();
-    return view('home', compact('beritas', 'mitras', 'testimonials'));
+    // 1. Ambil data pendukung (Mitra, Testimoni, Profil)
+    $mitras = \App\Models\Cooperation::orderBy('start_date', 'desc')->take(6)->get();
+    $testimonials = \App\Models\Testimonial::orderBy('created_at', 'desc')->take(3)->get();
     $profil = \App\Models\Profil::first();
-    return view('welcome', compact('profil'));
-    // Rute untuk halaman publik detail berita
-    Route::get('/berita/baca/{id}', [BeritaController::class, 'bacaBerita'])->name('publik.berita.baca');
+
+    // 2. Logika Cerdas: Menggabungkan Berita & Kegiatan
+    $berita = \App\Models\Berita::latest('tanggal')->get()->map(function($item) {
+        return (object) [
+            'id' => $item->id,
+            'judul' => $item->judul,
+            'tanggal' => $item->tanggal,
+            'foto' => $item->foto,
+            'konten' => $item->konten,
+            'label' => 'BERITA',
+            'link' => route('publik.berita.baca', $item->id)
+        ];
+    });
+
+    $kegiatan = \App\Models\Kegiatan::latest('waktu_pelaksanaan')->get()->map(function($item) {
+        return (object) [
+            'id' => $item->id,
+            'judul' => $item->judul,
+            'tanggal' => $item->waktu_pelaksanaan,
+            'foto' => $item->foto,
+            'konten' => $item->deskripsi ?? $item->konten ?? '',
+            'label' => 'KEGIATAN',
+            'link' => route('publik.kegiatan.baca', $item->id)
+        ];
+    });
+
+    // Gabungkan, urutkan dari yang paling baru, dan ambil 3 teratas
+    $berita_utama = $berita->concat($kegiatan)->sortByDesc('tanggal')->take(3);
+
+    // 3. Kirim SEMUA data ke satu tampilan saja (pilih 'home' atau 'welcome' sesuai desain Anda)
+    return view('home', compact('berita_utama', 'mitras', 'testimonials', 'profil'));
 })->name('home');
+
+
+// ==========================================
+// RUTE DETAIL BERITA
+// ==========================================
+// Rute ini harus diletakkan di LUAR rute beranda agar peta situs Anda rapi
+// (Catatan: Jika di baris atas file web.php Anda sudah ada rute ini, Anda boleh menghapus salah satunya agar tidak ganda).
+Route::get('/berita/baca/{id}', [\App\Http\Controllers\Admin\BeritaController::class, 'bacaPublik'])->name('publik.berita.baca');
 
 // Profil & Struktur
 Route::get('/profil', function () {
@@ -104,10 +143,18 @@ Route::get('/tenaga', function () {
 });
 
 // Berita, Mitra, Testimoni
-Route::get('/berita-lengkap', [BeritaController::class, 'index'])->name('berita.lengkap');
-Route::get('/berita', function () {
-    return redirect('/berita-lengkap');
-});
+// ==========================================
+// RUTE HALAMAN PUBLIK (BERITA & KEGIATAN)
+// ==========================================
+
+// 1. Rute Halaman Utama Arsip Berita (Ini yang membuat halaman Home Anda error tadi)
+Route::get('/berita-lengkap', [\App\Http\Controllers\Admin\BeritaController::class, 'indexPublik'])->name('berita.lengkap');
+
+// 2. Rute Membaca Detail Berita
+Route::get('/berita/{id}/baca', [\App\Http\Controllers\Admin\BeritaController::class, 'bacaPublik'])->name('publik.berita.baca');
+
+// 3. Rute Membaca Detail Kegiatan
+Route::get('/kegiatan/{id}/baca', [\App\Http\Controllers\Admin\BeritaController::class, 'bacaKegiatan'])->name('publik.kegiatan.baca');
 Route::get('/mitra', [CooperationController::class, 'index'])->name('mitra.index');
 Route::get('/kisah-alumni', [TestimonialController::class, 'index'])->name('publik.testimoni');
 // Rute untuk halaman publik detail berita
