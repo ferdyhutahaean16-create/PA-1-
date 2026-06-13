@@ -101,6 +101,7 @@
                                     <div class="flex flex-col gap-2">
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
                                             @csrf
+                                            {{-- Gunakan POST, HAPUS @method('PUT') --}}
                                             <input type="hidden" name="status" value="Disetujui">
                                             <button type="submit" class="bg-green-600 hover:bg-green-700 text-white text-[11px] px-3 py-1.5 rounded-full shadow transition w-full font-bold">
                                                 Setujui Form
@@ -120,19 +121,17 @@
                                         </form>
                                     </div>
                             
-                                @elseif($p->status == 'Disetujui' && !str_contains((string)$p->catatan_admin, '[MENUNGGU_VALIDASI_KEMBALI]'))
+                                @elseif($p->status == 'Disetujui')
                                     <div class="flex flex-col gap-2">
                                         <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
                                             Cetak Form PDF
                                         </a>
-                                        <p class="text-[9px] text-gray-500 italic mt-1">Menunggu Mahasiswa Mengembalikan</p>
-                                    </div>
-                            
-                                @elseif($p->status == 'Disetujui' && str_contains((string)$p->catatan_admin, '[MENUNGGU_VALIDASI_KEMBALI]'))
-                                    <div class="flex flex-col gap-2">
+                                        
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST" class="w-full">
                                             @csrf
+                                            {{-- Gunakan POST, HAPUS @method('PUT') --}}
                                             <input type="hidden" name="status" value="Selesai">
+                                            <input type="hidden" name="tanggal_dikembalikan" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                             
                                             <button type="submit" onclick="return confirm('Apakah fisik barang sudah dikembalikan ke Lab dengan kondisi baik?')" 
                                                     class="bg-orange-500 hover:bg-orange-600 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition w-full border-2 border-orange-300">
@@ -142,9 +141,8 @@
                                     </div>
                             
                                 @elseif($p->status == 'Selesai')
-                                    <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z"></path></svg>
-                                        Cetak PDF
+                                    <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
+                                        Arsip Form PDF
                                     </a>
                             
                                 @else

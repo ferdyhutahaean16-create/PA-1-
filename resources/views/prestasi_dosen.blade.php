@@ -46,7 +46,6 @@
 
     <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
         <p class="text-yellow-500 text-[10px] md:text-xs font-bold tracking-[0.35em] uppercase mb-3">
-            Faculty Honors & Awards
         </p>
         
         <h1 class="text-3xl md:text-4xl font-serif text-white mb-4">

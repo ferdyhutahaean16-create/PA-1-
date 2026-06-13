@@ -97,7 +97,6 @@ body {
 
     <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
         <p class="text-yellow-500 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-3">
-            Educational Path
         </p>
         
         <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-3">
