@@ -67,6 +67,19 @@
                             <label class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wider">Ruang Lab Tujuan <span class="text-red-500">*</span></label>
                             <input type="text" name="ruang_lab" value="{{ old('ruang_lab') }}" placeholder="Contoh: Lab Mikrobiologi" class="w-full p-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#1a4a38] outline-none transition text-gray-800" required>
                         </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Rencana Tanggal Peminjaman</label>
+                                <input type="date" name="rencana_pinjam" required
+                                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[var(--forest)]">
+                            </div>
+                        
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Rencana Tanggal Pengembalian</label>
+                                <input type="date" name="rencana_kembali" required
+                                       class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[var(--forest)]">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mb-8">
