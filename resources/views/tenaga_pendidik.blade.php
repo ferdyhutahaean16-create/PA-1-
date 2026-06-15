@@ -69,9 +69,6 @@
     <div class="absolute inset-0 bg-gradient-to-r from-[#0d2a1f]/70 via-transparent to-[#0d2a1f]/70 z-0"></div>
 
     <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
-        <p class="text-yellow-500 text-[10px] md:text-xs font-bold tracking-[0.35em] uppercase mb-3">
-            Academic Excellence
-        </p>
         
         <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-3">
             Tenaga Pendidik

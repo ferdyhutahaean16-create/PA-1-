@@ -52,6 +52,8 @@ class PeminjamanLabController extends Controller
             'nama_peminjam' => 'required|string',
             'nim' => 'required|string',
             'ruang_lab' => 'required|string',
+            'rencana_pinjam' => 'required|date', // 💡 Wajib isi tanggal
+            'rencana_kembali' => 'required|date|after_or_equal:rencana_pinjam',
             'barang_id' => 'required|array', // Memastikan keranjang tidak kosong
             'jumlah_pinjam' => 'required|array'
         ], [
@@ -71,6 +73,8 @@ class PeminjamanLabController extends Controller
                 'program_studi' => $request->program_studi,
                 'ruang_lab' => $request->ruang_lab,
                 'judul_penelitian' => $request->judul_penelitian,
+                'rencana_pinjam' => $request->rencana_pinjam,   // 💡 Menangkap input tanggal pinjam
+                'rencana_kembali' => $request->rencana_kembali,
                 'status' => 'Pending' // Status awal
             ]);
 

@@ -17,7 +17,9 @@ class PeminjamanLab extends Model
     'nim', 
     'program_studi', 
     'ruang_lab', 
-    'judul_penelitian', 
+    'judul_penelitian',
+    'rencana_pinjam',   // 💡 Tambahkan ini
+    'rencana_kembali', 
     'status'
 ];
 

@@ -64,10 +64,6 @@
 
     <div class="relative z-10 text-center px-6 container mx-auto">
         
-        <span class="inline-block text-yellow-600 tracking-[0.4em] uppercase text-[9px] md:text-[10px] font-bold mb-3 animate-fade">
-            Infrastructure & Space
-        </span>
-        
         <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-4">
             Fasilitas Ruang Kelas
         </h1>

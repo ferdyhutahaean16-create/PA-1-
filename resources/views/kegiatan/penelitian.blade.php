@@ -60,7 +60,6 @@
 <div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
     <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/microbes.png')]"></div>
     <div class="relative z-10 py-28 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Innovation & Discovery</span>
         <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">Penelitian & Riset</h1>
         <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
     </div>

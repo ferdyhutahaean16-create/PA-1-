@@ -152,16 +152,6 @@
             </div>
 
             <div class="group relative py-5">
-                <button class="flex items-center gap-1 whitespace-nowrap {{ request()->is('kegiatan*') ? 'nav-active' : 'nav-item' }}">
-                    KEGIATAN <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-[#064e3b] min-w-[240px] top-[calc(100%-4px)] left-0 z-50 rounded-b-md overflow-hidden">
-                    <a href="{{ url('/kegiatan/dosen') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">KEGIATAN DOSEN</a>
-                    <a href="{{ url('/kegiatan/mahasiswa') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-700 hover:text-[#064e3b] text-sm font-bold transition">KEGIATAN MAHASISWA</a>
-                </div>
-            </div>
-
-            <div class="group relative py-5">
                 <button class="flex items-center gap-1 whitespace-nowrap {{ request()->is('fasilitas*') || request()->is('laboratorium*') ? 'nav-active' : 'nav-item' }}">
                     FASILITAS <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>

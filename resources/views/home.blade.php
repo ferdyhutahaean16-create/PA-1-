@@ -199,10 +199,12 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
    PARTNER TILES
 ══════════════════════════════════════ */
 .partner-tile {
-    filter: grayscale(1) opacity(.5);
-    transition: filter .35s, transform .35s;
+    transition: transform .35s, box-shadow .35s;
 }
-.partner-tile:hover { filter: grayscale(0) opacity(1); transform: translateY(-3px); }
+.partner-tile:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 12px 25px -8px rgba(26, 74, 56, 0.15); 
+}
 
 /* ══════════════════════════════════════
    SCROLL FADE-IN SECTIONS
@@ -591,7 +593,7 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            @forelse($beritas as $berita)
+            @forelse($berita_utama as $berita)
             <div x-data="{open:false}" class="news-card bg-white rounded-2xl overflow-hidden border border-gray-100/80 flex flex-col">
 
                 <div class="news-thumb overflow-hidden h-48 cursor-pointer relative" @click="open=true">
@@ -608,7 +610,7 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                     @endif
                     <span class="absolute top-4 left-4 text-[10px] font-semibold uppercase tracking-widest
                                  bg-[var(--forest)]/85 backdrop-blur-sm text-white px-3 py-1 rounded-full">
-                        Berita
+                        {{ $berita->label }}
                     </span>
                 </div>
 
@@ -628,14 +630,14 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                     <p class="text-xs text-gray-400 mb-5 flex-1 line-clamp-3 leading-relaxed">
                         {{ Str::limit(strip_tags($berita->konten), 110) }}
                     </p>
-                    <button @click="open=true"
+                    <a href="{{ $berita->link }}"
                             class="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest
-                                   text-[var(--forest)] hover:opacity-60 transition-opacity w-fit">
+                                   text-[var(--forest)] hover:opacity-60 transition-opacity w-fit mt-auto">
                         Baca selengkapnya
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
-                    </button>
+                    </a>
                 </div>
 
                 {{-- Modal --}}

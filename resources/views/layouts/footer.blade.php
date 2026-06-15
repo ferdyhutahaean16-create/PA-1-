@@ -113,7 +113,8 @@
                     &copy; {{ date('Y') }} Program Studi Bioteknologi Institut Teknologi Del. 
                 </p>
                 <p class="text-xs text-white/80 uppercase tracking-[0.1em]">
-                    Developed by <span class="text-[var(--gold)] font-bold">Sesilia, Ferdy,</span>
+                    Developed by <span class="text-[var(--gold)] font-bold">Ferdy, Sesilia, Wesly, Ravael, Grace (Mahasiswa D3TI 2025)
+                        Supervised By: Goklas Henry Agus Panjaitan,S.Tr.Kom., M.T.</span>
                 </p>
             </div>
         </div>
