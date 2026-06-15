@@ -32,70 +32,124 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach($peminjamans as $p)
                         <tr class="hover:bg-gray-50">
-                            <td class="p-4 text-sm">{{ $p->created_at->format('d/m/Y') }}</td>
+                            <td class="p-4 align-top">
+                                <div class="text-[11px] text-gray-400 mb-2">Form: <span class="font-bold text-gray-800">{{ $p->created_at->format('d/m/Y') }}</span></div>
+                                
+                                @if($p->rencana_pinjam && $p->rencana_kembali)
+                                <div class="flex flex-col gap-1">
+                                    <span class="bg-blue-50 text-blue-700 text-[9px] font-bold px-2 py-1 rounded whitespace-nowrap border border-blue-100 flex justify-between">
+                                        <span>Pinjam:</span> <span>{{ \Carbon\Carbon::parse($p->rencana_pinjam)->format('d/m/y') }}</span>
+                                    </span>
+                                    <span class="bg-orange-50 text-orange-700 text-[9px] font-bold px-2 py-1 rounded whitespace-nowrap border border-orange-100 flex justify-between">
+                                        <span>Kembali:</span> <span>{{ \Carbon\Carbon::parse($p->rencana_kembali)->format('d/m/y') }}</span>
+                                    </span>
+                                </div>
+                                @endif
+                            </td>
                             <td class="p-4">
                                 <div class="font-bold">{{ $p->nama_peminjam }}</div>
                                 <div class="text-xs text-gray-400">{{ $p->nim }} - {{ $p->prodi }}</div>
                             </td>
                             <td class="p-4">
-                                <span class="px-2 py-1 rounded text-xs font-bold {{ $p->jenis_form == 'Alat' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700' }}">
-                                    {{ $p->jenis_form }}
+                                @php
+                                    $jenis = $p->kategori_peminjaman ?? $p->jenis_form;
+                                @endphp
+                                <span class="px-2 py-1 rounded text-xs font-bold {{ $jenis == 'Bahan' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }}">
+                                    {{ $jenis }}
                                 </span>
                             </td>
+
                             <td class="p-4">
                                 <ul class="text-xs list-disc ml-4">
-                                    @if($p->jenis_form == 'Alat')
-                                        @foreach($p->detailAlat as $alat)
-                                            <li>{{ $alat->nama_alat }} ({{ $alat->jumlah }})</li>
-                                        @endforeach
-                                    @else
-                                        @foreach($p->detailBahan as $bahan)
-                                            <li>{{ $bahan->nama_bahan }} ({{ $bahan->jumlah }})</li>
-                                        @endforeach
-                                    @endif
+                                    @foreach($p->detailAlat as $alat)
+                                        <li>{{ $alat->nama_alat }} ({{ $alat->jumlah }})</li>
+                                    @endforeach
+
+                                    @foreach($p->detailBahan as $bahan)
+                                        <li>{{ $bahan->nama_bahan }} ({{ $bahan->jumlah }})</li>
+                                    @endforeach
                                 </ul>
                             </td>
+                            
                             <td class="p-4">
                                 @php
-                                    $color = 'bg-yellow-100 text-yellow-700';
-                                    if($p->status == 'Disetujui') $color = 'bg-green-100 text-green-700';
+                                    $color = 'bg-yellow-100 text-yellow-700'; // Default: Pending
+                                    $pulse = '';
+                                    $text = $p->status;
+
+                                    if($p->status == 'Disetujui') {
+                                        // Cek apakah ada kode rahasia pengembalian
+                                        if (str_contains((string)$p->catatan_admin, '[MENUNGGU_VALIDASI_KEMBALI]')) {
+                                            $color = 'bg-orange-100 text-orange-800 border border-orange-300';
+                                            $pulse = 'animate-pulse';
+                                            $text = 'Perlu Cek'; 
+                                        } else {
+                                            $color = 'bg-green-100 text-green-700';
+                                        }
+                                    }
+                                    
                                     if($p->status == 'Ditolak') $color = 'bg-red-100 text-red-700';
+                                    if($p->status == 'Selesai') $color = 'bg-indigo-100 text-indigo-700';
                                 @endphp
-                                <span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase {{ $color }}">
-                                    {{ $p->status }}
+                                <span class="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $color }} {{ $pulse }} whitespace-nowrap">
+                                    {{ $text }}
                                 </span>
                             </td>
+
                             <td class="p-4 text-center">
                                 @if($p->status == 'Pending')
-                                <div class="flex justify-center gap-2">
-                                    <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="status" value="Disetujui">
-                                        <button class="bg-green-600 hover:bg-green-700 text-white text-xs px-3 py-1.5 rounded transition">Approve</button>
-                                    </form>
-
-                                    <button onclick="toggleRejectForm({{ $p->id }})" class="bg-red-600 hover:bg-red-700 text-white text-xs px-3 py-1.5 rounded transition">Reject</button>
-                                </div>
-                                
-                                <div id="form-reject-{{ $p->id }}" class="hidden mt-2">
-                                    <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="status" value="Ditolak">
-                                        <input type="text" name="catatan_admin" placeholder="Alasan ditolak..." class="text-xs border-gray-300 rounded mb-1 w-full" required>
-                                        <button class="bg-gray-800 text-white text-[10px] w-full py-1 rounded">Kirim Penolakan</button>
-                                    </form>
-                                </div>
-
+                                    <div class="flex flex-col gap-2">
+                                        <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
+                                            @csrf
+                                            {{-- Gunakan POST, HAPUS @method('PUT') --}}
+                                            <input type="hidden" name="status" value="Disetujui">
+                                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white text-[11px] px-3 py-1.5 rounded-full shadow transition w-full font-bold">
+                                                Setujui Form
+                                            </button>
+                                        </form>
+                                        <button onclick="toggleRejectForm({{ $p->id }})" class="bg-red-600 hover:bg-red-700 text-white text-[11px] px-3 py-1.5 rounded-full shadow transition w-full font-bold">
+                                            Tolak Form
+                                        </button>
+                                    </div>
+                                    
+                                    <div id="form-reject-{{ $p->id }}" class="hidden mt-2">
+                                        <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="status" value="Ditolak">
+                                            <textarea name="catatan_admin" placeholder="Alasan ditolak..." class="text-[10px] border border-gray-300 rounded p-1 mb-1 w-full h-12 outline-none focus:border-red-500" required></textarea>
+                                            <button type="submit" class="bg-gray-800 hover:bg-gray-900 text-white text-[10px] w-full py-1.5 rounded font-bold shadow transition">Kirim Penolakan</button>
+                                        </form>
+                                    </div>
+                            
                                 @elseif($p->status == 'Disetujui')
-                                    <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-full font-bold shadow transition inline-flex items-center justify-center gap-1">
-                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2z"></path></svg>
-                                        Cetak PDF
+                                    <div class="flex flex-col gap-2">
+                                        <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
+                                            Cetak Form PDF
+                                        </a>
+                                        
+                                        <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST" class="w-full">
+                                            @csrf
+                                            {{-- Gunakan POST, HAPUS @method('PUT') --}}
+                                            <input type="hidden" name="status" value="Selesai">
+                                            <input type="hidden" name="tanggal_dikembalikan" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                                            
+                                            <button type="submit" onclick="return confirm('Apakah fisik barang sudah dikembalikan ke Lab dengan kondisi baik?')" 
+                                                    class="bg-orange-500 hover:bg-orange-600 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition w-full border-2 border-orange-300">
+                                                Terima Pengembalian
+                                            </button>
+                                        </form>
+                                    </div>
+                            
+                                @elseif($p->status == 'Selesai')
+                                    <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
+                                        Arsip Form PDF
                                     </a>
-                                @elseif($p->status == 'Ditolak')
-                                    <span class="text-xs text-red-500 font-bold italic">Ditolak</span>
+                            
                                 @else
-                                    <span class="text-xs text-gray-400 italic">Selesai</span>
+                                    <span class="text-[11px] text-red-500 font-bold italic tracking-wider">DITOLAK</span>
                                 @endif
+                            </td>
+                            
                             </td>
                         </tr>
                         @endforeach

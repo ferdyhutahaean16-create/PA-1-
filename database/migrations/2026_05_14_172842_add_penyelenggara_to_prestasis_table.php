@@ -13,7 +13,7 @@ return new class extends Migration
 {
     Schema::table('prestasis', function (Blueprint $table) {
         // Menambahkan kolom penyelenggara tepat setelah nama mahasiswa
-        $table->string('penyelenggara')->after('nama_mahasiswa');
+        $table->string('penyelenggara');
     });
 }
 

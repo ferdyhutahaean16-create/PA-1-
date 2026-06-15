@@ -10,16 +10,16 @@ class Prestasi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tenaga_pendidik_id',
-        'kategori',
-        'nama_peraih',
-        'penyelenggara',
-        'judul_prestasi',
-        'tingkat',
-        'tahun',
-        'deskripsi',
-        'foto'
-    ];
+    'kategori',
+    'nama_prestasi',
+    'penyelenggara',
+    'tingkat',
+    'tanggal_perolehan',
+    'bukti_sertifikat',  // 👈 Sesuai dengan database
+    'tenaga_pendidik_id',
+    'nama_peraih',
+    'nama_mahasiswa' // Biarkan jika kolom ini masih tersisa di DB
+];
 
 
     public function dosen()

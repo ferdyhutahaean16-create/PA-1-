@@ -58,12 +58,23 @@
 }
 </style>
 
-<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
-    <div class="relative z-10 py-24 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Academic Excellence</span>
-        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">Tenaga Pendidik</h1>
-        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
+<div class="relative w-full bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?q=80&w=2070&auto=format&fit=crop" 
+             alt="Faculty Background" 
+             class="w-full h-full object-cover opacity-15 mix-blend-overlay">
+    </div>
+
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0d2a1f]/70 via-transparent to-[#0d2a1f]/70 z-0"></div>
+
+    <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
+        
+        <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-3">
+            Tenaga Pendidik
+        </h1>
+        
+        <div class="w-20 h-px bg-yellow-500/30"></div>
     </div>
 </div>
 
@@ -91,12 +102,10 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
                         PENGABDIAN
                     </button>
-
                     <button onclick="switchTab('publikasi-{{ $tenaga_pendidik->id }}', this)" class="tab-btn text-gray-500 px-5 py-4 text-xs md:text-sm font-bold tracking-wider flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
                         PENELITIAN
                     </button>
-
                     <button onclick="switchTab('prestasi-{{ $tenaga_pendidik->id }}', this)" class="tab-btn text-gray-500 px-5 py-4 text-xs md:text-sm font-bold tracking-wider flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                         Lainnya
@@ -150,51 +159,89 @@
 
                                 <hr class="border-gray-200 mb-8">
 
-                                <div>
-                                    <h4 class="text-[10px] font-bold tracking-[0.15em] mb-4 text-[var(--gold)]">LATAR BELAKANG PENDIDIKAN</h4>
-                                    <ul class="space-y-3">
-                                        @foreach(explode(',', $tenaga_pendidik->lulusan) as $pendidikan)
-                                            @if(trim($pendidikan) != '')
-                                            <li class="flex items-start gap-3">
-                                                <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--forest)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                                                <span class="text-gray-600 leading-snug">{{ trim($pendidikan) }}</span>
-                                            </li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
+                                {{-- KOTAK PEMBUNGKUS GRID (MULAI) --}}
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-4">
+
+                                    <div>
+                                        <h4 class="text-[10px] font-bold tracking-[0.15em] mb-4 text-[var(--gold)]">LATAR BELAKANG PENDIDIKAN</h4>
+                                        <ul class="space-y-3">
+                                            @foreach(explode(',', $tenaga_pendidik->lulusan) as $pendidikan)
+                                                @if(trim($pendidikan) != '')
+                                                <li class="flex items-start gap-3">
+                                                    <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--forest)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+                                                    <span class="text-gray-600 leading-snug">{{ trim($pendidikan) }}</span>
+                                                </li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    </div>
+
+                                    {{-- BAGIAN KANAN: Bidang Minat Penelitian & Scholar --}}
+                                    <div>
+                                        <h4 class="text-[10px] font-bold tracking-[0.15em] mb-4 text-[var(--gold)]">BIDANG MINAT PENELITIAN</h4>
+
+                                        @if($tenaga_pendidik->link_scholar)
+                                            <a href="{{ $tenaga_pendidik->link_scholar }}" target="_blank" class="inline-flex items-center gap-3 px-5 py-3 bg-white border-2 border-gray-100 rounded-xl text-sm font-bold text-gray-700 hover:bg-[#1a4a38] hover:border-[#1a4a38] hover:text-white transition-all duration-300 shadow-sm group">
+                                                <svg class="w-5 h-5 text-[#1a4a38] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                                Profil Google Scholar
+                                            </a>
+                                        @else
+                                            <p class="text-sm text-gray-400 italic bg-gray-50 p-3 rounded-lg inline-block border border-gray-100">
+                                                Profil Scholar belum ditambahkan.
+                                            </p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    {{-- TAB: PENGAJARAN --}}
                     <div id="pengajaran-{{ $tenaga_pendidik->id }}" class="tab-content">
                         <div class="mb-8">
                             <h3 class="font-serif text-3xl text-[var(--forest-dark)] mb-2">Riwayat Pengajaran</h3>
                             <p class="text-sm text-gray-500">Daftar mata kuliah yang diampu di Institut Teknologi Del.</p>
                         </div>
 
-                        @if($tenaga_pendidik->pengajarans && $tenaga_pendidik->pengajarans->count() > 0)
-                            <div class="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
-                                <table class="min-w-full divide-y divide-gray-200 text-left">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th class="px-6 py-4 text-[11px] font-bold tracking-wider uppercase text-gray-500">Mata Kuliah</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-200 bg-white">
-                                        @foreach($tenaga_pendidik->pengajarans as $ajar)
-                                        <tr class="hover:bg-gray-50 transition">
-                                            <td class="px-6 py-4 font-medium text-gray-900">{{ $ajar->mata_khulia ?? $ajar->mata_kuliah }}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        @else
-                            <div class="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
-                                <p class="text-gray-500 italic">Belum ada data pengajaran.</p>
-                            </div>
-                        @endif
+                        {{-- Tabel akan selalu dirender, isinya dinamis menggunakan forelse --}}
+                        <div class="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+                            <table class="min-w-full divide-y divide-gray-200 text-left">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-4 text-[11px] font-bold tracking-wider uppercase text-gray-500 w-16 text-center">No</th>
+                                        <th class="px-6 py-4 text-[11px] font-bold tracking-wider uppercase text-gray-500">Mata Kuliah</th>
+                                        <th class="px-6 py-4 text-[11px] font-bold tracking-wider uppercase text-gray-500 text-center">Semester</th>
+                                        <th class="px-6 py-4 text-[11px] font-bold tracking-wider uppercase text-gray-500 text-center">Tahun Akademik</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    
+                                    @forelse($tenaga_pendidik->pengajarans as $index => $ajar)
+                                    <tr class="hover:bg-gray-50 transition">
+                                        <td class="px-6 py-4 font-medium text-gray-500 text-center">{{ $index + 1 }}</td>
+                                        <td class="px-6 py-4 font-bold text-gray-900">{{ $ajar->mata_kuliah ?? $ajar->mata_khulia }}</td>
+                                        <td class="px-6 py-4 font-medium text-gray-600 text-center">
+                                            <span class="bg-gray-100 px-3 py-1 rounded-full text-xs font-semibold">{{ $ajar->semester ?? '-' }}</span>
+                                        </td>
+                                        <td class="px-6 py-4 font-medium text-gray-600 text-center">
+                                            <span class="bg-[#1a4a38]/10 text-[#1a4a38] border border-[#1a4a38]/20 px-3 py-1 rounded-full text-xs font-bold tracking-wider">
+                                                {{ $ajar->tahun_akademik ?? '-' }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                    {{-- Tampilan ini hanya muncul HANYA JIKA data benar-benar kosong di database --}}
+                                    <tr>
+                                        <td colspan="4" class="px-6 py-12 text-center border-2 border-dashed border-gray-100 bg-gray-50">
+                                            <svg class="w-10 h-10 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                            <p class="text-gray-500 italic text-sm">Belum ada data riwayat pengajaran yang ditambahkan.</p>
+                                        </td>
+                                    </tr>
+                                    @endforelse
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <div id="riset-{{ $tenaga_pendidik->id }}" class="tab-content">
@@ -299,7 +346,6 @@
                                     </div>
 
                                 @empty
-                                    {{-- Tampilan JIKA DATA KOSONG (Baru pakai garis putus-putus) --}}
                                     <div class="text-center py-12 px-4 border-2 border-dashed border-gray-200 rounded-3xl bg-gray-50 mt-2">
                                         <svg class="w-12 h-12 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                         <p class="text-gray-500 italic text-sm">Belum ada data Pengabdian kepada Masyarakat (PkM) untuk tenaga pendidik ini.</p>
@@ -310,7 +356,7 @@
                         </div>
                     </div>
 
-                    <div id="publikasi-{{ $tenaga_pendidik->id }}" class="tab-content hidden ...">
+                    <div id="publikasi-{{ $tenaga_pendidik->id }}" class="tab-content">
                         <div class="flex flex-col gap-4 pt-2">
                             @forelse($tenaga_pendidik->penelitians as $riset)
                                 <div class="bg-gray-50/50 border border-gray-100 rounded-xl p-4 hover:shadow-sm transition-all">
@@ -356,7 +402,6 @@
 
                                 </div>
                             @empty
-                                {{-- Tampilan jika dosen belum memiliki data penelitian --}}
                                 <div class="text-center py-8">
                                     <p class="text-sm text-gray-400 italic">Belum ada publikasi atau penelitian untuk dosen ini.</p>
                                 </div>
@@ -364,12 +409,15 @@
                         </div>
                     </div>
 
-                    <div id="prestasi-{{ $tenaga_pendidik->id }}" class="tab-content hidden ...">
+                    <div id="prestasi-{{ $tenaga_pendidik->id }}" class="tab-content">
                         <div class="mt-6">
                             <div class="flex flex-col gap-5">
 
-                                {{-- Loop data prestasi milik dosen tersebut --}}
-                                @forelse($tenaga_pendidik->prestasis as $prestasi)
+                                {{-- Saring prestasi agar hanya milik dosen ini dan berkategori Dosen --}}
+                                @php
+                                    $prestasiDosen = $tenaga_pendidik->prestasis->where('kategori', 'Dosen');
+                                @endphp
+                                @forelse($prestasiDosen as $prestasi)
                                     <div class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row gap-6 items-start group text-left">
 
                                         {{-- Foto / Bukti Prestasi (Jika Ada) --}}

@@ -199,10 +199,12 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
    PARTNER TILES
 ══════════════════════════════════════ */
 .partner-tile {
-    filter: grayscale(1) opacity(.5);
-    transition: filter .35s, transform .35s;
+    transition: transform .35s, box-shadow .35s;
 }
-.partner-tile:hover { filter: grayscale(0) opacity(1); transform: translateY(-3px); }
+.partner-tile:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 12px 25px -8px rgba(26, 74, 56, 0.15); 
+}
 
 /* ══════════════════════════════════════
    SCROLL FADE-IN SECTIONS
@@ -262,27 +264,27 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
 {{-- ══════════════════════════════════════
      HERO SECTION - REDESIGN AESTHETIC
 ══════════════════════════════════════ --}}
-<section class="hero relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+<section class="relative w-full h-[calc(100vh-80px)] lg:h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-[#0c1118]">
     
     {{-- Video Background --}}
     <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover scale-105">
-        <source src="{{ asset('videos/profil.mp4') }}" type="video/mp4">
+        <source src="{{ asset('videos/beranda.mp4') }}" type="video/mp4">
     </video>
     
     {{-- Overlay: Kombinasi multiply gradient dan solid black untuk kontras teks yang cinematic --}}
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0c1118]/80 via-[#0c1118]/40 to-[var(--forest3)]/90 z-[1] mix-blend-multiply"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0c1118]/80 via-[#0c1118]/40 to-[#1a4a38]/90 z-[1] mix-blend-multiply"></div>
     <div class="absolute inset-0 bg-black/30 z-[1]"></div>
     
     {{-- Main Content --}}
-    <div class="relative z-[3] flex flex-col items-center text-center px-6 w-full max-w-5xl mx-auto transform -translate-y-4">
+    <div class="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-5xl mx-auto transform -translate-y-4">
         
         {{-- Logo IT Del --}}
-        <div class="rv" style="animation-delay:.08s">
+        <div class="animate-fade-in" style="animation-delay:.08s">
             <img src="{{ asset('Adminlte/dist/img/logo_DEL.png') }}" alt="Logo IT Del" class="h-16 md:h-20 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] mx-auto mb-6">
         </div>
 
         {{-- Eyebrow dengan aksen garis --}}
-        <div class="rv flex items-center gap-4 mb-5" style="animation-delay:.22s">
+        <div class="animate-fade-in flex items-center gap-4 mb-5" style="animation-delay:.22s">
             <div class="h-[1px] w-8 md:w-16 bg-green-400/40"></div>
             <p class="text-[10px] md:text-xs tracking-[0.4em] uppercase text-green-300 font-semibold drop-shadow-md">
                 Selamat Datang Di
@@ -291,23 +293,23 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
         </div>
 
         {{-- Title --}}
-        <h1 class="rv serif text-5xl md:text-7xl lg:text-8xl font-light text-white leading-[1.1] tracking-wide drop-shadow-2xl mb-2" style="animation-delay:.38s">
+        <h1 class="animate-fade-in font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] tracking-wide drop-shadow-2xl mb-2" style="animation-delay:.38s">
             Prodi Bioteknologi
         </h1>
-        <h2 class="rv text-xs md:text-sm font-medium tracking-[0.3em] uppercase text-gray-300 drop-shadow-md mb-8" style="animation-delay:.5s">
+        <h2 class="animate-fade-in text-xs md:text-sm font-medium tracking-[0.3em] uppercase text-gray-300 drop-shadow-md mb-8" style="animation-delay:.5s">
             Institut Teknologi Del
         </h2>
 
         {{-- Tagline --}}
-        <p class="rv serif italic text-xl md:text-2xl text-white/90 font-light drop-shadow-lg mb-14" style="animation-delay:.6s">
+        <p class="animate-fade-in font-serif italic text-xl md:text-2xl text-white/90 font-light drop-shadow-lg mb-14" style="animation-delay:.6s">
             "Shaping the World Through Biotechnology"
         </p>
 
         {{-- ✦ BADGES AKREDITASI — MODERN PILL DESIGN ✦ --}}
-        <div class="rv flex flex-col sm:flex-row gap-5 justify-center" style="animation-delay:.75s">
+        <div class="animate-fade-in flex flex-col sm:flex-row gap-5 justify-center" style="animation-delay:.75s">
 
             {{-- Badge 1: Diktisaintek --}}
-            <div class="group relative flex items-center gap-4 px-6 py-3 rounded-full overflow-hidden cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.3)] border border-white/10 bg-white/5 backdrop-blur-md">
+            <div class="group relative flex items-center gap-4 px-6 py-3 rounded-full overflow-hidden cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(34,197,94,0.3)] border border-white/20 bg-white/10 backdrop-blur-md">
                 {{-- Shine Effect Hover --}}
                 <div class="absolute inset-0 bg-gradient-to-r from-green-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
@@ -318,13 +320,13 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                     </svg>
                 </div>
                 <div class="relative z-10 text-left">
-                    <p class="text-[9px] font-semibold tracking-[0.2em] uppercase text-green-300/80 mb-0.5">Program Unggulan</p>
+                    <p class="text-[9px] font-semibold tracking-[0.2em] uppercase text-green-300/90 mb-0.5">Program Unggulan</p>
                     <p class="text-[13px] font-bold tracking-[0.05em] uppercase text-white">Diktisaintek</p>
                 </div>
             </div>
 
             {{-- Badge 2: Akreditasi --}}
-            <div class="group relative flex items-center gap-4 px-6 py-3 rounded-full overflow-hidden cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(234,179,8,0.3)] border border-white/10 bg-white/5 backdrop-blur-md">
+            <div class="group relative flex items-center gap-4 px-6 py-3 rounded-full overflow-hidden cursor-default transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_40px_-10px_rgba(234,179,8,0.3)] border border-white/20 bg-white/10 backdrop-blur-md">
                 <div class="absolute inset-0 bg-gradient-to-r from-yellow-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div class="relative z-10 w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-yellow-500/20 border border-yellow-400/30 text-yellow-400 group-hover:bg-yellow-500 group-hover:text-white transition-colors duration-300">
@@ -333,7 +335,7 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                     </svg>
                 </div>
                 <div class="relative z-10 text-left">
-                    <p class="text-[9px] font-semibold tracking-[0.2em] uppercase text-yellow-300/80 mb-0.5">Status Resmi</p>
+                    <p class="text-[9px] font-semibold tracking-[0.2em] uppercase text-yellow-300/90 mb-0.5">Status Resmi</p>
                     <p class="text-[13px] font-bold tracking-[0.05em] uppercase text-white">Akreditasi Baik</p>
                 </div>
             </div>
@@ -342,7 +344,6 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
         {{-- END BADGES --}}
 
     </div>
-    
 </section>
 
     <div class="bg-white py-24 relative overflow-hidden">
@@ -445,8 +446,8 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                         ],
                         [
                             'href'  => route('fasilitas.ruang-kelas'),
-                            'title' => 'Ruang Kelas Modern',
-                            'desc'  => 'Ruang kelas nyaman dan modern, dilengkapi fasilitas multimedia interaktif untuk pengalaman belajar yang optimal.',
+                            'title' => 'Ruang Kelas',
+                            'desc'  => 'Ruang kelas nyaman dilengkapi fasilitas multimedia interaktif untuk pengalaman belajar yang optimal.',
                             'icon'  => 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z',
                         ],
                         [
@@ -592,7 +593,7 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            @forelse($beritas as $berita)
+            @forelse($berita_utama as $berita)
             <div x-data="{open:false}" class="news-card bg-white rounded-2xl overflow-hidden border border-gray-100/80 flex flex-col">
 
                 <div class="news-thumb overflow-hidden h-48 cursor-pointer relative" @click="open=true">
@@ -609,7 +610,7 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                     @endif
                     <span class="absolute top-4 left-4 text-[10px] font-semibold uppercase tracking-widest
                                  bg-[var(--forest)]/85 backdrop-blur-sm text-white px-3 py-1 rounded-full">
-                        Berita
+                        {{ $berita->label }}
                     </span>
                 </div>
 
@@ -629,14 +630,14 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                     <p class="text-xs text-gray-400 mb-5 flex-1 line-clamp-3 leading-relaxed">
                         {{ Str::limit(strip_tags($berita->konten), 110) }}
                     </p>
-                    <button @click="open=true"
+                    <a href="{{ $berita->link }}"
                             class="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-widest
-                                   text-[var(--forest)] hover:opacity-60 transition-opacity w-fit">
+                                   text-[var(--forest)] hover:opacity-60 transition-opacity w-fit mt-auto">
                         Baca selengkapnya
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
                         </svg>
-                    </button>
+                    </a>
                 </div>
 
                 {{-- Modal --}}
@@ -988,7 +989,7 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
                         </div>
 
                         <p class="text-sm text-gray-500 leading-relaxed mb-5 text-left">
-                            {{ $mitra->description ?? 'Menjalin kolaborasi strategis dalam pengembangan pendidikan, penelitian, dan pengabdian masyarakat.' }}
+                            {!! $mitra->description ?? 'Menjalin kolaborasi strategis dalam pengembangan pendidikan, penelitian, dan pengabdian masyarakat.' !!}
                         </p>
 
                         <div class="flex items-center justify-between bg-[var(--cream)] rounded-xl p-4 border border-[var(--mist)]">

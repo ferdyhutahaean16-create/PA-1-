@@ -1,82 +1,58 @@
-@extends('layouts.admin.admin') {{-- Pastikan nama layout ini sudah benar --}}
-
-@section('title', 'Kelola Data Penelitian')
+@extends('layouts.admin.admin') @section('title', 'Edit Data Penelitian')
 
 @section('content')
-<div class="p-4 md:p-6">
-    
-    {{-- Header Section --}}
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-800">Daftar Penelitian & Publikasi</h2>
-            <p class="text-sm text-gray-500 mt-1">Kelola data riset, jurnal, dan publikasi milik tenaga pendidik.</p>
+<div class="py-10 bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-6 max-w-4xl">
+        
+        {{-- Header & Tombol Kembali --}}
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800">Edit Data Penelitian</h1>
+                <p class="text-gray-500 mt-1">Perbarui informasi riset dan publikasi tenaga pendidik.</p>
+            </div>
+            <a href="{{ route('admin.penelitian.index') }}" class="bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 px-5 py-2.5 rounded-lg shadow-sm font-semibold transition flex items-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Kembali
+            </a>
         </div>
-        <a href="{{ route('admin.penelitian.create') }}" class="bg-[#1a4a38] hover:bg-[#0f2e22] text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2 shadow-sm">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-            Tambah Data
-        </a>
-    </div>
 
-    {{-- Notifikasi Sukses --}}
-    @if(session('success'))
-    <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-6 flex items-center gap-3">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        <span class="font-medium text-sm">{{ session('success') }}</span>
-    </div>
-    @endif
+        {{-- Form Edit Utama --}}
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden p-8">
+            <form action="{{ route('admin.penelitian.update', $penelitian->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT') <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Judul Penelitian *</label>
+                        <input type="text" name="judul" value="{{ $penelitian->judul ?? $penelitian->judul_penelitian }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition" required>
+                    </div>
 
-    {{-- Table Card --}}
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-gray-600">
-                <thead class="bg-gray-50/80 text-gray-700 uppercase font-bold text-[11px] tracking-wider border-b border-gray-100">
-                    <tr>
-                        <th class="px-6 py-4 text-center w-16">No</th>
-                        <th class="px-6 py-4">Judul Penelitian</th>
-                        <th class="px-6 py-4">Nama Dosen</th>
-                        <th class="px-6 py-4 text-center">Kategori</th>
-                        <th class="px-6 py-4 text-center">Tahun</th>
-                        <th class="px-6 py-4 text-center w-32">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-50">
-                    @forelse($penelitians as $item)
-                    <tr class="hover:bg-gray-50/50 transition-colors">
-                        <td class="px-6 py-4 text-center font-medium text-gray-500">{{ $loop->iteration }}</td>
-                        <td class="px-6 py-4 font-medium text-gray-800 leading-snug max-w-xs">{{ $item->judul }}</td>
-                        <td class="px-6 py-4">{{ $item->dosen->nama ?? 'Dosen Tidak Ditemukan' }}</td>
-                        <td class="px-6 py-4 text-center">
-                            <span class="bg-blue-50 text-blue-600 border border-blue-100 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide">
-                                {{ $item->kategori }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 text-center font-bold text-gray-500">{{ $item->tahun }}</td>
-                        <td class="px-6 py-4">
-                            <form action="{{ route('admin.penelitian.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?');" class="flex items-center justify-center gap-2">
-                                @csrf
-                                @method('DELETE')
-                                <a href="{{ route('admin.penelitian.edit', $item->id) }}" class="p-2 bg-yellow-50 text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors" title="Edit">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                                </a>
-                                <button type="submit" class="p-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors" title="Hapus">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="px-6 py-12 text-center">
-                            <div class="flex flex-col items-center justify-center text-gray-400">
-                                <svg class="w-12 h-12 mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                <span class="italic text-sm">Belum ada data penelitian yang ditambahkan.</span>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Kategori *</label>
+                        <select name="kategori" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition" required>
+                            <option value="RISET" {{ $penelitian->kategori == 'RISET' ? 'selected' : '' }}>RISET</option>
+                            <option value="JURNAL" {{ $penelitian->kategori == 'JURNAL' ? 'selected' : '' }}>JURNAL</option>
+                            <option value="PUBLIKASI" {{ $penelitian->kategori == 'PUBLIKASI' ? 'selected' : '' }}>PUBLIKASI</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Tahun *</label>
+                        <input type="number" name="tahun" value="{{ $penelitian->tahun }}" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition" required>
+                    </div>
+
+                </div>
+
+                {{-- Tombol Eksekusi --}}
+                <div class="flex justify-end mt-8 border-t pt-6">
+                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg shadow-md transition flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
         </div>
+
     </div>
 </div>
 @endsection

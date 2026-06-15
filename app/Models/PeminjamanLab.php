@@ -10,15 +10,18 @@ class PeminjamanLab extends Model
     use HasFactory;
 
     protected $fillable = [
-        'jenis_form',
-        'judul_penelitian',
-        'laboratorium',
-        'nama_peminjam',
-        'nim',
-        'prodi',
-        'status',
-        'catatan_admin'
-    ];
+    'tipe_layanan',
+    'inventaris_lab_id',
+    'kategori_peminjaman', 
+    'nama_peminjam', 
+    'nim', 
+    'program_studi', 
+    'ruang_lab', 
+    'judul_penelitian',
+    'rencana_pinjam',   // 💡 Tambahkan ini
+    'rencana_kembali', 
+    'status'
+];
 
     // 1. Relasi ke Admin yang menyetujui
     public function penyetuju()

@@ -27,13 +27,16 @@
             </div>
         @endif
 
-        <div class="bg-white p-10 rounded-2xl shadow-xl border border-gray-100 border-t-4 border-t-yellow-500 mb-10">
-            
-            <h2 class="text-2xl font-bold text-gray-800 mb-8 pb-4 border-b border-gray-100">Update Biodata: <span class="text-emerald-700">{{ $tenaga_pendidik->nama }}</span></h2>
+        {{-- 🚨 SATU FORM UTAMA UNTUK SEMUANYA 🚨 --}}
+        <form action="{{ route('tenaga-pendidik.update', $tenaga_pendidik->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-            <form action="{{ route('tenaga-pendidik.update', $tenaga_pendidik->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+            {{-- ============================================== --}}
+            {{-- KOTAK 1: FORM EDIT BIODATA UTAMA                 --}}
+            {{-- ============================================== --}}
+            <div class="bg-white p-10 rounded-2xl shadow-xl border border-gray-100 border-t-4 border-t-yellow-500 mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 mb-8 pb-4 border-b border-gray-100">Update Biodata: <span class="text-emerald-700">{{ $tenaga_pendidik->nama }}</span></h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
                     
@@ -83,12 +86,22 @@
                         <input type="email" name="email" id="email" value="{{ old('email', $tenaga_pendidik->email) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition" required>
                     </div>
 
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Link Profil Google Scholar <span class="text-gray-400 font-normal">(Opsional)</span></label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path></svg>
+                            </div>
+                            <input type="url" name="link_scholar" value="{{ old('link_scholar', $tenaga_pendidik->link_scholar ?? '') }}" placeholder="Contoh: https://scholar.google.co.id/..." class="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                        </div>
+                    </div>
+
                     <div>
                         <label for="no_telpon" class="block text-sm font-semibold text-gray-600 mb-2">No. Telpon / WhatsApp</label>
                         <input type="text" name="no_telpon" id="no_telpon" value="{{ old('no_telpon', $tenaga_pendidik->no_telpon) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition">
                     </div>
 
-                    <div class="md:col-span-2">
+                    <div>
                         <label for="ruangan" class="block text-sm font-semibold text-gray-600 mb-2">Kantor (Ruangan)</label>
                         <input type="text" name="ruangan" id="ruangan" value="{{ old('ruangan', $tenaga_pendidik->ruangan) }}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-yellow-500/50 focus:border-yellow-500 transition">
                     </div>
@@ -102,14 +115,9 @@
 
                     <div class="md:col-span-2">
                         <label class="block text-sm font-semibold text-gray-600 mb-3">Foto Saat Ini</label>
-                        
                         @if($tenaga_pendidik->foto)
                             <div class="flex items-center gap-6 mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100 inline-block">
                                 <img src="{{ asset($tenaga_pendidik->foto) }}" alt="Foto Lama" class="w-24 h-24 rounded-full object-cover shadow-md border-4 border-white">
-                                <div>
-                                    <p class="text-sm font-bold text-gray-700">Foto Tersimpan</p>
-                                    <p class="text-xs text-gray-500">Anda tidak perlu upload ulang jika tidak ingin mengganti foto ini.</p>
-                                </div>
                             </div>
                         @else
                             <div class="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100 inline-block text-sm text-gray-500">
@@ -118,75 +126,134 @@
                         @endif
 
                         <label for="foto" class="block text-sm font-semibold text-gray-600 mb-2">Upload Foto Baru (Opsional)</label>
-                        <div class="relative group">
-                            <input type="file" name="foto" id="foto" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100 transition cursor-pointer border border-gray-200 rounded-xl bg-white">
-                        </div>
-                        <p class="mt-2 text-xs text-gray-500">Format: JPG, JPEG, PNG. Maks: 2MB. Mengupload foto baru akan menimpa foto lama.</p>
+                        <input type="file" name="foto" id="foto" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100 transition cursor-pointer border border-gray-200 rounded-xl bg-white">
                     </div>
+                </div>
+            </div>
 
+            {{-- ============================================== --}}
+            {{-- KOTAK 2: FORM DINAMIS MATA KULIAH                --}}
+            {{-- ============================================== --}}
+            <div class="bg-white p-10 rounded-2xl shadow-xl border border-gray-100 border-t-4 border-t-emerald-600 mb-10">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-gray-100 pb-4 gap-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Kelola Riwayat Pengajaran Dosen</h3>
+                        <p class="text-sm text-gray-500 mt-1">Susun daftar mata kuliah, lalu simpan bersamaan dengan biodata.</p>
+                    </div>
+                    <button type="button" id="btn-tambah-matkul" class="bg-emerald-100 text-emerald-700 px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-emerald-200 transition flex items-center gap-2 shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Tambah Baris Matkul
+                    </button>
                 </div>
 
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    {{-- Header Kolom --}}
+                    <div class="hidden md:grid grid-cols-12 gap-4 mb-3 text-xs font-bold text-gray-500 uppercase tracking-wider px-2">
+                        <div class="col-span-5">Mata Kuliah</div>
+                        <div class="col-span-3">Semester</div>
+                        <div class="col-span-3">Tahun Akademik</div>
+                        <div class="col-span-1 text-center">Hapus</div>
+                    </div>
+                    
+                    <div id="container-matkul" class="space-y-4">
+                        {{-- Menampilkan Data Matkul Lama (Jika ada) --}}
+                        @if($tenaga_pendidik->pengajarans && $tenaga_pendidik->pengajarans->count() > 0)
+                            @foreach($tenaga_pendidik->pengajarans as $ajar)
+                                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center row-matkul bg-white p-3 rounded-xl border border-gray-200 shadow-sm">
+                                    <div class="col-span-1 md:col-span-5">
+                                        <input type="text" name="mata_kuliah[]" value="{{ $ajar->mata_kuliah ?? $ajar->mata_khulia }}" placeholder="Nama Mata Kuliah" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none" required>
+                                    </div>
+                                    <div class="col-span-1 md:col-span-3">
+                                        <input type="text" name="semester[]" value="{{ $ajar->semester }}" placeholder="Ganjil / Genap" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                                    </div>
+                                    <div class="col-span-1 md:col-span-3">
+                                        <input type="text" name="tahun_akademik[]" value="{{ $ajar->tahun_akademik }}" placeholder="Contoh: 2025/2026" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                                    </div>
+                                    <div class="col-span-1 md:col-span-1 text-center flex justify-center">
+                                        <button type="button" class="btn-hapus-matkul bg-red-50 text-red-500 p-2.5 rounded-lg hover:bg-red-500 hover:text-white transition" title="Hapus Baris">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            {{-- Jika belum ada matkul sama sekali, beri 1 baris kosong --}}
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center row-matkul bg-white p-3 rounded-xl border border-gray-200 shadow-sm">
+                                <div class="col-span-1 md:col-span-5">
+                                    <input type="text" name="mata_kuliah[]" placeholder="Nama Mata Kuliah" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                                </div>
+                                <div class="col-span-1 md:col-span-3">
+                                    <input type="text" name="semester[]" placeholder="Ganjil / Genap" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                                </div>
+                                <div class="col-span-1 md:col-span-3">
+                                    <input type="text" name="tahun_akademik[]" placeholder="Contoh: 2025/2026" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                                </div>
+                                <div class="col-span-1 md:col-span-1 text-center flex justify-center">
+                                    <button type="button" class="btn-hapus-matkul bg-red-50 text-red-500 p-2.5 rounded-lg hover:bg-red-500 hover:text-white transition" title="Hapus Baris">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- TOMBOL SUBMIT KESELURUHAN (Biodata + Pengajaran) --}}
                 <div class="flex justify-end items-center gap-4 mt-10 pt-8 border-t border-gray-100">
                     <a href="{{ route('tenaga-pendidik.index') }}" class="text-gray-600 hover:text-emerald-700 transition font-medium text-sm px-6 py-2.5 rounded-lg">Batal</a>
-                    <button type="submit" class="bg-yellow-500 text-white px-10 py-3 rounded-xl hover:bg-yellow-600 transition font-bold shadow-lg text-sm flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                        Update Biodata Dosen
+                    
+                    <button type="submit" class="bg-[var(--forest-dark)] bg-emerald-800 text-white px-10 py-3.5 rounded-xl hover:bg-emerald-900 transition font-bold shadow-lg text-sm flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                        Simpan Semua Perubahan
                     </button>
                 </div>
-            </form>
             </div>
-
-        <div class="bg-white p-10 rounded-2xl shadow-xl border border-gray-100 border-t-4 border-t-emerald-600 mt-10">
-            <h3 class="text-xl font-bold text-gray-800 mb-6">Riwayat Pengajaran Dosen</h3>
-
-            <form action="{{ route('pengajaran.store') }}" method="POST" class="flex flex-col md:flex-row gap-4 items-end mb-8 bg-emerald-50/50 p-6 rounded-xl border border-emerald-100">
-                @csrf
-                <input type="hidden" name="tenaga_pendidik_id" value="{{ $tenaga_pendidik->id }}">
-
-                <div class="flex-1 w-full">
-                    <label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-wider">Nama Mata Kuliah Baru</label>
-                    <input type="text" name="mata_kuliah" placeholder="Contoh: Biologi Sel dan Molekuler" class="w-full text-sm p-3 border border-emerald-200 rounded-lg outline-none focus:ring-2 focus:ring-emerald-600 bg-white" required>
-                </div>
-
-                <div class="w-full md:w-auto">
-                    <button type="submit" class="w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        Tambah
-                    </button>
-                </div>
-            </form>
-
-            <div class="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
-                <table class="w-full text-left border-collapse text-sm">
-                    <thead class="bg-gray-100 text-gray-700 font-bold uppercase text-[11px] tracking-wider">
-                        <tr>
-                            <th class="p-4 w-16 text-center">No</th>
-                            <th class="p-4">Daftar Mata Kuliah Diampu</th>
-                            <th class="p-4 text-center w-32">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200 text-gray-700 bg-white">
-                        @forelse($tenaga_pendidik->pengajarans as $index => $ajar)
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="p-4 text-center font-medium text-gray-500">{{ $index + 1 }}</td>
-                            <td class="p-4 font-bold text-gray-900">{{ $ajar->mata_kuliah }}</td>
-                            <td class="p-4 text-center">
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="3" class="p-8 text-center text-gray-400 italic text-sm">
-                                <div class="flex flex-col items-center justify-center">
-                                    <svg class="w-10 h-10 mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                                    Belum ada mata kuliah yang didaftarkan.
-                                </div>
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+
+{{-- SCRIPT PENAMBAHAN BARIS DINAMIS --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btnTambah = document.getElementById('btn-tambah-matkul');
+        const container = document.getElementById('container-matkul');
+
+        // Fungsi Tambah Baris
+        btnTambah.addEventListener('click', function () {
+            const row = document.createElement('div');
+            row.className = 'grid grid-cols-1 md:grid-cols-12 gap-4 items-center row-matkul bg-white p-3 rounded-xl border border-gray-200 shadow-sm mt-3';
+            row.innerHTML = `
+                <div class="col-span-1 md:col-span-5">
+                    <input type="text" name="mata_kuliah[]" placeholder="Nama Mata Kuliah" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+                <div class="col-span-1 md:col-span-3">
+                    <input type="text" name="semester[]" placeholder="Ganjil / Genap" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+                <div class="col-span-1 md:col-span-3">
+                    <input type="text" name="tahun_akademik[]" placeholder="Contoh: 2025/2026" class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+                <div class="col-span-1 md:col-span-1 text-center flex justify-center">
+                    <button type="button" class="btn-hapus-matkul bg-red-50 text-red-500 p-2.5 rounded-lg hover:bg-red-500 hover:text-white transition" title="Hapus Baris">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                </div>
+            `;
+            container.appendChild(row);
+        });
+
+        // Fungsi Hapus Baris
+        container.addEventListener('click', function (e) {
+            if (e.target.closest('.btn-hapus-matkul')) {
+                const baris = e.target.closest('.row-matkul');
+                if (container.querySelectorAll('.row-matkul').length > 1) {
+                    baris.remove();
+                } else {
+                    // Jika tersisa 1 baris, kosongkan saja inputnya
+                    baris.querySelectorAll('input').forEach(input => input.value = '');
+                }
+            }
+        });
+    });
+</script>
 @endsection

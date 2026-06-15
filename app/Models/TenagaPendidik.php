@@ -15,7 +15,8 @@ class TenagaPendidik extends Model
     protected $fillable = [
         'nidn', 
         'nama', 
-        'lulusan', 
+        'lulusan',
+        'link_scholar', 
         'jabatan', 
         'email', 
         'no_telpon', 

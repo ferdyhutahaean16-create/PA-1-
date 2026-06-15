@@ -17,8 +17,8 @@
         </div>
 
         <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
-            <form action="{{ route('laboratorium.store') }}" method="POST" enctype="multipart/form-data" class="p-8">
-                @csrf
+            <form action="{{ route('admin.fasilitas.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
                 <div class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

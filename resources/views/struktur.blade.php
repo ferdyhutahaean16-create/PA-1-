@@ -39,25 +39,33 @@
 }
 </style>
 
-<div class="py-24 bg-[var(--soft-bg)] min-h-screen font-sans relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--forest-light)] opacity-5 rounded-full blur-[100px] pointer-events-none"></div>
-    <div class="absolute bottom-10 left-10 w-[400px] h-[400px] bg-[var(--gold)] opacity-10 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="relative w-full bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" 
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-10 mix-blend-multiply">
+    </div>
 
-    <div class="container mx-auto px-6 relative z-10">
+    <div class="relative z-10 text-center px-6 container mx-auto">
         
-        <div class="text-center mb-24">
-            <span class="text-[var(--gold)] tracking-[0.4em] uppercase text-xs font-bold mb-4 block">Tata Kelola Prodi</span>
-            <h1 class="text-5xl md:text-6xl font-serif text-[var(--forest-dark)] mb-6">Struktur Organisasi</h1>
-            <div class="w-24 h-[2px] bg-[var(--gold)] mx-auto mb-8 opacity-80"></div>
-            <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-                Struktur organisasi kami dirancang untuk memastikan tata kelola yang transparan, efisien, dan kolaboratif demi mendukung visi menjadi program studi unggulan.
-            </p>
-        </div>
+        <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-3">
+            Struktur Organisasi
+        </h1>
+        
+        <p class="text-gray-600 max-w-2xl mx-auto font-sans font-light leading-relaxed text-sm md:text-base">
+            Struktur organisasi kami dirancang untuk memastikan tata kelola yang transparan, efisien, dan kolaboratif demi mendukung visi menjadi program studi unggulan.
+        </p>
+        
+        <div class="w-16 h-[1px] bg-yellow-600/40 mx-auto mt-6"></div>
+    </div>
+</div>
 
-        <div class="flex flex-col items-center space-y-0">
+<div class="container mx-auto px-6 py-16">
+    <div class="flex flex-col items-center space-y-0">
 
-            @if($struktur->isEmpty())
-                <div class="glass-card text-[var(--forest)] p-12 rounded-3xl border border-[var(--forest)]/20 shadow-sm w-full max-w-2xl text-center">
+        @if($struktur->isEmpty())
+            <div class="glass-card text-[var(--forest)] p-12 rounded-3xl border border-[var(--forest)]/20 shadow-sm w-full max-w-2xl text-center">
                     <div class="w-16 h-16 mx-auto bg-[var(--forest)]/10 rounded-full flex items-center justify-center mb-4 text-[var(--forest)]">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </div>

@@ -86,14 +86,24 @@ body {
 </style>
 
 <!-- HEADER SECTION -->
-<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/microarray.png');"></div>
-    <div class="relative z-10 py-24 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Educational Path</span>
-        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">
+<div class="relative w-[100vw] left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100"> 
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('Adminlte/dist/img/BGH.JPEG') }}"
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-30 mix-blend-overlay">
+    </div>
+
+    <div class="absolute inset-0 bg-gradient-to-r from-[#1a4a38]/80 to-transparent z-0"></div>
+
+    <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
+        <p class="text-yellow-500 text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase mb-3">
+        </p>
+        
+        <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-3">
             Kurikulum Akademik
         </h1>
-        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
+        
+        <div class="w-16 h-px bg-yellow-500/40"></div>
     </div>
 </div>
 

@@ -30,7 +30,7 @@
                     
                     <div>
                         <label for="nidn" class="block text-sm font-semibold text-gray-600 mb-2">NIDN / NIK</label>
-                        <input type="text" name="nidn" id="nidn" placeholder="Contoh: 0012345678" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-biotech-secondary/50 focus:border-biotech-secondary transition" required>
+                        <input type="text" name="nidn" id="nidn" placeholder="Contoh: 0012345678" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-biotech-secondary/50 focus:border-biotech-secondary transition">
                     </div>
                     
                     <div>
@@ -67,6 +67,21 @@
                         <input type="email" name="email" id="email" placeholder="Contoh: john.doe@del.ac.id" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-biotech-secondary/50 focus:border-biotech-secondary transition" required>
                     </div>
 
+                    {{-- Input Link Google Scholar --}}
+                    <div class="mb-6">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">
+                            Link Profil Google Scholar <span class="text-gray-400 font-normal">(Opsional)</span>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                {{-- Ikon Toga/Akademik kecil di dalam kotak input --}}
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>
+                            </div>
+                            <input type="url" name="link_scholar" value="{{ old('link_scholar') }}" placeholder="Contoh: https://scholar.google.co.id/citations?user=..." class="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Masukkan URL lengkap profil Google Scholar dosen untuk menampilkan tombol Bidang Minat Penelitian.</p>
+                    </div>
+                    
                     <div>
                         <label for="no_telpon" class="block text-sm font-semibold text-gray-600 mb-2">No. Telpon / WhatsApp</label>
                         <input type="text" name="no_telpon" id="no_telpon" placeholder="Contoh: 081234567890" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-biotech-secondary/50 focus:border-biotech-secondary transition">
@@ -194,7 +209,7 @@
 
                 <div class="flex justify-end items-center gap-4 mt-16 pt-8 border-t border-gray-100">
                     <a href="{{ route('tenaga-pendidik.index') }}" class="text-gray-600 hover:text-biotech-primary transition font-medium text-sm px-6 py-2.5 rounded-lg">Batal</a>
-                    <button type="submit" class="bg-biotech-secondary text-white px-10 py-3 rounded-xl hover:bg-biotech-primary transition font-semibold shadow-lg text-sm flex items-center gap-2">
+                    <button type="submit" class="bg-biotech-secondary text-gray px-10 py-3 rounded-xl hover:bg-biotech-primary transition font-semibold shadow-lg text-sm flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         Simpan Data
                     </button>

@@ -150,20 +150,30 @@ body {
 </div>
 
 <!-- HEADER SECTION -->
-<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
-    <div class="relative z-10 py-28 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4 animate-fade-in">Academic Information</span>
-        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight">
+<div class="relative w-[100vw] left-[50%] right-[50%] -ml-[50vw] -mr-[50vw] bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100"> 
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('Adminlte/dist/img/BGH.JPEG') }}"
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-30 mix-blend-overlay">
+    </div>
+
+    <div class="absolute inset-0 bg-gradient-to-r from-[#1a4a38]/80 to-transparent z-0"></div>
+
+    <div class="relative z-10 container mx-auto px-6 text-center flex flex-col items-center justify-center">
+        <p class="text-yellow-500 text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-3">
+        </p>
+        
+        <h1 class="text-3xl md:text-4xl font-serif text-white mb-4">
             Profil Program Studi
         </h1>
-        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
+        
+        <div class="w-12 h-px bg-yellow-500/50"></div>
     </div>
 </div>
 
 <!-- MAIN CONTAINER -->
-<div class="container mx-auto px-6 py-12 max-w-6xl -mt-12 relative z-10">
-    <div class="flex flex-col lg:flex-row gap-8">
+<div class="w-full px-6 md:px-12 py-12 -mt-12 relative z-10">
+    <div class="flex flex-col lg:flex-row gap-12">
 
         <!-- SIDEBAR NAVIGATION -->
         <div class="lg:w-3/12">
@@ -197,15 +207,6 @@ body {
                         <div class="dot-indicator"></div>
                     </button>
                 </nav>
-
-                <!-- Help Card -->
-                <div class="mt-8 p-5 bg-gradient-to-br from-[var(--forest)] to-[var(--forest-dark)] rounded-[1.5rem] text-white relative overflow-hidden group">
-                    <div class="relative z-10">
-                        <p class="text-[10px] text-[var(--gold)] font-bold uppercase mb-1">Butuh Bantuan?</p>
-                        <p class="text-[11px] opacity-80 leading-relaxed">Hubungi admin prodi untuk informasi akademik lebih lanjut.</p>
-                    </div>
-                    <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700"></div>
-                </div>
             </div>
         </div>
 

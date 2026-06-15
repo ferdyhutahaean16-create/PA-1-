@@ -73,12 +73,22 @@
 </style>
 
 <!-- HEADER SECTION -->
-<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 bg-dots opacity-10"></div>
-    <div class="relative z-10 py-28 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4 animate-fade">Student Life & Community</span>
-        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight mb-6">Kegiatan Kemahasiswaan</h1>
-        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-8 opacity-60"></div>
+<div class="relative w-full bg-gray-50 py-10 md:py-12 overflow-hidden border-b border-gray-100">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop" 
+             alt="Chemistry Background" 
+             class="w-full h-full object-cover opacity-10 mix-blend-multiply">
+    </div>
+
+    <div class="relative z-10 text-center px-6 container mx-auto">
+        
+        <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-4">
+            Kegiatan Kemahasiswaan
+        </h1>
+        
+        <div class="w-16 h-[1px] bg-yellow-600/40 mx-auto mt-4"></div>
+        
     </div>
 </div>
 
@@ -90,9 +100,6 @@
             <div class="bg-white/50 backdrop-blur-md p-2 rounded-full border border-white/50 shadow-sm flex gap-2">
                 <button onclick="switchTab('tab-himpunan', this)" class="tab-btn active-tab px-8 md:px-12 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest">
                     Himpunan (HIMABIO)
-                </button>
-                <button onclick="switchTab('tab-pkm', this)" class="tab-btn bg-white/80 text-gray-400 px-8 md:px-12 py-4 rounded-full font-bold text-[10px] uppercase tracking-widest hover:text-[var(--forest)]">
-                    Pengabdian Mahasiswa
                 </button>
             </div>
         </div>
@@ -187,23 +194,6 @@
                     @endforeach
                 </div>
             @endif
-        </div>
-
-        <!-- FOOTER DECORATION -->
-        <div class="mt-32 text-center animate-fade">
-            <div class="inline-block p-[1px] bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent w-full max-w-lg mb-12"></div>
-            <h4 class="font-serif text-3xl text-[var(--forest-dark)] mb-6">Menjadi Bagian dari Perubahan</h4>
-            <div class="max-w-2xl mx-auto mb-12">
-                <p class="text-gray-500 font-serif text-xl italic leading-relaxed">
-                    "Mahasiswa Bioteknologi bukan hanya ilmuwan di masa depan, tetapi juga agen penggerak di masa sekarang."
-                </p>
-            </div>
-            <div class="flex justify-center gap-4">
-                <a href="{{ url('/mahasiswa-berprestasi') }}" class="group flex items-center gap-3 px-10 py-4 bg-[var(--forest)] text-[var(--gold)] rounded-full font-bold text-[10px] uppercase tracking-widest shadow-xl hover:-translate-y-1 transition-all">
-                    Lihat Prestasi Kami
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-                </a>
-            </div>
         </div>
     </div>
 </div>

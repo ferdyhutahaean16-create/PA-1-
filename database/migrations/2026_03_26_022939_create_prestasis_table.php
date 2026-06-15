@@ -14,7 +14,7 @@ public function up(): void
     Schema::create('prestasis', function (Blueprint $table) {
         $table->id();
         $table->string('nama_prestasi');
-        $table->string('nama_mahasiswa');
+        $table->string('nama_peraih')->nullable();
         
         // KODE ENUM ANDA DITAMBAHKAN DI SINI
         $table->enum('tingkat', ['Lokal', 'Regional', 'Nasional', 'Internasional'])->default('Lokal');

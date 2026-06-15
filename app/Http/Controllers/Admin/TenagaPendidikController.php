@@ -31,12 +31,13 @@ class TenagaPendidikController extends Controller
         // Validasi Data Dosen dan Array Pengajaran sekaligus
         $request->validate([
             'nama' => 'required|string|max:255',
-            'nidn' => 'required|string|unique:tenaga_pendidiks,nidn',
+            'nidn' => 'nullable|unique:tenaga_pendidiks,nidn',
             'lulusan' => 'required',
+            'link_scholar' => 'nullable|url',
             'jabatan' => 'required',
             'email' => 'required|email',
             'ruangan' => 'required',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
             // Validasi array input pengajaran dinamis
             'mata_kuliah' => 'required|array',
             'mata_kuliah.*' => 'required|string|max:255',
@@ -98,6 +99,7 @@ class TenagaPendidikController extends Controller
             'nidn' => 'required|string|unique:tenaga_pendidiks,nidn,' . $id,
             'nama' => 'required',
             'lulusan' => 'required',
+            'link_scholar' => 'nullable|url',
             'jabatan' => 'required',
             'email' => 'required|email',
             'no_telpon' => '|string|max:20',
@@ -133,6 +135,21 @@ class TenagaPendidikController extends Controller
             $mataKuliah = $request->mata_kuliah;
             $semester = $request->semester;
             $tahunAkademik = $request->tahun_akademik;
+
+            // Looping untuk menyimpan array ke database
+            if (!empty($mataKuliah)) {
+                foreach ($mataKuliah as $key => $matkul) {
+                    // Pastikan input mata kuliah tidak kosong sebelum disimpan
+                    if (!empty($matkul)) { 
+                        \App\Models\Pengajaran::create([
+                            'tenaga_pendidik_id' => $tenaga_pendidik->id,
+                            'mata_kuliah'        => $matkul,
+                            'semester'           => $semester[$key] ?? '-',
+                            'tahun_akademik'     => $tahunAkademik[$key] ?? '-',
+                        ]);
+                    }
+                }
+            }
         });
 
         return redirect()->route('tenaga-pendidik.index')->with('success', 'Data Tenaga Pendidik & Pengajaran berhasil diperbarui!');

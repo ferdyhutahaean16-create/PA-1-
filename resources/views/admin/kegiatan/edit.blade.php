@@ -26,13 +26,20 @@
                 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Kategori Kegiatan <span class="text-red-500">*</span></label>
-                    <select name="kategori" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
-                        <option value="">-- Pilih Kategori --</option>
-                        <option value="Pengabdian Dosen" {{ $kegiatan->kategori == 'Pengabdian Dosen' ? 'selected' : '' }}>Pengabdian Masyarakat (PKM) Dosen</option>
-                        <option value="PkM Mahasiswa" {{ $kegiatan->kategori == 'PkM Mahasiswa' ? 'selected' : '' }}>PkM Mahasiswa</option>
-                        <option value="Himpunan" {{ $kegiatan->kategori == 'Himpunan' ? 'selected' : '' }}>Himpunan Mahasiswa (HIMABIO)</option>
-                        <option value="Kaderisasi" {{ $kegiatan->kategori == 'Kaderisasi' ? 'selected' : '' }}>Kaderisasi</option>
-                        <option value="Penelitian" {{ $kegiatan->kategori == 'Penelitian' ? 'selected' : '' }}>Penelitian (Riset)</option>
+                    <select name="kategori" id="kategori" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none transition" required>
+                        <option value="" disabled {{ empty($kegiatan->kategori) ? 'selected' : '' }}>-- Pilih Kategori --</option>
+                        
+                        <option value="Pengabdian Masyarakat (PKM) Dosen" {{ $kegiatan->kategori == 'Pengabdian Masyarakat (PKM) Dosen' ? 'selected' : '' }}>
+                            Pengabdian Masyarakat (PKM) Dosen
+                        </option>
+                        
+                        <option value="Kegiatan Mahasiswa" {{ $kegiatan->kategori == 'Kegiatan Mahasiswa' ? 'selected' : '' }}>
+                            Kegiatan Mahasiswa
+                        </option>
+                        
+                        <option value="Lainnya" {{ $kegiatan->kategori == 'Lainnya' ? 'selected' : '' }}>
+                            Lainnya
+                        </option>
                     </select>
                 </div>
 
@@ -44,7 +51,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Pelaksana <span class="text-red-500">*</span></label>
-                        <input type="text" name="pelaksana" value="{{ $kegiatan->pelaksana }}" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
+                        <input type="text" name="pelaksana" value="{{ old('pelaksana', $kegiatan->pelaksana ?? '') }}" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500" required>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Waktu Pelaksanaan <span class="text-red-500">*</span></label>

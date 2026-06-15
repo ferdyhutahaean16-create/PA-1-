@@ -19,42 +19,56 @@ class PrestasiController extends Controller
 
     public function create()
     {
-        return view('admin.prestasi.create');
+        // Agar nama dosen terisi
+        $dosens = \App\Models\TenagaPendidik::orderBy('nama', 'asc')->get();
+        return view('admin.prestasi.create', compact('dosens'));
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'kategori' => 'required|in:Dosen,Mahasiswa',
-            'nama_peraih' => 'required|string|max:255',
-            'penyelenggara' => 'required|string|max:255',
-            'judul_prestasi' => 'required|string|max:255',
-            'nama_prestasi' => 'required|string|max:255',
-            'nama_mahasiswa' => 'required|string|max:255',
-            
-            // VALIDASI ENUM: Pastikan input ada di dalam list ini
-            'tingkat' => 'required|in:Lokal,Regional,Nasional,Internasional',
-            
-            'tanggal_perolehan' => 'required|date',
-            'tahun' => 'required|integer',
-            'deskripsi' => 'nullable|string',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+{
+    // (Bagian $request->validate([...]) biarkan saja tetap di sini)
 
-        $data = $request->all();
+    // 1. Siapkan wadah data yang bersih dan sesuai dengan phpMyAdmin
+    $data = [];
 
-        // Proses Upload Foto
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $nama_file = time() . "_" . $file->getClientOriginalName();
-            $tujuan_upload = 'uploads/prestasi';
-            $file->move(public_path($tujuan_upload), $nama_file);
-            $data['foto'] = $tujuan_upload . '/' . $nama_file;
-        }
-
-        Prestasi::create($data);
-        return redirect()->route('prestasi.index')->with('success', 'Data prestasi berhasil ditambahkan!');
+    // 2. Logika Kategori Dosen / Mahasiswa
+    $data['kategori'] = $request->kategori;
+    if ($request->kategori == 'Dosen') {
+        $dosen = \App\Models\TenagaPendidik::findOrFail($request->tenaga_pendidik_id);
+        $data['nama_peraih'] = $dosen->nama;
+        $data['tenaga_pendidik_id'] = $request->tenaga_pendidik_id;
+    } else {
+        $data['nama_peraih'] = $request->nama_peraih;
+        $data['tenaga_pendidik_id'] = null;
     }
+
+    // 3. PEMETAAN KOLOM (Mengubah bahasa Form menjadi bahasa Database)
+    // Gabungkan nama kompetisi dan judulnya agar datanya utuh tersimpan
+    $data['nama_prestasi'] = $request->judul_prestasi . ' (' . $request->nama_prestasi . ')';
+    
+    $data['tingkat'] = $request->tingkat;
+    $data['penyelenggara'] = $request->penyelenggara;
+    $data['tanggal_perolehan'] = $request->tanggal_perolehan;
+
+    // 4. PEMETAAN FILE UPLOAD (Dari 'foto' menjadi 'bukti_sertifikat')
+    if ($request->hasFile('foto')) {
+        $file = $request->file('foto');
+        $nama_file = time() . "_" . $file->getClientOriginalName();
+        $tujuan_upload = 'uploads/prestasi';
+        $file->move(public_path($tujuan_upload), $nama_file);
+        
+        // Simpan path-nya ke kolom yang benar
+        $data['bukti_sertifikat'] = $tujuan_upload . '/' . $nama_file;
+        $data['nama_mahasiswa'] = $data['nama_peraih'];
+    }
+
+    // 5. Eksekusi Simpan Data
+    // Catatan: Data 'deskripsi' dan 'tahun' otomatis kita abaikan dari sini 
+    // karena database Anda belum memiliki kolom tersebut, sehingga tidak akan memicu eror.
+    Prestasi::create($data);
+
+    return redirect()->route('prestasi.index')->with('success', 'Sistem berhasil diselaraskan dan data prestasi berhasil ditambahkan!');
+}
 
     public function edit($id)
     {

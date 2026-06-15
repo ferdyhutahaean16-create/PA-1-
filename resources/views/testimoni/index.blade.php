@@ -77,17 +77,26 @@
 </style>
 
 <!-- HEADER / HERO -->
-<div class="relative w-full bg-[var(--forest-dark)] overflow-hidden">
-    <div class="absolute inset-0 bg-pattern opacity-20"></div>
-    <div class="relative z-10 py-28 text-center px-6">
-        <span class="inline-block text-[var(--gold)] tracking-[0.5em] uppercase text-[10px] font-bold mb-4">Voices of Excellence</span>
-        <h1 class="font-serif text-5xl md:text-6xl text-white font-light tracking-tight mb-6">
+<div class="relative w-full bg-gray-50 py-10 overflow-hidden border-b border-gray-200">
+    
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" 
+             alt="Student Success Background" 
+             class="w-full h-full object-cover opacity-10 mix-blend-multiply">
+    </div>
+
+    <div class="relative z-10 text-center px-6 container mx-auto">
+        
+        <h1 class="font-serif text-3xl md:text-4xl text-[#0d2a1f] font-bold tracking-tight mb-3">
             Kisah Sukses & Suara Mahasiswa
         </h1>
-        <p class="text-green-100/70 text-lg max-w-2xl mx-auto font-sans font-light leading-relaxed">
+        
+        <p class="text-gray-600 max-w-2xl mx-auto font-sans font-light leading-relaxed text-sm md:text-base mb-5">
             Inspirasi nyata dari perjalanan akademik mahasiswa dan kontribusi profesional alumni Bioteknologi IT Del di kancah nasional maupun global.
         </p>
-        <div class="w-24 h-[1px] bg-[var(--gold)] mx-auto mt-10 opacity-60"></div>
+        
+        <div class="w-16 h-[1px] bg-yellow-600/40 mx-auto"></div>
+        
     </div>
 </div>
 
@@ -129,7 +138,7 @@
                         
                         <!-- Dynamic Status Badge -->
                         @if($testimoni->graduation_year)
-                            <span class="status-badge bg-amber-50 text-[var(--gold)] border border-amber-100">Alumni {!! $testimoni->graduation_year !!}</span>
+                            <span class="status-badge bg-amber-50 text-[var(--gold)] border border-amber-100">Angkatan {!! $testimoni->graduation_year !!}</span>
                         @else
                             <span class="status-badge bg-emerald-50 text-[var(--forest)] border border-emerald-100">Mahasiswa Aktif</span>
                         @endif

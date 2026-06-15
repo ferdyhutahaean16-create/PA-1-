@@ -20,18 +20,31 @@ class KurikulumController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'semester' => 'required|integer',
-            'kode_mk' => 'required|string',
-            'mata_kuliah' => 'required|string',
-            'sks' => 'required|integer',
-            // Kategori sudah dihapus dari kewajiban validasi
-        ]);
+{
+    // 1. Validasi untuk input berupa Array (tambahkan tanda bintang *)
+    $request->validate([
+        'semester' => 'required|array',
+        'semester.*' => 'required|integer',
+        'kode_matkul' => 'required|array',
+        'kode_matkul.*' => 'required|string|max:50',
+        'nama_matkul' => 'required|array',
+        'nama_matkul.*' => 'required|string|max:255',
+        'sks' => 'required|array',
+        'sks.*' => 'required|integer',
+    ]);
 
-        Kurikulum::create($request->all());
-        return redirect()->route('kurikulum.index')->with('success', 'Mata kuliah berhasil ditambahkan!');
+    // 2. Lakukan perulangan (Looping) untuk menyimpan setiap baris ke database
+    foreach ($request->kode_matkul as $index => $kode) {
+        Kurikulum::create([
+            'semester' => $request->semester[$index],
+            'kode_mk' => $kode,
+            'mata_kuliah' => $request->nama_matkul[$index],
+            'sks' => $request->sks[$index],
+        ]);
     }
+
+    return redirect()->route('kurikulum.index')->with('success', 'Semua Mata Kuliah berhasil ditambahkan!');
+}
 
     public function edit($id)
     {
