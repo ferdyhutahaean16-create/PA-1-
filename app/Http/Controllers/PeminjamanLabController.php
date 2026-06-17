@@ -2,30 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PeminjamanLab;
-use App\Models\DetailAlat;
-use App\Models\DetailBahan;
-use App\Models\Inventory; // 💡 Memanggil model Inventory yang baru
+// 💡 Mengimpor Model Bahasa Inggris yang baru
+use App\Models\LabLoan;
+use App\Models\EquipmentLoanDetail;
+use App\Models\MaterialLoanDetail;
+use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PeminjamanLabController extends Controller 
 {
-    // Fungsi untuk memanggil form gabungan
     public function formPinjam()
     {
-        // 1. Ambil data inventaris yang stoknya di atas 0 menggunakan model Inventory
         $inventaris = Inventory::where('quantity', '>', 0)->orderBy('item_name', 'asc')->get();
 
-        // 2. Ambil data sesi pengguna dari hasil login API CIS
         $pu = session('pinjam_user');
         
-        // 3. Ekstrak data untuk dilempar ke Form
         $nama = $pu['nama'] ?? 'Mahasiswa IT Del';
         $identitas = $pu['nim'] ?? $pu['username'] ?? ''; 
         $prodi = $pu['prodi'] ?? $pu['unit'] ?? 'Bioteknologi'; 
 
-        // 4. Filter berdasarkan kategori bahasa Inggris
         $alat = $inventaris->where('category', 'Equipment');
         $bahan = $inventaris->where('category', 'Material');
         $instrumen = $inventaris->where('category', 'Instrument');
@@ -37,7 +33,6 @@ class PeminjamanLabController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi keamanan data
         $request->validate([
             'nama_peminjam' => 'required|string',
             'nim' => 'required|string',
@@ -50,50 +45,44 @@ class PeminjamanLabController extends Controller
             'barang_id.required' => 'Keranjang peminjaman kosong! Silakan pilih barang terlebih dahulu.'
         ]);
 
-        // 2. Proses simpan dengan Database Transaction
         DB::transaction(function () use ($request) {
             
-            // A. Simpan data utama formulir
-            $peminjaman = PeminjamanLab::create([
-                'tipe_layanan' => $request->tipe_layanan,
-                'kategori_peminjaman' => $request->kategori_peminjaman,
-                'nama_peminjam' => $request->nama_peminjam,
-                'nim' => $request->nim,
-                'program_studi' => $request->program_studi,
-                'ruang_lab' => $request->ruang_lab,
-                'judul_penelitian' => $request->judul_penelitian,
-                'rencana_pinjam' => $request->rencana_pinjam,
-                'rencana_kembali' => $request->rencana_kembali,
+            // A. Simpan data utama formulir (Mapping ID ke EN)
+            $peminjaman = LabLoan::create([
+                'service_type' => $request->tipe_layanan,
+                'loan_category' => $request->kategori_peminjaman,
+                'borrower_name' => $request->nama_peminjam,
+                'nim_nik' => $request->nim,
+                'study_program' => $request->program_studi,
+                'destination_lab' => $request->ruang_lab,
+                'research_title' => $request->judul_penelitian,
+                'planned_borrow_date' => $request->rencana_pinjam,
+                'planned_return_date' => $request->rencana_kembali,
                 'status' => 'Pending' 
             ]);
 
             // B. Looping untuk menyimpan detail barang dan MENGURANGI STOK
             foreach ($request->barang_id as $index => $id_barang) {
                 $qty_pinjam = $request->jumlah_pinjam[$index];
-                
-                // Gunakan model Inventory
                 $barang = Inventory::find($id_barang);
 
                 if ($barang) {
-                    // Pemisahan ke tabel detail
                     if ($request->kategori_peminjaman === 'Bahan') {
-                        DetailBahan::create([
-                            'peminjaman_lab_id' => $peminjaman->id,
-                            'inventaris_lab_id' => $id_barang,
-                            'nama_bahan' => $barang->item_name, // Mengambil kolom item_name
-                            'jumlah' => $qty_pinjam
+                        MaterialLoanDetail::create([
+                            'lab_loan_id' => $peminjaman->id,
+                            'inventory_id' => $id_barang,
+                            'material_name' => $barang->item_name,
+                            'quantity' => $qty_pinjam
                         ]);
                     } else {
-                        DetailAlat::create([
-                            'peminjaman_lab_id' => $peminjaman->id,
-                            'inventaris_lab_id' => $id_barang,
-                            'nama_alat' => $barang->item_name, // Mengambil kolom item_name
-                            'jumlah' => $qty_pinjam
+                        EquipmentLoanDetail::create([
+                            'lab_loan_id' => $peminjaman->id,
+                            'inventory_id' => $id_barang,
+                            'equipment_name' => $barang->item_name,
+                            'quantity' => $qty_pinjam
                         ]);
                     }
 
-                    // --- LOGIKA PENGURANGAN STOK MATEMATIS SUPER BERSIH ---
-                    // Tidak perlu regex lagi! Cukup kurangi angkanya langsung.
                     $barang->quantity -= $qty_pinjam;
                     $barang->save();
                 }
@@ -104,49 +93,54 @@ class PeminjamanLabController extends Controller
     }
 
     public function indexAdmin() {
-        $peminjamans = PeminjamanLab::with(['detailAlat', 'detailBahan'])->orderBy('created_at', 'desc')->get();
+        // 💡 Memanggil relasi baru: equipmentDetails dan materialDetails
+        $peminjamans = LabLoan::with(['equipmentDetails', 'materialDetails'])->orderBy('created_at', 'desc')->get();
         return view('admin.peminjaman.index', compact('peminjamans'));
     }
 
     public function cekStatus(Request $request) {
         $nim = $request->query('nim');
-        $peminjamans = $nim ? PeminjamanLab::where('nim', $nim)->orderBy('created_at', 'desc')->get() : collect();
+        $peminjamans = $nim ? LabLoan::where('nim_nik', $nim)->orderBy('created_at', 'desc')->get() : collect();
         return view('laboratorium.cek_status', compact('peminjamans', 'nim'));
     }
 
     public function updateStatus(Request $request, $id)
     {
+        // 💡 Validasi menyesuaikan status bahasa Inggris
         $request->validate([
-            'status' => 'required|in:Pending,Disetujui,Ditolak,Selesai',
+            'status' => 'required|in:Pending,Approved,Rejected,Completed',
             'catatan_admin' => 'nullable|string'
         ]);
 
-        $peminjaman = PeminjamanLab::with(['detailAlat', 'detailBahan'])->findOrFail($id);
+        $peminjaman = LabLoan::with(['equipmentDetails', 'materialDetails'])->findOrFail($id);
         
         // LOGIKA PEMULIHAN STOK OTOMATIS
-        if (in_array($request->status, ['Ditolak', 'Selesai']) && !in_array($peminjaman->status, ['Ditolak', 'Selesai'])) {
+        if (in_array($request->status, ['Rejected', 'Completed']) && !in_array($peminjaman->status, ['Rejected', 'Completed'])) {
             
             // 1. Pulihkan Stok Alat
-            foreach ($peminjaman->detailAlat as $detail) {
-                $barang = Inventory::find($detail->inventaris_lab_id);
+            foreach ($peminjaman->equipmentDetails as $detail) {
+                $barang = Inventory::find($detail->inventory_id);
                 if ($barang) {
-                    $barang->quantity += $detail->jumlah; // Penjumlahan sederhana
+                    $barang->quantity += $detail->quantity;
                     $barang->save();
                 }
             }
 
             // 2. Pulihkan Stok Bahan
-            foreach ($peminjaman->detailBahan as $detail) {
-                $barang = Inventory::find($detail->inventaris_lab_id);
+            foreach ($peminjaman->materialDetails as $detail) {
+                $barang = Inventory::find($detail->inventory_id);
                 if ($barang) {
-                    $barang->quantity += $detail->jumlah; // Penjumlahan sederhana
+                    $barang->quantity += $detail->quantity;
                     $barang->save();
                 }
             }
         }
 
         $peminjaman->status = $request->status;
-        $peminjaman->catatan_admin = $request->catatan_admin;
+        $peminjaman->admin_notes = $request->catatan_admin;
+        if ($request->status === 'Completed') {
+            $peminjaman->returned_date = now();
+        }
         $peminjaman->save();
 
         return redirect()->back()->with('success', 'Status peminjaman berhasil diperbarui dan stok disesuaikan!');
@@ -154,7 +148,7 @@ class PeminjamanLabController extends Controller
 
     public function cetakBon($id)
     {
-        $peminjaman = PeminjamanLab::with(['detailAlat', 'detailBahan'])->findOrFail($id);
+        $peminjaman = LabLoan::with(['equipmentDetails', 'materialDetails'])->findOrFail($id);
         return view('admin.peminjaman.cetak', compact('peminjaman'));
     }
 }

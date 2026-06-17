@@ -35,25 +35,26 @@
                             <td class="p-4 align-top">
                                 <div class="text-[11px] text-gray-400 mb-2">Form: <span class="font-bold text-gray-800">{{ $p->created_at->format('d/m/Y') }}</span></div>
                                 
-                                @if($p->rencana_pinjam && $p->rencana_kembali)
+                                {{-- 💡 Menggunakan kolom bahasa Inggris: planned_borrow_date & planned_return_date --}}
+                                @if($p->planned_borrow_date && $p->planned_return_date)
                                 <div class="flex flex-col gap-1">
                                     <span class="bg-blue-50 text-blue-700 text-[9px] font-bold px-2 py-1 rounded whitespace-nowrap border border-blue-100 flex justify-between">
-                                        <span>Pinjam:</span> <span>{{ \Carbon\Carbon::parse($p->rencana_pinjam)->format('d/m/y') }}</span>
+                                        <span>Pinjam:</span> <span>{{ \Carbon\Carbon::parse($p->planned_borrow_date)->format('d/m/y') }}</span>
                                     </span>
                                     <span class="bg-orange-50 text-orange-700 text-[9px] font-bold px-2 py-1 rounded whitespace-nowrap border border-orange-100 flex justify-between">
-                                        <span>Kembali:</span> <span>{{ \Carbon\Carbon::parse($p->rencana_kembali)->format('d/m/y') }}</span>
+                                        <span>Kembali:</span> <span>{{ \Carbon\Carbon::parse($p->planned_return_date)->format('d/m/y') }}</span>
                                     </span>
                                 </div>
                                 @endif
                             </td>
                             <td class="p-4">
-                                <div class="font-bold">{{ $p->nama_peminjam }}</div>
-                                {{-- 💡 Diubah dari $p->prodi menjadi $p->program_studi agar data terbaca dari database --}}
-                                <div class="text-xs text-gray-400">{{ $p->nim }} - {{ $p->program_studi }}</div>
+                                {{-- 💡 Menggunakan kolom bahasa Inggris --}}
+                                <div class="font-bold">{{ $p->borrower_name }}</div>
+                                <div class="text-xs text-gray-400">{{ $p->nim_nik }} - {{ $p->study_program }}</div>
                             </td>
                             <td class="p-4">
                                 @php
-                                    $jenis = $p->kategori_peminjaman ?? '-';
+                                    $jenis = $p->loan_category ?? '-';
                                 @endphp
                                 <span class="px-2 py-1 rounded text-xs font-bold {{ $jenis == 'Bahan' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }}">
                                     {{ $jenis }}
@@ -62,12 +63,13 @@
 
                             <td class="p-4">
                                 <ul class="text-xs list-disc ml-4">
-                                    @foreach($p->detailAlat as $alat)
-                                        <li>{{ $alat->nama_alat }} ({{ $alat->jumlah }})</li>
+                                    {{-- 💡 Menggunakan relasi baru: equipmentDetails dan materialDetails --}}
+                                    @foreach($p->equipmentDetails as $alat)
+                                        <li>{{ $alat->equipment_name }} ({{ $alat->quantity }})</li>
                                     @endforeach
 
-                                    @foreach($p->detailBahan as $bahan)
-                                        <li>{{ $bahan->nama_bahan }} ({{ $bahan->jumlah }})</li>
+                                    @foreach($p->materialDetails as $bahan)
+                                        <li>{{ $bahan->material_name }} ({{ $bahan->quantity }})</li>
                                     @endforeach
                                 </ul>
                             </td>
@@ -76,10 +78,14 @@
                                 @php
                                     $color = 'bg-yellow-100 text-yellow-700'; // Default: Pending
                                     $pulse = '';
-                                    $text = $p->status;
+                                    
+                                    // 💡 Status sekarang menggunakan bahasa Inggris
+                                    $text = $p->status == 'Approved' ? 'Disetujui' : 
+                                           ($p->status == 'Rejected' ? 'Ditolak' : 
+                                           ($p->status == 'Completed' ? 'Selesai' : 'Pending'));
 
-                                    if($p->status == 'Disetujui') {
-                                        if (str_contains((string)$p->catatan_admin, '[MENUNGGU_VALIDASI_KEMBALI]')) {
+                                    if($p->status == 'Approved') {
+                                        if (str_contains((string)$p->admin_notes, '[MENUNGGU_VALIDASI_KEMBALI]')) {
                                             $color = 'bg-orange-100 text-orange-800 border border-orange-300';
                                             $pulse = 'animate-pulse';
                                             $text = 'Perlu Cek'; 
@@ -88,8 +94,8 @@
                                         }
                                     }
                                     
-                                    if($p->status == 'Ditolak') $color = 'bg-red-100 text-red-700';
-                                    if($p->status == 'Selesai') $color = 'bg-indigo-100 text-indigo-700';
+                                    if($p->status == 'Rejected') $color = 'bg-red-100 text-red-700';
+                                    if($p->status == 'Completed') $color = 'bg-indigo-100 text-indigo-700';
                                 @endphp
                                 <span class="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider {{ $color }} {{ $pulse }} whitespace-nowrap">
                                     {{ $text }}
@@ -101,7 +107,8 @@
                                     <div class="flex flex-col gap-2">
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="status" value="Disetujui">
+                                            {{-- 💡 Value status dikirim dalam bahasa Inggris --}}
+                                            <input type="hidden" name="status" value="Approved">
                                             <button type="submit" class="bg-green-600 hover:bg-green-700 text-white text-[11px] px-3 py-1.5 rounded-full shadow transition w-full font-bold">
                                                 Setujui Form
                                             </button>
@@ -114,13 +121,13 @@
                                     <div id="form-reject-{{ $p->id }}" class="hidden mt-2">
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="status" value="Ditolak">
+                                            <input type="hidden" name="status" value="Rejected">
                                             <textarea name="catatan_admin" placeholder="Alasan ditolak..." class="text-[10px] border border-gray-300 rounded p-1 mb-1 w-full h-12 outline-none focus:border-red-500" required></textarea>
                                             <button type="submit" class="bg-gray-800 hover:bg-gray-900 text-white text-[10px] w-full py-1.5 rounded font-bold shadow transition">Kirim Penolakan</button>
                                         </form>
                                     </div>
                             
-                                @elseif($p->status == 'Disetujui')
+                                @elseif($p->status == 'Approved')
                                     <div class="flex flex-col gap-2">
                                         <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
                                             Cetak Form PDF
@@ -128,8 +135,7 @@
                                         
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST" class="w-full">
                                             @csrf
-                                            <input type="hidden" name="status" value="Selesai">
-                                            <input type="hidden" name="tanggal_dikembalikan" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                                            <input type="hidden" name="status" value="Completed">
                                             
                                             <button type="submit" onclick="return confirm('Apakah fisik barang sudah dikembalikan ke Lab dengan kondisi baik?')" 
                                                     class="bg-orange-500 hover:bg-orange-600 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition w-full border-2 border-orange-300">
@@ -138,7 +144,7 @@
                                         </form>
                                     </div>
                             
-                                @elseif($p->status == 'Selesai')
+                                @elseif($p->status == 'Completed')
                                     <a href="{{ route('admin.peminjaman.cetak', $p->id) }}" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] px-3 py-1.5 rounded-full font-bold shadow transition flex items-center justify-center gap-1 w-full">
                                         Arsip Form PDF
                                     </a>

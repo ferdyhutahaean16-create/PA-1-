@@ -172,9 +172,9 @@ Route::prefix('prestasi')->group(function () {
 
     // 1. Rute Prestasi Dosen
     Route::get('/dosen', function () {
-        // PERBAIKAN: Menambahkan saringan kategori 'Dosen'
-        $prestasi = Prestasi::where('kategori', 'Dosen')->orderBy('tanggal_perolehan', 'desc')->get();
-        $publikasi = Publikasi::where('kategori', 'Dosen')->orderBy('created_at', 'desc')->get();
+        // Menambahkan saringan kategori 'Dosen'
+        $prestasi = \App\Models\Achievement::where('category', 'Dosen')->orderBy('date_earned', 'desc')->get();
+        $publikasi = \App\Models\Publication::where('category', 'Dosen')->orderBy('created_at', 'desc')->get();
         
         return view('prestasi_dosen', compact('prestasi', 'publikasi'));
     })->name('prestasi.dosen');
@@ -182,8 +182,8 @@ Route::prefix('prestasi')->group(function () {
     // 2. Rute Prestasi Mahasiswa
     Route::get('/mahasiswa', function () {
         // PERBAIKAN: Menambahkan saringan kategori 'Mahasiswa'
-        $prestasi = Prestasi::where('kategori', 'Mahasiswa')->orderBy('tanggal_perolehan', 'desc')->get();
-        $publikasi = Publikasi::where('kategori', 'Mahasiswa')->orderBy('created_at', 'desc')->get();
+        $prestasi = \App\Models\Achievement::where('category', 'Mahasiswa')->orderBy('date_earned', 'desc')->get();
+        $publikasi = \App\Models\Publication::where('category', 'Mahasiswa')->orderBy('created_at', 'desc')->get();
         
         return view('prestasi_mahasiswa', compact('prestasi', 'publikasi'));
     })->name('prestasi.mahasiswa');
