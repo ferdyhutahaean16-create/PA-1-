@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dokumen extends Model
 {
-    //
-
+    use HasFactory, Userstamps;
         // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.
     public function creator()
     {

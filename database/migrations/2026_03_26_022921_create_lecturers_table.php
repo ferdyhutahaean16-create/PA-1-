@@ -24,7 +24,11 @@ return new class extends Migration
             $table->string('phone_number')->nullable(); // no_telpon
             $table->string('photo')->nullable(); // foto
             $table->timestamps();
+            // Menambahkan relasi ke tabel users
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
+        
     }
 
     /**
@@ -34,4 +38,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('lecturers');
     }
+
+    
 };

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inventory extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     protected $fillable = [
         'category',

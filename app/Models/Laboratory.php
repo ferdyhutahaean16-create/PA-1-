@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Laboratory extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     protected $table = 'laboratories';
 

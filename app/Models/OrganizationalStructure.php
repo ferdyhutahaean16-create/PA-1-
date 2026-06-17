@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrganizationalStructure extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     // Menegaskan nama tabel agar Laravel tidak bingung
     protected $table = 'organizational_structures';

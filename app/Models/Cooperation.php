@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cooperation extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     protected $fillable = [
         'partner_name', 

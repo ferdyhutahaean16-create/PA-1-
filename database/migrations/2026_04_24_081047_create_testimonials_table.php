@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('testimony'); // Isi testimoni
             $table->string('photo')->nullable(); // Foto profil alumni
             $table->timestamps();
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
     }
 

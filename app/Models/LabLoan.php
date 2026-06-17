@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LabLoan extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     protected $guarded = []; // Mengizinkan pengisian semua kolom
 

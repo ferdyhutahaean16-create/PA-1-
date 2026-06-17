@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Achievement extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     // Menegaskan nama tabel di database
     protected $table = 'achievements';

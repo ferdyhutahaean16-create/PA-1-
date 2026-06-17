@@ -36,6 +36,8 @@ return new class extends Migration
             $table->decimal('price', 15, 2)->nullable(); // Harga (gunakan decimal agar presisi)
 
             $table->timestamps();
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
     }
 

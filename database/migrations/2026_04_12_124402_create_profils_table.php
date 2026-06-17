@@ -20,6 +20,9 @@ return new class extends Migration
             $table->text('career_prospects')->nullable();         // prospek_karir
             $table->string('organizational_structure')->nullable(); // struktur_organisasi
             $table->timestamps();
+                        // Menambahkan relasi ke tabel users
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
     }
 

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->text('description')->nullable(); // Menggantikan 'deskripsi'
             $table->string('file_path'); // Menggantikan 'file_dokumen'
             $table->timestamps();
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
     }
 

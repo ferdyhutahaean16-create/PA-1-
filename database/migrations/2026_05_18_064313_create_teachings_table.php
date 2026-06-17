@@ -19,6 +19,8 @@ return new class extends Migration
         $table->string('semester'); 
         $table->string('academic_year'); 
         $table->timestamps();
+    $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+    $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
     });
 }
 

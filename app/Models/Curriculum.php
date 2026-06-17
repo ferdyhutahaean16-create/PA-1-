@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Curriculum extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     // Menegaskan nama tabel jamak bahasa Inggris
     protected $table = 'curriculums';

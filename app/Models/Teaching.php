@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teaching extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     // Menegaskan nama tabel bahasa Inggris
     protected $table = 'teachings';

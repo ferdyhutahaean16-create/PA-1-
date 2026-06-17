@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MaterialLoanDetail extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     protected $guarded = [];
 

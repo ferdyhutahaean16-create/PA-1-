@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Publication extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     protected $table = 'publications';
 

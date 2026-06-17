@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EquipmentLoanDetail extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
     
     protected $guarded = [];
 

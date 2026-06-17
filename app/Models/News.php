@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     // Kunci nama tabel secara eksplisit
     protected $table = 'news';

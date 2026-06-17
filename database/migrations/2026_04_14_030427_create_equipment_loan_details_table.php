@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('condition_after')->nullable();
             $table->string('replacement')->nullable();
             $table->timestamps();
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
     }
 

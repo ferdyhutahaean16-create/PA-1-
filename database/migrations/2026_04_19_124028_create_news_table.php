@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('views')->default(0); 
             
             $table->timestamps();
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
     }
 

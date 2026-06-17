@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('document_file')->nullable(); // Untuk menyimpan file MoU/Dokumen
             $table->timestamps();
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
     }
 

@@ -21,6 +21,8 @@ return new class extends Migration
             // Wajib = Mandatory / Core, Pilihan = Elective
             $table->enum('category', ['Mandatory', 'Elective'])->default('Mandatory'); 
             $table->timestamps();
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
     }
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     // Menegaskan nama tabel plural di database sesuai konvensi bahasa Inggris
     protected $table = 'activities';

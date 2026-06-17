@@ -26,7 +26,10 @@ return new class extends Migration
             $table->text('admin_notes')->nullable();
             $table->date('returned_date')->nullable();
             $table->timestamps();
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
+        
     }
 
     public function down(): void

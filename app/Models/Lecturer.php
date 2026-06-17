@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lecturer extends Model
 {
-    use HasFactory;
+    use HasFactory, Userstamps;
 
     protected $table = 'lecturers';
 

@@ -20,6 +20,9 @@ return new class extends Migration
             // Level 1 = Top Leadership, Level 2 = Faculty, Level 3 = Study Program/Lab
             $table->integer('level')->default(3); 
             $table->timestamps();
+                        // Menambahkan relasi ke tabel users
+        $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
         });
     }
 
