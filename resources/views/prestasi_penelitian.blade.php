@@ -11,7 +11,7 @@
     </div>
 
     <div class="mt-4">
-        @if(isset($penelitians) && $penelitians->isEmpty())
+        @if(isset($researches) && $researches->isEmpty())
             
             {{-- Tampilan jika data benar-benar masih kosong --}}
             <div class="flex flex-col items-center justify-center py-16 px-4 border-2 border-dashed border-gray-200 rounded-3xl bg-gray-50">
@@ -23,27 +23,24 @@
 
             {{-- Tampilan Daftar Penelitian (Horizontal Layout) --}}
             <div class="flex flex-col gap-8">
-                @foreach($penelitians as $item)
+                @foreach($researches as $item)
                     <div class="bg-white border border-gray-100 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row overflow-hidden group">
                         
                         <div class="w-full md:w-5/12 h-64 md:h-auto relative bg-gray-50 flex-shrink-0 overflow-hidden">
-                            @if(isset($item->foto) && $item->foto)
-                                <img src="{{ asset($item->foto) }}" alt="{{ $item->judul }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            @else
-                                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop" alt="Ilustrasi Penelitian" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
-                            @endif
+                            {{-- Menggunakan ilustrasi bertema laboratorium sains yang estetis secara default --}}
+                            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop" alt="Ilustrasi Penelitian" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
 
                             <div class="absolute bottom-4 left-4 bg-white text-[#1a4a38] text-xs font-bold px-4 py-2 rounded-xl shadow-sm flex items-center gap-2">
-                                <span>{{ $item->tahun }}</span>
+                                <span>{{ $item->year }}</span>
                                 <span class="w-1.5 h-1.5 rounded-full bg-gray-300"></span>
-                                <span class="uppercase tracking-wider">{{ $item->kategori }}</span>
+                                <span class="uppercase tracking-wider">{{ $item->category }}</span>
                             </div>
                         </div>
 
                         <div class="w-full md:w-7/12 p-6 md:p-10 flex flex-col justify-center">
                             
                             <h3 class="text-xl md:text-2xl font-bold text-[#1a4a38] mb-5 leading-snug group-hover:text-[#2f7a5a] transition-colors">
-                                {{ $item->judul }}
+                                {{ $item->title }}
                             </h3>
 
                             <div class="flex items-start gap-4 mb-5">
@@ -52,26 +49,26 @@
                                 </div>
                                 <div>
                                     <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-0.5">Penulis / Peneliti</p>
-                                    <p class="text-sm font-bold text-gray-800">{{ $item->penulis }}</p>
+                                    <p class="text-sm font-bold text-gray-800">{{ $item->author }}</p>
                                 </div>
                             </div>
 
-                            @if($item->deskripsi)
+                            @if($item->description)
                             <p class="text-sm text-gray-600 line-clamp-3 mb-8 leading-relaxed">
-                                {{ $item->deskripsi }}
+                                {{ strip_tags($item->description) }}
                             </p>
                             @endif
 
                             <div class="flex flex-wrap gap-3 mt-auto">
-                                @if($item->file_pdf)
-                                    <a href="{{ asset($item->file_pdf) }}" target="_blank" class="inline-flex items-center gap-2 bg-[#1a4a38] text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-[#0f2e22] transition-all shadow-sm">
+                                @if($item->pdf_file)
+                                    <a href="{{ asset($item->pdf_file) }}" target="_blank" class="inline-flex items-center gap-2 bg-[#1a4a38] text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-[#0f2e22] transition-all shadow-sm">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                         UNDUH PDF
                                     </a>
                                 @endif
 
-                                @if($item->link_jurnal)
-                                    <a href="{{ $item->link_jurnal }}" target="_blank" class="inline-flex items-center gap-2 border-2 border-gray-100 text-gray-600 px-5 py-2.5 rounded-xl text-xs font-bold hover:border-gray-200 hover:bg-gray-50 transition-all">
+                                @if($item->journal_link)
+                                    <a href="{{ $item->journal_link }}" target="_blank" class="inline-flex items-center gap-2 border-2 border-gray-100 text-gray-600 px-5 py-2.5 rounded-xl text-xs font-bold hover:border-gray-200 hover:bg-gray-50 transition-all">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                         SUMBER JURNAL
                                     </a>
@@ -86,5 +83,5 @@
         @endif
     </div>
 
-</div> @endsection
-
+</div> 
+@endsection

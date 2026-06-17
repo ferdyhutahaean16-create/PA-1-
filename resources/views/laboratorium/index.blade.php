@@ -39,7 +39,7 @@
                 <div x-data="{ open: {{ $i === 0 ? 'true' : 'false' }} }" 
                      class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
                     
-                    <button @click="open = !open" class="w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors duration-200 text-left">
+                    <button @click="open = !open" class="w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors duration-200 text-left focus:outline-none">
                         <div class="flex items-center gap-6">
                             <span class="font-serif text-3xl font-bold text-gray-200 w-10">
                                 {{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}
@@ -47,11 +47,11 @@
                             
                             <div>
                                 <h3 class="font-serif text-xl md:text-2xl font-bold text-[#0d2a1f] mb-1">
-                                    {{ $lab->nama_lab }}
+                                    {{ $lab->name }}
                                 </h3>
-                                @if($lab->kepala_lab)
+                                @if($lab->head_of_lab)
                                     <p class="text-xs text-gray-500 tracking-wide uppercase font-semibold">
-                                        Koordinator: <span class="text-gray-700">{{ $lab->kepala_lab }}</span>
+                                        Koordinator: <span class="text-gray-700">{{ $lab->head_of_lab }}</span>
                                     </p>
                                 @endif
                             </div>
@@ -77,17 +77,17 @@
                             <div class="md:col-span-7">
                                 <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">Tentang Laboratorium</h4>
                                 <div class="text-gray-600 text-sm leading-relaxed mb-6 text-justify">
-                                    {!! $lab->deskripsi ?? 'Informasi deskripsi belum tersedia untuk laboratorium ini.' !!}
+                                    {!! $lab->description ?? 'Informasi deskripsi belum tersedia untuk laboratorium ini.' !!}
                                 </div>
 
                                 <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
                                     <div class="grid grid-cols-3 border-b border-gray-100">
                                         <div class="col-span-1 bg-gray-50 px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center">Kepala Lab</div>
-                                        <div class="col-span-2 px-4 py-3 text-sm text-gray-800 font-medium">{{ $lab->kepala_lab ?? '—' }}</div>
+                                        <div class="col-span-2 px-4 py-3 text-sm text-gray-800 font-medium">{{ $lab->head_of_lab ?? '—' }}</div>
                                     </div>
                                     <div class="grid grid-cols-3">
                                         <div class="col-span-1 bg-gray-50 px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider flex items-center">Fasilitas Utama</div>
-                                        <div class="col-span-2 px-4 py-3 text-sm text-gray-800">{{ $lab->fasilitas ?? '—' }}</div>
+                                        <div class="col-span-2 px-4 py-3 text-sm text-gray-800">{{ $lab->facilities ?? '—' }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -95,9 +95,9 @@
                             <div class="md:col-span-5">
                                 <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-3">Dokumentasi</h4>
                                 <div class="grid grid-cols-2 gap-2">
-                                    @foreach(['foto', 'foto_2', 'foto_3', 'foto_4'] as $f)
+                                    @foreach(['image', 'image_2', 'image_3', 'image_4'] as $f)
                                         @if($lab->$f)
-                                            <img src="{{ asset($lab->$f) }}" class="w-full aspect-[4/3] object-cover rounded-md border border-gray-200 shadow-sm hover:opacity-90 transition-opacity" alt="Dokumentasi {{ $lab->nama_lab }}">
+                                            <img src="{{ asset($lab->$f) }}" class="w-full aspect-[4/3] object-cover rounded-md border border-gray-200 shadow-sm hover:opacity-90 transition-opacity" alt="Dokumentasi {{ $lab->name }}">
                                         @else
                                             <div class="w-full aspect-[4/3] bg-gray-100 border border-dashed border-gray-300 rounded-md flex items-center justify-center text-gray-400">
                                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -172,7 +172,7 @@
                 </div>
             </div>
 
-            <a href="{{ route('publik.dokumen_rkf.index') }}" class="py-5 relative whitespace-nowrap {{ request()->is('dokumen-rkf*') ? 'nav-active' : 'nav-item' }}">ARSIP DOKUMEN</a>
+            <a href="{{ route('publik.dokumen.index') }}" class="py-5 relative whitespace-nowrap {{ request()->is('dokumen-rkf*') ? 'nav-active' : 'nav-item' }}">ARSIP DOKUMEN</a>
         </div>
 
         {{-- KANAN: Login + Burger --}}
@@ -247,7 +247,7 @@
         <div class="px-6 py-4">
             <span class="text-[#064e3b] block mb-2 uppercase">Dokumen</span>
             <div class="flex flex-col gap-3 pl-4 text-xs font-normal text-gray-600">
-                <a href="{{ route('publik.dokumen_rkf.index') }}" class="hover:text-[#064e3b] transition-colors">Arsip Dokumen</a>
+                <a href="{{ route('publik.dokumen.index') }}" class="hover:text-[#064e3b] transition-colors">Arsip Dokumen</a>
             </div>
         </div>
 

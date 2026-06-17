@@ -67,30 +67,38 @@
     
     <div class="swiper mySwiper w-full h-full">
         <div class="swiper-wrapper">
-            @foreach($beritas as $berita)
+            {{-- Menggunakan variabel $newsList dari NewsController --}}
+            @foreach($newsList as $newsItem)
             <div class="swiper-slide flex items-center">
                 <div class="container mx-auto px-6 py-20">
                     <div class="grid md:grid-cols-2 gap-16 items-center">
                         {{-- GAMBAR --}}
                         <div class="hero-frame fade-in">
-                            <img src="{{ $berita->gambar }}" 
-                                 class="rounded-2xl shadow-2xl w-full h-[380px] object-cover border-4 border-white/10">
+                            <img src="{{ asset($newsItem->image) }}" 
+                                 class="rounded-2xl shadow-2xl w-full h-[380px] object-cover border-4 border-white/10" alt="{{ $newsItem->title }}">
                         </div>
 
                         {{-- TEKS --}}
                         <div class="text-white">
                             <span class="text-[var(--gold)] tracking-[0.4em] uppercase text-[10px] font-bold mb-4 block">Latest Update</span>
                             <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-light leading-tight mb-6">
-                                {{ $berita->judul }}
+                                {{ $newsItem->title }}
                             </h1>
                             <p class="text-gray-300 font-sans font-light leading-relaxed mb-8 opacity-80">
-                                {{ \Illuminate\Support\Str::limit($berita->isi, 160) }}
+                                {{-- Menggunakan strip_tags agar tag HTML CKEditor tidak terlihat --}}
+                                {{ \Illuminate\Support\Str::limit(strip_tags($newsItem->content), 160) }}
                             </p>
+                            
+                            {{-- Membawa data yang aman dari HTML (menggunakan @json) --}}
                             <button 
-                                onclick="openNewsModal('modal-berita', `{{ $berita->judul }}`, `{{ $berita->isi }}`, `{{ $berita->gambar }}`)"
+                                onclick='openNewsModal("modal-berita", @json($newsItem->title), @json($newsItem->content), "{{ asset($newsItem->image) }}")'
                                 class="group px-8 py-4 bg-[var(--forest)] text-[var(--gold)] border border-[var(--gold)] rounded-full font-bold text-[10px] uppercase tracking-widest hover:bg-[var(--gold)] hover:text-white transition-all duration-500 shadow-xl">
                                 Baca Selengkapnya
                             </button>
+
+                            {{-- Alternatif jika Anda ingin langsung ke halaman detail publik:
+                                 <a href="{{ route('publik.berita.baca', $newsItem->id) }}" class="...">Baca Selengkapnya</a>
+                            --}}
                         </div>
                     </div>
                 </div>
@@ -108,7 +116,6 @@
     <div class="container mx-auto px-6">
         <p class="text-center text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] mb-10">Trusted Partners & Cooperations</p>
         <div class="flex flex-wrap justify-center items-center gap-12 grayscale opacity-40 hover:grayscale-0 transition-all duration-700">
-            {{-- Ganti dengan logo instansi asli --}}
             <img src="https://upload.wikimedia.org/wikipedia/id/thumb/0/03/Logo_IT_Del.png/1200px-Logo_IT_Del.png" class="h-12 w-auto">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Logo_ITB.svg/1200px-Logo_ITB.svg.png" class="h-12 w-auto">
             <img src="https://upload.wikimedia.org/wikipedia/id/thumb/b/be/Logo_UI.png/800px-Logo_UI.png" class="h-12 w-auto">
@@ -170,7 +177,8 @@
             <h3 id="modal-berita-title" class="font-serif text-3xl text-[var(--forest-dark)] mb-6 leading-tight"></h3>
             
             <div class="max-h-[250px] overflow-y-auto custom-scrollbar">
-                <p id="modal-berita-content" class="text-gray-600 font-sans leading-relaxed text-sm text-justify pr-4"></p>
+                {{-- Diubah menjadi div agar bisa memuat paragraf HTML dari CKEditor dengan benar --}}
+                <div id="modal-berita-content" class="text-gray-600 font-sans leading-relaxed text-sm text-justify pr-4"></div>
             </div>
 
             <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
@@ -200,8 +208,10 @@
 
     function openNewsModal(id, title, content, image) {
         const modal = document.getElementById(id);
+        
         document.getElementById('modal-berita-title').innerText = title;
-        document.getElementById('modal-berita-content').innerText = content;
+        // Menggunakan innerHTML agar styling dari CKEditor (Bold, List, dll) terbaca
+        document.getElementById('modal-berita-content').innerHTML = content;
         document.getElementById('modal-berita-img').src = image;
 
         modal.classList.remove('hidden');

@@ -93,18 +93,18 @@
                         <div class="item-card p-6 flex flex-col h-full">
                             <div class="flex justify-between items-start mb-4">
                                 <span class="bg-blue-50 text-blue-700 text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-blue-100">Alat Lab</span>
-                                @if($item->jumlah > 0)
+                                @if($item->quantity > 0)
                                     <span class="text-emerald-600 bg-emerald-50 px-2 py-1 rounded text-xs font-bold shadow-sm">Tersedia</span>
                                 @else
                                     <span class="text-red-500 bg-red-50 px-2 py-1 rounded text-xs font-bold shadow-sm">Kosong</span>
                                 @endif
                             </div>
-                            <h3 class="font-bold text-lg text-gray-800 mb-2 leading-tight">{{ $item->nama_barang }}</h3>
+                            <h3 class="font-bold text-lg text-gray-800 mb-2 leading-tight">{{ $item->item_name }}</h3>
                             
                             <div class="mt-auto pt-4 space-y-2">
                                 <div class="flex justify-between items-center text-sm border-t border-gray-50 pt-3">
                                     <span class="text-gray-500">Stok Saat Ini:</span>
-                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->jumlah }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->satuan }}</span></span>
+                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->quantity }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->unit }}</span></span>
                                 </div>
                             </div>
                         </div>
@@ -124,18 +124,18 @@
                         <div class="item-card p-6 flex flex-col h-full">
                             <div class="flex justify-between items-start mb-4">
                                 <span class="bg-amber-50 text-amber-700 text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-100">Bahan Habis Pakai</span>
-                                @if($item->jumlah > 0)
+                                @if($item->quantity > 0)
                                     <span class="text-emerald-600 bg-emerald-50 px-2 py-1 rounded text-xs font-bold shadow-sm">Tersedia</span>
                                 @else
                                     <span class="text-red-500 bg-red-50 px-2 py-1 rounded text-xs font-bold shadow-sm">Kosong</span>
                                 @endif
                             </div>
-                            <h3 class="font-bold text-lg text-gray-800 mb-2 leading-tight">{{ $item->nama_barang }}</h3>
+                            <h3 class="font-bold text-lg text-gray-800 mb-2 leading-tight">{{ $item->item_name }}</h3>
                             
                             <div class="mt-auto pt-4 space-y-2">
                                 <div class="flex justify-between items-center text-sm border-t border-gray-50 pt-3">
                                     <span class="text-gray-500">Sisa Volume/Stok:</span>
-                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->jumlah }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->satuan }}</span></span>
+                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->quantity }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->unit }}</span></span>
                                 </div>
                             </div>
                         </div>
@@ -155,18 +155,18 @@
                         <div class="item-card p-6 flex flex-col h-full">
                             <div class="flex justify-between items-start mb-4">
                                 <span class="bg-purple-50 text-purple-700 text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-purple-100">Instrumen Aset</span>
-                                @if($item->jumlah > 0)
+                                @if($item->quantity > 0)
                                     <span class="text-emerald-600 bg-emerald-50 px-2 py-1 rounded text-xs font-bold shadow-sm">Tersedia</span>
                                 @else
                                     <span class="text-red-500 bg-red-50 px-2 py-1 rounded text-xs font-bold shadow-sm">Digunakan</span>
                                 @endif
                             </div>
-                            <h3 class="font-bold text-lg text-gray-800 mb-2 leading-tight">{{ $item->nama_barang }}</h3>
+                            <h3 class="font-bold text-lg text-gray-800 mb-2 leading-tight">{{ $item->item_name }}</h3>
                             
                             <div class="mt-auto pt-4 space-y-2">
                                 <div class="flex justify-between items-center text-sm border-t border-gray-50 pt-3">
                                     <span class="text-gray-500">Jumlah Unit:</span>
-                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->jumlah }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->satuan }}</span></span>
+                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->quantity }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->unit }}</span></span>
                                 </div>
                             </div>
                         </div>

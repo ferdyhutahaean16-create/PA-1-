@@ -48,11 +48,12 @@
                             </td>
                             <td class="p-4">
                                 <div class="font-bold">{{ $p->nama_peminjam }}</div>
-                                <div class="text-xs text-gray-400">{{ $p->nim }} - {{ $p->prodi }}</div>
+                                {{-- 💡 Diubah dari $p->prodi menjadi $p->program_studi agar data terbaca dari database --}}
+                                <div class="text-xs text-gray-400">{{ $p->nim }} - {{ $p->program_studi }}</div>
                             </td>
                             <td class="p-4">
                                 @php
-                                    $jenis = $p->kategori_peminjaman ?? $p->jenis_form;
+                                    $jenis = $p->kategori_peminjaman ?? '-';
                                 @endphp
                                 <span class="px-2 py-1 rounded text-xs font-bold {{ $jenis == 'Bahan' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700' }}">
                                     {{ $jenis }}
@@ -78,7 +79,6 @@
                                     $text = $p->status;
 
                                     if($p->status == 'Disetujui') {
-                                        // Cek apakah ada kode rahasia pengembalian
                                         if (str_contains((string)$p->catatan_admin, '[MENUNGGU_VALIDASI_KEMBALI]')) {
                                             $color = 'bg-orange-100 text-orange-800 border border-orange-300';
                                             $pulse = 'animate-pulse';
@@ -101,7 +101,6 @@
                                     <div class="flex flex-col gap-2">
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST">
                                             @csrf
-                                            {{-- Gunakan POST, HAPUS @method('PUT') --}}
                                             <input type="hidden" name="status" value="Disetujui">
                                             <button type="submit" class="bg-green-600 hover:bg-green-700 text-white text-[11px] px-3 py-1.5 rounded-full shadow transition w-full font-bold">
                                                 Setujui Form
@@ -129,7 +128,6 @@
                                         
                                         <form action="{{ route('admin.peminjaman.update', $p->id) }}" method="POST" class="w-full">
                                             @csrf
-                                            {{-- Gunakan POST, HAPUS @method('PUT') --}}
                                             <input type="hidden" name="status" value="Selesai">
                                             <input type="hidden" name="tanggal_dikembalikan" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                             
@@ -148,8 +146,6 @@
                                 @else
                                     <span class="text-[11px] text-red-500 font-bold italic tracking-wider">DITOLAK</span>
                                 @endif
-                            </td>
-                            
                             </td>
                         </tr>
                         @endforeach

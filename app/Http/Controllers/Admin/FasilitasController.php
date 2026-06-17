@@ -3,110 +3,122 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Laboratory;
 use Illuminate\Http\Request;
-use App\Models\Laboratorium; // 🚨 Memanggil model Anda yang sudah sangat rapi
+use Illuminate\Support\Facades\File; // 💡 PENTING: Tambahkan ini untuk menghapus file lama
 
 class FasilitasController extends Controller
 {
-    /**
-     * Menampilkan daftar fasilitas laboratorium khusus di panel Admin.
-     */
     public function index()
     {
-        // 1. Ubah nama variabel penampung menjadi $labs
-        $labs = Laboratorium::orderBy('created_at', 'desc')->get();
-        
-        // 2. Sesuaikan nama yang dikirim di dalam compact() menjadi 'labs'
+        $labs = Laboratory::orderBy('created_at', 'desc')->get();
         return view('admin.laboratorium.index', compact('labs'));
     }
 
     public function create()
     {
-        // 🚨 UBAH DI SINI: Arahkan ke folder 'laboratorium' milik Anda
         return view('admin.laboratorium.create');
     }
 
-    /**
-     * Menyimpan data laboratorium baru ke database.
-     */
     public function store(Request $request)
     {
-        // 1. Validasi keamanan data (Satpam Pintu Masuk)
         $request->validate([
-            'nama_lab' => 'required|string|max:255',
+            'nama_lab'   => 'required|string|max:255',
             'kepala_lab' => 'nullable|string|max:255',
-            'fasilitas' => 'nullable|string',
-            'deskripsi' => 'nullable|string',
-            // Validasi file gambar (Maksimal 2MB per foto)
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'foto_2' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'foto_3' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'foto_4' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'fasilitas'  => 'nullable|string',
+            'deskripsi'  => 'nullable|string',
+            'foto'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_2'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_3'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto_4'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // 2. Siapkan keranjang kosong untuk data baru
-        $lab = new Laboratorium();
-        $lab->nama_lab = $request->nama_lab;
-        $lab->kepala_lab = $request->kepala_lab;
-        $lab->fasilitas = $request->fasilitas;
-        $lab->deskripsi = $request->deskripsi;
+        $lab = new Laboratory(); 
+        $lab->name        = $request->nama_lab;
+        $lab->head_of_lab = $request->kepala_lab;
+        $lab->facilities  = $request->fasilitas;
+        $lab->description = $request->deskripsi; // Sudah aktif
 
-        // 3. Logika Cerdas Upload Foto (Anti-Gagal)
-        // Kita menggunakan public_path agar foto langsung masuk ke folder public/uploads/laboratorium
-        $destinationPath = public_path('uploads/laboratorium');
+        $path = 'uploads/laboratorium';
 
+        // Helper untuk upload file
         if ($request->hasFile('foto')) {
-            $fileName = time() . '_1.' . $request->foto->extension();
-            $request->foto->move($destinationPath, $fileName);
-            $lab->foto = 'uploads/laboratorium/' . $fileName;
+            $lab->image = $this->uploadImage($request->file('foto'), $path, '1');
         }
         if ($request->hasFile('foto_2')) {
-            $fileName = time() . '_2.' . $request->foto_2->extension();
-            $request->foto_2->move($destinationPath, $fileName);
-            $lab->foto_2 = 'uploads/laboratorium/' . $fileName;
+            $lab->image_2 = $this->uploadImage($request->file('foto_2'), $path, '2');
         }
         if ($request->hasFile('foto_3')) {
-            $fileName = time() . '_3.' . $request->foto_3->extension();
-            $request->foto_3->move($destinationPath, $fileName);
-            $lab->foto_3 = 'uploads/laboratorium/' . $fileName;
+            $lab->image_3 = $this->uploadImage($request->file('foto_3'), $path, '3');
         }
         if ($request->hasFile('foto_4')) {
-            $fileName = time() . '_4.' . $request->foto_4->extension();
-            $request->foto_4->move($destinationPath, $fileName);
-            $lab->foto_4 = 'uploads/laboratorium/' . $fileName;
+            $lab->image_4 = $this->uploadImage($request->file('foto_4'), $path, '4');
         }
 
-        // 4. Simpan ke database
         $lab->save();
 
-        // 5. Kembalikan ke halaman daftar dengan pesan sukses
         return redirect()->route('admin.fasilitas.index')->with('success', 'Data Laboratorium berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
-        $lab = Laboratorium::findOrFail($id);
-        // Memanggil file edit.blade.php di dalam folder laboratorium Anda
+        $lab = Laboratory::findOrFail($id);
         return view('admin.laboratorium.edit', compact('lab'));
     }
 
-    /**
-     * Menyimpan perubahan data laboratorium.
-     */
     public function update(Request $request, $id)
     {
-        // Ruangan ini sudah siap, Anda bisa mengisi logika updatenya nanti
-        // mirip dengan logika store() yang sudah kita buat.
+        $lab = Laboratory::findOrFail($id); 
+
+        // Update data teks
+        $lab->name        = $request->nama_lab; 
+        $lab->head_of_lab = $request->kepala_lab;
+        $lab->facilities  = $request->fasilitas;
+        $lab->description = $request->deskripsi;
+
+        $path = 'uploads/laboratorium';
+
+        // Update foto: Jika ada foto baru, hapus foto lama
+        $fields = ['foto' => 'image', 'foto_2' => 'image_2', 'foto_3' => 'image_3', 'foto_4' => 'image_4'];
+        
+        foreach ($fields as $inputName => $dbColumn) {
+            if ($request->hasFile($inputName)) {
+                // Hapus file lama jika ada
+                if ($lab->$dbColumn && File::exists(public_path($lab->$dbColumn))) {
+                    File::delete(public_path($lab->$dbColumn));
+                }
+                // Upload file baru
+                $lab->$dbColumn = $this->uploadImage($request->file($inputName), $path, str_replace('image', '', $dbColumn) ?: '1');
+            }
+        }
+
+        $lab->save();
+
+        return redirect()->route('admin.fasilitas.index')->with('success', 'Data Laboratorium berhasil diperbarui!');
     }
 
-    /**
-     * Menghapus data laboratorium dari database.
-     */
     public function destroy($id)
     {
-        $lab = Laboratorium::findOrFail($id);
+        $lab = Laboratory::findOrFail($id);
+
+        // Hapus file fisik dari storage agar tidak menumpuk
+        $fields = ['image', 'image_2', 'image_3', 'image_4'];
+        foreach ($fields as $field) {
+            if ($lab->$field && File::exists(public_path($lab->$field))) {
+                File::delete(public_path($lab->$field));
+            }
+        }
+
         $lab->delete();
 
         return redirect()->route('admin.fasilitas.index')->with('success', 'Data Laboratorium berhasil dihapus!');
+    }
+
+    // Helper method agar kode lebih bersih
+    private function uploadImage($file, $path, $suffix)
+    {
+        $fileName = time() . '_' . $suffix . '.' . $file->extension();
+        $file->move(public_path($path), $fileName);
+        return $path . '/' . $fileName;
     }
 }

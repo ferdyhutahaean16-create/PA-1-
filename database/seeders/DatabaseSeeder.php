@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Dua akun Admin (Super Admin & Admin Lab) berhasil dibuat dengan sempurna!');
 
         $this->call([
-            PrestasiSeeder::class,
+            AchievementSeeder::class,
         ]);
     }
 }

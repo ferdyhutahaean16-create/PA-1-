@@ -9,25 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
-{
-    Schema::create('profils', function (Blueprint $table) {
-        $table->id();
-        $table->text('sejarah')->nullable();
-        $table->text('visi')->nullable();
-        $table->text('misi')->nullable();
-        $table->text('tujuan')->nullable();
-        $table->text('prospek_karir')->nullable();
-        $table->string('struktur_organisasi')->nullable(); // Untuk menyimpan foto struktur
-        $table->timestamps();
-    });
-}
+    public function up(): void
+    {
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->id();
+            $table->text('history')->nullable();                  // sejarah
+            $table->text('vision')->nullable();                   // visi
+            $table->text('mission')->nullable();                  // misi
+            $table->text('goals')->nullable();                    // tujuan
+            $table->text('career_prospects')->nullable();         // prospek_karir
+            $table->string('organizational_structure')->nullable(); // struktur_organisasi
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('profils');
+        Schema::dropIfExists('profiles');
     }
 };

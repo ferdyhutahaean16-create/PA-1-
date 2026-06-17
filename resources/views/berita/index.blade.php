@@ -2,7 +2,7 @@
 
 @section('title', 'Arsip Berita & Kegiatan - Bioteknologi IT Del')
 
-@section('content')
+@push('styles')
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@300;400;500;600&display=swap');
 
@@ -35,7 +35,9 @@
     border-color: var(--forest);
 }
 </style>
+@endpush
 
+@section('content')
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <div x-data="{ filter: 'Semua' }" class="bg-[var(--soft-bg)] min-h-screen py-16 font-sans">
@@ -64,50 +66,48 @@
     <div class="container mx-auto px-6 max-w-7xl">
         <div class="flex flex-col gap-8">
             
-            {{-- 1. LOOPING DATA BERITA UMUM --}}
-            @foreach($berita as $item)
+            {{-- 1. LOOPING DATA BERITA (News) --}}
+            @foreach($newsList as $item)
             @php 
-                $judul = strtolower($item->judul);
-                if (str_contains($judul, 'mahasiswa') || str_contains($judul, 'himatif')) {
-                    $kategori_berita = 'Berita Mahasiswa';
-                } elseif (str_contains($judul, 'dosen') || str_contains($judul, 'pendidik')) {
-                    $kategori_berita = 'Berita Dosen';
+                $title = strtolower($item->title);
+                if (str_contains($title, 'mahasiswa') || str_contains($title, 'himatif')) {
+                    $category = 'Berita Mahasiswa';
+                } elseif (str_contains($title, 'dosen') || str_contains($title, 'pendidik')) {
+                    $category = 'Berita Dosen';
                 } else {
-                    $kategori_berita = 'Umum'; 
+                    $category = 'Umum'; 
                 }
             @endphp
             
-            <div x-show="filter === 'Semua' || filter === '{{ $kategori_berita }}'"
+            <div x-show="filter === 'Semua' || filter === '{{ $category }}'"
                  x-transition:enter="transition ease-out duration-500"
-                 x-transition:enter-start="opacity-0 translate-y-8"
-                 x-transition:enter-end="opacity-100 translate-y-0"
                  class="news-card rounded-[2rem] overflow-hidden border border-gray-100 flex flex-col md:flex-row">
                 
                 <div class="relative w-full md:w-5/12 h-64 md:h-auto shrink-0 bg-gray-100">
-                    @if($item->foto)
-                        <img src="{{ asset($item->foto) }}" class="absolute inset-0 w-full h-full object-cover">
+                    @if($item->image)
+                        <img src="{{ asset($item->image) }}" class="absolute inset-0 w-full h-full object-cover">
                     @else
-                        <div class="absolute inset-0 flex items-center justify-center text-gray-400 italic">No Image Available</div>
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-400 italic">No Image</div>
                     @endif
                     <div class="absolute top-6 left-6 bg-white/90 backdrop-blur px-4 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest text-[var(--forest)] shadow-sm">
-                        {{ $kategori_berita == 'Umum' ? 'Berita Utama' : $kategori_berita }}
+                        {{ $category == 'Umum' ? 'Berita Utama' : $category }}
                     </div>
                 </div>
 
                 <div class="p-8 md:p-10 flex-1 flex flex-col justify-center">
                     <div class="flex items-center gap-4 mb-4">
                         <span class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase">
-                            {{ \Carbon\Carbon::parse($item->created_at)->format('d M Y') }}
+                            {{ \Carbon\Carbon::parse($item->published_date)->format('d M Y') }}
                         </span>
                         <div class="w-8 h-[1px] bg-gray-200"></div>
                     </div>
                     
                     <h3 class="font-serif text-3xl text-[var(--forest-dark)] mb-4 leading-tight hover:text-[var(--gold)] transition-colors">
-                        {{ $item->judul }}
+                        {{ $item->title }}
                     </h3>
                     
                     <p class="text-gray-500 text-sm leading-relaxed mb-8 line-clamp-3">
-                        {{ strip_tags($item->konten ?? 'Informasi selengkapnya mengenai berita ini dapat dilihat pada detail artikel.') }}
+                        {{ strip_tags($item->content) }}
                     </p>
 
                     <div class="mt-auto pt-6 border-t border-gray-50">
@@ -122,33 +122,30 @@
             </div>
             @endforeach
 
-
-            {{-- 2. LOOPING DATA KEGIATAN --}}
-            @foreach($kegiatan as $item)
+            {{-- 2. LOOPING DATA KEGIATAN (Activity) --}}
+            @foreach($activities as $item)
             @php 
-                $kat = strtolower($item->kategori ?? '');
-                $pelaksana = strtolower($item->pelaksana ?? '');
+                $kat = strtolower($item->category ?? '');
+                $exec = strtolower($item->executor ?? '');
                 
-                if (str_contains($kat, 'mahasiswa') || str_contains($pelaksana, 'mahasiswa')) {
-                    $kategori_kegiatan = 'Berita Mahasiswa';
-                } elseif (str_contains($kat, 'dosen') || str_contains($pelaksana, 'dr.') || str_contains($pelaksana, 's.si')) {
-                    $kategori_kegiatan = 'Berita Dosen';
+                if (str_contains($kat, 'mahasiswa') || str_contains($exec, 'mahasiswa')) {
+                    $category = 'Berita Mahasiswa';
+                } elseif (str_contains($kat, 'dosen') || str_contains($exec, 'dr.') || str_contains($exec, 'prof')) {
+                    $category = 'Berita Dosen';
                 } else {
-                    $kategori_kegiatan = 'Umum';
+                    $category = 'Umum';
                 }
             @endphp
             
-            <div x-show="filter === 'Semua' || filter === '{{ $kategori_kegiatan }}'"
+            <div x-show="filter === 'Semua' || filter === '{{ $category }}'"
                  x-transition:enter="transition ease-out duration-500"
-                 x-transition:enter-start="opacity-0 translate-y-8"
-                 x-transition:enter-end="opacity-100 translate-y-0"
                  class="news-card rounded-[2rem] overflow-hidden border border-gray-100 flex flex-col md:flex-row">
                 
                 <div class="relative w-full md:w-5/12 h-64 md:h-auto shrink-0 bg-gray-100">
-                    @if($item->foto)
-                        <img src="{{ asset($item->foto) }}" class="absolute inset-0 w-full h-full object-cover">
+                    @if($item->image)
+                        <img src="{{ asset($item->image) }}" class="absolute inset-0 w-full h-full object-cover">
                     @else
-                        <div class="absolute inset-0 flex items-center justify-center text-gray-400 italic">No Image Available</div>
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-400 italic">No Image</div>
                     @endif
                     <div class="absolute top-6 left-6 bg-[var(--forest)]/90 backdrop-blur px-4 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest text-white shadow-sm">
                         Agenda Kegiatan
@@ -158,18 +155,18 @@
                 <div class="p-8 md:p-10 flex-1 flex flex-col justify-center">
                     <div class="flex items-center gap-4 mb-4">
                         <span class="text-xs font-bold tracking-widest text-[var(--forest)] uppercase">
-                            {{ \Carbon\Carbon::parse($item->waktu_pelaksanaan)->format('d M Y') }}
+                            {{ \Carbon\Carbon::parse($item->execution_time)->format('d M Y') }}
                         </span>
                         <div class="w-8 h-[1px] bg-gray-200"></div>
-                        <span class="text-[10px] text-gray-400 uppercase tracking-wider">{{ $item->tempat ?? 'Kampus IT Del' }}</span>
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider">{{ $item->location ?? 'IT Del' }}</span>
                     </div>
 
                     <h3 class="font-serif text-3xl text-[var(--forest-dark)] mb-4 leading-tight hover:text-[var(--gold)] transition-colors">
-                        {{ $item->judul }}
+                        {{ $item->title }}
                     </h3>
                     
                     <p class="text-sm text-gray-500 mb-6 italic">
-                        Pelaksana: <span class="font-semibold text-gray-700">{{ $item->pelaksana }}</span>
+                        Pelaksana: <span class="font-semibold text-gray-700">{{ $item->executor }}</span>
                     </p>
 
                     <div class="mt-auto pt-6 border-t border-gray-50">

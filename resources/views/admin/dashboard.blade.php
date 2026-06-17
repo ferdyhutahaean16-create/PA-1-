@@ -108,7 +108,7 @@
 
                         <!-- Tombol Dosen (Khusus Super Admin) -->
                         @if(Auth::user()->role == 'super_admin')
-                        <a href="{{ route('tenaga-pendidik.index') }}" class="group p-4 border border-gray-100 rounded-xl hover:bg-[#1a4a38] transition-all duration-300">
+                        <a href="{{ route('lecturer.index') }}" class="group p-4 border border-gray-100 rounded-xl hover:bg-[#1a4a38] transition-all duration-300">
                             <div class="flex items-center gap-4">
                                 <div class="p-2 bg-emerald-50 text-[#1a4a38] group-hover:bg-emerald-500 group-hover:text-white rounded-lg transition-colors">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>

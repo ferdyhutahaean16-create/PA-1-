@@ -132,7 +132,7 @@ body {
         </div>
 
         <!-- CURRICULUM GRID -->
-        @if($kurikulum_per_semester->isEmpty())
+        @if($curriculums_per_semester->isEmpty())
             <div class="glass-card rounded-[2rem] p-16 text-center">
                 <div class="text-[var(--gold)] mb-4">
                     <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
@@ -142,7 +142,7 @@ body {
         @else
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 
-                @foreach($kurikulum_per_semester as $semester => $matkul)
+                @foreach($curriculums_per_semester as $semester => $items)
                     <div class="semester-card glass-card rounded-[2.5rem] overflow-hidden fade-up" style="animation-delay: {{ $loop->index * 0.1 }}s">
                         <!-- Semester Header -->
                         <div class="px-8 py-6 bg-gradient-to-r from-[var(--forest-dark)] to-[var(--forest)] flex justify-between items-center">
@@ -162,14 +162,18 @@ body {
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-700">
-                                    @foreach($matkul as $item)
+                                    @foreach($items as $item)
                                         <tr class="border-b border-gray-100 last:border-0">
-                                            <td class="py-4 px-4 text-[11px] font-bold text-[var(--forest)] tracking-tighter">{{ $item->kode_mk }}</td>
-                                            <td class="py-4 px-4 text-sm leading-snug">{{ $item->mata_kuliah }}</td>
+                                            <td class="py-4 px-4 text-[11px] font-bold text-[var(--forest)] tracking-tighter">
+                                                {{ $item->course_code }}
+                                            </td>
+
+                                            <td class="py-4 px-4 text-sm leading-snug">
+                                                {{ $item->course_name }}
+                                            </td>
+
                                             <td class="py-4 px-4 text-center">
-                                                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-50 text-[var(--gold)] font-bold text-xs border border-gray-100">
-                                                    {{ $item->sks }}
-                                                </span>
+                                                {{ $item->credits }}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -179,7 +183,7 @@ body {
 
                         <!-- Semester Footer Summary (Optional) -->
                         <div class="px-8 py-4 bg-gray-50/50 border-t border-gray-100 flex justify-end">
-                            <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Total SKS Semester: <span class="text-[var(--forest)]">{{ $matkul->sum('sks') }}</span></p>
+                            <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Total SKS Semester: <span class="text-[var(--forest)]">{{ $items->sum('sks') }}</span></p>
                         </div>
                     </div>
                 @endforeach

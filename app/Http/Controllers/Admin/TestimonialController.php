@@ -11,57 +11,58 @@ class TestimonialController extends Controller
 {
     public function index()
     {
+        // Menampilkan testimoni terbaru di urutan atas
         $testimonials = Testimonial::orderBy('created_at', 'desc')->get();
-        return view('admin.testimoni.index', compact('testimonials'));
+        return view('admin.testimonials.index', compact('testimonials'));
     }
 
     public function create()
     {
-        return view('admin.testimoni.create');
+        return view('admin.testimonials.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'graduation_year' => 'nullable|string|max:10',
-            'workplace' => 'nullable|string|max:255',
-            'position' => 'nullable|string|max:255',
-            'testimony' => 'required|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'name'            => 'required|string|max:255',
+            'graduation_year' => 'required|string|max:4',
+            'workplace'       => 'nullable|string|max:255',
+            'position'        => 'nullable|string|max:255',
+            'testimony'       => 'required|string',
+            'photo'           => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $data = $request->except(['_token']);
 
-        // Logika Upload Foto Alumni
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
-            $nama_foto = time() . '_alumni_' . str_replace(' ', '_', $file->getClientOriginalName());
-            $file->move(public_path('uploads/testimoni'), $nama_foto);
-            $data['photo'] = 'uploads/testimoni/' . $nama_foto;
+            $fileName = time() . '_testimonial_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/testimonials'), $fileName);
+            $data['photo'] = 'uploads/testimonials/' . $fileName;
         }
 
         Testimonial::create($data);
-        return redirect()->route('testimoni.index')->with('success', 'Testimoni alumni berhasil ditambahkan!');
+
+        return redirect()->route('testimonials.index')->with('success', 'Testimoni berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
         $testimonial = Testimonial::findOrFail($id);
-        return view('admin.testimoni.edit', compact('testimonial'));
+        return view('admin.testimonials.edit', compact('testimonial'));
     }
 
     public function update(Request $request, $id)
     {
         $testimonial = Testimonial::findOrFail($id);
-        
+
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name'            => 'required|string|max:255',
             'graduation_year' => 'required|string|max:4',
-            'workplace' => 'nullable|string|max:255',
-            'position' => 'nullable|string|max:255',
-            'testimony' => 'required|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'workplace'       => 'nullable|string|max:255',
+            'position'        => 'nullable|string|max:255',
+            'testimony'       => 'required|string',
+            'photo'           => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $data = $request->except(['_token', '_method']);
@@ -71,28 +72,29 @@ class TestimonialController extends Controller
             if ($testimonial->photo && File::exists(public_path($testimonial->photo))) {
                 File::delete(public_path($testimonial->photo));
             }
-            
-            // Upload foto baru
+
             $file = $request->file('photo');
-            $nama_foto = time() . '_alumni_' . str_replace(' ', '_', $file->getClientOriginalName());
-            $file->move(public_path('uploads/testimoni'), $nama_foto);
-            $data['photo'] = 'uploads/testimoni/' . $nama_foto;
+            $fileName = time() . '_testimonial_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/testimonials'), $fileName);
+            $data['photo'] = 'uploads/testimonials/' . $fileName;
         }
 
         $testimonial->update($data);
-        return redirect()->route('testimoni.index')->with('success', 'Data testimoni berhasil diperbarui!');
+
+        return redirect()->route('testimonials.index')->with('success', 'Testimoni berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
         $testimonial = Testimonial::findOrFail($id);
-        
-        // Hapus file foto fisik
+
+        // Hapus file fisik foto
         if ($testimonial->photo && File::exists(public_path($testimonial->photo))) {
             File::delete(public_path($testimonial->photo));
         }
 
         $testimonial->delete();
-        return redirect()->route('testimoni.index')->with('success', 'Testimoni berhasil dihapus!');
+
+        return redirect()->route('testimonials.index')->with('success', 'Testimoni berhasil dihapus!');
     }
 }
