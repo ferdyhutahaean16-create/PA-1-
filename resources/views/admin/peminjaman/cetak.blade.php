@@ -3,130 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bon Peminjaman - {{ $peminjaman->nama_peminjam ?? 'Dokumen' }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Cetak Bon Peminjaman - {{ $peminjaman->borrower_name }}</title>
     <style>
-        /* Pengaturan khusus untuk mode Cetak (Print) */
-        @media print {
-            @page { size: A4; margin: 20mm; }
-            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .no-print { display: none; }
-        }
-        body { font-family: 'Times New Roman', Times, serif; background-color: #f3f4f6; }
-        .kertas-a4 { background-color: white; width: 210mm; min-height: 297mm; margin: 20px auto; padding: 20mm; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        body { font-family: 'Times New Roman', Times, serif; color: #000; line-height: 1.5; font-size: 12px; }
+        .container { width: 100%; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; border-bottom: 3px solid #000; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h2, .header h3, .header p { margin: 0; padding: 0; }
+        .header h2 { font-size: 18px; font-weight: bold; text-transform: uppercase; }
+        .header h3 { font-size: 16px; font-weight: bold; margin-top: 5px; }
+        .header p { font-size: 12px; margin-top: 5px; }
+        .info-table { width: 100%; margin-bottom: 20px; border-collapse: collapse; }
+        .info-table td { padding: 4px 8px; vertical-align: top; }
+        .info-table td.label { width: 150px; font-weight: bold; }
+        .info-table td.colon { width: 10px; text-align: center; }
+        .item-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; text-align: center; }
+        .item-table th, .item-table td { border: 1px solid #000; padding: 8px; }
+        .item-table th { background-color: #f2f2f2; font-weight: bold; }
+        .signature-section { width: 100%; margin-top: 50px; display: table; }
+        .signature-box { display: table-cell; width: 50%; text-align: center; }
+        .signature-space { height: 80px; }
     </style>
 </head>
-<body class="text-black">
-
-    <div class="no-print text-center py-4 bg-gray-800 text-white">
-        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-bold shadow-lg flex items-center justify-center gap-2 mx-auto">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-            Cetak Dokumen Ini
-        </button>
-        <p class="text-sm mt-2 text-gray-300">Gunakan ukuran kertas A4 pada pengaturan printer Anda.</p>
-    </div>
-
-    <div class="kertas-a4">
+<body onload="window.print()">
+    <div class="container">
         
-        <div class="flex items-center justify-center border-b-2 border-black pb-4 mb-6">
-            <div class="w-20 h-20 bg-gray-200 border border-gray-400 flex items-center justify-center mr-6">
-                <span class="text-xs text-center text-gray-500">Logo<br>Del</span>
-            </div>
-            <div class="text-center font-bold">
-                <p class="text-lg">PROGRAM STUDI TEKNIK BIOPROSES / BIOTEKNOLOGI</p>
-                <p class="text-lg">FAKULTAS BIOTEKNOLOGI</p>
-                <p class="text-lg">INSTITUT TEKNOLOGI DEL</p>
-            </div>
+        <div class="header">
+            <h2>INSTITUT TEKNOLOGI DEL</h2>
+            <h3>PROGRAM STUDI BIOTEKNOLOGI</h3>
+            <p>Jl. Sisingamangaraja, Sitoluama, Laguboti, Toba Samosir, Sumatera Utara, Indonesia 22381</p>
+            <p><strong>FORMULIR {{ strtoupper($peminjaman->service_type) }} LABORATORIUM</strong></p>
         </div>
 
-        <h2 class="text-xl font-bold text-center underline mb-8 uppercase">
-            BON PEMINJAMAN ALAT DAN PENGAMBILAN BAHAN
-        </h2>
-
-        {{-- KECERDASAN SISTEM: Deteksi otomatis laci lama atau laci baru --}}
-        @php
-            $jenis = $peminjaman->kategori_peminjaman ?? $peminjaman->jenis_form ?? '-';
-        @endphp
-
-        <table class="w-full mb-6 text-sm">
-            <tr><td class="w-48 py-1">1. Judul Penelitian</td><td class="w-4">:</td><td class="border-b border-dotted border-black">{{ $peminjaman->judul_penelitian ?? '-' }}</td></tr>
-            <tr><td class="py-1">2. Laboratorium yang digunakan</td><td>:</td><td class="border-b border-dotted border-black">{{ $peminjaman->ruang_lab ?? $peminjaman->laboratorium ?? '-' }}</td></tr>
-            <tr><td class="py-1">3. Nama Peminjam / Pengguna</td><td>:</td><td class="border-b border-dotted border-black">{{ $peminjaman->nama_peminjam ?? '-' }} / NIM. {{ $peminjaman->nim ?? '-' }}</td></tr>
-            <tr><td class="py-1">4. Prodi / Instansi</td><td>:</td><td class="border-b border-dotted border-black">{{ $peminjaman->program_studi ?? $peminjaman->prodi ?? '-' }}</td></tr>
-            <tr><td class="py-1">5. Daftar Barang yang Dipakai</td><td>:</td><td class="font-bold">({{ $jenis }})</td></tr>
+        <table class="info-table">
+            <tr>
+                <td class="label">Nama Peminjam</td><td class="colon">:</td>
+                <td>{{ $peminjaman->borrower_name }}</td>
+                <td class="label">Tanggal Pinjam</td><td class="colon">:</td>
+                <td>{{ \Carbon\Carbon::parse($peminjaman->planned_borrow_date)->format('d F Y') }}</td>
+            </tr>
+            <tr>
+                <td class="label">NIM / NIK</td><td class="colon">:</td>
+                <td>{{ $peminjaman->nim_nik }}</td>
+                <td class="label">Rencana Kembali</td><td class="colon">:</td>
+                <td>{{ \Carbon\Carbon::parse($peminjaman->planned_return_date)->format('d F Y') }}</td>
+            </tr>
+            <tr>
+                <td class="label">Program Studi</td><td class="colon">:</td>
+                <td>{{ $peminjaman->study_program }}</td>
+                <td class="label">Lab Tujuan</td><td class="colon">:</td>
+                <td>{{ $peminjaman->destination_lab }}</td>
+            </tr>
+            <tr>
+                <td class="label">Judul Penelitian</td><td class="colon">:</td>
+                <td colspan="4">{{ $peminjaman->research_title }}</td>
+            </tr>
         </table>
 
-        <table class="w-full border-collapse border border-black mb-10 text-sm">
-            <thead>
-                <tr class="bg-gray-100">
-                    <th class="border border-black p-2 w-10">No.</th>
-                    <th class="border border-black p-2">Nama Barang</th>
-                    <th class="border border-black p-2 w-20">Jumlah</th>
-                    {{-- Judul kolom menyesuaikan dengan Alat atau Bahan --}}
-                    @if($jenis == 'Alat' || $jenis == 'Instrumen')
-                        <th class="border border-black p-2 w-32">Ukuran</th>
-                        <th class="border border-black p-2 w-40">Ket. Sebelum</th>
-                    @else
-                        <th class="border border-black p-2 w-40">Harga</th>
-                    @endif
-                </tr>
-            </thead>
-            <tbody>
-                @php $no = 1; @endphp
-
-                @if($jenis == 'Alat' || $jenis == 'Instrumen')
-                    {{-- Looping Data Alat --}}
-                    @foreach($peminjaman->detailAlat as $item)
+        <h4>Daftar Barang yang Dipinjam:</h4>
+        <table class="item-table">
+            @if($peminjaman->loan_category == 'Alat' || $peminjaman->equipmentDetails->count() > 0)
+                <thead>
                     <tr>
-                        <td class="border border-black p-2 text-center">{{ $no++ }}</td>
-                        <td class="border border-black p-2">{{ $item->nama_alat }}</td>
-                        <td class="border border-black p-2 text-center">{{ $item->jumlah }}</td>
-                        <td class="border border-black p-2 text-center">{{ $item->ukuran ?? '-' }}</td>
-                        <td class="border border-black p-2">{{ $item->ket_sebelum ?? '-' }}</td>
+                        <th width="5%">No</th>
+                        <th width="45%">Nama Alat / Instrumen</th>
+                        <th width="10%">Jumlah</th>
+                        <th width="20%">Kondisi Keluar</th>
+                        <th width="20%">Kondisi Masuk</th>
                     </tr>
-                    @endforeach
-                @else
-                    {{-- Looping Data Bahan --}}
-                    @foreach($peminjaman->detailBahan as $item)
+                </thead>
+                <tbody>
+                    @forelse($peminjaman->equipmentDetails as $index => $item)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td style="text-align: left;">{{ $item->equipment_name }}</td>
+                            <td>{{ $item->quantity }}</td>
+                            <td>{{ $item->condition_before ?? 'Baik' }}</td>
+                            <td></td> {{-- Dikosongkan untuk diisi manual saat pengembalian --}}
+                        </tr>
+                    @empty
+                        <tr><td colspan="5">Tidak ada data alat.</td></tr>
+                    @endforelse
+                </tbody>
+            @else
+                <thead>
                     <tr>
-                        <td class="border border-black p-2 text-center">{{ $no++ }}</td>
-                        <td class="border border-black p-2">{{ $item->nama_bahan }}</td>
-                        <td class="border border-black p-2 text-center">{{ $item->jumlah }}</td>
-                        <td class="border border-black p-2 text-center">{{ $item->harga ?? '-' }}</td>
+                        <th width="5%">No</th>
+                        <th width="55%">Nama Bahan Kimia</th>
+                        <th width="15%">Jumlah Diminta</th>
+                        <th width="25%">Keterangan</th>
                     </tr>
-                    @endforeach
-                @endif
-                
-                {{-- Looping baris kosong (Agar estetik, minimal 5 baris selalu muncul) --}}
-                @for($i = $no; $i <= 5; $i++)
-                <tr>
-                    <td class="border border-black p-4 text-center">{{ $i }}</td>
-                    <td class="border border-black p-4"></td>
-                    <td class="border border-black p-4"></td>
-                    @if($jenis == 'Alat' || $jenis == 'Instrumen')
-                        <td class="border border-black p-4"></td>
-                        <td class="border border-black p-4"></td>
-                    @else
-                        <td class="border border-black p-4"></td>
-                    @endif
-                </tr>
-                @endfor
-            </tbody>
+                </thead>
+                <tbody>
+                    @forelse($peminjaman->materialDetails as $index => $item)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td style="text-align: left;">{{ $item->material_name }}</td>
+                            <td>{{ $item->quantity }}</td>
+                            <td>-</td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="4">Tidak ada data bahan.</td></tr>
+                    @endforelse
+                </tbody>
+            @endif
         </table>
 
-        <div class="flex justify-between mt-12 text-sm">
-            <div class="text-center">
-                <p class="mb-20">Peminjam,</p>
-                <p class="font-bold underline">{{ $peminjaman->nama_peminjam ?? '.....................................' }}</p>
-                <p class="mt-8 mb-20">Ketua Peneliti,</p>
-                <p>( ..................................................... )</p>
+        <div class="signature-section">
+            <div class="signature-box">
+                <p>Menyetujui,<br>Admin Laboratorium</p>
+                <div class="signature-space"></div>
+                <p>_______________________</p>
             </div>
-            
-            <div class="text-center">
-                <p class="mb-20">Sitoluama, {{ \Carbon\Carbon::now()->format('d F Y') }}<br>Yang menyediakan,</p>
-                <p>( ..................................................... )</p>
-                <p class="mt-8 mb-20">Laboran,</p>
-                <p>( ..................................................... )</p>
+            <div class="signature-box">
+                <p>Sitoluama, {{ \Carbon\Carbon::parse($peminjaman->created_at)->format('d F Y') }}<br>Peminjam,</p>
+                <div class="signature-space"></div>
+                <p><strong>{{ $peminjaman->borrower_name }}</strong><br>NIM/NIK: {{ $peminjaman->nim_nik }}</p>
             </div>
         </div>
 
