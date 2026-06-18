@@ -7,8 +7,9 @@
     <div class="container mx-auto px-6">
         
         <div class="mb-12 flex items-center gap-4">
-            <a href="{{ route('lecturer.index') }}" class="text-gray-400 hover:text-emerald-700 transition p-2 bg-white rounded-full shadow-sm">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            <a href="{{ route('lecturer.index') }}" class="text-emerald-600 hover:text-emerald-500 flex items-center gap-2 mb-4 font-semibold">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Kembali
             </a>
             <div>
                 <h1 class="text-3xl font-bold text-gray-800">Edit Data Tenaga Pendidik</h1>
@@ -199,12 +200,10 @@
                 </div>
 
                 {{-- TOMBOL SUBMIT KESELURUHAN (Biodata + Pengajaran) --}}
-                <div class="flex justify-end items-center gap-4 mt-10 pt-8 border-t border-gray-100">
-                    <a href="{{ route('lecturer.index') }}" class="text-gray-600 hover:text-emerald-700 transition font-medium text-sm px-6 py-2.5 rounded-lg">Batal</a>
-                    
-                    <button type="submit" class="bg-[var(--forest-dark)] bg-emerald-800 text-white px-10 py-3.5 rounded-xl hover:bg-emerald-900 transition font-bold shadow-lg text-sm flex items-center gap-2">
+                <div class="flex justify-end items-center gap-4 mt-10 pt-8 border-t border-gray-100">                    
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-3.5 rounded-xl transition font-bold shadow-lg text-sm flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
-                        Simpan Semua Perubahan
+                        Simpan
                     </button>
                 </div>
             </div>

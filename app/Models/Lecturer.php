@@ -30,7 +30,6 @@ class Lecturer extends Model
         return $this->hasOne(Laboratory::class, 'head_of_lab_id');
     }
 
-    // 💡 CATATAN: Pastikan Anda juga membuat Model bahasa Inggris untuk relasi-relasi di bawah ini nantinya
     public function teachings() {
         return $this->hasMany(Teaching::class); // Sebelumnya Pengajaran
     }

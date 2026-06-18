@@ -12,7 +12,7 @@
                 <h1 class="text-3xl font-bold text-gray-800">Edit Data Penelitian</h1>
                 <p class="text-gray-500 mt-1">Perbarui informasi riset dan publikasi tenaga pendidik.</p>
             </div>
-            <a href="{{ route('research.index') }}" class="bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 px-5 py-2.5 rounded-lg shadow-sm font-semibold transition flex items-center gap-2">
+            <a href="{{ route('research.index') }}" class="bg-white border border-emerald-200 hover:bg-emerald-50 text-emerald-600 px-5 py-2.5 rounded-lg shadow-sm font-semibold transition flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali
             </a>
@@ -112,9 +112,9 @@
 
                 {{-- Tombol Eksekusi --}}
                 <div class="flex justify-end mt-8 border-t pt-6">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg shadow-md transition flex items-center gap-2">
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg shadow-md transition flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
-                        Simpan Perubahan
+                        Simpan
                     </button>
                 </div>
             </form>

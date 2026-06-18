@@ -102,8 +102,8 @@
                 </div>
 
                 <div class="pt-6 border-t border-gray-100 flex justify-end">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition">
-                        Update Data Kegiatan
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition">
+                        Simpan
                     </button>
                 </div>
             </form>

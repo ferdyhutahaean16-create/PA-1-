@@ -10,7 +10,7 @@
                 <h1 class="text-3xl font-bold text-gray-800">Tambah Mitra Baru</h1>
                 <p class="text-gray-500">Masukkan data instansi yang menjalin kerja sama.</p>
             </div>
-            <a href="{{ route('cooperation.index') }}" class="text-gray-500 hover:text-gray-800 font-bold flex items-center gap-2">
+            <a href="{{ route('cooperation.index') }}" class="text-emerald-600 hover:text-emerald-500 font-bold flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali
             </a>
@@ -66,7 +66,9 @@
                 </div>
 
                 <div class="mt-8 flex justify-end">
-                    <button type="submit" class="bg-[#1a4a38] text-white px-8 py-3 rounded-lg font-bold shadow hover:bg-green-800 transition">Simpan Mitra</button>
+                    <button type="submit" class="bg-emerald-600 text-white px-8 py-3 rounded-lg font-bold shadow hover:bg-emerald-500 transition">
+                        Simpan
+                    </button>
                 </div>
             </form>
         </div>

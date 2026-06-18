@@ -62,7 +62,7 @@
 
                 <div class="flex justify-end gap-4 mt-6 border-t border-gray-100 pt-6">
                     <a href="{{ route('struktur-organisasi.index') }}" class="px-6 py-3 bg-gray-100 text-gray-700 font-bold rounded-lg hover:bg-gray-200 transition shadow-sm">Batal</a>
-                    <button type="submit" class="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 transition">Simpan Perubahan</button>
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:-translate-y-0.5">Simpan  </button>
                 </div>
 
             </form>

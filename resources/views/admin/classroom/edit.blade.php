@@ -6,9 +6,9 @@
 <div class="py-10 bg-gray-50 min-h-screen">
     <div class="container mx-auto px-6 max-w-4xl">
         <div class="mb-8">
-            <a href="{{ route('classroom.index') }}" class="text-blue-600 hover:underline flex items-center gap-2 mb-4">
+            <a href="{{ route('classroom.index') }}" class="text-emerald-600 hover:text-emerald-500 hover:underline flex items-center gap-2 mb-4 font-semibold">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Daftar
+                Kembali
             </a>
             <h1 class="text-3xl font-bold text-gray-800">Edit Ruang Kelas</h1>
             <p class="text-gray-500 mt-1">{{ $classroom->name }}</p>
@@ -76,8 +76,10 @@
                 </div>
 
                 <div class="pt-6 border-t border-gray-100 flex justify-end gap-3">
-                    <a href="{{ route('classroom.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-6 rounded-lg transition">Batal</a>
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition">Update Ruangan</button>
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition">
+                        Simpan
+                    </button>
+
                 </div>
             </form>
         </div>

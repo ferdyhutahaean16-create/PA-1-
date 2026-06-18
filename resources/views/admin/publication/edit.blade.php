@@ -10,9 +10,9 @@
                 <h1 class="text-3xl font-bold text-gray-800">Edit Data Publikasi</h1>
                 <p class="text-gray-500 mt-1">Perbarui informasi karya ilmiah dan publikasi sivitas akademika.</p>
             </div>
-            <a href="{{ route('publication.index') }}" class="bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 px-5 py-2.5 rounded-lg shadow-sm font-semibold transition flex items-center gap-2 text-sm">
+            <a href="{{ route('publication.index') }}" class="bg-white border border-emerald-200 hover:bg-emerald-50 text-emerald-600 px-5 py-2.5 rounded-lg shadow-sm font-semibold transition flex items-center gap-2 text-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Batal & Kembali
+                Kembali
             </a>
         </div>
 
@@ -108,8 +108,8 @@
                 </div>
 
                 <div class="pt-6 border-t border-gray-100 flex justify-end">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition">
-                        Update Publikasi
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition">
+                        Simpan
                     </button>
                 </div>
             </form>

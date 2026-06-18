@@ -7,7 +7,7 @@
     <div class="container mx-auto px-6 max-w-4xl">
         
         <div class="mb-8">
-            <a href="{{ route('inventories.index') }}" class="text-blue-600 hover:underline flex items-center gap-2 mb-4">
+            <a href="{{ route('inventories.index') }}" class="text-emerald-600 hover:text-emerald-500 hover:underline flex items-center gap-2 mb-4 font-semibold">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali
             </a>
@@ -133,8 +133,8 @@
                 </div>
 
                 <div class="pt-6 border-t border-gray-100 flex justify-end">
-                    <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition">
-                        Simpan Inventaris
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition">
+                        Simpan
                     </button>
                 </div>
             </form>

@@ -10,9 +10,9 @@
                 <h1 class="text-3xl font-bold text-gray-800">Data Laboratorium</h1>
                 <p class="text-gray-500">Kelola informasi fasilitas dan deskripsi masing-masing lab.</p>
             </div>
-            <a href="{{ route('admin.fasilitas.create') }}" class="bg-[#1a4a38] text-white px-6 py-2.5 rounded-lg font-bold shadow hover:bg-green-800 transition flex items-center gap-2">
+            <a href="{{ route('admin.fasilitas.create') }}" class="bg-emerald-600 text-white px-6 py-2.5 rounded-lg font-bold shadow hover:bg-emerald-500 transition flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                Tambah Lab Baru
+                Tambah
             </a>
         </div>
 

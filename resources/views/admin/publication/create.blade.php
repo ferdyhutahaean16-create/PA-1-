@@ -5,7 +5,7 @@
 @section('content')
 <div class="py-10 bg-gray-50 min-h-screen">
     <div class="container mx-auto px-6 max-w-4xl">
-        <a href="{{ route('publication.index') }}" class="text-blue-600 hover:underline mb-6 inline-block">← Kembali</a>
+        <a href="{{ route('publication.index') }}" class="text-emerald-600 hover:text-emerald-500 hover:underline mb-6 inline-block font-semibold">← Kembali</a>
         <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 border-t-4 border-t-blue-500">
             <h1 class="text-2xl font-bold mb-6">Tambah Publikasi</h1>
             
@@ -88,7 +88,11 @@
                     <textarea name="description" rows="4" class="ckeditor-field w-full p-3 border rounded-lg">{{ old('description') }}</textarea>
                 </div>
 
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto transition shadow-md">Simpan Data Publikasi</button>
+                <div class="flex justify-end w-full">
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg w-full md:w-auto transition shadow-md">
+                        Simpan
+                    </button>
+                </div>
             </form>
         </div>
     </div>

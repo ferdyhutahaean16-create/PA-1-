@@ -7,11 +7,11 @@
     <div class="container mx-auto px-6 max-w-5xl">
         
         <div class="mb-8">
-            <a href="{{ route('profile.index') }}" class="text-blue-600 hover:underline flex items-center gap-2 mb-4">
+            <a href="{{ route('profile.index') }}" class="text-emerald-600 hover:text-emerald-500 hover:underline flex items-center gap-2 mb-4 font-semibold">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Daftar Profil
+                Kembali
             </a>
-            <h1 class="text-3xl font-bold text-gray-800">Kelola Data Profil Program Studi</h1>
+            <h1 class="text-3xl font-bold text-gray-800">Kelola Data Profil Umum</h1>
         </div>
 
         <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
@@ -77,8 +77,8 @@
                 </div>
 
                 <div class="mt-10 pt-6 border-t border-gray-100 flex justify-end">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition transform hover:-translate-y-0.5">
-                        Simpan Semua Perubahan
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:-translate-y-0.5">
+                        Simpan
                     </button>
                 </div>
 

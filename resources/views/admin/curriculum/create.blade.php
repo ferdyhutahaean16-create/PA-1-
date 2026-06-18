@@ -6,9 +6,9 @@
 <div class="py-10 bg-gray-50 min-h-screen">
     <div class="container mx-auto px-6 max-w-3xl">
         <div class="mb-8">
-            <a href="{{ route('curriculum.index') }}" class="text-blue-600 hover:underline flex items-center gap-2 mb-4">
+            <a href="{{ route('curriculum.index') }}" class="text-emerald-600 hover:text-emerald-500 flex items-center gap-2 mb-4 font-semibold">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Daftar
+                Kembali
             </a>
             <h1 class="text-3xl font-bold text-gray-800">Tambah Mata Kuliah</h1>
         </div>
@@ -82,8 +82,8 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold shadow-md hover:bg-blue-700 transition-colors">
-                        Simpan Semua Mata Kuliah
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg shadow-md transition transform hover:-translate-y-0.5">
+                        Simpan
                     </button>
                 </div>
             </form>

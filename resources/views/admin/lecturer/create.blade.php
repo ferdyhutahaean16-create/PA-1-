@@ -7,6 +7,10 @@
     <div class="container mx-auto px-6">
         
         <div class="mb-12">
+            <a href="{{ route('lecturer.index') }}" class="text-emerald-600 hover:text-emerald-500 flex items-center gap-2 mb-4 font-semibold">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Kembali
+            </a>
             <h1 class="text-4xl font-extrabold text-biotech-primary uppercase tracking-wider mb-2">Manajemen Tenaga Pendidik</h1>
             <div class="h-1.5 w-24 bg-biotech-secondary rounded"></div>
             <p class="mt-4 text-gray-600 max-w-2xl">Lengkapi formulir di bawah ini untuk menambahkan data tenaga pendidik baru ke dalam sistem.</p>
@@ -218,10 +222,9 @@
                 </div>
 
                 <div class="flex justify-end items-center gap-4 mt-16 pt-8 border-t border-gray-100">
-                    <a href="{{ route('lecturer.index') }}" class="text-gray-600 hover:text-biotech-primary transition font-medium text-sm px-6 py-2.5 rounded-lg">Batal</a>
-                    <button type="submit" class="bg-biotech-secondary text-gray px-10 py-3 rounded-xl hover:bg-biotech-primary transition font-semibold shadow-lg text-sm flex items-center gap-2">
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-10 py-3 rounded-xl transition font-semibold shadow-lg text-sm flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        Simpan Data
+                        Simpan
                     </button>
                 </div>
             </form>

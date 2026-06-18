@@ -29,7 +29,6 @@ return new class extends Migration
             
             $table->date('date_earned'); // Sebelumnya: tanggal_perolehan
             
-            // 💡 Tambahan pengaman berdasarkan kode View Anda sebelumnya
             $table->string('organizer')->nullable(); // Sebelumnya: penyelenggara
             $table->text('description')->nullable(); // Sebelumnya: deskripsi
             

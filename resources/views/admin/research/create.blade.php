@@ -7,11 +7,12 @@
     
     {{-- Header --}}
     <div class="flex items-center gap-4 mb-6">
-        <a href="{{ route('research.index') }}" class="p-2.5 bg-white border border-gray-200 hover:bg-gray-50 text-gray-600 rounded-xl transition-colors shadow-sm">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        <a href="{{ route('research.index') }}" class="text-emerald-600 hover:text-emerald-500 flex items-center gap-2 mb-4 font-semibold">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Kembali
         </a>
         <div>
-            <h2 class="text-2xl font-bold text-gray-800">Tambah Penelitian Baru</h2>
+            <h1 class="text-4xl font-extrabold text-biotech-primary uppercase tracking-wider mb-2">Tambah Penelitian Baru</h2>
             <p class="text-sm text-gray-500">Lengkapi form di bawah ini untuk menambahkan data publikasi.</p>
         </div>
     </div>
@@ -93,7 +94,6 @@
             
             {{-- Submit Button --}}
             <div class="pt-4 border-t border-gray-100 flex justify-end gap-3">
-                <a href="{{ route('research.index') }}" class="px-6 py-3 text-sm font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors">Batal</a>
                 <button type="submit" class="px-6 py-3 text-sm font-bold text-white bg-[#1a4a38] hover:bg-[#0f2e22] rounded-xl transition-all shadow-md hover:shadow-lg">Simpan Data</button>
             </div>
 

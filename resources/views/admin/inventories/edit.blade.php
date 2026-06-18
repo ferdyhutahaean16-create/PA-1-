@@ -10,7 +10,7 @@
                 <h1 class="text-3xl font-bold text-gray-800">Edit Data Inventaris</h1>
                 <p class="text-gray-500">Perbarui informasi, sesuaikan stok masuk, dan kelola masa kedaluarsa bahan.</p>
             </div>
-            <a href="{{ route('inventories.index') }}" class="bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 px-5 py-2.5 rounded-lg font-bold text-sm shadow-sm transition flex items-center gap-2">
+            <a href="{{ route('inventories.index') }}" class="bg-white border border-emerald-200 hover:bg-emerald-50 text-emerald-600 px-5 py-2.5 rounded-lg font-bold text-sm shadow-sm transition flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali
             </a>
@@ -128,9 +128,9 @@
                 </div>
 
                 <div class="mt-10 flex justify-end">
-                    <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition transform hover:-translate-y-1 flex items-center gap-2">
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition transform hover:-translate-y-1 flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        Simpan Pembaruan
+                        Simpan
                     </button>
                 </div>
             </form>

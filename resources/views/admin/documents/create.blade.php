@@ -7,11 +7,10 @@
     <div class="container mx-auto px-6 max-w-4xl">
         
         {{-- Tombol Kembali yang sudah diperbaiki rutenya --}}
-        <a href="{{ route('documents.index') }}" class="text-[#1a4a38] hover:underline mb-6 inline-flex items-center gap-2 font-semibold transition">
+        <a href="{{ route('documents.index') }}" class="text-emerald-600 hover:text-emerald-500 hover:underline mb-6 inline-flex items-center gap-2 font-semibold transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            Kembali ke Daftar Dokumen
+            Kembali
         </a>
-
         <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
             <div class="bg-gray-800 text-white p-6 border-b border-gray-700">
                 <h2 class="text-xl font-bold">Unggah Dokumen Baru</h2>
@@ -59,8 +58,9 @@
                 </div>
 
                 <div class="flex justify-end gap-3 pt-6 border-t border-gray-100">
-                    <a href="{{ route('documents.index') }}" class="px-6 py-2.5 bg-gray-200 text-gray-700 font-bold rounded-lg hover:bg-gray-300 transition">Batal</a>
-                    <button type="submit" class="px-6 py-2.5 bg-[#1a4a38] text-white font-bold rounded-lg shadow hover:bg-green-800 transition">Simpan Dokumen</button>
+                    <button type="submit" class="px-6 py-2.5 bg-emerald-600 text-white font-bold rounded-lg shadow hover:bg-emerald-500 transition">
+                        Simpan Dokumen
+                    </button>
                 </div>
             </form>
         </div>

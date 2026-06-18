@@ -10,7 +10,11 @@ class CurriculumController extends Controller
 {
     public function index()
     {
-        $curriculums = Curriculum::orderBy('semester', 'asc')->get();
+        $curriculums = Curriculum::orderBy('semester', 'asc')
+                                 ->orderBy('course_code', 'asc')
+                                 ->get()
+                                 ->groupBy('semester');
+                                 
         return view('admin.curriculum.index', compact('curriculums'));
     }
 

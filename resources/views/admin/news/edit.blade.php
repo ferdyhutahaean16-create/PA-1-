@@ -10,7 +10,7 @@
                 <h1 class="text-3xl font-bold text-gray-800">Edit Berita</h1>
                 <p class="text-gray-500">Perbarui informasi artikel yang sudah diterbitkan.</p>
             </div>
-            <a href="{{ route('news.index') }}" class="text-gray-500 hover:text-gray-800 font-bold flex items-center gap-2">
+            <a href="{{ route('news.index') }}" class="text-emerald-600 hover:text-emerald-500 font-bold flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali
             </a>
@@ -53,7 +53,9 @@
                 </div>
 
                 <div class="mt-8 flex justify-end">
-                    <button type="submit" class="bg-yellow-500 text-white px-8 py-3 rounded-lg font-bold shadow hover:bg-yellow-600 transition">Update Berita</button>
+                    <button type="submit" class="bg-emerald-600 text-white px-8 py-3 rounded-lg font-bold shadow hover:bg-emerald-500 transition">
+                        Simpan
+                    </button>
                 </div>
             </form>
         </div>
