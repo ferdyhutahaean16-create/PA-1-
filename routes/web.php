@@ -172,18 +172,16 @@ Route::prefix('prestasi')->group(function () {
 
     // 1. Rute Prestasi Dosen
     Route::get('/dosen', function () {
-        // Menambahkan saringan kategori 'Dosen'
         $prestasi = \App\Models\Achievement::where('category', 'Dosen')->orderBy('date_earned', 'desc')->get();
-        $publikasi = \App\Models\Publication::where('category', 'Dosen')->orderBy('created_at', 'desc')->get();
+        $publikasi = \App\Models\Publication::where('category', 'Dosen')->orderBy('publication_date', 'desc')->get();
         
         return view('prestasi_dosen', compact('prestasi', 'publikasi'));
     })->name('prestasi.dosen');
 
     // 2. Rute Prestasi Mahasiswa
     Route::get('/mahasiswa', function () {
-        // PERBAIKAN: Menambahkan saringan kategori 'Mahasiswa'
         $prestasi = \App\Models\Achievement::where('category', 'Mahasiswa')->orderBy('date_earned', 'desc')->get();
-        $publikasi = \App\Models\Publication::where('category', 'Mahasiswa')->orderBy('created_at', 'desc')->get();
+        $publikasi = \App\Models\Publication::where('category', 'Mahasiswa')->orderBy('publication_date', 'desc')->get();
         
         return view('prestasi_mahasiswa', compact('prestasi', 'publikasi'));
     })->name('prestasi.mahasiswa');

@@ -96,4 +96,13 @@ class DocumentController extends Controller
 
         return redirect()->route('documents.index')->with('success', 'Dokumen berhasil dihapus!');
     }
+
+    public function lihat($id)
+    {
+        // Ambil data dokumen berdasarkan ID
+        $document = \App\Models\Document::findOrFail($id);
+        
+        // Return ke sebuah halaman View HTML khusus, BUKAN langsung return file
+        return view('lihat_dokumen', compact('document'));
+    }
 }

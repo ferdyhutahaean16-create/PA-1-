@@ -13,7 +13,6 @@ class OrganizationalStructureController extends Controller
     public function index()
     {
         $structures = OrganizationalStructure::orderBy('level', 'asc')->get();
-        // 💡 Pastikan folder view diubah jadi 'organizational_structure'
         return view('admin.organizational_structure.index', compact('structures'));
     }
 

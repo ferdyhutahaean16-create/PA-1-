@@ -9,7 +9,6 @@ class OrganizationalStructure extends Model
 {
     use HasFactory, Userstamps;
 
-    // Menegaskan nama tabel agar Laravel tidak bingung
     protected $table = 'organizational_structures';
 
     protected $fillable = [

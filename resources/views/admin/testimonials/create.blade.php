@@ -32,7 +32,7 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Nama Alumni <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Nama <span class="text-red-500">*</span></label>
                         <input type="text" name="name" value="{{ old('name') }}" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required>
                     </div>
                     <div>

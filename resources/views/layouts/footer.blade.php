@@ -1,13 +1,11 @@
 <style>
     :root {
-        /* 💡 Warna hijau dibuat lebih cerah dan segar */
         --forest-light: #205c42; 
         --forest: #144530;
-        --gold: #dce05c; /* Warna emas dibuat sedikit lebih terang menyala */
+        --gold: #dce05c; 
     }
 
     .footer-premium {
-        /* Menggunakan gradien menyamping agar terlihat lebih modern */
         background: linear-gradient(135deg, var(--forest-light), var(--forest));
         position: relative;
         overflow: hidden;
@@ -81,8 +79,8 @@
                     <li><a href="{{ route('kurikulum.publik') }}" class="footer-link">Kurikulum Akademik</a></li>
                     <li><a href="{{ route('fasilitas.index') }}" class="footer-link">Fasilitas</a></li>
                     <li><a href="{{ route('publik.penelitian') }}" class="footer-link">Penelitian & Riset</a></li>
-                    <li><a href="{{ route('laboratorium.pinjam') }}" class="footer-link">Form Peminjaman & Bahan</a></li>
-                    <li><a href="{{ route('lab.cek-status') }}" class="footer-link">Cek Status Permohonan</a></li>
+                    <li><a href="{{ route('laboratorium.pinjam') }}" class="footer-link">Peminjaman Alat & Bahan</a></li>
+                    <li><a href="{{ route('lab.cek-status') }}" class="footer-link">Cek Status Peminjaman</a></li>
                 </ul>
             </div>
 
@@ -108,13 +106,10 @@
         
         {{-- COPYRIGHT --}}
         <div class="mt-12 pt-6 border-t border-white/20">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 text-center w-full">
                 <p class="text-xs text-white/80 uppercase tracking-[0.1em]">
-                    &copy; {{ date('Y') }} Program Studi Bioteknologi Institut Teknologi Del. 
-                </p>
-                <p class="text-xs text-white/80 uppercase tracking-[0.1em]">
-                    Developed by <span class="text-[var(--gold)] font-bold">Ferdy, Sesilia, Wesly, Ravael, Grace (Mahasiswa D3TI 2025)
-                        Supervised By: Goklas Henry Agus Panjaitan,S.Tr.Kom., M.T.</span>
+                    Created By: <span class="text-[var(--gold)] font-bold">Ferdy, Sesilia, Wesly, Ravael, Grace (Mahasiswa D3TI 2025)/
+                    Supervised By: Goklas Henry Agus Panjaitan,S.Tr.Kom., M.T.</span>
                 </p>
             </div>
         </div>

@@ -8,12 +8,23 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     // Menampilkan halaman form login
+    // Menampilkan halaman form login
     public function login()
     {
-        // Jika sudah login, langsung tendang ke halaman admin
+        // Jika sudah login, langsung tendang ke halaman admin utama
         if (Auth::check()) {
-            return redirect('/admin/testimoni'); // atau rute dashboard admin utama Anda
+            
+            // Pengecekan Jalur Berdasarkan Email (Sama seperti saat login)
+            $userEmail = Auth::user()->email;
+
+            if ($userEmail === 'adminlab@del.ac.id') {
+                return redirect('/admin/peminjaman'); 
+            }
+
+            // Jika Super Admin, kembalikan ke dashboard utama Admin
+            return redirect('/admin'); 
         }
+        
         return view('auth.login');
     }
 

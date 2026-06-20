@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Curriculum; // 💡 Memanggil model baru
+use App\Models\Curriculum; 
 use Illuminate\Http\Request;
 
 class CurriculumController extends Controller

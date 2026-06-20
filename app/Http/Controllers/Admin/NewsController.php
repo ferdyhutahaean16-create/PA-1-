@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
-use App\Models\Activity; // 💡 Memanggil model Activity untuk halaman publik
+use App\Models\Activity; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 

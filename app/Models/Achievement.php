@@ -9,10 +9,8 @@ class Achievement extends Model
 {
     use HasFactory, Userstamps;
 
-    // Menegaskan nama tabel di database
     protected $table = 'achievements';
 
-    // Kolom internasional yang diizinkan untuk pengisian massal
     protected $fillable = [
         'lecturer_id',
         'category',

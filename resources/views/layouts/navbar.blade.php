@@ -168,7 +168,7 @@
                 <div class="absolute hidden group-hover:block bg-white shadow-xl border-t-4 border-[#064e3b] min-w-[220px] top-[calc(100%-4px)] left-0 z-50 rounded-b-md overflow-hidden">
                     <a href="{{ route('berita.lengkap') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">Berita Utama</a>
                     <a href="{{ url('/mitra') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-[#064e3b] border-b border-gray-100 text-sm font-bold transition">Mitra Kerja Sama</a>
-                    <a href="{{ route('publik.testimoni') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-[#064e3b] text-sm font-bold transition">Testimoni Alumni</a>
+                    <a href="{{ route('publik.testimoni') }}" class="block px-6 py-3 hover:bg-green-50 text-gray-800 hover:text-[#064e3b] text-sm font-bold transition">Testimoni</a>
                 </div>
             </div>
 
@@ -240,7 +240,7 @@
             <div class="flex flex-col gap-3 pl-4 text-xs font-normal text-gray-600">
                 <a href="{{ route('berita.lengkap') }}" class="hover:text-[#064e3b] transition-colors">Berita Utama</a>
                 <a href="{{ url('/mitra') }}" class="hover:text-[#064e3b] transition-colors">Mitra Kerja Sama</a>
-                <a href="{{ route('publik.testimoni') }}" class="hover:text-[#064e3b] transition-colors">Testimoni Alumni</a>
+                <a href="{{ route('publik.testimoni') }}" class="hover:text-[#064e3b] transition-colors">Testimoni</a>
             </div>
         </div>
 

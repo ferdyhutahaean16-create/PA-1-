@@ -114,7 +114,7 @@ body {
         <div class="flex flex-col md:flex-row gap-12 items-center mb-24 fade-up">
             <div class="w-full md:w-5/12">
                 <div class="image-accent">
-                    <img src="https://via.placeholder.com/600x450?text=Laboratorium+Bioteknologi" alt="Suasana Laboratorium" class="rounded-lg shadow-2xl w-full object-cover">
+                    <img src="{{ asset('Adminlte/dist/img/lab.JPEG') }}" alt="Suasana Laboratorium" class="rounded-lg shadow-2xl w-full object-cover">
                 </div>
             </div>
             

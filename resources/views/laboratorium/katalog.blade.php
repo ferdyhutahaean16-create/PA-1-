@@ -104,7 +104,7 @@
                             <div class="mt-auto pt-4 space-y-2">
                                 <div class="flex justify-between items-center text-sm border-t border-gray-50 pt-3">
                                     <span class="text-gray-500">Stok Saat Ini:</span>
-                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->quantity }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->unit }}</span></span>
+                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->quantity }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->unit ?? 'Unit' }}</span></span>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                             <div class="mt-auto pt-4 space-y-2">
                                 <div class="flex justify-between items-center text-sm border-t border-gray-50 pt-3">
                                     <span class="text-gray-500">Jumlah Unit:</span>
-                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->quantity }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->unit }}</span></span>
+                                    <span class="font-bold text-[var(--forest-dark)] text-lg">{{ $item->quantity }} <span class="text-xs font-normal text-gray-500 uppercase">{{ $item->unit ?? 'Unit' }}</span></span>
                                 </div>
                             </div>
                         </div>

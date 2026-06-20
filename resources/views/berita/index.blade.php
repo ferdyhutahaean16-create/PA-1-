@@ -55,8 +55,10 @@
             <template x-for="cat in ['Semua', 'Berita Dosen', 'Berita Mahasiswa']">
                 <button 
                     @click="filter = cat"
-                    :class="filter === cat ? 'active' : 'bg-white text-gray-500 border-gray-200'"
-                    class="filter-btn px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest border hover:border-[var(--forest)]/50">
+                    :class="filter === cat 
+                        ? 'bg-[#1a4a38] text-white border-[#1a4a38] shadow-lg transform -translate-y-1' 
+                        : 'bg-white text-gray-500 border-gray-200 hover:border-[#1a4a38]/50 hover:bg-gray-50'"
+                    class="transition-all duration-300 px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest border">
                     <span x-text="cat"></span>
                 </button>
             </template>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lecturer;
-use App\Models\Teaching; // 💡 Pastikan Anda sudah me-rename model Pengajaran menjadi Teaching
+use App\Models\Teaching; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;

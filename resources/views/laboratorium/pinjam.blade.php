@@ -161,7 +161,7 @@
                                         <td class="p-4 font-bold text-gray-800">{{ $item->item_name }}</td>
                                         <td class="p-4 text-center">
                                             <span class="bg-gray-100 px-3 py-1 rounded-full text-xs font-semibold">
-                                                {{ $item->quantity }} {{ $item->unit ?? 'Set' }}
+                                                {{ $item->quantity }} {{ $item->unit }}
                                             </span>
                                         </td>
                                         <td class="p-4 text-center text-gray-600 font-mono text-xs">

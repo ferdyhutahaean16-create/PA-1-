@@ -9,7 +9,6 @@ class Curriculum extends Model
 {
     use HasFactory, Userstamps;
 
-    // Menegaskan nama tabel jamak bahasa Inggris
     protected $table = 'curriculums';
 
     protected $fillable = [
@@ -20,7 +19,6 @@ class Curriculum extends Model
         'category'     // kategori
     ];
 
-        // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');

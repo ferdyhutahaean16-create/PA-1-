@@ -12,7 +12,6 @@ class ProfileController extends Controller
     public function index()
     {
         $profiles = Profile::all();
-        // 💡 Pastikan nama folder view Anda nanti juga diubah jadi 'profile'
         return view('admin.profile.index', compact('profiles'));
     }
 
@@ -23,7 +22,6 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
-        // 💡 Validasi menggunakan nama bahasa Inggris
         $request->validate([
             'history' => 'required',
             'vision' => 'required',

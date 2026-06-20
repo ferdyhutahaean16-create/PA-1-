@@ -12,21 +12,18 @@ class AchievementController extends Controller
 {
     public function index()
     {
-        // Mengambil semua data prestasi berdasarkan tanggal perolehan terbaru
         $achievements = Achievement::with('lecturer')->orderBy('date_earned', 'desc')->get();
         return view('admin.achievement.index', compact('achievements'));
     }
 
     public function create()
     {
-        // Mengambil data dosen untuk pilihan dropdown di form
         $lecturers = Lecturer::orderBy('name', 'asc')->get();
         return view('admin.achievement.create', compact('lecturers'));
     }
 
     public function store(Request $request)
     {
-        // 1. Validasi ketat menggunakan input elemen bahasa Inggris
         $request->validate([
             'category'          => 'required|in:Dosen,Mahasiswa',
             'lecturer_id'       => 'required_if:category,Dosen|nullable|exists:lecturers,id',
@@ -41,7 +38,7 @@ class AchievementController extends Controller
 
         $data = $request->only(['category', 'achievement_name', 'level', 'date_earned', 'organizer', 'description']);
 
-        // 2. Logika Penentuan Peraih Berdasarkan Kategori
+        // Logika Penentuan Peraih Berdasarkan Kategori
         if ($request->category == 'Dosen') {
             $lecturer = Lecturer::findOrFail($request->lecturer_id);
             $data['achiever_name'] = $lecturer->name;
@@ -51,7 +48,7 @@ class AchievementController extends Controller
             $data['lecturer_id']   = null;
         }
 
-        // 3. Proses Unggah File Sertifikat / Foto Bukti
+        // Proses Unggah File Sertifikat / Foto Bukti
         if ($request->hasFile('certificate_file')) {
             $file = $request->file('certificate_file');
             $filename = time() . "_" . $file->getClientOriginalName();
@@ -61,7 +58,7 @@ class AchievementController extends Controller
             $data['certificate_file'] = $upload_path . '/' . $filename;
         }
 
-        // 4. Eksekusi penyimpanan data
+        // Eksekusi penyimpanan data
         Achievement::create($data);
 
         return redirect()->route('achievement.index')->with('success', 'Achievement data successfully added!');
