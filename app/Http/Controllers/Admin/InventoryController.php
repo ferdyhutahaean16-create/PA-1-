@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Inventory; // Model baru (Inventory)
+use App\Models\Inventory; 
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller
@@ -13,12 +13,12 @@ class InventoryController extends Controller
         // Ambil semua data
         $inventories = Inventory::orderBy('created_at', 'desc')->get();
 
-        // LOGIKA CERDAS: Mengelompokkan berdasarkan kategori Inggris yang baru
+        // Mengelompokkan berdasarkan kategori 
         $equipment = $inventories->where('category', 'Equipment');
         $materials = $inventories->where('category', 'Material');
         $instruments = $inventories->where('category', 'Instrument');
 
-        // Kirim ketiga kelompok data tersebut ke View
+        // Kirim ketiga data tersebut ke View
         return view('admin.inventories.index', compact('equipment', 'materials', 'instruments'));
     }
 
@@ -36,7 +36,6 @@ class InventoryController extends Controller
 
         $data = $request->all();
         
-        // 💡 CEGAHAN ERROR 1048: Jika jumlah dikosongkan (null), paksa menjadi angka 0
         $data['quantity'] = $request->quantity ?? 0;
 
         Inventory::create($data);
@@ -49,7 +48,6 @@ class InventoryController extends Controller
         // Cari data berdasarkan ID
         $inventory = Inventory::findOrFail($id);
         
-        // Eksekusi perintah hapus
         $inventory->delete();
 
         return redirect()->back()->with('success', 'Data inventaris berhasil dihapus dari sistem!');
@@ -93,7 +91,7 @@ class InventoryController extends Controller
             $data['price'] = null;
         }
 
-        // Simpan semua pembaruan secara otomatis
+        // Simpan semua pembaruan
         $item->update($data);
 
         return redirect()->route('inventories.index')->with('success', 'Data inventaris berhasil diperbarui dengan akurat!');

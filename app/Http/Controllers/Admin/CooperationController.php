@@ -36,7 +36,7 @@ class CooperationController extends Controller
 
         $data = $request->except(['_token']);
 
-        // Logika Upload Logo
+        //  Upload Logo
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             $nama_logo = time() . '_logo_' . str_replace(' ', '_', $file->getClientOriginalName());
@@ -44,7 +44,7 @@ class CooperationController extends Controller
             $data['logo'] = 'uploads/cooperation/logo/' . $nama_logo;
         }
 
-        // Logika Upload Dokumen MoU
+        //  Upload Dokumen MoU
         if ($request->hasFile('document_file')) {
             $file = $request->file('document_file');
             $nama_file = time() . '_MoU_' . str_replace(' ', '_', $file->getClientOriginalName());
@@ -56,7 +56,7 @@ class CooperationController extends Controller
         return redirect()->route('cooperation.index')->with('success', 'Data Mitra berhasil ditambahkan!');
     }
 
-    // Menampilkan form edit mitra (INI FUNGSI YANG HILANG TADI)
+    // Menampilkan form edit mitra
     public function edit($id)
     {
         $cooperation = Cooperation::findOrFail($id);
@@ -93,7 +93,7 @@ class CooperationController extends Controller
 
         // Update Dokumen
         if ($request->hasFile('document_file')) {
-            // Hapus dokumen lama jika ada
+            // Hapus dokumen lama
             if ($cooperation->document_file && File::exists(public_path($cooperation->document_file))) {
                 File::delete(public_path($cooperation->document_file));
             }
@@ -112,12 +112,12 @@ class CooperationController extends Controller
     {
         $cooperation = Cooperation::findOrFail($id);
         
-        // Hapus file fisik logo
+        // Hapus logo
         if ($cooperation->logo && File::exists(public_path($cooperation->logo))) {
             File::delete(public_path($cooperation->logo));
         }
 
-        // Hapus file fisik dokumen
+        // Hapus dokumen
         if ($cooperation->document_file && File::exists(public_path($cooperation->document_file))) {
             File::delete(public_path($cooperation->document_file));
         }

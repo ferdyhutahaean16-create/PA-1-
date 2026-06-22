@@ -129,10 +129,22 @@
             @php 
                 $kat = strtolower($item->category ?? '');
                 $exec = strtolower($item->executor ?? '');
+                $judul = strtolower($item->title ?? '');
                 
-                if (str_contains($kat, 'mahasiswa') || str_contains($exec, 'mahasiswa')) {
+                // Cek berbagai kata kunci mahasiswa
+                if (
+                    str_contains($kat, 'mahasiswa') || str_contains($exec, 'mahasiswa') || str_contains($judul, 'mahasiswa') ||
+                    str_contains($kat, 'himatif') || str_contains($exec, 'himalogy') || str_contains($judul, 'himatif') ||
+                    str_contains($kat, 'student')
+                ) {
                     $category = 'Berita Mahasiswa';
-                } elseif (str_contains($kat, 'dosen') || str_contains($exec, 'dr.') || str_contains($exec, 'prof')) {
+                } 
+                // Cek kata kunci dosen
+                elseif (
+                    str_contains($kat, 'dosen') || str_contains($exec, 'dosen') || 
+                    str_contains($exec, 'dr.') || str_contains($exec, 'prof') || 
+                    str_contains($kat, 'lecturer') || str_contains($judul, 'dosen')
+                ) {
                     $category = 'Berita Dosen';
                 } else {
                     $category = 'Umum';

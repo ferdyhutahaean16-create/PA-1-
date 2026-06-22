@@ -17,7 +17,7 @@
         </div>
 
         <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
-            <form action="{{ route('fasilitas.update', $lab->id) }}" method="POST" enctype="multipart/form-data" class="p-8">
+            <form action="{{ route('admin.fasilitas.update', $lab->id) }}" method="POST" enctype="multipart/form-data" class="p-8">
                 @csrf
                 @method('PUT') 
                 <div class="space-y-6">

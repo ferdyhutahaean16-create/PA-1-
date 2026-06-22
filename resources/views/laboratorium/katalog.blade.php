@@ -195,7 +195,7 @@
         document.querySelectorAll('.tab-btn').forEach(el => {
             el.classList.remove('active-tab', 'text-white');
             el.classList.add('bg-white', 'text-gray-500');
-            el.style.borderColor = '#e5e7eb'; // border-gray-200
+            el.style.borderColor = '#e5e7eb';
         });
 
         // Menampilkan tab yang dipilih

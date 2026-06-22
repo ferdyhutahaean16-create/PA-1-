@@ -11,7 +11,6 @@ class TestimonialController extends Controller
 {
     public function index()
     {
-        // Menampilkan testimoni terbaru di urutan atas
         $testimonials = Testimonial::orderBy('created_at', 'desc')->get();
         return view('admin.testimonials.index', compact('testimonials'));
     }

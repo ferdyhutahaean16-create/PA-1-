@@ -8,10 +8,8 @@ use App\Models\Teaching;
 
 class TeachingController extends Controller
 {
-    // Fungsi untuk menambah mata kuliah baru
     public function store(Request $request)
     {
-        // 1. Validasi input dengan nama atribut bahasa Inggris
         $request->validate([
             'lecturer_id'   => 'required',
             'course_name'   => 'required|string|max:255',
@@ -19,7 +17,6 @@ class TeachingController extends Controller
             'academic_year' => 'nullable|string|max:50',
         ]);
 
-        // 2. Simpan ke database
         Teaching::create([
             'lecturer_id'   => $request->lecturer_id,
             'course_name'   => $request->course_name,
@@ -30,7 +27,6 @@ class TeachingController extends Controller
         return redirect()->back()->with('success', 'Teaching data successfully added!');
     }
 
-    // Fungsi untuk menghapus mata kuliah
     public function destroy($id)
     {
         $teaching = Teaching::findOrFail($id);

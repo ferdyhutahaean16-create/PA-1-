@@ -9,7 +9,6 @@ class Research extends Model
 {
     use HasFactory, Userstamps;
 
-    // Menegaskan nama tabel plural di database
     protected $table = 'researches';
 
     protected $fillable = [

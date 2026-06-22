@@ -130,10 +130,8 @@
                         <!-- Status Badge -->
                         <div class="min-w-[180px] flex flex-col items-center">
                             @php
-                                // Warna Default untuk "Selesai" (Abu-abu elegan)
                                 $statusStyle = 'bg-slate-50 text-slate-500 border border-slate-200'; 
                                 
-                                // Deteksi setiap fase secara spesifik
                                 if($p->status == 'Pending') $statusStyle = 'bg-yellow-50 text-yellow-700 border border-yellow-200';
                                 if($p->status == 'Disetujui') $statusStyle = 'bg-green-50 text-green-700 border border-green-200';
                                 if($p->status == 'Ditolak') $statusStyle = 'bg-red-50 text-red-700 border border-red-200';

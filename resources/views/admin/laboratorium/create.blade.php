@@ -80,14 +80,11 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Cari semua elemen yang punya class 'ckeditor-field'
         let editors = document.querySelectorAll('.ckeditor-field');
         
-        // Loop dan ubah satu per satu menjadi editor
         editors.forEach(function(editorElement) {
             ClassicEditor
                 .create(editorElement, {
-                    // Opsional: Anda bisa mengatur menu toolbar di sini
                     toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo' ]
                 })
                 .catch(error => {
@@ -98,7 +95,6 @@
 </script>
 
 <style>
-    /* Sedikit perbaikan CSS agar editornya tidak terlalu pendek */
     .ck-editor__editable_inline {
         min-height: 200px;
     }

@@ -19,7 +19,6 @@ class Cooperation extends Model
         'document_file'
     ];
 
-        // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');

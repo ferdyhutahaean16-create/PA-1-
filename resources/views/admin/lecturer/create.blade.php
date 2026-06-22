@@ -204,11 +204,10 @@
                                 wrapper.insertAdjacentHTML('beforeend', barisBaru);
                             });
                     
-                            // Aksi Hapus Baris (Menggunakan Event Delegation karena baris dibuat dinamis)
+                            // Aksi Hapus Baris
                             wrapper.addEventListener('click', function(e) {
                                 if (e.target.closest('.btn-hapus-baris')) {
                                     const baris = e.target.closest('tr');
-                                    // Sisakan minimal 1 baris input agar form tidak kosong total
                                     if (wrapper.querySelectorAll('tr').length > 1) {
                                         baris.remove();
                                     } else {

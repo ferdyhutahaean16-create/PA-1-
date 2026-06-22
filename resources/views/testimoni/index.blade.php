@@ -24,7 +24,6 @@
     box-shadow: 0 10px 30px -10px rgba(0,0,0,0.08); 
     display: flex;
     flex-direction: column;
-    /* Menghapus pembatasan tinggi agar kartu memanjang sesuai isi teks */
     height: auto; 
     position: relative;
     overflow: hidden;
@@ -43,7 +42,7 @@
     opacity: 0.15;
     position: absolute;
     top: -15px;
-    right: 20px; /* Saya pindahkan tanda kutip ke kanan atas agar tidak menabrak foto */
+    right: 20px;
     pointer-events: none;
     z-index: 0;
 }
@@ -58,7 +57,6 @@
     display: inline-block;
 }
 
-/* Custom Pagination Style */
 .pagination-wrapper nav {
     display: inline-flex;
     border-radius: 99px;

@@ -157,7 +157,6 @@
             formBahan.classList.add('hidden');
             formInstrumen.classList.add('hidden');
 
-            // Sesuaikan dengan value Enum bahasa Inggris
             if (dropdownKategori.value === 'Equipment') {
                 formAlat.classList.remove('hidden');
             } else if (dropdownKategori.value === 'Material') {
@@ -170,7 +169,6 @@
         // Jalankan saat dropdown berubah
         dropdownKategori.addEventListener('change', toggleForms);
         
-        // Jalankan sekali saat halaman dimuat (berguna jika ada error validasi dan old('category') terisi)
         if(dropdownKategori.value !== '') {
             toggleForms();
         }

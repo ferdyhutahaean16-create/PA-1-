@@ -127,7 +127,7 @@
                 });
         });
 
-        // 2. Logika Sinkronisasi Otomatis Nama Pelaksana Dosen
+        // Sinkronisasi Otomatis Nama Pelaksana Dosen
         const categorySelect = document.getElementById('category');
         const lecturerSelect = document.getElementById('lecturer_id');
         const lecturerLabel = document.getElementById('lecturer-label');

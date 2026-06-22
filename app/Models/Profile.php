@@ -11,7 +11,6 @@ class Profile extends Model
 
     protected $table = 'profiles';
 
-    // Mengizinkan kolom-kolom ini diisi data dari form
     protected $fillable = [
         'history',
         'vision',
@@ -21,7 +20,6 @@ class Profile extends Model
         'organizational_structure'
     ];
 
-    // Tambahkan ini di Model Profil, Kurikulum, Berita, Laboratorium, dll.
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');

@@ -247,7 +247,6 @@
                 if (container.querySelectorAll('.row-matkul').length > 1) {
                     baris.remove();
                 } else {
-                    // Jika tersisa 1 baris, kosongkan saja inputnya
                     baris.querySelectorAll('input').forEach(input => input.value = '');
                 }
             }

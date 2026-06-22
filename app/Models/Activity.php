@@ -9,7 +9,6 @@ class Activity extends Model
 {
     use HasFactory, Userstamps;
 
-    // Menegaskan nama tabel plural di database sesuai konvensi bahasa Inggris
     protected $table = 'activities';
 
     protected $fillable = [

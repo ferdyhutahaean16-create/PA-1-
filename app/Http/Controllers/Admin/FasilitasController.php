@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Laboratory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File; // 💡 PENTING: Tambahkan ini untuk menghapus file lama
+use Illuminate\Support\Facades\File; 
 
 class FasilitasController extends Controller
 {
@@ -78,16 +78,14 @@ class FasilitasController extends Controller
 
         $path = 'uploads/laboratorium';
 
-        // Update foto: Jika ada foto baru, hapus foto lama
+        // Update foto
         $fields = ['foto' => 'image', 'foto_2' => 'image_2', 'foto_3' => 'image_3', 'foto_4' => 'image_4'];
         
         foreach ($fields as $inputName => $dbColumn) {
             if ($request->hasFile($inputName)) {
-                // Hapus file lama jika ada
                 if ($lab->$dbColumn && File::exists(public_path($lab->$dbColumn))) {
                     File::delete(public_path($lab->$dbColumn));
                 }
-                // Upload file baru
                 $lab->$dbColumn = $this->uploadImage($request->file($inputName), $path, str_replace('image', '', $dbColumn) ?: '1');
             }
         }
@@ -101,7 +99,6 @@ class FasilitasController extends Controller
     {
         $lab = Laboratory::findOrFail($id);
 
-        // Hapus file fisik dari storage agar tidak menumpuk
         $fields = ['image', 'image_2', 'image_3', 'image_4'];
         foreach ($fields as $field) {
             if ($lab->$field && File::exists(public_path($lab->$field))) {
@@ -114,7 +111,6 @@ class FasilitasController extends Controller
         return redirect()->route('admin.fasilitas.index')->with('success', 'Data Laboratorium berhasil dihapus!');
     }
 
-    // Helper method agar kode lebih bersih
     private function uploadImage($file, $path, $suffix)
     {
         $fileName = time() . '_' . $suffix . '.' . $file->extension();

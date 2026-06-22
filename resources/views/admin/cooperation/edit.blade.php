@@ -94,7 +94,6 @@
         editors.forEach(function(editorElement) {
             ClassicEditor
                 .create(editorElement, {
-                    // Opsional: Anda bisa mengatur menu toolbar di sini
                     toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo' ]
                 })
                 .catch(error => {

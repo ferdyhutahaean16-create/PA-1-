@@ -43,20 +43,13 @@ use App\Http\Controllers\LaboratoriumController as PublikLabController;
 use App\Http\Controllers\Admin\LaboratoriumController as AdminLabController;
 use App\Http\Controllers\Admin\InventoryController;
 
-// ==========================================
-// RUTE LOGIN & LOGOUT
-// ==========================================
+// LOGIN & LOGOUT
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// ==========================================
-// HALAMAN PUBLIK (Akses Pengunjung)
-// ==========================================
-
-// ==========================================
-// RUTE HALAMAN BERANDA (HOME)
-// ==========================================
+// HALAMAN GUEST
+// HALAMAN BERANDA (HOME)
 Route::get('/', function () {
     // 1. Ambil data pendukung (Mitra, Testimoni, Profil)
     $mitras = \App\Models\Cooperation::orderBy('start_date', 'desc')->take(6)->get();
@@ -65,50 +58,42 @@ Route::get('/', function () {
 
     // 2. Logika Cerdas: Menggabungkan Berita & Kegiatan
     $berita = \App\Models\News::latest('published_date')->get()->map(function($item) {
-    return (object) [
-        'id'      => $item->id,
-        'judul'   => $item->title,           // Dipetakan agar kompatibel dengan view
-        'tanggal' => $item->published_date, // Dipetakan agar kompatibel dengan view
-        'foto'    => $item->image,          // Dipetakan agar kompatibel dengan view
-        'konten'  => $item->content,        // Dipetakan agar kompatibel dengan view
-        'label'   => 'BERITA',
-        'link'    => route('publik.berita.baca', $item->id)
-    ];
-});
-
-    $kegiatan = \App\Models\Activity::latest('execution_time')->get()->map(function($item) {
         return (object) [
-            'id' => $item->id,
-            'judul' => $item->judul,
-            'tanggal' => $item->waktu_pelaksanaan,
-            'foto' => $item->foto,
-            'konten' => $item->deskripsi ?? $item->konten ?? '',
-            'label' => 'KEGIATAN',
-            'link' => route('publik.kegiatan.baca', $item->id)
+            'id'      => $item->id,
+            'judul'   => $item->title,           
+            'tanggal' => $item->published_date, 
+            'foto'    => $item->image,          
+            'konten'  => $item->content,        
+            'label'   => 'BERITA',
+            'link'    => route('publik.berita.baca', $item->id)
         ];
     });
 
-    // Gabungkan, urutkan dari yang paling baru, dan ambil 3 teratas
+    $kegiatan = \App\Models\Activity::latest('execution_time')->get()->map(function($item) {
+        return (object) [
+            'id'      => $item->id,
+            'judul'   => $item->title,            // PERBAIKAN: Sebelumnya $item->judul
+            'tanggal' => $item->execution_time,   // PERBAIKAN: Sebelumnya $item->waktu_pelaksanaan
+            'foto'    => $item->image,            // PERBAIKAN: Sebelumnya $item->foto
+            'konten'  => $item->description,      // PERBAIKAN: Sebelumnya $item->deskripsi
+            'label'   => 'KEGIATAN',
+            'link'    => route('publik.kegiatan.baca', $item->id)
+        ];
+    });
+
     $berita_utama = $berita->concat($kegiatan)->sortByDesc('tanggal')->take(3);
 
-    // 3. Kirim SEMUA data ke satu tampilan saja (pilih 'home' atau 'welcome' sesuai desain Anda)
     return view('home', compact('berita_utama', 'mitras', 'testimonials', 'profile'));
 })->name('home');
 
 
-// ==========================================
-// RUTE DETAIL BERITA
-// ==========================================
-// Rute ini harus diletakkan di LUAR rute beranda agar peta situs Anda rapi
-// (Catatan: Jika di baris atas file web.php Anda sudah ada rute ini, Anda boleh menghapus salah satunya agar tidak ganda).
+// DETAIL BERITA
 Route::get('/berita/baca/{id}', [NewsController::class, 'bacaPublik'])->name('publik.berita.baca');
 
 // Profil & Struktur
 Route::get('/profil', function () {
-    // Gunakan \App\Models\Profile agar langsung mengarah ke model yang baru
     $profile = \App\Models\Profile::first(); 
     
-    // Kirim variabel dengan nama baru ($profile) ke tampilan
     return view('profil', compact('profile')); 
 });
 
@@ -119,13 +104,12 @@ Route::get('/struktur', function () {
     return view('struktur', compact('profile', 'structures')); 
 })->name('struktur.publik');
 
-// Kurikulum (Boleh tetap pakai URL /kurikulum untuk pengunjung lokal)
+// Kurikulum
 Route::get('/kurikulum', function () {
     $curriculums = \App\Models\Curriculum::orderBy('semester', 'asc')
                 ->orderBy('course_name', 'asc')
                 ->get();
     
-    // Kelompokkan data berdasarkan semester
     $curriculums_per_semester = $curriculums->groupBy('semester');
     
     return view('kurikulum', compact('curriculums_per_semester'));
@@ -133,7 +117,6 @@ Route::get('/kurikulum', function () {
 
 // Tenaga Pendidik
 Route::get('/tenaga-pendidik', function () {
-    // Memanggil SEMUA relasi agar tidak ada tab yang kosong di halaman publik
     $lecturers = \App\Models\Lecturer::with([
         'teachings', 
         'publications', 
@@ -149,28 +132,21 @@ Route::get('/tenaga', function () {
     return redirect('/tenaga-pendidik');
 });
 
-// Berita, Mitra, Testimoni
-// ==========================================
-// RUTE HALAMAN PUBLIK (BERITA & KEGIATAN)
-// ==========================================
-
-// 1. Rute Halaman Utama Arsip Berita (Ini yang membuat halaman Home Anda error tadi)
+// (BERITA & KEGIATAN)
 Route::get('/berita-lengkap', [NewsController::class, 'indexPublik'])->name('berita.lengkap');
 
-// 2. Rute Membaca Detail Berita
 Route::get('/berita/baca/{id}', [NewsController::class, 'bacaPublik'])->name('publik.berita.baca');
 
-// 3. Rute Membaca Detail Kegiatan
+// Membaca Detail Kegiatan
 Route::get('/kegiatan/{id}/baca', [\App\Http\Controllers\Admin\NewsController::class, 'bacaKegiatan'])->name('publik.kegiatan.baca');
 Route::get('/mitra', [CooperationController::class, 'index'])->name('mitra.index');
 Route::get('/kisah-alumni', [TestimonialController::class, 'index'])->name('publik.testimoni');
-// Rute untuk halaman publik detail berita
 Route::get('/berita/baca/{id}', [NewsController::class, 'bacaPublik'])->name('publik.berita.baca');
 
 // Prestasi
 Route::prefix('prestasi')->group(function () {
 
-    // 1. Rute Prestasi Dosen
+    // Prestasi Dosen
     Route::get('/dosen', function () {
         $prestasi = \App\Models\Achievement::where('category', 'Dosen')->orderBy('date_earned', 'desc')->get();
         $publikasi = \App\Models\Publication::where('category', 'Dosen')->orderBy('publication_date', 'desc')->get();
@@ -178,7 +154,7 @@ Route::prefix('prestasi')->group(function () {
         return view('prestasi_dosen', compact('prestasi', 'publikasi'));
     })->name('prestasi.dosen');
 
-    // 2. Rute Prestasi Mahasiswa
+    // Prestasi Mahasiswa
     Route::get('/mahasiswa', function () {
         $prestasi = \App\Models\Achievement::where('category', 'Mahasiswa')->orderBy('date_earned', 'desc')->get();
         $publikasi = \App\Models\Publication::where('category', 'Mahasiswa')->orderBy('publication_date', 'desc')->get();
@@ -186,20 +162,16 @@ Route::prefix('prestasi')->group(function () {
         return view('prestasi_mahasiswa', compact('prestasi', 'publikasi'));
     })->name('prestasi.mahasiswa');
 
-    // 3. Rute BARU: Penelitian
-    // 3. Rute BARU: Penelitian
+    // Penelitian
         Route::get('/penelitian', function () {
-            // 1. Ambil data dari database menggunakan Model dan Kolom Baru
             $researches = \App\Models\Research::orderBy('year', 'desc')->get();
 
-            // 2. Kirim ke halaman view publik yang baru
             return view('prestasi_penelitian', compact('researches'));
         })->name('publik.penelitian');
 });
 
 // Kegiatan
 Route::get('/kegiatan/dosen', function () {
-    // Tarik data yang kategorinya KHUSUS 'Pengabdian Masyarakat (PKM) Dosen'
     $kegiatan = Kegiatan::where('kategori', 'Pengabdian Masyarakat (PKM) Dosen')
         ->orderBy('waktu_pelaksanaan', 'desc')
         ->get();
@@ -208,78 +180,61 @@ Route::get('/kegiatan/dosen', function () {
 })->name('publik.kegiatan.dosen');
 
 
-// 2. Rute untuk Kegiatan Mahasiswa
+// Kegiatan Mahasiswa
 Route::get('/kegiatan/mahasiswa', function () {
 
-    // A. Tarik data untuk seksi HIMABIO (Kategori: Kegiatan Mahasiswa)
     $himpunan = Kegiatan::where('kategori', 'Kegiatan Mahasiswa')
         ->orderBy('waktu_pelaksanaan', 'desc')
         ->get();
 
-    // B. Tarik data untuk seksi Pengabdian Masyarakat Mahasiswa
-    // (Meskipun kategori ini belum ada di form tambah admin Anda, kita siapkan variabelnya
-    //  agar halamannya tidak eror dan bisa menampilkan teks "Data pengabdian belum tersedia")
     $pkm = Kegiatan::where('kategori', 'Pengabdian Masyarakat (PKM) Mahasiswa')
         ->orderBy('waktu_pelaksanaan', 'desc')
         ->get();
 
-    // C. Kirim KEDUA variabel tersebut ke view secara bersamaan
     return view('kegiatan.mahasiswa', compact('himpunan', 'pkm'));
 })->name('publik.kegiatan.mahasiswa');
 
 // Fasilitas & Lab
 Route::get('/fasilitas', function () {
-            // 1. Ambil data ruangan dari database menggunakan Model dan Kolom Baru
             $classrooms = \App\Models\Classroom::orderBy('name', 'asc')->get();
 
-            // 2. Kirim ke halaman view publik fasilitas dengan variabel baru
             return view('fasilitas', compact('classrooms'));
         })->name('fasilitas.index');
 
 Route::get('/fasilitas/ruang-kelas', [RuangKelasController::class, 'index'])->name('fasilitas.ruang-kelas');
 
-// ==========================================
 // RUTE PUBLIK: LABORATORIUM & DOKUMEN
-// ==========================================
-
 Route::get('/laboratorium', function () {
     $labs = \App\Models\Laboratory::all(); 
     $documents = \App\Models\Document::latest()->get();
     return view('laboratorium.index', compact('labs', 'documents'));
 })->name('laboratorium.index');
 
-// 1. Halaman Daftar Arsip Dokumen (Publik)
+// Arsip Dokumen
 Route::get('/arsip-dokumen', function () {
     $documents = \App\Models\Document::latest()->get();
     return view('documents.index', compact('documents'));
 })->name('publik.dokumen.index');
 
-// 2. Fitur Lihat / Unduh File
-Route::get('/arsip-dokumen/lihat/{id}', function ($id) {
-    // Memanggil model Document
+Route::get('/arsip-dokumen/baca/{id}', function ($id) {
     $document = \App\Models\Document::findOrFail($id);
-    
-    // Menggunakan kolom file_path yang baru
     $path = public_path($document->file_path);
 
     if (!file_exists($path)) {
         abort(404, 'File dokumen fisik tidak ditemukan di server.');
     }
 
-    // Cek ekstensi file (PDF vs Word/Excel)
     $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
-    // Jika file berupa PDF, buka langsung di dalam browser
     if ($extension === 'pdf') {
-        return response()->file($path, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="' . basename($path) . '"'
-        ]);
+        return view('documents.lihat_dokumen', compact('document'));
     }
 
-    // Jika file berupa Word/Excel, paksa browser untuk langsung men-downloadnya
     return response()->download($path);
+    
 })->name('dokumen.lihat');
+
+Route::get('/arsip-dokumen/lihat/{id}', [\App\Http\Controllers\Admin\DocumentController::class, 'lihat'])->name('dokumen.lihat');
 
 // Routes  peminjaman
 Route::get('/pinjam/login', [PinjamAuthController::class, 'showLogin'])->name('pinjam.login');
@@ -294,7 +249,7 @@ Route::post('/store', [PeminjamanLabController::class, 'store'])->name('laborato
 Route::get('/cek-status', [PeminjamanLabController::class, 'cekStatus'])->name('lab.cek-status');
 Route::get('/laboratorium/peminjaman/cetak/{id}', [PeminjamanLabController::class, 'cetakBon'])->name('lab.peminjaman.cetak');
 
-// Rute untuk Katalog Inventaris Lab Publik
+// Katalog Inventaris Lab Publik
 Route::get('/fasilitas/laboratorium/katalog', function () {
     // Menarik semua data inventaris, diurutkan sesuai abjad
     $inventaris = \App\Models\InventarisLab::orderBy('nama_barang', 'asc')->get();
@@ -360,24 +315,27 @@ Route::get('/debug/pinjam-resolve', function () {
 });
 
 
-// ==========================================
-// ADMIN PANEL (RBAC - Role Based Access Control)
-// ==========================================
+// ADMIN PANEL
 Route::middleware(['auth'])->prefix('admin')->group(function () {
 
-    // 1. DASHBOARD & AKSES BERSAMA (Super Admin & Admin Lab)
+    // DASHBOARD
     Route::get('/', function () {
-        return view('admin.dashboard', [
-            'totalDosen' => \App\Models\Lecturer::count(),
-            'totalPrestasi' => 0,//Prestasi::count(),
-            'peminjamanPending' => 0, // \DB::table('peminjaman_labs')->where('status', 'pending')->count(),
-        ]);
-    })->name('admin.dashboard');
+    return view('admin.dashboard', [
+        // Menghitung total data dosen
+        'totalDosen' => \App\Models\Lecturer::count(),
+        
+        // Menghitung total data prestasi 
+        'totalPrestasi' => \App\Models\Achievement::count(),
+        
+        // Menghitung total peminjaman
+        'peminjamanPending' => \App\Models\LabLoan::where('status', 'Pending')->count(),
+    ]);
+})->name('admin.dashboard');
 
     Route::get('/peminjaman', [PeminjamanLabController::class, 'indexAdmin'])->name('admin.peminjaman.index');
     Route::post('/peminjaman/{id}/update', [PeminjamanLabController::class, 'updateStatus'])->name('admin.peminjaman.update');
     Route::get('/peminjaman/{id}/cetak', [PeminjamanLabController::class, 'cetakBon'])->name('admin.peminjaman.cetak');
-    // 3. RUTE ADMIN PANEL (Pastikan terpisah dan memiliki prefix 'admin')
+    // RUTE ADMIN
     Route::prefix('admin')->name('admin.')->group(function () {
 
         // Menggunakan Class yang sudah di-import di atas (Sangat Aman)
@@ -401,16 +359,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::resource('documents', DocumentController::class);
         Route::resource('research', ResearchController::class);
         Route::resource('inventories', InventoryController::class);
-        // Route untuk Kelola Mata Kuliah Dosen
         Route::post('/pengajaran', [\App\Http\Controllers\Admin\PengajaranController::class, 'store'])->name('pengajaran.store');
         Route::delete('/pengajaran/{id}', [\App\Http\Controllers\Admin\PengajaranController::class, 'destroy'])->name('pengajaran.destroy');
-        // Rute untuk mengeksekusi pengembalian barang & pemulihan stok
         Route::post('/admin/peminjaman/{id}/kembali', [\App\Http\Controllers\Admin\AdminPeminjamanController::class, 'validasiKembali'])
             ->name('admin.peminjaman.kembali');
         Route::post('/admin/peminjaman/{id}/status', [\App\Http\Controllers\PeminjamanLabController::class, 'updateStatus'])->name('admin.peminjaman.update');
         Route::get('/admin/inventaris/{id}/edit', [\App\Http\Controllers\InventarisLabController::class, 'edit'])->name('admin.inventaris.edit');
         Route::put('/admin/inventaris/{id}', [\App\Http\Controllers\InventarisLabController::class, 'update'])->name('admin.inventaris.update');
-        // Pastikan ini berada di dalam grup Route::prefix('admin') Anda
         Route::get('/fasilitas', [\App\Http\Controllers\Admin\FasilitasController::class, 'index'])->name('admin.fasilitas.index');
         Route::get('/fasilitas/create', [\App\Http\Controllers\Admin\FasilitasController::class, 'create'])->name('admin.fasilitas.create');
         Route::post('/fasilitas', [\App\Http\Controllers\Admin\FasilitasController::class, 'store'])->name('admin.fasilitas.store');

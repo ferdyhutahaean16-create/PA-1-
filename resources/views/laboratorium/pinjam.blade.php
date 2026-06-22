@@ -420,10 +420,6 @@
 {{-- SCRIPT LOGIKA DINAMIS --}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Saya telah mengecek seluruh script Anda di bawah ini, 
-    // Logikanya sangat sempurna dan Anda tidak perlu mengubah satu baris pun di bagian ini!
-    // Semuanya akan bekerja menyatu dengan perubahan Blade di atas.
 
     // FUNGSI GANTI KATEGORI FORM
     window.setKategoriForm = function(kategori, btn) {

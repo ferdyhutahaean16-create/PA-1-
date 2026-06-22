@@ -112,7 +112,7 @@
                 });
         });
 
-        // 2. Logika Sinkronisasi Dropdown & Input Teks Pelaksana
+        // Dropdown & Input Teks Pelaksana
         const categorySelect = document.getElementById('category');
         const lecturerSelect = document.getElementById('lecturer_id');
         const lecturerLabel = document.getElementById('lecturer-label');
@@ -121,7 +121,6 @@
         function adjustActivityForm() {
             if (categorySelect.value === 'Lecturer Service') {
                 lecturerLabel.innerHTML = 'Dosen Pelaksana Utama *';
-                // Jika dosen dipilih, salin nama dosen ke kolom pelaksana otomatis
                 if (lecturerSelect.selectedIndex > 0) {
                     executorInput.value = lecturerSelect.options[lecturerSelect.selectedIndex].text.trim();
                 }
@@ -139,7 +138,6 @@
 
         lecturerSelect.addEventListener('change', adjustActivityForm);
 
-        // Panggil pertama kali saat halaman dimuat
         adjustActivityForm();
     });
 </script>

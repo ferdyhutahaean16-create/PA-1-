@@ -102,7 +102,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // 1. Inisialisasi CKEditor
+        // Inisialisasi CKEditor
         let editors = document.querySelectorAll('.ckeditor-field');
         editors.forEach(function(editorElement) {
             ClassicEditor
@@ -114,7 +114,7 @@
                 });
         });
 
-        // 2. Logika Interaktif Pengisian Nama Penulis Otomatis
+        // Logika Interaktif Pengisian Nama Penulis Otomatis
         const categorySelect = document.getElementById('category');
         const lecturerSelect = document.getElementById('lecturer_id');
         const lecturerLabel = document.getElementById('lecturer-label');

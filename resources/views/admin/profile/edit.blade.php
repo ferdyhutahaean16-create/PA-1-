@@ -127,11 +127,9 @@
 </script>
 
 <style>
-    /* Mengatur tinggi minimal editor agar lebih nyaman digunakan mengetik */
     .ck-editor__editable_inline {
         min-height: 250px;
     }
-    /* Memperbaiki tampilan border agar menyatu dengan desain Tailwind Anda */
     .ck-editor__main .ck-content {
         border-radius: 0 0 0.5rem 0.5rem !important;
         border-color: #d1d5db !important;

@@ -25,7 +25,6 @@ class CurriculumController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi untuk input berupa Array menggunakan penamaan Inggris baru
         $request->validate([
             'semester' => 'required|array',
             'semester.*' => 'required|integer',
@@ -39,7 +38,6 @@ class CurriculumController extends Controller
             'category.*' => 'required|string|in:Mandatory,Elective',
         ]);
 
-        // 2. Looping cerdas untuk menyimpan setiap baris data massal ke database
         foreach ($request->course_code as $index => $code) {
             Curriculum::create([
                 'semester' => $request->semester[$index],

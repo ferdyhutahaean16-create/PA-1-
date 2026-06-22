@@ -33,7 +33,6 @@ class ProfileController extends Controller
 
         $data = $request->all();
 
-        // Proses Upload Foto
         if ($request->hasFile('organizational_structure')) {
             $photo = $request->file('organizational_structure');
             $photo_name = time() . "_" . $photo->getClientOriginalName();
@@ -68,9 +67,7 @@ class ProfileController extends Controller
 
         $data = $request->all();
 
-        // Proses Update Foto
         if ($request->hasFile('organizational_structure')) {
-            // Hapus foto lama
             if ($profile->organizational_structure && File::exists(public_path($profile->organizational_structure))) {
                 File::delete(public_path($profile->organizational_structure));
             }

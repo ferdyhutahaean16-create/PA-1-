@@ -9,7 +9,6 @@ class News extends Model
 {
     use HasFactory, Userstamps;
 
-    // Kunci nama tabel secara eksplisit
     protected $table = 'news';
 
     protected $fillable = [

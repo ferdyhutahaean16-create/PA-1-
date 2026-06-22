@@ -147,27 +147,24 @@
         const inputKedaluarsa = document.getElementById('input_kedaluarsa');
 
         function toggleForms() {
-            // Sembunyikan semua terlebih dahulu
             formAlat.classList.add('hidden');
             formBahan.classList.add('hidden');
             formInstrumen.classList.add('hidden');
 
-            // Tampilkan yang sesuai dengan kategori terpilih
+            // Tampilkan yang sesuai dengan kategori 
             if (dropdownKategori.value === 'Equipment') {
                 formAlat.classList.remove('hidden');
-                inputKedaluarsa.value = ''; // Bersihkan kedaluwarsa jika bukan bahan
+                inputKedaluarsa.value = ''; 
             } else if (dropdownKategori.value === 'Material') {
                 formBahan.classList.remove('hidden');
             } else if (dropdownKategori.value === 'Instrument') {
                 formInstrumen.classList.remove('hidden');
-                inputKedaluarsa.value = ''; // Bersihkan kedaluwarsa jika bukan bahan
+                inputKedaluarsa.value = ''; 
             }
         }
 
-        // Event listener saat dropdown diganti
         dropdownKategori.addEventListener('change', toggleForms);
         
-        // Panggil sekali saat halaman dimuat (agar form yang benar terbuka sesuai data dari database)
         toggleForms();
     });
 </script>

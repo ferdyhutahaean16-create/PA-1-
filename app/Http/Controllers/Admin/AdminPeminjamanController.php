@@ -20,7 +20,7 @@ class AdminPeminjamanController extends Controller
             $barang = \App\Models\InventarisLab::find($detail->inventaris_lab_id);
             
             if ($barang) {
-                // LOGIKA PENAMBAHAN STOK MATEMATIS
+                // PENAMBAHAN STOK MATEMATIS
                 preg_match('/^(\d+)\s*(.*)$/', $barang->jumlah, $matches);
                 $stok_lama = isset($matches[1]) ? (int)$matches[1] : 0;
                 $satuan_teks = isset($matches[2]) ? $matches[2] : '';

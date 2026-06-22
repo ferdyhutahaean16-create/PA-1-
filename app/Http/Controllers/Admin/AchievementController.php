@@ -38,7 +38,7 @@ class AchievementController extends Controller
 
         $data = $request->only(['category', 'achievement_name', 'level', 'date_earned', 'organizer', 'description']);
 
-        // Logika Penentuan Peraih Berdasarkan Kategori
+        // Peraih Berdasarkan Kategori
         if ($request->category == 'Dosen') {
             $lecturer = Lecturer::findOrFail($request->lecturer_id);
             $data['achiever_name'] = $lecturer->name;
@@ -98,9 +98,8 @@ class AchievementController extends Controller
             $data['lecturer_id']   = null;
         }
 
-        // Proses Pembaruan File Dokumen/Foto
+        //  Dokumen/Foto
         if ($request->hasFile('certificate_file')) {
-            // Hapus berkas lama jika tersimpan di direktori
             if ($achievement->certificate_file && File::exists(public_path($achievement->certificate_file))) {
                 File::delete(public_path($achievement->certificate_file));
             }
@@ -121,7 +120,6 @@ class AchievementController extends Controller
     {
         $achievement = Achievement::findOrFail($id);
 
-        // Memastikan file fisik ikut terhapus dari server
         if ($achievement->certificate_file && File::exists(public_path($achievement->certificate_file))) {
             File::delete(public_path($achievement->certificate_file));
         }

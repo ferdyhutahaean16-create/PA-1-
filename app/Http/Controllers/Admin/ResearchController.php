@@ -37,7 +37,7 @@ class ResearchController extends Controller
 
         $data = $request->except('pdf_file');
 
-        // Logika upload file PDF penelitian
+        // upload file PDF penelitian
         if ($request->hasFile('pdf_file')) {
             $file = $request->file('pdf_file');
             $filename = time() . "_" . $file->getClientOriginalName();
@@ -77,7 +77,6 @@ class ResearchController extends Controller
         $data = $request->except('pdf_file');
 
         if ($request->hasFile('pdf_file')) {
-            // Hapus berkas PDF lama jika ada
             if ($research->pdf_file && File::exists(public_path($research->pdf_file))) {
                 File::delete(public_path($research->pdf_file));
             }

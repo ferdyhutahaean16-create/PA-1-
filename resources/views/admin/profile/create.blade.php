@@ -75,18 +75,17 @@
 
 <script>
     function switchTab(tab) {
-        // 1. Sembunyikan semua konten tab
+        // Sembunyikan semua konten tab
         document.getElementById('konten-teks').classList.add('hidden');
         document.getElementById('konten-struktur').classList.add('hidden');
         
-        // 2. Reset warna garis bawah indikator tombol tab
+        // Reset warna garis bawah indikator tombol tab
         document.getElementById('tab-teks').classList.remove('border-[#1a4a38]', 'text-[#1a4a38]');
         document.getElementById('tab-teks').classList.add('border-transparent', 'text-gray-500');
         
         document.getElementById('tab-struktur').classList.remove('border-[#1a4a38]', 'text-[#1a4a38]');
         document.getElementById('tab-struktur').classList.add('border-transparent', 'text-gray-500');
 
-        // 3. Aktifkan tab yang dipilih pengguna
         document.getElementById('konten-' + tab).classList.remove('hidden');
         document.getElementById('tab-' + tab).classList.add('border-[#1a4a38]', 'text-[#1a4a38]');
         document.getElementById('tab-' + tab).classList.remove('border-transparent', 'text-gray-500');

@@ -35,17 +35,15 @@ class LecturerController extends Controller
             'phone_number' => 'nullable|string|max:20',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:5000',
             
-            // Validasi array input teaching (pengajaran)
-            'course_name' => 'required|array', // Sebelumnya mata_kuliah
+            'course_name' => 'required|array', 
             'course_name.*' => 'required|string|max:255',
             'semester' => 'required|array',
             'academic_year' => 'required|array',
         ]);
 
         $data = $request->all();
-        $data['courses_taught'] = '-'; // Membypas kolom lama
+        $data['courses_taught'] = '-';
 
-        // Proses Upload Foto
         if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
             $photo_name = time() . "_" . $photo->getClientOriginalName();
@@ -55,15 +53,15 @@ class LecturerController extends Controller
         }
 
         DB::transaction(function () use ($data, $request) {
-            // A. Simpan data Dosen
+            // Simpan data Dosen
             $lecturer = Lecturer::create($data);
 
-            // B. Ambil data array dari form
+            // Ambil data array dari form
             $courseNames = $request->course_name;
             $semesters = $request->semester;
             $academicYears = $request->academic_year;
 
-            // C. Looping array
+            // Looping array
             foreach ($courseNames as $key => $val) {
                 Teaching::create([
                     'lecturer_id'   => $lecturer->id,

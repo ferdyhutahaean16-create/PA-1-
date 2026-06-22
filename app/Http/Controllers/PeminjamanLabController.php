@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// 💡 Mengimpor Model Bahasa Inggris yang baru
 use App\Models\LabLoan;
 use App\Models\EquipmentLoanDetail;
 use App\Models\MaterialLoanDetail;
@@ -47,7 +46,6 @@ class PeminjamanLabController extends Controller
 
         DB::transaction(function () use ($request) {
             
-            // A. Simpan data utama formulir (Mapping ID ke EN)
             $peminjaman = LabLoan::create([
                 'service_type' => $request->tipe_layanan,
                 'loan_category' => $request->kategori_peminjaman,
@@ -61,7 +59,6 @@ class PeminjamanLabController extends Controller
                 'status' => 'Pending' 
             ]);
 
-            // B. Looping untuk menyimpan detail barang dan MENGURANGI STOK
             foreach ($request->barang_id as $index => $id_barang) {
                 $qty_pinjam = $request->jumlah_pinjam[$index];
                 $barang = Inventory::find($id_barang);
@@ -93,7 +90,6 @@ class PeminjamanLabController extends Controller
     }
 
     public function indexAdmin() {
-        // 💡 Memanggil relasi baru: equipmentDetails dan materialDetails
         $peminjamans = LabLoan::with(['equipmentDetails', 'materialDetails'])->orderBy('created_at', 'desc')->get();
         return view('admin.peminjaman.index', compact('peminjamans'));
     }
@@ -106,7 +102,6 @@ class PeminjamanLabController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        // 💡 Validasi menyesuaikan status bahasa Inggris
         $request->validate([
             'status' => 'required|in:Pending,Approved,Rejected,Completed',
             'catatan_admin' => 'nullable|string'
@@ -114,10 +109,9 @@ class PeminjamanLabController extends Controller
 
         $peminjaman = LabLoan::with(['equipmentDetails', 'materialDetails'])->findOrFail($id);
         
-        // LOGIKA PEMULIHAN STOK OTOMATIS
         if (in_array($request->status, ['Rejected', 'Completed']) && !in_array($peminjaman->status, ['Rejected', 'Completed'])) {
             
-            // 1. Pulihkan Stok Alat
+            // Pulihkan Stok Alat
             foreach ($peminjaman->equipmentDetails as $detail) {
                 $barang = Inventory::find($detail->inventory_id);
                 if ($barang) {
@@ -126,7 +120,7 @@ class PeminjamanLabController extends Controller
                 }
             }
 
-            // 2. Pulihkan Stok Bahan
+            // Pulihkan Stok Bahan
             foreach ($peminjaman->materialDetails as $detail) {
                 $barang = Inventory::find($detail->inventory_id);
                 if ($barang) {

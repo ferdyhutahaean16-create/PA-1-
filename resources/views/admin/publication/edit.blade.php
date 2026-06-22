@@ -133,7 +133,7 @@
                 });
         });
 
-        // 2. Logika Sinkronisasi Nama Penulis Otomatis
+        // Sinkronisasi Nama Penulis Otomatis
         const categorySelect = document.getElementById('category');
         const lecturerSelect = document.getElementById('lecturer_id');
         const lecturerLabel = document.getElementById('lecturer-label');
@@ -142,7 +142,6 @@
         function adjustFormLayout(isInitialLoad = false) {
             if (categorySelect.value === 'Dosen') {
                 lecturerLabel.innerHTML = 'Nama Dosen (Penulis Utama) *';
-                // Salin nama hanya jika bukan saat halaman pertama kali dimuat (menghindari penimpaan data lama)
                 if (!isInitialLoad && lecturerSelect.selectedIndex > 0) {
                     authorInput.value = lecturerSelect.options[lecturerSelect.selectedIndex].text.trim();
                 }
@@ -151,7 +150,6 @@
             }
         }
 
-        // Jalankan pelacak event berganti
         categorySelect.addEventListener('change', function() {
             adjustFormLayout(false);
         });
@@ -160,7 +158,6 @@
             adjustFormLayout(false);
         });
         
-        // Jalankan pertama kali secara aman tanpa merusak teks author bawaan database
         adjustFormLayout(true);
     });
 </script>

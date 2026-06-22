@@ -76,10 +76,9 @@
                             
                             <td class="p-4">
                                 @php
-                                    $color = 'bg-yellow-100 text-yellow-700'; // Default: Pending
+                                    $color = 'bg-yellow-100 text-yellow-700';
                                     $pulse = '';
                                     
-                                    // 💡 Status sekarang menggunakan bahasa Inggris
                                     $text = $p->status == 'Approved' ? 'Disetujui' : 
                                            ($p->status == 'Rejected' ? 'Ditolak' : 
                                            ($p->status == 'Completed' ? 'Selesai' : 'Pending'));
