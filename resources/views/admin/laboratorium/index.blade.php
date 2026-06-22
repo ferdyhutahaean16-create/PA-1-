@@ -38,9 +38,9 @@
                         @forelse($labs as $index => $lab)
                         <tr class="hover:bg-gray-50">
                             <td class="p-4 text-center">{{ $index + 1 }}</td>
-                            <td class="p-4 font-bold text-gray-800">{{ $lab->nama_lab }}</td>
-                            <td class="p-4 text-sm text-gray-600">{{ $lab->kepala_lab ?? '-' }}</td>
-                            <td class="p-4 text-sm text-gray-600">{{ \Illuminate\Support\Str::limit($lab->fasilitas, 50) }}</td>
+                            <td class="p-4 font-bold text-gray-800">{{ $lab->name }}</td>
+                            <td class="p-4 text-sm text-gray-600">{{ $lab->head_of_lab ?? '-' }}</td>
+                            <td class="p-4 text-sm text-gray-600">{{ \Illuminate\Support\Str::limit($lab->facilities, 50) }}</td>
                             <td class="p-4 text-center flex justify-center gap-2">
                                 <a href="{{ route('admin.fasilitas.edit', $lab->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded text-xs transition">Edit</a>
                                 <form action="{{ route('admin.fasilitas.destroy', $lab->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus lab ini?');">

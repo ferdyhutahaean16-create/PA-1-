@@ -114,9 +114,9 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <label for="foto" class="block text-sm font-semibold text-gray-600 mb-2">Upload Foto (Opsional)</label>
+                        <label for="photo" class="block text-sm font-semibold text-gray-600 mb-2">Upload Foto (Opsional)</label>
                         <div class="relative group">
-                            <input type="file" name="foto" id="foto" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-biotech-primary/10 file:text-biotech-primary hover:file:bg-biotech-primary/20 transition cursor-pointer">
+                            <input type="file" name="photo" id="photo" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-biotech-primary/10 file:text-biotech-primary hover:file:bg-biotech-primary/20 transition cursor-pointer">
                         </div>
                         <p class="mt-2 text-xs text-gray-500">Format yang diterima: JPG, JPEG, PNG. Ukuran maksimum: 2MB. Disarankan foto berasio 3:4 atau persegi.</p>
                     </div>
