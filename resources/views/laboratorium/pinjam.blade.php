@@ -15,19 +15,61 @@
                     </form>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-800 mb-2">Formulir Layanan Lab</h2>
-                <p class="text-gray-500 text-sm">Pilih jenis layanan dan lengkapi data permohonan Anda.</p>
+                <p class="text-gray-500 text-sm">Pilih jenis form dan lengkapi data permohonan Anda.</p>
             </div>
 
             <div class="px-8 pb-10">
                 <form action="{{ route('laboratorium.store') }}" method="POST" id="formLayanan">
-                    @if ($errors->any())
-                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5">
-                            <p class="font-bold">Gagal Mengirim Form!</p>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>- {{ $error }}</li>
-                                @endforeach
-                            </ul>
+                    {{-- NOTIFIKASI SUKSES --}}
+                    @if(session('success'))
+                        <div class="mb-8 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl p-5 flex items-start gap-4 shadow-sm relative overflow-hidden transition-all duration-500" role="alert">
+                            {{-- Aksen Garis Hijau di kiri --}}
+                            <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+
+                            <div class="p-2 bg-emerald-100/80 rounded-full shrink-0">
+                                <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+
+                            <div class="flex-1">
+                                <h3 class="font-bold text-emerald-900 text-base mb-1">Permohonan Terkirim!</h3>
+                                <p class="text-sm text-emerald-700 leading-relaxed">{{ session('success') }}</p>
+                            </div>
+
+                            {{-- Tombol Tutup --}}
+                            <button onclick="this.parentElement.style.display='none'" type="button" class="text-emerald-500 hover:text-emerald-800 hover:bg-emerald-100 p-1.5 rounded-lg transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="mb-8 bg-red-50 border border-red-200 text-red-800 rounded-2xl p-5 flex items-start gap-4 shadow-sm relative overflow-hidden transition-all duration-500" role="alert">
+                            <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
+
+                            <div class="p-2 bg-red-100/80 rounded-full shrink-0">
+                                <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+
+                            <div class="flex-1">
+                                <h3 class="font-bold text-red-900 text-base mb-1">Terjadi Kesalahan!</h3>
+                                <ul class="text-sm text-red-700 list-disc list-inside space-y-1">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            <button onclick="this.parentElement.style.display='none'" type="button" class="text-red-500 hover:text-red-800 hover:bg-red-100 p-1.5 rounded-lg transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
                         </div>
                     @endif
                     @csrf

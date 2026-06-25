@@ -10,7 +10,7 @@
         <div class="flex items-center gap-4 mb-3">
             <span class="text-4xl md:text-5xl font-serif text-[#1a4a38]/20 font-bold">01</span>
             <div class="w-16 h-px bg-[#1a4a38]/30"></div>
-            <span class="text-[#1a4a38] text-xs font-bold tracking-[0.2em] uppercase">Unduhan Resmi</span>
+            <span class="text-[#1a4a38] text-xs font-bold tracking-[0.2em] uppercase">Dokumen Resmi</span>
         </div>
         <h1 class="text-4xl md:text-5xl font-serif text-gray-900 mb-4">Arsip Dokumen</h1>
         <p class="text-gray-500 max-w-2xl text-sm leading-relaxed">

@@ -725,9 +725,9 @@ body { font-family: 'Jost', sans-serif; color: var(--ink); background: #fff; }
 
         {{-- Header --}}
         <div class="text-center mb-14 fs">
-            <p class="text-[10px] tracking-[.35em] uppercase text-[var(--gold2)] font-bold mb-3">Kisah Sukses</p>
+            <p class="text-[10px] tracking-[.35em] uppercase text-[var(--gold2)] font-bold mb-3">--</p>
             <h2 class="serif text-4xl md:text-5xl font-semibold text-gray-900 mb-3">
-                Suara <em class="text-[#1a4a38] not-italic">Alumni</em>
+                Testimoni
             </h2>
             <p class="text-gray-500 max-w-xs mx-auto text-sm leading-relaxed">
                 Mendengar langsung perjalanan karir para lulusan Bioteknologi IT Del.

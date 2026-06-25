@@ -9,7 +9,7 @@ class LabLoan extends Model
 {
     use HasFactory, Userstamps;
 
-    protected $guarded = []; // Mengizinkan pengisian semua kolom
+    protected $guarded = []; 
 
     public function equipmentDetails()
     {

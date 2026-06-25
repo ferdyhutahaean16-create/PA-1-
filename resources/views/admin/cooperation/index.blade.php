@@ -41,7 +41,7 @@
                             <td class="p-4 text-center font-medium">{{ $index + 1 }}</td>
                             <td class="p-4">
                                 <div class="font-bold text-gray-800">{{ $mitra->partner_name }}</div>
-                                <div class="text-xs text-gray-500 mt-1 line-clamp-1">{{ $mitra->description ?? 'Tidak ada deskripsi.' }}</div>
+                                <div class="text-xs text-gray-500 mt-1 line-clamp-1">{!! $mitra->description ?? 'Tidak ada deskripsi.' !!}</div>
                             </td>
                             <td class="p-4 text-center">
                                 @if($mitra->type == 'Industri')

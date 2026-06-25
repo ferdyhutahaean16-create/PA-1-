@@ -25,6 +25,12 @@
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Nama Instansi / Mitra <span class="text-red-500">*</span></label>
                             <input type="text" name="partner_name" placeholder="Contoh: PT. Bio Farma" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-[#1a4a38]" required>
+                            @error('partner_name')
+                                <p class="text-red-500 text-xs italic mt-1 flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Tipe Mitra <span class="text-red-500">*</span></label>

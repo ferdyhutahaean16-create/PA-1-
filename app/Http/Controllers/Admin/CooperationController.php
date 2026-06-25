@@ -26,28 +26,37 @@ class CooperationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'partner_name' => 'required|string|max:255',
+            // Tambahkan unique:nama_tabel,kolom
+            'partner_name' => 'required|string|max:255|unique:cooperations,partner_name',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048', // Validasi foto logo
             'type' => 'required|in:Industri,Pendidikan,Pemerintah',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'document_file' => 'nullable|mimes:pdf,doc,docx|max:5120',
+        ], [
+            // Pesan error kustom jika nama mitra sudah ada
+            'partner_name.unique' => 'Nama mitra ini sudah terdaftar. Silakan masukkan mitra yang lain.'
         ]);
 
         $data = $request->except(['_token']);
 
         //  Upload Logo
+        // 1. Bagian Upload Logo (Gunakan ini di fungsi store & update)
         if ($request->hasFile('logo')) {
+            // (Khusus di fungsi update, biarkan kode Hapus logo lama tetap ada di atas ini)
             $file = $request->file('logo');
-            $nama_logo = time() . '_logo_' . str_replace(' ', '_', $file->getClientOriginalName());
+            // Ganti nama file menjadi kebal karakter aneh
+            $nama_logo = time() . '_logo_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/cooperation/logo'), $nama_logo);
             $data['logo'] = 'uploads/cooperation/logo/' . $nama_logo;
         }
 
-        //  Upload Dokumen MoU
+        // 2. Bagian Upload Dokumen MoU (Gunakan ini di fungsi store & update)
         if ($request->hasFile('document_file')) {
+            // (Khusus di fungsi update, biarkan kode Hapus dokumen lama tetap ada di atas ini)
             $file = $request->file('document_file');
-            $nama_file = time() . '_MoU_' . str_replace(' ', '_', $file->getClientOriginalName());
+            // Ganti nama file menjadi kebal karakter aneh
+            $nama_file = time() . '_MoU_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/cooperation/dokumen'), $nama_file);
             $data['document_file'] = 'uploads/cooperation/dokumen/' . $nama_file;
         }
@@ -69,36 +78,37 @@ class CooperationController extends Controller
         $cooperation = Cooperation::findOrFail($id);
         
         $request->validate([
-            'partner_name' => 'required|string|max:255',
+            // Tambahkan unique:nama_tabel,kolom,id_pengecualian agar tidak error dengan namanya sendiri saat diedit
+            'partner_name' => 'required|string|max:255|unique:cooperations,partner_name,' . $id,
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
             'type' => 'required|in:Industri,Pendidikan,Pemerintah',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'document_file' => 'nullable|mimes:pdf,doc,docx|max:5120',
+        ], [
+            // Pesan error kustom
+            'partner_name.unique' => 'Nama mitra ini sudah digunakan oleh instansi lain.'
         ]);
 
         $data = $request->except(['_token', '_method']);
 
         // Update Logo
+        // 1. Bagian Upload Logo (Gunakan ini di fungsi store & update)
         if ($request->hasFile('logo')) {
-            // Hapus logo lama jika ada
-            if ($cooperation->logo && File::exists(public_path($cooperation->logo))) {
-                File::delete(public_path($cooperation->logo));
-            }
+            // (Khusus di fungsi update, biarkan kode Hapus logo lama tetap ada di atas ini)
             $file = $request->file('logo');
-            $nama_logo = time() . '_logo_' . str_replace(' ', '_', $file->getClientOriginalName());
+            // Ganti nama file menjadi kebal karakter aneh
+            $nama_logo = time() . '_logo_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/cooperation/logo'), $nama_logo);
             $data['logo'] = 'uploads/cooperation/logo/' . $nama_logo;
         }
 
-        // Update Dokumen
+        // 2. Bagian Upload Dokumen MoU (Gunakan ini di fungsi store & update)
         if ($request->hasFile('document_file')) {
-            // Hapus dokumen lama
-            if ($cooperation->document_file && File::exists(public_path($cooperation->document_file))) {
-                File::delete(public_path($cooperation->document_file));
-            }
+            // (Khusus di fungsi update, biarkan kode Hapus dokumen lama tetap ada di atas ini)
             $file = $request->file('document_file');
-            $nama_file = time() . '_MoU_' . str_replace(' ', '_', $file->getClientOriginalName());
+            // Ganti nama file menjadi kebal karakter aneh
+            $nama_file = time() . '_MoU_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('uploads/cooperation/dokumen'), $nama_file);
             $data['document_file'] = 'uploads/cooperation/dokumen/' . $nama_file;
         }
