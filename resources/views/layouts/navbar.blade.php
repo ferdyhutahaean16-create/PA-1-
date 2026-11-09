@@ -220,14 +220,6 @@
         </div>
 
         <div class="px-6 py-4 border-b border-gray-100">
-            <span class="text-[#064e3b] block mb-2 uppercase">Kegiatan</span>
-            <div class="flex flex-col gap-3 pl-4 text-xs font-normal text-gray-600">
-                <a href="{{ url('/kegiatan/dosen') }}" class="hover:text-[#064e3b] transition-colors">Kegiatan Dosen</a>
-                <a href="{{ url('/kegiatan/mahasiswa') }}" class="hover:text-[#064e3b] transition-colors">Kegiatan Mahasiswa</a>
-            </div>
-        </div>
-
-        <div class="px-6 py-4 border-b border-gray-100">
             <span class="text-[#064e3b] block mb-2 uppercase">Fasilitas</span>
             <div class="flex flex-col gap-3 pl-4 text-xs font-normal text-gray-600">
                 <a href="{{ url('/fasilitas') }}" class="hover:text-[#064e3b] transition-colors">Ruang Kelas</a>
